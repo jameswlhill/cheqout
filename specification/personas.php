@@ -114,6 +114,40 @@
 				</article>
 			</p>
 		</section>
-
+		<h1>The Attacker Threat Model</h1>
+		<section>
+			<p>
+				<strong>Name: </strong>Kevin Mitnick
+				<strong>Age: </strong>48
+			</p>
+			<p>
+				<strong>Profession:</strong>
+				Kevin is a minimum wage telemarketer by day, and devious opportunist by night. His side income involves
+				SQL injecting weakly-designed databases and dumping confidential information on the dark web.
+			</p>
+			<p>
+				<strong>Goals:</strong>
+				Kevin wants to use any and all technology at his disposal to get to the heart of an insecure database
+				that has stored all its customer data in plain text.
+			</p>
+			<p>
+				<strong>Methods of concealing sensitive customer information from the likes of Kevin:</strong>
+				<ul>
+					<li>Encrypt each customer's Name, user name, password, and physical address</li>
+					<li>Utilize Stripe's API to protect credit card information</li>
+				</ul>
+			</p>
+			<p>
+				<strong>Table fields which should not be ciphered for system convenience:</strong>
+				<ul>
+					<li>Primary key</li>
+					<li>Foreign key references</li>
+					<li>OrderId</li>
+					<li>OrderContents</li>
+					<li>Session id</li>
+					<li>Product details</li>
+				</ul>
+			</p>
+		</section>
 	</body>
 </html>
