@@ -2,6 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<link href="../css/bulkflow.css" rel="stylesheet" type="text/css" />
 		<title>Capstone Use Cases</title>
 	</head>
 	<body>
@@ -50,6 +51,25 @@
 			a customer checks the site, the update will display as a new product, and display
 			prominently on the front page in addition to it's respective place on product pages.
 		</p>
+
 		<img src="../img/adminflow.png" />
+		<hr />
+		<h1>Bulk Buyer</h1>
+		<p>
+			It's a rare leisurely Sunday morning and Mr. Zapata is casually perusing Facebook, coffee in hand,
+			when an obscene amount of likes on a post catches his attention. He notices the source of the uproar
+			is a set of humorous plastic likenesses depicting popular political/entertainment figures. Instantly,
+			and motivated by the beautiful large 5K iMac screen he's sitting in front of, he feels compelled to
+			incorporate this trending phenomenon into his public outreach program for the upcoming political rally
+			being held at UC Berkeley in two weeks. He navigates to the site via Facebook and is greeted with a simple
+			call to action asking him to log in or head to the shop. Choosing to check out the options before signing up
+			for an account, he clicks the Shop button. This brings him to the product page, where he instantly sees
+			a super-villain version of Dick Cheney that will be perfect for the 20-somethings he's hoping to hook at the event.
+			Choosing a hundred figurines from the Qty option box, he's pleasantly surprised when a bulk buyer discount is
+			automatically supplied to his grand total, saving him 20% of the total order. Since the site developers have customized
+			a clean, open-source version of a shopping cart module that integrates nicely with the Stripes API, he has
+			a very smooth and secure checkout experience, finalized with a friendly order confirmation sent to his business email account.
+		</p>
+		<img id="bulkflow" src="../img/bulkflow.png" />
 	</body>
 </html>
