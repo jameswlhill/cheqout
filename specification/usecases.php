@@ -16,7 +16,15 @@
 		</p>
 		<p>
 			Finished clicking through the 'funny' galleries linked to him on Facebook (#7 will blow your
-			mind!), the last tab that is open is our home page; Ted vaguely recalls opening it, and
+			mind!), the last tab that is open is our home page; Ted vaguely recalls opening it, and scrolls
+			through our landing page. After scrolling up again he ignores the vague feeling of being impressed
+			with the smooth and responsive page, and clicks "Shop", interested in our products. Chuckling as he
+			browses, Ted finds a few figurines he likes and clicks to add them to his cart. After reaching the end
+			of our products, he clicks cart to view his total, and proceeds to checkout. He elects to create an account,
+			having noticed several products he may choose to buy in the future. Inputting a username, password, and email
+			into the account creator, he then enters his payment information into the form connected to Stripe, and then
+			selects his shipping choice and inputs his address. After paying and shipping, he checks his email for his order
+			receipt, and verifies his profile via the email we sent when he signed up, leaving him to land on his account page.
 		</p>
 		<img src="../img/individualflow.png" />
 		<hr />
