@@ -139,7 +139,7 @@
 			but does have access to a large group of other attackers who could and would, given the proper motivation
 			(a secure enough database).
 		</p>
-		<strong>Potential Sensitive Information:</strong>
+		<h3>Potential Sensitive Information:</h3>
 		<ul>
 			<li>username</li>
 			<li>password</li>
@@ -151,12 +151,12 @@
 		or attempt to access other secure sites with the login credentials he has obtained. Joe would also be able to
 		orchestrate an act of violence or harassment against any user.
 		</p>
-		<strong>Methods of concealing sensitive customer information:</strong></p>
+		<h3>Methods of concealing sensitive customer information:</h3>
 		<ul>
 			<li>Encrypt each customer's Name, user name, password, email, and physical address</li>
 			<li>Utilize Stripe's API to protect credit card information</li>
 		</ul>
-		<strong>Table fields which should not be ciphered for system convenience:</strong>
+		<h3>Table fields which should not be ciphered for system convenience:</h3>
 		<ul>
 			<li>Primary key</li>
 			<li>Foreign key references</li>
