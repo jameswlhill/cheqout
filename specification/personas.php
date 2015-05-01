@@ -63,7 +63,7 @@
 			or not.<br />
 
 			<strong>Goals:</strong> To upload pictures of products, describe them, set
-			and change prices, create sales on products that have backstock, and create
+			and change prices, create sales on products that have back stock, and create
 			and destroy categories and gift sets.
 		</p>
 		<h1>The Bulk Buyer</h1>
