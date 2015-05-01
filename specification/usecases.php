@@ -18,6 +18,7 @@
 			Finished clicking through the 'funny' galleries linked to him on Facebook (#7 will blow your
 			mind!), the last tab that is open is our home page; Ted vaguely recalls opening it, and
 		</p>
+		<img src="../img/individualflow.png" />
 		<hr />
 		<h1>The Admin</h1>
 		<p>
@@ -41,5 +42,6 @@
 			a customer checks the site, the update will display as a new product, and display
 			prominently on the front page in addition to it's respective place on product pages.
 		</p>
+		<img src="../img/adminflow.png" />
 	</body>
 </html>
