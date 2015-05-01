@@ -120,50 +120,5 @@
 			figurine holding a scale of justice weighted in favor of a money bag emblazoned with the logo of Halliburton against
 			a peace sign). Also, discounted whole-sale orders of said figurine won’t hurt either.
 		</p>
-		<hr />
-		<h1>The Attacker Threat Model</h1>
-		<p>
-			<strong>Name:</strong> Joe King
-		</p>
-		<p>
-			<strong>Age:</strong> 48
-		</p>
-		<p>
-			<strong>Profession:</strong> Joe is a minimum wage telemarketer by day, and devious opportunist by night. His side income involves
-			SQL injecting weakly-designed databases and dumping confidential information on the dark web.
-		</p>
-		<p>
-			<strong>Goals:</strong> Hoe wants to use any and all technology at his disposal to get to the heart of an insecure database
-			that has stored all its customer data in plain text. Adept at creating cross-site-scripts and injecting
-			SQL statements to expose information, he is rarely technologically able to create a denial of service attack
-			but does have access to a large group of other attackers who could and would, given the proper motivation
-			(a secure enough database).
-		</p>
-		<h3>Potential Sensitive Information:</h3>
-		<ul>
-			<li>username</li>
-			<li>password</li>
-			<li>email</li>
-			<li>address</li>
-		</ul>
-		<p>
-		With the information Joe has obtained, he is able to either sell the information to another malicious user,
-		or attempt to access other secure sites with the login credentials he has obtained. Joe would also be able to
-		orchestrate an act of violence or harassment against any user.
-		</p>
-		<h3>Methods of concealing sensitive customer information:</h3>
-		<ul>
-			<li>Encrypt each customer's Name, user name, password, email, and physical address</li>
-			<li>Utilize Stripe's API to protect credit card information</li>
-		</ul>
-		<h3>Table fields which should not be ciphered for system convenience:</h3>
-		<ul>
-			<li>Primary key</li>
-			<li>Foreign key references</li>
-			<li>OrderId</li>
-			<li>OrderContents</li>
-			<li>Session id</li>
-			<li>Product details</li>
-		</ul>
 	</body>
 </html>
