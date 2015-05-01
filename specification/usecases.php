@@ -24,8 +24,9 @@
 			of our products, he clicks cart to view his total, and proceeds to checkout. He elects to create an account,
 			having noticed several products he may choose to buy in the future. Inputting a username, password, and email
 			into the account creator, he then enters his payment information into the form connected to Stripe, and then
-			selects his shipping choice and inputs his address. After paying and shipping, he checks his email for his order
-			receipt, and verifies his profile via the email we sent when he signed up, leaving him to land on his account page.
+			selects his shipping choice and inputs his address. After paying and shipping, he checks his email for his
+			order receipt, and verifies his profile via the email we sent when he signed up, leaving him to land on his
+			account page.
 		</p>
 		<img src="../img/individualflow.png" />
 		<hr />

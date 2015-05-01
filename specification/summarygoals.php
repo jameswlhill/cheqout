@@ -31,6 +31,23 @@
 				<li>Build CQ’s brand via consistent, quality customer experiences</li>
 				<li>Expand the depth and breadth of our Internet presence</li>
 			</ul>
+			<hr />
+			<h1>System Goals</h1>
+			<ul>
+				<li>By using the search feature, the end user will be able to find the
+				figurine of their choosing by description, state, type of figure, name,
+				etc.</li>
+				<li>By using the browse feature, the end user will be able to view and sort
+				by, at a minimum, state, popularity of google trend result.</li>
+				<li>By clicking on the left or right side of a product, the end user will
+				be able to select the "good" or "bad" version of the product.</li>
+				<li>By using the Add-to-cart button on the product, the the end user will,
+				with minimal effort, populate their cart with products.</li>
+				<li>By using the purchase feature, the user will experience no more than
+				3 pages from selecting product to finalizing the order.</li>
+				<li>By creating an account, the user will be able to, at a minimum,
+				save future orders, review past orders, and save shipping information.</li>
+			</ul>
 		</section>
 	</body>
 </html>
