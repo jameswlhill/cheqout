@@ -3,7 +3,16 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>System Summary & Goals</title>
+		<link href="../css/flow.css" rel="stylesheet" type="text/css" />
 	</head>
+	<header>
+		<ul class="navigation">
+			<li><a href="../index.php">Home</a></li>
+			<li><a href="personas.php">Personas</a></li>
+			<li><a href="usecases.php">Use Cases</a></li>
+			<li><a href="summarygoals.php">System Summary and Goals</a></li>
+		</ul>
+	</header>
 	<body>
 		<section>
 			<h1>System Summary</h1>

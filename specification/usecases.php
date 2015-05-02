@@ -2,9 +2,17 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<link href="../css/bulkflow.css" rel="stylesheet" type="text/css" />
+		<link href="../css/flow.css" rel="stylesheet" type="text/css" />
 		<title>Capstone Use Cases</title>
 	</head>
+	<header>
+		<ul class="navigation">
+			<li><a href="../index.php">Home</a></li>
+			<li><a href="personas.php">Personas</a></li>
+			<li><a href="usecases.php">Use Cases</a></li>
+			<li><a href="summarygoals.php">System Summary and Goals</a></li>
+		</ul>
+	</header>
 	<body>
 		<h1>The Individual</h1>
 		<p>
