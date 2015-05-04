@@ -54,7 +54,7 @@
 				by state, popularity of google trend results, and more.</li>
 				<li>By clicking on the left or right side of a product, the end user will
 				be able to select the "good" or "evil" version of the product.</li>
-				<li>By using the Add-to-cart button, the end user will populate their cart with productswith minimal effort.</li>
+				<li>By using the Add-to-cart button, the end user will populate their cart with products with minimal effort.</li>
 				<li>By using the purchase feature, the user will experience no more than
 				3 pages from selecting product to finalizing the order.</li>
 				<li>By creating an account, the user will be able to, at a minimum,
