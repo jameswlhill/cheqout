@@ -19,7 +19,7 @@
 			<p> The purpose of this eCommerce website, cheqout.com, is to provide humorous customized figurines,
 				based on the perceived good sides/bad sides of politicians, celebrities, and other figures.  Cheqout's ptoducts
 				will be used by both individual consumers and  by organizations of all types. The cheqout site will function
-				as the “face” and main communications/sales channel for cheqout, LLC for both consumer and
+				as the face and main communications/sales channel for cheqout, LLC for both consumer and
 				business customers. </p>
 			<br>
 			<P>Cheqout's products for individuals will be used for gifts, decor, art projects, kid’s parties, etc.
