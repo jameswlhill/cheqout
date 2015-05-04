@@ -16,42 +16,45 @@
 	<body>
 		<section>
 			<h1>System Summary</h1>
-			<p> The purpose of this eCommerce website, CQ, is to provide humorous, topical figurines based on the perceived
-				good side/bad side ofpolitical figures,celebrities, and public figures for use by individual consumers and by
-				organizations The CQ site will be the “face” and main communications/sales channel for CQ for both consumer and
-				business customers. Products for individuals can be used for gifts, decor, art projects, kid’s parties, etc.
-				Organizational clients such as corporations, election campaigns, sports events and similar bulk users will use
-				CQ figurine products as giveaways in promotions, trade shows, campaign events, employee programs and more. Our
-				competitive advantage include’s CQ’s ability to produce quality, unique products with rapid turnaround and mass
-				production.</p>
+			<p> The purpose of this eCommerce website, cheqout.com, is to provide humorous customized figurines,
+				based on the perceived good sides/bad sides of politicians, celebrities, and other figures.  Cheqout's ptoducts
+				will be used by both individual consumers and  by organizations of all types. The cheqout site will function
+				as the “face” and main communications/sales channel for cheqout, LLC for both consumer and
+				business customers. </p>
+			<br>
+			<P>Cheqout's products for individuals will be used for gifts, decor, art projects, kid’s parties, etc.
+				Organizational clients (e.g.,corporations, election campaigns, sports events, etc.) will use cheqout
+				figurine products as giveaways in promotions, trade shows, campaign events, employee programs and more. Our
+				competitive advantage includes cheqout's ability to produce quality, unique products with very rapid
+				production, shipping, and turnaround.</p>
 			<h2>Audiences</h2>
 			<p>The site will serve the following audiences:</p>
 			<ul>
-				<li>Consumer Users of all/any type</li>
-				<li>Organizational Customers that buy in bulk quantities</li>
+				<li>Consumer individuals of all/any type</li>
+				<li>Organizational customers that will buy in bulk quantities</li>
 			</ul>
 			<br />
 			<h2>Goals</h2>
-			<p>The primary goal is for the site to be CQ’s main sales channel by providing highly marketable products.
-				As such, CQ will be positioned as a product innovator as well as a commercial success, enabling the site to:</p>
+			<p>The primary goal for the site is to function as cheqout's main sales channel in providing highly marketable
+				products. As such, cheqout will be positioned as a figurine-product innovator as well as a commercial
+				success, enabling the site to:</p>
 			<ul>
-				<li>Draw repeat and potential clients to the company</li>
-				<li>Provide a showcase for our work</li>
-				<li>Build CQ’s brand via consistent, quality customer experiences</li>
+				<li>Draw repeat and potential clients/revenue to the company</li>
+				<li>Provide a showcase for cgeqout's work</li>
+				<li>Build cheqout's brand via consistent, quality customer experiences</li>
 				<li>Expand the depth and breadth of our Internet presence</li>
 			</ul>
 			<hr />
 			<h1>System Goals</h1>
 			<ul>
-				<li>By using the search feature, the end user will be able to find the
-				figurine of their choosing by description, state, type of figure, name,
-				etc.</li>
-				<li>By using the browse feature, the end user will be able to view and sort
-				by, at a minimum, state, popularity of google trend result.</li>
+				<li>Via cheqout's search features, the end user will be able to easily and rapidly find their
+				figure of choice via searches by description, state, type of figure, name,etc.</li>
+				<li>End user Customers may also view products in the catalog via simple browsing.</li>
+				<li>By using a specific browse feature, the end user will be able to view and sort
+				by state, popularity of google trend results, and more.</li>
 				<li>By clicking on the left or right side of a product, the end user will
-				be able to select the "good" or "bad" version of the product.</li>
-				<li>By using the Add-to-cart button on the product, the the end user will,
-				with minimal effort, populate their cart with products.</li>
+				be able to select the "good" or "evil" version of the product.</li>
+				<li>By using the Add-to-cart button, the end user will populate their cart with productswith minimal effort.</li>
 				<li>By using the purchase feature, the user will experience no more than
 				3 pages from selecting product to finalizing the order.</li>
 				<li>By creating an account, the user will be able to, at a minimum,
