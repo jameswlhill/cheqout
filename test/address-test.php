@@ -32,12 +32,6 @@ try {
 
 
 
-
-
-
-
-
-
 	//insert $address into the database!
 	$address->insert($pdoConnection);
 	echo $address;
