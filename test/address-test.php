@@ -27,7 +27,7 @@ try {
 
 	//create a new Address object
 	echo "Creating new Address object...";
-	$address = new Address(1, "Dudes Name", "234 Wilco Way",
+	$address = new Address(null, "Dudes Name", "234 Wilco Way",
 								  "Albuquerque", "NM", "89734-8745", "", "Work");
 	echo $address;
 	//insert it into the pdo connection
