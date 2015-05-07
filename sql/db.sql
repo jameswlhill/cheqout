@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS email;
 CREATE TABLE email (
 	emailId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	emailAddress VARCHAR (128) NOT NULL,
-	stripeId VARCHAR (25) NOT NULL,
+	stripeId VARCHAR (25),
 	PRIMARY KEY(emailId),
 	UNIQUE(emailAddress)
 );
