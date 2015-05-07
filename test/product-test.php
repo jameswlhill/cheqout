@@ -15,7 +15,7 @@
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //load product.php, class to be tested
-require_once(dirname(__DIR__) . '/php/class/product.php');
+require_once('../php/product.php');
 
 try {
 	//readConfig reads/decrypts the config array, can throw exception so should be put in trycatch block
