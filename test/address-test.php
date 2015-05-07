@@ -32,7 +32,8 @@ try {
 	echo $address;
 	//insert it into the pdo connection
 	$address->insert($pdoConnection);
-	$pdoConnection = Address::getAddressByAddressId($pdoConnection, $addressId->getProfileId());
+	$pdoAddress = Address::getAddressByAddressId($pdoConnection, $addressId->getAddressId());
+	echo $pdoAddress;
 
 	/*
 		echo "Testing Address Visible  change...";
