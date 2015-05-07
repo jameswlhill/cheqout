@@ -93,9 +93,9 @@ class Address {
 	 * @param int $newAddressHidden newAddressHidden
 	 * @throws UnexpectedValueException if any parameters don't meet expectation (see mutator methods)
 	 */
-	public function __construct($newAddressId, $newAddressLabel, $newAddressAttention, $newAddressStreet1,
+	public function __construct($newAddressId, $newAddressAttention, $newAddressStreet1,
 										 $newAddressCity, $newAddressState, $newAddressZip,
-										 $newAddressStreet2="", $newAddressHidden=0) {
+										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=0) {
 		try {
 			$this->setAddressId($newAddressId);
 			$this->setAddressLabel($newAddressLabel);
