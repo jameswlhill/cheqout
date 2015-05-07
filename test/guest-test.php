@@ -16,7 +16,7 @@
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //load product.php, class to be tested
-require_once(dirname(__DIR__) . '/php/class/address.php');
+require_once(dirname(__DIR__) . '/php/class/guest.php');
 
 try {
 	$config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");
@@ -25,47 +25,16 @@ try {
 	$pdoConnection = new PDO($dsn, $config["username"], $config["password"], $options);
 	$pdoConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	//create a new Address object
+	//create a new guest object
 	echo "Creating new Address object...";
-	$address = new Address(1, "Dudes Name", "234 Wilco Way",
-								  "Albuquerque", "NM", "89734-8745", "", "Work");
-	echo $address;
+	$guest = new Guest(1, 2);
+	echo $guest;
 
-	echo "Testing Address Visible  change...";
-	$address->setAddressVisible();
-	echo $address;
+	$guest->setEmailId(10);
+	echo $guest;
 
-	echo "Testing Zip change...";
-	$address->setAddressZip("87954");
-	echo $address;
-
-	echo "Testing State change...";
-	$address->setAddressState("NV");
-	echo $address;
-
-	echo "Testing Attention Line change...";
-	$address->setAddressAttention("The Dude");
-	echo $address;
-
-	echo "Testing City name change...";
-	$address->setAddressCity("Tyler");
-	echo $address;
-
-	echo "Testing Street1 change...";
-	$address->setAddressStreet1("2345 Nowhereland Road");
-	echo $address;
-
-	echo "Testing Street2 change...";
-	$address->setAddressStreet2("Apartment 3");
-	echo $address;
-
-	echo "Testing Label name change...";
-	$address->setAddressLabel("LabelTestSuccess");
-	echo $address;
-
-	echo "Testing address to VISIBLE...";
-	$address->setAddressVisible(1);
-	echo $address;
+	$guest->setGuestId(20);
+	echo $guest;
 
 	echo "Success!";
 	return;
