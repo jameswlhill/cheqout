@@ -125,7 +125,7 @@ class Product {
 	 * @throws UnexpectedValueException if $newProductPrice is not valid
 	 **/
 	public function setProductPrice($newProductPrice) {
-		$newProductPrice = filter_var($newProductPrice, FILTER_SANITIZE_NUMBER_FLOAT);
+		$newProductPrice = filter_var($newProductPrice, FILTER_VALIDATE_FLOAT);
 		if($newProductPrice === false) {
 			throw(new UnexpectedValueException("product price not a valid float value"));
 		}
