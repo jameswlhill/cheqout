@@ -30,45 +30,52 @@ try {
 	$address = new Address(1, "Dudes Name", "234 Wilco Way",
 								  "Albuquerque", "NM", "89734-8745", "", "Work");
 	echo $address;
+	//insert it into the pdo connection
+	$address->insert($pdoConnection);
+	$pdoConnection = Address::getAddressByAddressId($pdoConnection, $addressId->getProfileId());
 
-	echo "Testing Address Visible  change...";
-	$address->setAddressVisible();
-	echo $address;
+	/*
+		echo "Testing Address Visible  change...";
+		$address->setAddressVisible();
+		echo $address;
 
-	echo "Testing Zip change...";
-	$address->setAddressZip("87954");
-	echo $address;
+		echo "Testing Zip change...";
+		$address->setAddressZip("87954");
+		echo $address;
 
-	echo "Testing State change...";
-	$address->setAddressState("NV");
-	echo $address;
+		echo "Testing State change...";
+		$address->setAddressState("NV");
+		echo $address;
 
-	echo "Testing Attention Line change...";
-	$address->setAddressAttention("The Dude");
-	echo $address;
+		echo "Testing Attention Line change...";
+		$address->setAddressAttention("The Dude");
+		echo $address;
 
-	echo "Testing City name change...";
-	$address->setAddressCity("Tyler");
-	echo $address;
+		echo "Testing City name change...";
+		$address->setAddressCity("Tyler");
+		echo $address;
 
-	echo "Testing Street1 change...";
-	$address->setAddressStreet1("2345 Nowhereland Road");
-	echo $address;
+		echo "Testing Street1 change...";
+		$address->setAddressStreet1("2345 Nowhereland Road");
+		echo $address;
 
-	echo "Testing Street2 change...";
-	$address->setAddressStreet2("Apartment 3");
-	echo $address;
+		echo "Testing Street2 change...";
+		$address->setAddressStreet2("Apartment 3");
+		echo $address;
 
-	echo "Testing Label name change...";
-	$address->setAddressLabel("LabelTestSuccess");
-	echo $address;
+		echo "Testing Label name change...";
+		$address->setAddressLabel("LabelTestSuccess");
+		echo $address;
 
-	echo "Testing address to VISIBLE...";
-	$address->setAddressVisible(1);
-	echo $address;
+		echo "Testing address to VISIBLE...";
+		$address->setAddressVisible(1);
+		echo $address;
 
-	echo "Success!";
-	return;
+		echo "Success!";
+		return;
+	*/
+
+
 	//insert $address into the database!
 	/*
 	$address->insert($pdoConnection);
