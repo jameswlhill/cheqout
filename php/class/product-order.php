@@ -250,5 +250,34 @@ class ProductOrder {
 		return ($html);
 	}
 
+	/**
+	 * Insert productOrder into MySQL database
+	 *
+	 * @param PDO $pdo pointer to pdo connection by reference
+	 * @throws PDOException on MySQL errors
+	 **/
+	public function insert(PDO &$pdo) {
+		//make sure initial order and product id's in db are null so that you're not inserting a pre-existing row
+		if($this->orderId !== null && $this->productId !== null) {
+			throw(new PDOException("this is not a new ProductOrder"));
+		}
+
+		//create query template
+		$query = <<< EOF
+			INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
+			VALUES(:orderId, :productId, :quantity, :shippingCost, :orderPrice )
+EOF;
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to placeholders in query template
+		$parameters = array(
+			"orderId" => $this->orderId,
+			"productId" => $this->productId,
+			"quantity" => $this->quantity,
+			"shippingCost" => $this->shippingCost,
+			"orderPrice" => $this->orderPrice
+		);
+		$statement->execute($parameters);
+	}
 
 }
