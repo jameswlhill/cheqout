@@ -2,11 +2,10 @@
 /**
  * Product class
  *
- * This is a class containing a minimal amount of identifying information about
- * a product from the Cheqout online store. This could be extended to include
- * state variables such as stock availability or production number.
+ * This is a class containing the minimum necessary amount of identifying information about
+ * a product from the Cheqout online store.
  *
- * @author James Hill <jhill67@cnm.edu>
+ * @author James Hill <james@appists.com>
  **/
 
 class Product {
@@ -17,11 +16,11 @@ class Product {
 	 **/
 	protected $productId;
 	/**
-	 * This is the product description
+	 * This is the product title
 	 *
-	 * @var string $productDescription
+	 * @var string $productTitle
 	 **/
-	protected $productDescription;
+	protected $productTitle;
 	/**
 	 * This is the product price
 	 *
@@ -29,13 +28,33 @@ class Product {
 	 **/
 	protected $productPrice;
 	/**
+	 * This is the product description
+	 *
+	 * @var string $productDescription
+	 **/
+	protected $productDescription;
+	/**
+	 * This is the product inventory
+	 *
+	 * @var int $productInventory
+	 **/
+	protected $productInventory;
+	/**
+	 * This is the multiplier for a product on sale
+	 *
+	 * @var int $productSale
+	 **/
+	protected $productSale;
+
+	/**
 	 * Getter method for product id
 	 *
 	 * @return int value of product id
 	 **/
 	public function getProductId() {
-		return($this->productId);
+		return ($this->productId);
 	}
+
 	/**
 	 * Setter method for product id
 	 *
@@ -43,7 +62,7 @@ class Product {
 	 * @throws UnexpectedValueException if $newProductId is not an integer
 	 **/
 	public function setProductId($newProductId) {
-		//base case, if product id is null this is a new database entry without id
+		//base case, if product id is null this is a new database entry without a current id
 		if($newProductId === null) {
 			$this->productId = null;
 			return;
@@ -63,38 +82,42 @@ class Product {
 		//if no exception thrown, use intval for added security and store the new id
 		$this->productId = intval($newProductId);
 	}
+
 	/**
-	 * Getter method for product description
+	 * Getter method for product title
 	 *
-	 * @return string $productDescription
+	 * @return string title of product
 	 **/
-	public function getProductDescription() {
-		return($this->productDescription);
+	public function getProductTitle() {
+		return ($this->productTitle);
 	}
+
 	/**
-	 * Setter method for product description
+	 * Setter method for product title
 	 *
-	 * @param string $newProductDescription
-	 * @throws UnexpectedValueException if $newProductDescription is not valid
+	 * @param string $newProductTitle
+	 * @throws UnexpectedValueException if $newProductTitle is not valid
 	 **/
-	public function setProductDescription($newProductDescription) {
-		//validate $newProductDescription as valid string
-		$newProductDescription = filter_var($newProductDescription, FILTER_SANITIZE_STRING);
-		if($newProductDescription === false) {
-			throw(new UnexpectedValueException("product description not a valid string"));
+	public function setProductTitle($newProductTitle) {
+		//validate $newProductTitle as a valid string
+		$newProductTitle = filter_var($newProductTitle, FILTER_SANITIZE_STRING);
+		if($newProductTitle === false) {
+			throw(new UnexpectedValueException("product title is not a valid string"));
 		}
 
-		//if it passes without exception, store the new value
-		$this->productDescription = $newProductDescription;
+		//if it passes without exception, store the new string
+		$this->productTitle = $newProductTitle;
 	}
+
 	/**
 	 * Getter method for product price
 	 *
 	 * @return float $productPrice
 	 **/
 	public function getProductPrice() {
-		return($this->productPrice);
+		return ($this->productPrice);
 	}
+
 	/**
 	 * Setter method for product price
 	 *
@@ -110,25 +133,133 @@ class Product {
 		//if $newProductPrice is valid, store in $productPrice via floatval() for added security
 		$this->productPrice = floatval($newProductPrice);
 	}
+
+	/**
+	 * Getter method for product description
+	 *
+	 * @return string $productDescription
+	 **/
+	public function getProductDescription() {
+		return ($this->productDescription);
+	}
+
+	/**
+	 * Setter method for product description
+	 *
+	 * @param string $newProductDescription
+	 * @throws UnexpectedValueException if $newProductDescription is not valid
+	 **/
+	public function setProductDescription($newProductDescription) {
+		//validate $newProductDescription as valid string
+		$newProductDescription = filter_var($newProductDescription, FILTER_SANITIZE_STRING);
+		if($newProductDescription === false) {
+			throw(new UnexpectedValueException("product description not a valid string"));
+		}
+
+		//if it passes without exception, store the new string
+		$this->productDescription = $newProductDescription;
+	}
+
+	/**
+	 * Getter method for product inventory
+	 *
+	 * @return int $productInventory
+	 **/
+	public function getProductInventory() {
+		return ($this->productInventory);
+	}
+
+	/**
+	 * Setter method for product inventory
+	 *
+	 * @param int $newProductInventory
+	 * @throws UnexpectedValueException if $newProductInventory is not valid
+	 **/
+	public function setProductInventory($newProductInventory) {
+		//base case, if product inventory is null this is a new product category without a current value
+		if($newProductInventory === null) {
+			$this->productInventory = null;
+			return;
+		}
+
+		//verify new product inventory is a valid integer
+		$newProductInventory = filter_var($newProductInventory, FILTER_VALIDATE_INT);
+		if($newProductInventory === false) {
+			throw(new UnexpectedValueException("new product inventory is not a valid integer"));
+		}
+
+		//verify product inventory quantity is a positive number if not null
+		if($newProductInventory <= 0) {
+			throw(new RangeException("new product inventory is not a positive integer"));
+		}
+
+		//if no exception is thrown, use intval for added security and store the new value
+		$this->productInventory = intval($newProductInventory);
+	}
+
+	/**
+	 * Getter method for product sale multiplier
+	 *
+	 * @return int $productSale
+	 **/
+	public function getProductSale() {
+		return ($this->productSale);
+	}
+
+	/**
+	 * Setter method for product sale multiplier
+	 *
+	 * @param int $newProductSale
+	 * @throws UnexpectedValueException if $newProductSale is not a valid integer
+	 **/
+	public function setProductSale($newProductSale) {
+		//base case, if sale multiplier is null and has not yet been set
+		if($newProductSale === null) {
+			$this->productSale = null;
+			return;
+		}
+
+		//verify new product sale multiplier is a valid integer
+		$newProductSale = filter_var($newProductSale, FILTER_VALIDATE_INT);
+		if($newProductSale === false) {
+			throw(new UnexpectedValueException("new product sale multiplier is not a valid integer"));
+		}
+
+		//verify new sale multiplier is a positive number if not null
+		if($newProductSale <= 0) {
+			throw(new RangeException("new product sale multiplier is not a positive integer"));
+		}
+
+		//if no exception thrown, use intval for added security and store the new value
+		$this->productSale = intval($newProductSale);
+	}
+
 	/**
 	 * Magic method __construct() for Product class
 	 *
 	 * @param int $newProductId for product id
-	 * @param string $newProductDescription for product description
+	 * @param string $newProductTitle
 	 * @param float $newProductPrice for product price
+	 * @param string $newProductDescription for product description
+	 * @param int $newProductInventory for product inventory
+	 * @param int $newProductSale for product sale multiplier
 	 * @throws UnexpectedValueException in case any of the methods throw an exception
 	 **/
-	public function __construct($newProductId, $newProductDescription, $newProductPrice) {
+	public function __construct($newProductId, $newProductTitle, $newProductPrice, $newProductDescription, $newProductInventory, $newProductSale) {
 		//attempt to set new field values
 		try {
 			$this->setProductId($newProductId);
-			$this->setProductDescription($newProductDescription);
+			$this->setProductTitle($newProductTitle);
 			$this->setProductPrice($newProductPrice);
+			$this->setProductDescription($newProductDescription);
+			$this->setProductInventory($newProductInventory);
+			$this->setProductSale($newProductSale);
 		} catch(UnexpectedValueException $exception) {
 			//rethrow to handle exceptions outside the constructor
-			throw(new UnexpectedValueException("unable to construct Product object",0,$exception));
+			throw(new UnexpectedValueException("unable to construct Product object", 0, $exception));
 		}
 	}
+
 	/**
 	 * Magic method __toString() for constructor output
 	 *
@@ -137,18 +268,24 @@ class Product {
 	public function __toString() {
 		//create HTML formatted output table
 		$html = "<table border='1' style='width:100%'"
-			.		"<tr>"
-			.			"<td>" . "Product ID" . "</td>"
-			.			"<td>" . "Product Description" . "</td>"
-			.			"<td>" . "Product Price" . "</td>"
-			.		"</tr>"
-			.		"<tr>"
-			.			"<td>" . $this->productId . "</td>"
-			.			"<td>" . $this->productDescription . "</td>"
-			.			"<td>" . $this->productPrice . "</td>"
-			.		"</tr>"
+			. "<tr>"
+			. "<td>" . "Product ID" . "</td>"
+			. "<td>" . "Product Title" . "</td>"
+			. "<td>" . "Product Price" . "</td>"
+			. "<td>" . "Product Description" . "</td>"
+			. "<td>" . "Product Inventory" . "</td>"
+			. "<td>" . "Product Sale Multiplier" . "</td>"
+			. "</tr>"
+			. "<tr>"
+			. "<td>" . $this->productId . "</td>"
+			. "<td>" . $this->productTitle . "</td>"
+			. "<td>" . $this->productPrice . "</td>"
+			. "<td>" . $this->productDescription . "</td>"
+			. "<td>" . $this->productInventory . "</td>"
+			. "<td>" . $this->productSale . "</td>"
+			. "</tr>"
 			. "</table>";
-		return($html);
+		return ($html);
 	}
 
 	/**
@@ -160,26 +297,30 @@ class Product {
 	public function insert(PDO &$pdo) {
 		//make sure initial product id value in db is null so that you're not inserting a pre-existing row
 		if($this->productId !== null) {
-			throw(new PDOException("not a new product id"));
+			throw(new PDOException("lo siento, not a new product id"));
 		}
 
 		//create query template
 		$query = <<< EOF
-			INSERT INTO product(productDescription, productPrice)
-			VALUES(:productDescription, :productPrice)
+			INSERT INTO product(productTitle, productPrice, productDescription, productInventory, productSale )
+			VALUES(:productTitle, :productPrice, :productDescription, :productInventory, :productSale )
 EOF;
 		$statement = $pdo->prepare($query);
 
 		//bind member variables to placeholders in query template
 		$parameters = array(
+			"productTitle" => $this->productTitle,
+			"productPrice" => $this->productPrice,
 			"productDescription" => $this->productDescription,
-			"productPrice" => $this->productPrice
+			"productInventory" => $this->productInventory,
+			"productSale" => $this->productSale
 		);
 		$statement->execute($parameters);
 
-		//update the null product id value with the MySQL-assigned database id
+		//update the null php-version product id value with the MySQL-assigned database id
 		$this->productId = intval($pdo->lastInsertId());
 	}
+
 	/**
 	 * Deletes product from MySQL database
 	 *
@@ -189,11 +330,13 @@ EOF;
 	public function delete(PDO &$pdo) {
 		//check to see if product id is null so that you don't try to delete an entry that doesn't exist
 		if($this->productId === null) {
-			throw(new PDOException("can't delete row, doesn't exist"));
+			throw(new PDOException("can't delete a row that doesn't exist"));
 		}
 
 		//create delete query template string
-		$query = "DELETE FROM product WHERE productId = :productId";
+		$query = <<< EOF
+			DELETE FROM product WHERE productId = :productId
+EOF;
 		$statement = $pdo->prepare($query);
 
 		//bind member variables to placeholders
@@ -201,6 +344,7 @@ EOF;
 		$statement->execute($parameters);
 
 	}
+
 	/**
 	 * Update product in MySQL database
 	 *
@@ -210,28 +354,38 @@ EOF;
 	public function update(PDO &$pdo) {
 		//make sure product id field is not null, since there's no point adding superfluous request traffic
 		if($this->productId === null) {
-			throw(new PDOException("no update for you!"));
+			throw(new PDOException("can't update record that doesn't exist"));
 		}
 
 		//create update query template
-		$query = "UPDATE product SET productId = :productId,
+		$query = "UPDATE product SET
+						productId = :productId,
+						productTitle = :productTitle,
+						productPrice = :productPrice,
 						productDescription = :productDescription,
-						productPrice = :productPrice WHERE productId = :productId";
+						productInventory = :productInventory,
+						productSale = :productSale
+						 WHERE productId = :productId";
 		$statement = $pdo->prepare($query);
 
 		//bind member variables to template placeholders
-		$parameters = array("productId" => $this->productId,
+		$parameters = array(
+			"productId" => $this->productId,
+			"productTitle" => $this->productTitle,
+			"productPrice" => $this->productPrice,
 			"productDescription" => $this->productDescription,
-			"productPrice" => $this->productPrice
+			"productInventory" => $this->productInventory,
+			"productSale" => $this->productSale
 		);
 		$statement->execute($parameters);
 	}
+
 	/**
 	 *Gets product by product id, primary key
 	 *
-	 *@param PDO $pdo pointer to pdo MySQL connection by reference
-	 *@param int $productId primary key to search by
-	 *@return mixed Product object or null if not found
+	 * @param PDO $pdo pointer to pdo MySQL connection by reference
+	 * @param int $productId primary key to search by
+	 * @return mixed Product object or null if not found
 	 * @throws PDOException if MySQL error(s) occur
 	 **/
 	public static function getProductByProductId(PDO &$pdo, $productId) {
@@ -245,7 +399,8 @@ EOF;
 		}
 
 		//create query string template and pdo->prepare the query
-		$query = "SELECT productId, productDescription, productPrice FROM product WHERE productId = :productId";
+		$query = "SELECT productId, productTitle, productPrice, productDescription, productInventory,
+				productSale FROM product WHERE productId = :productId";
 		$statement = $pdo->prepare($query);
 
 		//bind member variable to pdo placeholder in query template
@@ -258,14 +413,15 @@ EOF;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$product = new Product($row["productId"], $row["productDescription"], $row["productPrice"]);
+				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
 			}
 
 		} catch(Exception $exception) {
-			throw(new PDOException($exception->getMessage(),0,$exception));
+			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($product);
+		return ($product);
 	}
+
 	/**
 	 * Get Product by description
 	 *
@@ -283,7 +439,7 @@ EOF;
 		}
 
 		//create MySQL query template
-		$query = "SELECT productId, productDescription, productPrice FROM product
+		$query = "SELECT productId, productTitle, productPrice, productDescription, productInventory, productSale FROM product
 					WHERE productDescription LIKE :productDescription";
 		$statement = $pdo->prepare($query);
 
@@ -297,23 +453,108 @@ EOF;
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch() !== false)) {
 			try {
-				$product = new Product($row["productId"], $row["productDescription"], $row["productPrice"]);
+				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
 				$products[$products->key()] = $product;
 				$products->next();
 			} catch(Exception $exception) {
 				//rethrow exception if new Product object cannot be converted to array
-				throw(new PDOException($exception->getMessage(),0,$exception));
+				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
 
 			//Count the results in the array, null for 0 rows, entire result set for rows >= 1
 			$numberOfProducts = count($products);
 			if($numberOfProducts === 0) {
-				return(null);
+				return (null);
 			} else {
-				return($products);
+				return ($products);
 			}
 		}
 	}
 
+
+	/**
+	 * Get Product by title
+	 *
+	 * @param PDO &$pdo pointer to pdo MySQL connection by reference
+	 * @param string $productTitle product title string to search for
+	 * @return mixed SplFixedArray of Product(s) matching title string
+	 * @throws PDOException if any MySQL related errors occur
+	 **/
+	public static function getProductByProductTitle(PDO &$pdo, $productTitle) {
+		//sanitize the search string before attempting any matches
+		$productTitle = trim($productTitle);
+		$productTitle = filter_var($productTitle, FILTER_SANITIZE_STRING);
+		if(empty($productTitle) === true) {
+			throw(new PDOException("search invalid"));
+		}
+
+		//create MySQL query template
+		$query = "SELECT productId, productTitle, productPrice, productDescription, productInventory, productSale FROM product
+					WHERE productTitle LIKE :productTitle";
+		$statement = $pdo->prepare($query);
+
+		//bind product description to pdo placeholder in query template
+		$productTitle = "%$productTitle%";
+		$parameters = array("productTitle" => $productTitle);
+		$statement->execute($parameters);
+
+		//create array of products found
+		$products = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch() !== false)) {
+			try {
+				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
+				$products[$products->key()] = $product;
+				$products->next();
+			} catch(Exception $exception) {
+				//rethrow exception if new Product object cannot be converted to array
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+
+			//Count the results in the array, null for 0 rows, entire result set for rows >= 1
+			$numberOfProducts = count($products);
+			if($numberOfProducts === 0) {
+				return (null);
+			} else {
+				return ($products);
+			}
+		}
+	}
+
+	/**
+	 * Get all products
+	 *
+	 * @param PDO &$pdo pointer to pdo MySQL connection by reference
+	 * @return mixed SplFixedArray of products found or null if not found
+	 * @throws PDOException if any MySQL related errors occur
+	 **/
+	public static function getAllProducts(PDO $pdo) {
+		//create query template
+		$query = "SELECT productId, productTitle, productPrice, productDescription, productInventory, productSale FROM product";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		//build array of products
+		$products = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch() !== false)) {
+			try {
+				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
+				$products[$products->key()] = $product;
+				$products->next();
+			} catch(Exception $exception) {
+				//rethrow exception if new Product object cannot be converted to array
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+
+			//Count the results in the array, null for 0 rows, entire result set for rows >= 1
+			$numberOfProducts = count($products);
+			if($numberOfProducts === 0) {
+				return (null);
+			} else {
+				return ($products);
+			}
+		}
+	}
 }
 
