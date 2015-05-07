@@ -16,7 +16,7 @@
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //load product.php, class to be tested
-require_once(dirname(__DIR__) . '/php/address.php');
+require_once(dirname(__DIR__) . '/php/class/address.php');
 
 try {
 	$config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");

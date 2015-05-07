@@ -3,7 +3,7 @@
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //load the account class
-require_once("../php/email.php");
+require_once(dirname(__DIR__) . '/php/class/email.php');
 
 try {
 	//read and decrypt the configuration array
