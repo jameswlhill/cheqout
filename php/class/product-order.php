@@ -280,4 +280,61 @@ EOF;
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * Deletes a product order from MySQL database
+	 *
+	 * @param PDO $pdo pointer to pdo connection by reference
+	 * @throws PDOException when MySQL error occurs
+	 **/
+	public function delete(PDO &$pdo) {
+		//check to see if order id and product id are null so that you don't try to delete an entry that doesn't exist
+		if($this->orderId === null && $this->productId === null) {
+			throw(new PDOException("can't delete a row that doesn't exist"));
+		}
+
+		//create delete query template string
+		$query = <<< EOF
+			DELETE FROM productOrder WHERE productId = :productId AND orderId = :orderId
+EOF;
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to placeholders
+		$parameters = array("productId" => $this->productId, "orderId" => $this->orderId);
+		$statement->execute($parameters);
+
+	}
+
+	/**
+	 * Update product order in MySQL database
+	 *
+	 * @param PDO $pdo pointer to pdo connection by reference
+	 * @throws PDOException when MySQL errors occurs
+	 **/
+	public function update(PDO &$pdo) {
+		//make sure product id and order id are not null, since there's no point adding superfluous request traffic
+		if($this->orderId === null && $this->productId === null) {
+			throw(new PDOException("can't update record that doesn't exist"));
+		}
+
+		//create update query template
+		$query = "UPDATE productOrder SET
+						orderId = :orderId,
+						productId = :productId,
+						quantity = :quantity,
+						shippingCost = :shippingCost,
+						orderPrice = :orderPrice
+						 WHERE orderId = :orderId AND productId = :productId ";
+		$statement = $pdo->prepare($query);
+
+		//bind member variables to template placeholders
+		$parameters = array(
+			"orderId" => $this->orderId,
+			"productId" => $this->productId,
+			"quantity" => $this->quantity,
+			"shippingCost" => $this->shippingCost,
+			"orderPrice" => $this->orderPrice
+		);
+		$statement->execute($parameters);
+	}
+
 }
