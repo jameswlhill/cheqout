@@ -22,20 +22,20 @@ try {
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	//insert new email address into sql
-	$name = new email (null, "its@yu.com", "ermagerdstripeid");
-	$name->insert($pdo);
+	$email = new email (null, "its@yu.com", "ermagerdstripeid");
+	$email->insert($pdo);
 
 	//update an email address in mysql
-	$name->setEmailAddress("diemf@dmfd.com");
-	$name->setStripeId("the coolest customer");
-	$name->update($pdo);
+	$email->setEmailAddress("diemf@dmfd.com");
+	$email->setStripeId("the coolest customer");
+	$email->update($pdo);
 
 	//select an email
-	$pdoName = Email::getEmailAddressByEmailAddress($pdo, $name->getEmailAddress());
+	$pdoName = Email::getEmailByEmailAddress($pdo, $email->getEmailAddress());
 
 	//delete the email from mySQL and show that it is gone
-	$name->delete($pdo);
-	$pdoName = Email::getEmailAddressByEmailAddress($pdo, $name->getEmailAddress());
+	$email->delete($pdo);
+	$pdoName = Email::getEmailByEmailAddress($pdo, $email->getEmailAddress());
 
 } catch (PDOException $pdoException) {
 	echo "Exception: " . $pdoException->getMessage();

@@ -182,7 +182,7 @@ class Email {
 	 * @return mixed SplFixedArray of emails found/null if not found
 	 * @throws PDOException when mySQL related error occurs
 	 **/
-	public static function getEmailIdByEmailAddress(PDO &$pdo, $emailAddress) {
+	public static function getEmailByEmailAddress(PDO &$pdo, $emailAddress) {
 		// sanitize the description before searching
 		$emailAddress = trim($emailAddress);
 		$emailAddress = filter_var($emailAddress, FILTER_SANITIZE_EMAIL);
@@ -200,13 +200,13 @@ class Email {
 		$statement->execute($parameters);
 
 		// build an array of emails
-		$names = new SplFixedArray($statement->rowCount());
+		$emails = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$name = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
-				$email[$email->key()] = $email;
-				$email->next();
+				$email = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				$emails[$emails->key()] = $email;
+				$emails->next();
 			} catch(Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new PDOException($exception->getMessage(), 0, $exception));
@@ -216,11 +216,11 @@ class Email {
 		// count the results in the array and return:
 		// 1) null if 0 results
 		// 2) the entire array if >= 1 result
-		$numberOfEmails = count($email);
+		$numberOfEmails = count($emails);
 		if($numberOfEmails === 0) {
 			return (null);
 		} else {
-			return ($email);
+			return ($emails);
 		}
 	}
 }
