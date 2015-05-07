@@ -163,7 +163,7 @@ class Email {
 	public function update(PDO &$pdo) {
 		//make sure account exists
 		if($this->emailId === null) {
-			throw(new PDOException("unable to update account that does not exist"));
+			throw(new PDOException("unable to update email that does not exist"));
 		}
 		//query template
 		$query = "UPDATE email SET emailAddress = :emailAddress, stripeId = :stripeId WHERE emailId = :emailId";
@@ -172,5 +172,55 @@ class Email {
 		//match the variables to the placeholders in query
 		$parameters = array("emailAddress" => $this->emailAddress, "stripeId" => $this->stripeId, "emailId" => $this->emailId);
 		$statement->execute($parameters);
+	}
+
+	/**
+	 * get the email address by content
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param string $emailAddress account name to search for
+	 * @return mixed SplFixedArray of emails found/null if not found
+	 * @throws PDOException when mySQL related error occurs
+	 **/
+	public static function getEmailIdByEmailAddress(PDO &$pdo, $emailAddress) {
+		// sanitize the description before searching
+		$emailAddress = trim($emailAddress);
+		$emailAddress = filter_var($emailAddress, FILTER_SANITIZE_EMAIL);
+		if(empty($emailAddress) === true) {
+			throw(new PDOException("email does not exist"));
+		}
+
+		// create query template
+		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE emailAddress LIKE :emailAddress";
+		$statement = $pdo->prepare($query);
+
+		// bind the account name to the place holder in the template
+		$emailAddress = "%$emailAddress%";
+		$parameters = array("emailAddress" => $emailAddress);
+		$statement->execute($parameters);
+
+		// build an array of emails
+		$names = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$name = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				$email[$email->key()] = $email;
+				$email->next();
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfEmails = count($email);
+		if($numberOfEmails === 0) {
+			return (null);
+		} else {
+			return ($email);
+		}
 	}
 }

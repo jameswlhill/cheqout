@@ -31,11 +31,11 @@ try {
 	$name->update($pdo);
 
 	//select an email
-	$pdoName = Email::getEmailByEmailAddress($pdo, $name->getEmailAddress());
+	$pdoName = Email::getEmailAddressByEmailAddress($pdo, $name->getEmailAddress());
 
 	//delete the email from mySQL and show that it is gone
 	$name->delete($pdo);
-	$pdoName = Email::getEmailByEmailAddress($pdo, $name->getEmailAddress());
+	$pdoName = Email::getEmailAddressByEmailAddress($pdo, $name->getEmailAddress());
 
 } catch (PDOException $pdoException) {
 	echo "Exception: " . $pdoException->getMessage();

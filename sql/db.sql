@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS account;
 DROP TABLE IF EXISTS email;
 
 
+
 CREATE TABLE email (
 	emailId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	emailAddress VARCHAR (128) NOT NULL,
@@ -26,7 +27,6 @@ CREATE TABLE account (
 	FOREIGN KEY(emailId) REFERENCES email(emailId),
 	PRIMARY KEY(accountId),
 	UNIQUE(activation)
-
 );
 
 CREATE TABLE guest (
@@ -39,7 +39,7 @@ CREATE TABLE guest (
 
 CREATE TABLE address (
 	addressId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	emailId VARCHAR (128) NOT NULL,
+	emailId INT UNSIGNED NOT NULL,
 	addressHidden TINYINT(1) UNSIGNED NOT NULL,
 	addressAttention VARCHAR (100) NOT NULL,
 	addressStreet1 VARCHAR (128) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE address (
 CREATE TABLE product (
 	productId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	productTitle VARCHAR (128) NOT NULL,
-	productPrice DECIMAL(20,2) NOT NULL,
+	productPrice DECIMAL(9,2) NOT NULL,
 	productDescription VARCHAR (500) NOT NULL,
 	productInventory INT UNSIGNED,
 	productSale INT UNSIGNED,
@@ -66,7 +66,7 @@ CREATE TABLE product (
 
 CREATE TABLE cheqoutOrder (
 	orderId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	emailId VARCHAR (128) NOT NULL,
+	emailId INT UNSIGNED NOT NULL,
 	addressId INT UNSIGNED NOT NULL,
 	stripeId VARCHAR (25) NOT NULL,
 	orderDateTime DATETIME NOT NULL,
@@ -89,5 +89,3 @@ CREATE TABLE productOrder (
 	FOREIGN KEY(productId) REFERENCES product(productId),
 	PRIMARY KEY(orderId,productId)
 );
-
-
