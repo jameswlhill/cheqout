@@ -114,6 +114,29 @@ class Address {
 	}
 
 	/**
+	 * toString() magic method
+	 *
+	 * @return string formatted in HTML for Address class constructor
+	 */
+
+	// this allows the class to be Echo'd as a string in HTML format
+	public function __toString() {
+		//create an HTML formatted Profile
+		$html = 		"<p>Address ID: " . $this->addressId . "<br />"
+			. "Address Label: ".	$this->addressLabel . "<br />"
+			. "Attention: ".	$this->addressAttention . "<br />"
+			. "Street 1: ".	$this->addressStreet1 . "<br />"
+			. "Street 2: ".	$this->addressStreet2 . "<br />"
+			. "City: ".	$this->addressCity . "<br />"
+			. "State: ".	$this->addressState . "<br />"
+			. "Zip: ".	$this->addressZip . "<br />"
+			. "Hidden: ".	$this->addressHidden . "<br />"
+
+			. "</p>";
+		return($html);
+	}
+
+	/**
 	 * accessor method to $addressId
 	 *
 	 * @return int value of $addressId
@@ -188,19 +211,20 @@ class Address {
 	 * @param int $newAddressHidden - new value of $addressHidden
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
-	public function setAddressHidden($newAddressHidden) {
-		// verify the value of addressHidden is a valid int
-		if($newAddressHidden === null) {
-			$this->addressHidden = null;
-			return;
-		}
-		$newAddressHidden = filter_var($newAddressHidden, FILTER_VALIDATE_INT);
-		if($newAddressHidden === false || $newAddressHidden > 1) {
-			throw(new UnexpectedValueException("Hidden Address value is not a valid integer OR value."));
-		}
-		//convert addressHidden into an int (just for safesies)
-		//THEN store it into THIS object's addressHidden
-		$this->addressId = intval($newAddressHidden);
+	public function setAddressHidden() {
+		$newAddressHidden = 1;
+		$this->addressHidden = intval($newAddressHidden);
+	}
+
+	/**
+	 * mutator method for $addressVisible
+	 *
+	 * @param int $newAddressHidden - new value of $addressHidden
+	 * @throws UnexpectedValueException if $addressHidden is NOT INT
+	 */
+	public function setAddressVisible() {
+		$newAddressHidden = 0;
+		$this->addressHidden = intval($newAddressHidden);
 	}
 
 	/**
