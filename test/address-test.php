@@ -48,9 +48,6 @@ try {
 	$address->userDelete($pdoConnection);
 	echo $address;
 
-	//search address ID by addressId
-	$address->getAddressByAddressId($pdoConnection);
-
 } catch(PDOException $pdoException) {
 	var_dump($pdoException);
 	echo "Exception: " . $pdoException->getMessage();
