@@ -4,8 +4,10 @@
  *
  * The account class contains both the password (hashed) and
  * the salt used to further protect the hashed password.
+ * References emailId for the email used for signup.
  * Also present is the activation code used to activate the email
  * attached to the account, if any.
+ * Creates the datetime of the account creation
  *
  * @author Kyla Carroll <kylacarroll43@gmail.com
  **/
@@ -182,14 +184,14 @@ class Account {
 	 *
 	 * @throws UnexpectedValueException if any of the parameters are not valid
 	 **/
-	public function __construct($newAccountId, $newEmailId, $newAccountPassword, $newAccountPasswordSalt, $newAccountCreateDateTime, $newActivation) {
+	public function __construct($newAccountId, $newEmailId, $newAccountPassword, $newAccountPasswordSalt, $newActivation, $newAccountCreateDateTime) {
 		try {
 			$this->setAccountId($newAccountId);
 			$this->setEmailId($newEmailId);
 			$this->setAccountPassword($newAccountPassword);
 			$this->setAccountPasswordSalt($newAccountPasswordSalt);
-			$this->setAccountCreateDateTime($newAccountCreateDateTime);
 			$this->setActivation($newActivation);
+			$this->setAccountCreateDateTime($newAccountCreateDateTime);
 		} catch(UnexpectedValueException $exception) {
 			//rethrow to caller
 			throw(new UnexpectedValueException("unable to construct account", 0, $exception));
@@ -209,11 +211,11 @@ class Account {
 		}
 
 		//create the pdo query template
-		$query = "INSERT INTO account(accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId) VALUES(:accountId, :accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTime, :emailId)";
+		$query = "INSERT INTO account(accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId) VALUES(:accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTime, :emailId)";
 		$statement = $pdo->prepare($query);
 
 		//match the variables input with the query
-		$parameters = array("accountId" => $this->accountId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "activation" => $this->activation, "accountCreateDateTime" => $this->accountCreateDateTime, "emailId" => $this->emailId);
+		$parameters = array("accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "activation" => $this->activation, "accountCreateDateTime" => $this->accountCreateDateTime, "emailId" => $this->emailId);
 		$statement->execute($parameters);
 
 		//updates the null accountId with the value of the variable
