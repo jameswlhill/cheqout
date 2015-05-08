@@ -1,10 +1,10 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Cheqout Data Design">
+			<file>address-test.php</file>
 			<file>email-test.php</file>
 			<file>account-test.php</file>
 			<file>guest-test.php</file>
-			<file>address-test.php</file>
 			<file>product-test.php</file>
 			<file>cheqoutorder-test.php</file>
 			<file>productorder-test.php</file>

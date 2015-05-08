@@ -96,7 +96,7 @@ class AddressTest extends CheqoutTest {
 	}
 
 	/**
-	 * test inserting a Address, editing it, and then updating it
+	 * test inserting an address
 	 **/
 	public function testUpdateValidAddress() {
 		// count the number of rows and save it for later
