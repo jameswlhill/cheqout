@@ -82,7 +82,8 @@ class Address {
 
 	/**
 	 * the is the constructor for the Address class.
-	 * @param int $newAddressId newAddressId
+	 * @param int $newAddressId newAddressId (PRIMARY KEY)
+	 * @param int $newEmailId newEmailId (FOREIGN KEY)
 	 * @param string $newAddressLabel newAddressLabel
 	 * @param string $newAddressAttention newAddressAttention
 	 * @param string $newAddressStreet1 newAddressStreet1
@@ -93,11 +94,12 @@ class Address {
 	 * @param int $newAddressHidden newAddressHidden
 	 * @throws UnexpectedValueException if any parameters don't meet expectation (see mutator methods)
 	 */
-	public function __construct($newAddressId, $newAddressAttention, $newAddressStreet1,
+	public function __construct($newAddressId, $newEmailId, $newAddressAttention, $newAddressStreet1,
 										 $newAddressCity, $newAddressState, $newAddressZip,
 										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=0) {
 		try {
 			$this->setAddressId($newAddressId);
+			$this->setEmailId($newEmailId);
 			$this->setAddressLabel($newAddressLabel);
 			$this->setAddressAttention($newAddressAttention);
 			$this->setAddressStreet1($newAddressStreet1);
@@ -486,7 +488,7 @@ class Address {
 		if($this->addressId === null) {
 			throw(new PDOException("How you gonna delete somethin' that ain't THERE?"));
 		}
-		$query = "DELETE FROM addressId, addressLabel, addressAttention, addressStreet1,
+		$query = "DELETE FROM addressId, emailId, addressLabel, addressAttention, addressStreet1,
 					 addressStreet2, addressCity, addressState, addressZip, addressHidden
 					 WHERE addressId = :addressId";
 		$preparedStatement = $adminDeleteParameters->prepare($query);

@@ -40,7 +40,7 @@ CREATE TABLE guest (
 CREATE TABLE address (
 	addressId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	emailId INT UNSIGNED NOT NULL,
-	addressHidden TINYINT(1) UNSIGNED NOT NULL,
+	addressLabel VARCHAR (20),
 	addressAttention VARCHAR (100) NOT NULL,
 	addressStreet1 VARCHAR (128) NOT NULL,
 	addressStreet2 VARCHAR (128),
@@ -48,7 +48,7 @@ CREATE TABLE address (
 	addressState VARCHAR (64) NOT NULL,
 	addressCountry CHAR(2) NOT NULL,
 	addressZip VARCHAR(10) NOT NULL,
-	addressLabel VARCHAR (20),
+	addressHidden TINYINT(1) UNSIGNED NOT NULL,
 	INDEX(emailId),
 	FOREIGN KEY(emailId) REFERENCES email(emailId),
 	PRIMARY KEY(addressId)

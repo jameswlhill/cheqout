@@ -64,6 +64,20 @@ class AddressTest extends CheqoutTest {
 	 * @var string $VALID_STREET2
 	 **/
 	protected $VALID_HIDDEN = 0;
+
+	/**
+	 * Email that created the Address; this is for foreign key relations
+	 * @var Address address
+	 **/
+	protected $email = null;
+
+	public final function setUp() {
+		// run the default setUp() method first
+		parent::setUp();
+		// create and insert an Email to own the test Address
+		$this->email = new Email(null, "blah@blah.blah", "STRIPE ID WOOOO");
+		$this->email->insert($this->getPDO());
+	}
 	/**
 	 * test inserting a valid Address and verify that the actual mySQL data matches
 	 **/
@@ -72,8 +86,8 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
-									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+		$address = new Address(null, $this->email->getEmailId(), $this->$VALID_ATTENTION, $this->$VALID_STREET1,
+									  $this->$VALID_CITY, $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
 									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->insert($this->getPDO());
 
@@ -100,10 +114,12 @@ class AddressTest extends CheqoutTest {
 	public function testUpdateInvalidAddress() {
 		// create an Address then try to use the userDelete function to hide the address
 		// from the user, simulating a deletion
-		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
-									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+		$address = new Address(null, $this->email->getEmailId(), $this->$VALID_ATTENTION, $this->$VALID_STREET1,
+									  $this->$VALID_CITY, $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
 									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->userDelete($this->getPDO());
+		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressHidden());
+		$this->assertSame($pdoAddress->getAddressHidden(), $address->getAddressHidden());
 	}
 
 	/**
@@ -114,8 +130,8 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
-									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+		$address = new Address(null, $this->email->getEmailId(), $this->$VALID_ATTENTION, $this->$VALID_STREET1,
+									  $this->$VALID_CITY, $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
 									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->insert($this->getPDO());
 
@@ -136,8 +152,8 @@ class AddressTest extends CheqoutTest {
 	 **/
 	public function testAdminDeleteInvalidAddress() {
 		// create a Address and try to delete it without actually inserting it
-		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
-									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+		$address = new Address(null, $this->email->getEmailId(), $this->$VALID_ATTENTION, $this->$VALID_STREET1,
+									  $this->$VALID_CITY, $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
 									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->adminDelete($this->getPDO());
 	}
@@ -150,8 +166,8 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
-									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+		$address = new Address(null, $this->email->getEmailId(), $this->$VALID_ATTENTION, $this->$VALID_STREET1,
+									  $this->$VALID_CITY, $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
 									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->insert($this->getPDO());
 
