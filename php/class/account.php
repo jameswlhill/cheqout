@@ -10,20 +10,19 @@
  * @author Kyla Carroll <kylacarroll43@gmail.com
  **/
 
-
 class Account {
 	//Primary Key for the account
 	private $accountId;
-	//unique emailId attached to the account
-	private $emailId;
 	//hashed password
 	private $accountPassword;
 	//salt for password
 	private $accountPasswordSalt;
 	//unique activation string
-	private $accountActivation;
+	private $activation;
 	//account creation date
 	private $accountCreateDateTime;
+	//unique emailId attached to the account
+	private $emailId;
 
 	/**
 	 * accessor method for account id
@@ -52,30 +51,6 @@ class Account {
 		}
 		//assign and store the filtered accountId
 		$this->accountId = intval($newAccountId);
-	}
-
-	/**
-	 * accessor method for emailId
-	 *
-	 * @return int value of emailId
-	 **/
-	public function getEmailId() {
-		return ($this->emailId);
-	}
-
-	/**
-	 * mutator method for emailId
-	 *
-	 * @param string $newEmailId new value of emailId
-	 * @throws UnexpectedValueException if $newEmailId is not a valid integer
-	 **/
-	public function setEmailId($newEmailId) {
-		$newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT);
-		if($newEmailId === false) {
-			throw(new UnexpectedValueException("emailId is not valid integer"));
-		}
-		//assign and store the email
-		$this->emailId = $newEmailId;
 	}
 
 	/**
@@ -125,6 +100,29 @@ class Account {
 	}
 
 	/**
+	 * accessor method for account activation code
+	 *
+	 * @return string value of account activation code
+	 */
+	public function getActivation() {
+		return ($this->activation);
+	}
+
+	/** mutator method for account activation
+	 *
+	 * @param string $newActivation new value of account activation code
+	 * @throws UnexpectedValueException if $newActivation is not valid
+	 **/
+	public function setActivation($newActivation) {
+		$newActivation = filter_var($newActivation, FILTER_SANITIZE_STRING);
+		if($newActivation === false) {
+			throw(new UnexpectedValueException("account activation invalid"));
+		}
+		//assign and store Account name
+		$this->activation = $newActivation;
+	}
+
+	/**
 	 * accountCreateDateTime accessor method
 	 *
 	 * @return string date of account creation
@@ -149,26 +147,27 @@ class Account {
 	}
 
 	/**
-	 * accessor method for account activation code
+	 * accessor method for emailId
 	 *
-	 * @return string value of account activation code
-	 */
-	public function getAccountActivation() {
-		return ($this->accountActivation);
+	 * @return int value of emailId
+	 **/
+	public function getEmailId() {
+		return ($this->emailId);
 	}
 
-	/** mutator method for account activation
+	/**
+	 * mutator method for emailId
 	 *
-	 * @param string $newAccountActivation new value of account activation code
-	 * @throws UnexpectedValueException if $newAccountActivation is not valid
+	 * @param string $newEmailId new value of emailId
+	 * @throws UnexpectedValueException if $newEmailId is not a valid integer
 	 **/
-	public function setAccountActivation($newAccountActivation) {
-		$newAccountActivation = filter_var($newAccountActivation, FILTER_SANITIZE_STRING);
-		if($newAccountActivation === false) {
-			throw(new UnexpectedValueException("account activation invalid"));
+	public function setEmailId($newEmailId) {
+		$newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT);
+		if($newEmailId === false) {
+			throw(new UnexpectedValueException("emailId is not valid integer"));
 		}
-		//assign and store Account name
-		$this->accountActivation = $newAccountActivation;
+		//assign and store the email
+		$this->emailId = $newEmailId;
 	}
 
 	/**
@@ -179,18 +178,18 @@ class Account {
 	 * @param string $newAccountPassword new value for password
 	 * @param string $newAccountPasswordSalt new value for account pw salt
 	 * @param string $newAccountCreateDateTime new value for account create date
-	 * @param string $newAccountActivation new value for activation key
+	 * @param string $newActivation new value for activation key
 	 *
 	 * @throws UnexpectedValueException if any of the parameters are not valid
 	 **/
-	public function __construct($newAccountId, $newEmailId, $newAccountPassword, $newAccountPasswordSalt, $newAccountCreateDateTime, $newAccountActivation) {
+	public function __construct($newAccountId, $newEmailId, $newAccountPassword, $newAccountPasswordSalt, $newAccountCreateDateTime, $newActivation) {
 		try {
 			$this->setAccountId($newAccountId);
 			$this->setEmailId($newEmailId);
 			$this->setAccountPassword($newAccountPassword);
 			$this->setAccountPasswordSalt($newAccountPasswordSalt);
 			$this->setAccountCreateDateTime($newAccountCreateDateTime);
-			$this->setAccountActivation($newAccountActivation);
+			$this->setActivation($newActivation);
 		} catch(UnexpectedValueException $exception) {
 			//rethrow to caller
 			throw(new UnexpectedValueException("unable to construct account", 0, $exception));
@@ -210,16 +209,15 @@ class Account {
 		}
 
 		//create the pdo query template
-		$query = "INSERT INTO account(emailId, accountPassword, accountPasswordSalt, accountCreateDateTime, activation) VALUES(:emailId, :accountPassword, :accountPasswordSalt, :accountCreateDateTime, :activation)";
+		$query = "INSERT INTO account(accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId) VALUES(:accountId, :accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTime, :emailId)";
 		$statement = $pdo->prepare($query);
 
 		//match the variables input with the query
-		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountCreateDateTime" => $this->accountCreateDateTime, "accountActivation" => $this->accountActivation);
+		$parameters = array("accountId" => $this->accountId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "activation" => $this->activation, "accountCreateDateTime" => $this->accountCreateDateTime, "emailId" => $this->emailId);
 		$statement->execute($parameters);
 
 		//updates the null accountId with the value of the variable
 		$this->accountId = intval($pdo->lastInsertId());
-		$this->emailId = intval($pdo->lastInsertId());
 	}
 
 	/**
@@ -255,11 +253,61 @@ class Account {
 			throw(new PDOException("unable to update account that does not exist"));
 		}
 		//query template
-		$query = "UPDATE account SET emailId = :emailId, accountPassword = :accountPassword, accountPasswordSalt = :accountPasswordSalt, accountCreateDateTime = :accountCreateDateTime, activation = :accountActivation WHERE accountId = :accountId";
+		$query = "UPDATE account SET accountPassword = :accountPassword, accountPasswordSalt = :accountPasswordSalt, activation = :activation, accountCreateDateTime = :accountCreateDateTime, emailId = :emailId WHERE accountId = :accountId";
 		$statement = $pdo->prepare($query);
 
 		//match the variables to the placeholders in query
-		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $this->accountCreateDateTime, "activation" => $this->accountActivation, "accountId" => $this->accountId);
+		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $this->accountCreateDateTime, "activation" => $this->activation, "accountId" => $this->accountId);
 		$statement->execute($parameters);
+	}
+
+	/**
+	 * get the account by emailId
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param int $emailId account name to search for
+	 * @return mixed SplFixedArray of accounts found/null if not found
+	 * @throws PDOException when mySQL related error occurs
+	 **/
+	public static function getAccountByEmailId(PDO &$pdo, $emailId) {
+		// sanitize the description before searching
+		$emailId = trim($emailId);
+		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
+		if(empty($emailId) === true) {
+			throw(new PDOException("email does not exist"));
+		}
+
+		// create query template
+		$query = "SELECT accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId FROM account WHERE emailId LIKE :emailId";
+		$statement = $pdo->prepare($query);
+
+		// bind the account name to the place holder in the template
+		$emailId = "%$emailId%";
+		$parameters = array("emailId" => $emailId);
+		$statement->execute($parameters);
+
+		// build an array of emails
+		$emailIds = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$emailId = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"], $row["Activation"], $row["accountCreateDateTime"], $row["emailId"]);
+				$emailIds[$emailIds->key()] = $emailId;
+				$emailIds->next();
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfEmailIds = count($emailIds);
+		if($numberOfEmailIds === 0) {
+			return (null);
+		} else {
+			return ($emailIds);
+		}
 	}
 }
