@@ -4,6 +4,7 @@ require_once("cheqouttest.php");
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/php/class/address.php");
+require_once(dirname(__DIR__) . "/php/class/email.php");
 
 
 /**
