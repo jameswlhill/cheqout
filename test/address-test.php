@@ -79,70 +79,48 @@ class AddressTest extends CheqoutTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("address"));
-		$this->assertSame($pdoAddress->getAtHandle(), $this->VALID_ATHANDLE);
-		$this->assertSame($pdoAddress->getEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAddress->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoAddress->getAddressAttention(), $this->VALID_ATTENTION);
+		$this->assertSame($pdoAddress->getAddressStreet1(), $this->VALID_STREET1);
+		$this->assertSame($pdoAddress->getAddressStreet1(), $this->VALID_STREET2);
+		$this->assertSame($pdoAddress->getAddressCity(), $this->VALID_CITY);
+		$this->assertSame($pdoAddress->getAddressState(), $this->VALID_STATE);
+		$this->assertSame($pdoAddress->getAddressZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoAddress->getAddressLabel(), $this->VALID_LABEL);
+		$this->assertSame($pdoAddress->getAddressHidden(), $this->VALID_HIDDEN);
 	}
 
-	/**
-	 * test inserting a Address that already exists
-	 *
-	 * @expectedException PDOException
-	 **/
-	public function testInsertInvalidAddress() {
-		// create a address with a non null addressId and watch it fail
-		$address = new Address(DataDesignTest::INVALID_KEY, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
-		$address->insert($this->getPDO());
-	}
+
 
 	/**
-	 * test inserting an address
-	 **/
-	public function testUpdateValidAddress() {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("address");
-
-		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
-		$address->insert($this->getPDO());
-
-		// edit the Address and update it in mySQL
-		$address->setAtHandle($this->VALID_ATHANDLE2);
-		$address->update($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("address"));
-		$this->assertSame($pdoAddress->getAtHandle(), $this->VALID_ATHANDLE2);
-		$this->assertSame($pdoAddress->getEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAddress->getPhone(), $this->VALID_PHONE);
-	}
-
-	/**
-	 * test updating a Address that does not exist
+	 * test userDelete on a Address that does not exist
 	 *
 	 * @expectedException PDOException
 	 **/
 	public function testUpdateInvalidAddress() {
-		// create a Address and try to update it without actually inserting it
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
-		$address->update($this->getPDO());
+		// create an Address then try to use the userDelete function to hide the address
+		// from the user, simulating a deletion
+		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
+									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
+		$address->userDelete($this->getPDO());
 	}
 
 	/**
-	 * test creating a Address and then deleting it
+	 * test creating an Address and then adminDelete it
 	 **/
 	public function testDeleteValidAddress() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
+		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
+									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->insert($this->getPDO());
 
 		// delete the Address from mySQL
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("address"));
-		$address->delete($this->getPDO());
+		$address->adminDelete($this->getPDO());
 
 		// grab the data from mySQL and enforce the Address does not exist
 		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressId());
@@ -151,14 +129,16 @@ class AddressTest extends CheqoutTest {
 	}
 
 	/**
-	 * test deleting a Address that does not exist
+	 * test adminDelete a Address that does not exist
 	 *
 	 * @expectedException PDOException
 	 **/
-	public function testDeleteInvalidAddress() {
+	public function testAdminDeleteInvalidAddress() {
 		// create a Address and try to delete it without actually inserting it
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
-		$address->delete($this->getPDO());
+		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
+									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
+		$address->adminDelete($this->getPDO());
 	}
 
 	/**
@@ -169,15 +149,23 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
+		$address = new Address(null, $this->$VALID_ATTENTION, $this->$VALID_STREET1, $this->$VALID_CITY,
+									  $this->$VALID_STATE, $this->$VALID_ZIP, $this->$VALID_STREET2,
+									  $this->$VALID_LABEL, $this->$VALID_HIDDEN);
 		$address->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("address"));
-		$this->assertSame($pdoAddress->getAtHandle(), $this->VALID_ATHANDLE);
-		$this->assertSame($pdoAddress->getEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAddress->getPhone(), $this->VALID_PHONE);
+		$this->assertSame($pdoAddress->getAddressAttention(), $this->VALID_ATTENTION);
+		$this->assertSame($pdoAddress->getAddressStreet1(), $this->VALID_STREET1);
+		$this->assertSame($pdoAddress->getAddressStreet1(), $this->VALID_STREET2);
+		$this->assertSame($pdoAddress->getAddressCity(), $this->VALID_CITY);
+		$this->assertSame($pdoAddress->getAddressState(), $this->VALID_STATE);
+		$this->assertSame($pdoAddress->getAddressZip(), $this->VALID_ZIP);
+		$this->assertSame($pdoAddress->getAddressLabel(), $this->VALID_LABEL);
+		$this->assertSame($pdoAddress->getAddressHidden(), $this->VALID_HIDDEN);
+
 	}
 
 	/**
@@ -185,61 +173,18 @@ class AddressTest extends CheqoutTest {
 	 **/
 	public function testGetInvalidAddressByAddressId() {
 		// grab a address id that exceeds the maximum allowable address id
-		$address = Address::getAddressByAddressId($this->getPDO(), DataDesignTest::INVALID_KEY);
-		$this->assertNull($address);
-	}
-
-	public function testGetValidAddressByAtHandle() {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("address");
-
-		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
-		$address->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoAddress = Address::getAddressByAtHandle($this->getPDO(), $this->VALID_ATHANDLE);
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("address"));
-		$this->assertSame($pdoAddress->getAtHandle(), $this->VALID_ATHANDLE);
-		$this->assertSame($pdoAddress->getEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAddress->getPhone(), $this->VALID_PHONE);
-	}
-
-	/**
-	 * test grabbing a Address by at handle that does not exist
-	 **/
-	public function testGetInvalidAddressByAtHandle() {
-		// grab an at handle that does not exist
-		$address = Address::getAddressByAtHandle($this->getPDO(), "@doesnotexist");
+		$address = Address::getAddressByAddressId($this->getPDO(), CheqoutTest::INVALID_KEY);
 		$this->assertNull($address);
 	}
 
 	/**
-	 * test grabbing a Address by email
+	 * test grabbing a Address that does not exist
 	 **/
-	public function testGetValidAddressByEmail() {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("address");
-
-		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->VALID_ATHANDLE, $this->VALID_EMAIL, $this->VALID_PHONE);
-		$address->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoAddress = Address::getAddressByEmail($this->getPDO(), $this->VALID_EMAIL);
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("address"));
-		$this->assertSame($pdoAddress->getAtHandle(), $this->VALID_ATHANDLE);
-		$this->assertSame($pdoAddress->getEmail(), $this->VALID_EMAIL);
-		$this->assertSame($pdoAddress->getPhone(), $this->VALID_PHONE);
-	}
-
-	/**
-	 * test grabbing a Address by an email that does not exists
-	 **/
-	public function testGetInvalidAddressByEmail() {
-		// grab an email that does not exist
-		$address = Address::getAddressByEmail($this->getPDO(), "does@not.exist");
+	public function testGetInvalidAddressByEmailId() {
+		// grab a address id that exceeds the maximum allowable address id
+		$address = Address::getAddressByEmailId($this->getPDO(), CheqoutTest::INVALID_KEY);
 		$this->assertNull($address);
 	}
+
 }
 ?>

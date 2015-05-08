@@ -528,7 +528,7 @@ class Address {
 		}
 
 		// template for our mySQL statement. we put the :addressId in from the $addressId arg later on...
-		$query = "SELECT 	addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
+		$query = "SELECT 	emailId, addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
 								addessState, addressZip, addressHidden FROM address WHERE addressId = :addressId";
 		// prepare the statement. PDO does it!
 		$preparedStatement = $getAddressParameters->prepare($query);
@@ -556,9 +556,67 @@ class Address {
 			// now if we actually got something, we want to be able to assign it to returnAddress. Remember
 			// results are from the PDO statement, returnAddress is what we want the METHOD to output.
 			if($results !== false) {
-				$returnAddress = new Address($results["addressId"], $results["addressLabel"], $results["addressAttention"],
+				$returnAddress = new Address($results["emailId"], $results["addressId"], $results["addressLabel"], $results["addressAttention"],
 					$results["addressStreet1"], $results["addressStreet2"], $results["addressCity"], $results["addressState"],
 					$results["addressZip"], $results["addressHidden"]);
+			}
+		} catch(Exception $exception) {
+			// exception? NO PROBLEM! Throw it ...away...to someone else.
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		// alright if everything went well we have our address results returned to us. Nice!
+		return($returnAddress);
+	}
+
+	/**
+	 * gets the address by emailId
+	 *
+	 * @param PDO $getEmailParameters pointer to PDO connection, by reference
+	 * @param int $emailId to search for
+	 * @return mixed Address found or null if not found
+	 * @throws PDOException when mySQL related errors occur
+	 **/
+	public static function getAddressByEmailId(PDO &$getEmailParameters, $emailId) {
+		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
+		if($emailId === false) {
+			throw(new PDOException("Email ID given is not valid."));
+		}
+		if($emailId <= 0) {
+			throw(new PDOException("Email ID's must be above 0."));
+		}
+
+		// template for our mySQL statement. we put the :emailId in from the $emailId arg later on...
+		$query = "SELECT 	emailId, addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
+								addessState, addressZip, addressHidden FROM address WHERE emailId = :emailId";
+		// prepare the statement. PDO does it!
+		$preparedStatement = $getEmailParameters->prepare($query);
+		// lets give some parameters for our statement. or arguments. ARGUE WITH STATEMENT!
+		$parameters = array("emailId" => $emailId);
+		// so we've just given $parameters something to chew on, and it's emailId, which came from our array
+		// that contains a relational array. this is so we can match it up to :addressId. It's a PDO thing!
+		// now we can tell PDO through the execute method to send our preparedStatement with parameters as the argument!
+		// MAGIC!
+		$preparedStatement->execute($parameters);
+		// now our preparedStatement has the same stuff it had it in before, we just used it in combination
+		// with parameters to do the execute. it's still there!
+
+
+		try {
+
+			// declare returnAddress so we can return it after we find what we're looking for (IF we do!)
+			// but we cant return NOTHING...well, we CAN return NULL but not nothing...ironic...
+			$returnAddress = null;
+			// within our preparedStatement variable, change the fetch mode in PDO so it gets it as an
+			// associative array (you have to)
+			$preparedStatement->setFetchMode(PDO::FETCH_ASSOC);
+			// now our preparedStatement isn't what we care about. we want our results (as an array)
+			$results   = $preparedStatement->fetch();
+			// now if we actually got something, we want to be able to assign it to returnAddress. Remember
+			// results are from the PDO statement, returnAddress is what we want the METHOD to output.
+			if($results !== false) {
+				$returnAddress = new Address($results["emailId"], $results["addressId"], $results["addressLabel"], $results["addressAttention"],
+				$results["addressStreet1"], $results["addressStreet2"], $results["addressCity"], $results["addressState"],
+				$results["addressZip"], $results["addressHidden"]);
 			}
 		} catch(Exception $exception) {
 			// exception? NO PROBLEM! Throw it ...away...to someone else.
