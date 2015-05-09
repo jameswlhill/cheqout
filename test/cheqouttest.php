@@ -8,11 +8,11 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
  * This class is designed to lay the foundation of the unit tests for the Cheqout project. It loads the all the database
  * parameters about the project so that table specific tests can share the parameters in on place. To use it:
  *
- * @author Dylan McDonald <dmcdonald21@cnm.edu> and customized to Cheqout by James Hill <james@appists.com>
+ * @author Dylan McDonald <dmcdonald21@cnm.edu> and customized for Cheqout by James Hill <james@appists.com>
  **/
 abstract class CheqoutTest extends PHPUnit_Extensions_Database_TestCase {
 	/**
-	 * invalid id to use for an INT UNSIGNED field (maximum allowed INT UNSIGTNED in mySQL) + 1
+	 * invalid id to use for an INT UNSIGNED field (maximum allowed INT UNSIGNED in mySQL) + 1
 	 * @see https://dev.mysql.com/doc/refman/5.6/en/integer-types.html mySQL Integer Types
 	 * @var int INVALID_KEY
 	 **/

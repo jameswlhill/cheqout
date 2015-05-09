@@ -42,7 +42,7 @@ class Product {
 	/**
 	 * This is the multiplier for a product on sale
 	 *
-	 * @var int $productSale
+	 * @var float $productSale
 	 **/
 	protected $productSale;
 
@@ -209,8 +209,8 @@ class Product {
 	/**
 	 * Setter method for product sale multiplier
 	 *
-	 * @param int $newProductSale
-	 * @throws UnexpectedValueException if $newProductSale is not a valid integer
+	 * @param float $newProductSale
+	 * @throws UnexpectedValueException if $newProductSale is not a valid decimal value
 	 **/
 	public function setProductSale($newProductSale) {
 		//base case, if sale multiplier is null and has not yet been set
@@ -220,14 +220,14 @@ class Product {
 		}
 
 		//verify new product sale multiplier is a valid integer
-		$newProductSale = filter_var($newProductSale, FILTER_VALIDATE_INT);
+		$newProductSale = filter_var($newProductSale, FILTER_VALIDATE_FLOAT);
 		if($newProductSale === false) {
-			throw(new UnexpectedValueException("new product sale multiplier is not a valid integer"));
+			throw(new UnexpectedValueException("new product sale multiplier is not a valid value"));
 		}
 
-		//verify new sale multiplier is a positive number if not null
+		//verify new sale multiplier is a positive decimal value if not null
 		if($newProductSale <= 0) {
-			throw(new RangeException("new product sale multiplier is not a positive integer"));
+			throw(new RangeException("new product sale multiplier is not positive"));
 		}
 
 		//if no exception thrown, use intval for added security and store the new value

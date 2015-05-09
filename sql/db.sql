@@ -60,7 +60,7 @@ CREATE TABLE product (
 	productPrice DECIMAL(9,2) NOT NULL,
 	productDescription VARCHAR (500) NOT NULL,
 	productInventory INT UNSIGNED,
-	productSale INT UNSIGNED,
+	productSale DECIMAL(3,2) NOT NULL,
 	PRIMARY KEY(productId)
 );
 
