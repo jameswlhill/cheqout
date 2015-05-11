@@ -217,7 +217,7 @@ class Address {
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressHidden() {
-		$newAddressHidden = 2;
+		$newAddressHidden = 1;
 		$this->addressHidden = intval($newAddressHidden);
 	}
 
@@ -228,7 +228,7 @@ class Address {
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressVisible() {
-		$newAddressHidden = 1;
+		$newAddressHidden = 2;
 		$this->addressHidden = intval($newAddressHidden);
 	}
 
@@ -459,8 +459,7 @@ class Address {
 		$preparedStatement = $insertParameters->prepare($query);
 
 		// create an array filled with
-		$parameters = array("addressId" => $this->addressId,
-			"emailId" => $this->emailId,
+		$parameters = array("emailId" => $this->emailId,
 			"addressLabel" => $this->addressLabel,
 			"addressAttention" => $this->addressAttention,
 			"addressStreet1" => $this->addressStreet1,
@@ -535,7 +534,7 @@ class Address {
 
 		// template for our mySQL statement. we put the :addressId in from the $addressId arg later on...
 		$query = "SELECT 	emailId, addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
-								addessState, addressZip, addressHidden FROM address WHERE addressId = :addressId";
+								addressState, addressZip, addressHidden FROM address WHERE addressId = :addressId";
 		// prepare the statement. PDO does it!
 		$preparedStatement = $getAddressParameters->prepare($query);
 		// lets give some parameters for our statement. or arguments. ARGUE WITH STATEMENT!
