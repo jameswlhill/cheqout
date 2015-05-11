@@ -5,7 +5,7 @@
  * the address class will contain
  * addressId (primary key),
  * emailId (foreign key)
- * addressHidden (0 default for not hidden, 1 for hidden)
+ * addressHidden (2 default for not hidden, 1 for hidden)
  * addressAttention REQUIRED for the Attention line in a postal address
  * 	generated from the name of customer, formatted
  * 	ATTN: firstName lastName OR ATTN: fullName
@@ -96,7 +96,7 @@ class Address {
 	 */
 	public function __construct($newAddressId, $newEmailId, $newAddressAttention, $newAddressStreet1,
 										 $newAddressCity, $newAddressState, $newAddressZip,
-										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=0) {
+										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=2) {
 		try {
 			$this->setAddressId($newAddressId);
 			$this->setEmailId($newEmailId);
@@ -107,7 +107,7 @@ class Address {
 			$this->setAddressCity($newAddressCity);
 			$this->setAddressState($newAddressState);
 			$this->setAddressZip($newAddressZip);
-			$this->setAddressHidden($newAddressHidden);
+			$this->setAddressVisible($newAddressHidden);
 
 		} catch(UnexpectedValueException $exception) {
 			// RE-Throw to the construct requester
@@ -148,23 +148,25 @@ class Address {
 	}
 
 	/**
-	 * mutator method for $addressId
+	 * mutator method for address id
 	 *
-	 * @param int $newAddressId - new value of $addressId
-	 * @throws UnexpectedValueException if $addressId is NOT INT
-	 */
+	 * @param int $newAddressId new value of addressId
+	 * @throws UnexpectedValueException if $newAddressId is not an integer
+	 **/
+
 	public function setAddressId($newAddressId) {
-		// verify the value of Address is a valid int
 		if($newAddressId === null) {
-			$this->addressId = null;
 			return;
 		}
-		$newAddressId = filter_var($newAddressId, FILTER_VALIDATE_INT);
-		if($newAddressId === false) {
-			throw(new UnexpectedValueException("Address ID is not a valid integer."));
+		$newAccountId = filter_var($newAddressId, FILTER_VALIDATE_INT);
+		if($newAccountId === false) {
+			throw(new UnexpectedValueException("AddressId is not an invalid integer"));
 		}
-		//convert addressId into an int (just for safesies)
-		//THEN store it into THIS object's addressId
+		// verify the profile id is positive
+		if($newAddressId <= 0) {
+			throw(new RangeException("address id is not positive"));
+		}
+		//assign and store the filtered accountId
 		$this->addressId = intval($newAddressId);
 	}
 
@@ -214,7 +216,7 @@ class Address {
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressHidden() {
-		$newAddressHidden = 1;
+		$newAddressHidden = 2;
 		$this->addressHidden = intval($newAddressHidden);
 	}
 
@@ -225,7 +227,7 @@ class Address {
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressVisible() {
-		$newAddressHidden = 0;
+		$newAddressHidden = 1;
 		$this->addressHidden = intval($newAddressHidden);
 	}
 
@@ -445,18 +447,19 @@ class Address {
 		// ensure that you don't attempt to pass an address ID directly to database
 		// address ID is an auto_incremental value!
 		if($this->addressId !== null) {
-			throw(new PDOException("This address ID has already been created!"));
+			throw(new PDOException("Invalid Email/Address ID."));
 		}
 
 		// First step in the process to send an SQL command from PHP
-		$query = "INSERT INTO address(addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity, addressState, addressZip, addressHidden)
-					 				 VALUES(:addressId, :addressLabel, :addressAttention, :addressStreet1, :addressStreet2, :addressCity, :addressState, :addressZip, :addressHidden)";
+		$query = "INSERT INTO address(addressId, emailId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity, addressState, addressZip, addressHidden)
+					 				 VALUES(:addressId, :emailId, :addressLabel, :addressAttention, :addressStreet1, :addressStreet2, :addressCity, :addressState, :addressZip, :addressHidden)";
 
 		// turn $unpreparedStatement into $preparedStatement with the contents of $query and the prepare PDO method
 		$preparedStatement = $insertParameters->prepare($query);
 
 		// create an array filled with
 		$insertParameters = array("addressId" => $this->addressId,
+			"emailId" => $this->emailId,
 			"addressLabel" => $this->addressLabel,
 			"addressAttention" => $this->addressAttention,
 			"addressStreet1" => $this->addressStreet1,
