@@ -226,7 +226,7 @@ class Product {
 		}
 
 		//verify new sale multiplier is a positive decimal value if not null
-		if($newProductSale <= 0) {
+		if($newProductSale < 0) {
 			throw(new RangeException("new product sale multiplier is not positive"));
 		}
 
