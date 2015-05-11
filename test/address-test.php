@@ -67,15 +67,9 @@ class AddressTest extends CheqoutTest {
 
 	/**
 	 * Email that created the Address; this is for foreign key relations
-	 * make 5 of them to test the methods!
 	 * @var Address address
 	 **/
-	protected $email1 = null;
-	protected $email2 = null;
-	protected $email3 = null;
-	protected $email4 = null;
-	protected $email5 = null;
-
+	protected $VALID_EMAIL = null;
 
 	/**
 	 * create dependent objects before running each test
@@ -84,16 +78,9 @@ class AddressTest extends CheqoutTest {
 		// though we are making ANOTHER setup, run the first setup first
 		parent::setUp();
 		// create and insert a email to own the test address
-		$this->email1 = new Email(null, "phpunittest1@phpunittester.com", "stripeID1");
-		$this->email1->insert($this->getPDO());
-		$this->email2 = new Email(null, "phpunittest2@phpunittester.com", "stripeID2");
-		$this->email2->insert($this->getPDO());
-		$this->email3 = new Email(null, "phpunittest3@phpunittester.com", "stripeID3");
-		$this->email3->insert($this->getPDO());
-		$this->email4 = new Email(null, "phpunittest4@phpunittester.com", "stripeID4");
-		$this->email4->insert($this->getPDO());
-		$this->email5 = new Email(null, "phpunittest5@phpunittester.com", "stripeID4");
-		$this->email5->insert($this->getPDO());
+		$this->VALID_EMAIL = new Email(null, "phpunittest@phpunittester.com", "stripeID");
+		$this->VALID_EMAIL->insert($this->getPDO());
+		return;
 	}
 	/**
 	 * test inserting a valid Address and verify that the actual mySQL data matches
@@ -103,7 +90,7 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->email1->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 									  $this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 									  $this->VALID_LABEL, $this->VALID_HIDDEN);
 		$address->insert($this->getPDO());
@@ -130,12 +117,10 @@ class AddressTest extends CheqoutTest {
 	public function testUpdateInvalidAddress() {
 		// create an Address then try to use the userDelete function to hide the address
 		// from the user, simulating a deletion
-		$address = new Address(null, $this->email2->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 									  $this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 									  $this->VALID_LABEL, $this->VALID_HIDDEN);
 		$address->userDelete($this->getPDO());
-		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressHidden());
-		$this->assertSame($pdoAddress->getAddressHidden(), $address->getAddressHidden());
 	}
 
 	/**
@@ -146,7 +131,7 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->email3->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 									  $this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 									  $this->VALID_LABEL, $this->VALID_HIDDEN);
 		$address->insert($this->getPDO());
@@ -168,7 +153,7 @@ class AddressTest extends CheqoutTest {
 	 **/
 	public function testAdminDeleteInvalidAddress() {
 		// create a Address and try to delete it without actually inserting it
-		$address = new Address(null, $this->email4->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 									  $this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 									  $this->VALID_LABEL, $this->VALID_HIDDEN);
 		$address->adminDelete($this->getPDO());
@@ -182,7 +167,7 @@ class AddressTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("address");
 
 		// create a new Address and insert to into mySQL
-		$address = new Address(null, $this->email5->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 									  $this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 									  $this->VALID_LABEL, $this->VALID_HIDDEN);
 		$address->insert($this->getPDO());

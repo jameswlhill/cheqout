@@ -592,7 +592,7 @@ class Address {
 
 		// template for our mySQL statement. we put the :emailId in from the $emailId arg later on...
 		$query = "SELECT 	emailId, addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
-								addessState, addressZip, addressHidden FROM address WHERE emailId = :emailId";
+								addressState, addressZip, addressHidden FROM address WHERE emailId = :emailId";
 		// prepare the statement. PDO does it!
 		$preparedStatement = $getEmailParameters->prepare($query);
 		// lets give some parameters for our statement. or arguments. ARGUE WITH STATEMENT!
