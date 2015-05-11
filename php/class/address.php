@@ -156,10 +156,11 @@ class Address {
 
 	public function setAddressId($newAddressId) {
 		if($newAddressId === null) {
+			$this->addressId = null;
 			return;
 		}
-		$newAccountId = filter_var($newAddressId, FILTER_VALIDATE_INT);
-		if($newAccountId === false) {
+		$newAddressId = filter_var($newAddressId, FILTER_VALIDATE_INT);
+		if($newAddressId === false) {
 			throw(new UnexpectedValueException("AddressId is not an invalid integer"));
 		}
 		// verify the profile id is positive
