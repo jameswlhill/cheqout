@@ -26,12 +26,12 @@ class ProductTest extends CheqoutTest {
 	 * invalid product title to check
 	 * @var null $INVALID_TITLE
 	 **/
-	protected $INVALID_TITLE = null;
+	protected $INVALID_TITLE = "";
 	/**
 	 * invalid product description to check
 	 * @var null $INVALID_DESCRIPTION
 	 **/
-	protected $INVALID_DESCRIPTION = null;
+	protected $INVALID_DESCRIPTION = "";
 	/**
 	 * valid product price to use
 	 * @var float $VALID_PRICE
