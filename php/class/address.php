@@ -144,7 +144,7 @@ class Address {
 	 * @return int value of $addressId
 	 */
 	public function getAddressId() {
-		return($this->$addressId);
+		return($this->addressId);
 	}
 
 	/**
@@ -177,7 +177,7 @@ class Address {
 	 * @return int value of $emailId
 	 */
 	public function getEmailId() {
-		return($this->$emailId);
+		return($this->emailId);
 	}
 
 	/**
@@ -207,7 +207,7 @@ class Address {
 	 * @return int value of $addressHidden
 	 */
 	public function getAddressHidden() {
-		return($this->$addressHidden);
+		return($this->addressHidden);
 	}
 
 	/**
