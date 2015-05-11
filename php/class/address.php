@@ -458,7 +458,7 @@ class Address {
 		$preparedStatement = $insertParameters->prepare($query);
 
 		// create an array filled with
-		$insertParameters = array("addressId" => $this->addressId,
+		$parameters = array("addressId" => $this->addressId,
 			"emailId" => $this->emailId,
 			"addressLabel" => $this->addressLabel,
 			"addressAttention" => $this->addressAttention,
@@ -471,7 +471,7 @@ class Address {
 
 			// take the parameters given and stick them into the :denoted places in $query
 			// the prepared statement now executes with inserted parameters
-			$preparedStatement->execute($insertParameters);
+		$preparedStatement->execute($parameters);
 
 		// FINALLY, we can catch up to a full object with the addressId that
 		// we just generated automagically within mySQL
