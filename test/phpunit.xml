@@ -1,13 +1,15 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Cheqout Data Design">
-			<file>productunittest.php</file>
+			<file>address-test.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
 
 
 <!--
+			<file>productunittest.php</file>
+
 <file>address-test.php</file>
 <file>email-test.php</file>
 <file>account-test.php</file>

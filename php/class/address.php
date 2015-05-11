@@ -452,8 +452,8 @@ class Address {
 		}
 
 		// First step in the process to send an SQL command from PHP
-		$query = "INSERT INTO address(addressId, emailId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity, addressState, addressZip, addressHidden)
-					 				 VALUES(:addressId, :emailId, :addressLabel, :addressAttention, :addressStreet1, :addressStreet2, :addressCity, :addressState, :addressZip, :addressHidden)";
+		$query = "INSERT INTO address(emailId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity, addressState, addressZip, addressHidden)
+					 				 VALUES(:emailId, :addressLabel, :addressAttention, :addressStreet1, :addressStreet2, :addressCity, :addressState, :addressZip, :addressHidden)";
 
 		// turn $unpreparedStatement into $preparedStatement with the contents of $query and the prepare PDO method
 		$preparedStatement = $insertParameters->prepare($query);
