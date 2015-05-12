@@ -370,7 +370,8 @@ class Address {
 		if($newAddressZip === false) {
 			throw(new UnexpectedValueException('Zip code is not a valid string.'));
 		}
-		if(strlen($newAddressZip) !== 5 || (strlen($newAddressZip !== 9) && strpos("-", $newAddressZip) === 6)|| strlen($newAddressZip !== 10)) {
+		if(strlen($newAddressZip) !== 5 || (strlen($newAddressZip !== 10) && strpos("-", $newAddressZip) !== 6)
+												  || strlen($newAddressZip !== 9)) {
 			throw(new UnexpectedValueException('Address Zip code is not formatted to 5, 9 or 10 characters'));
 		}
 		// store the $newAddressZip string
