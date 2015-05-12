@@ -115,12 +115,13 @@ class Address {
 		}
 	}
 
+
 	/**
 	 * toString() magic method
 	 *
 	 * @return string formatted in HTML for Address class constructor
 	 */
-
+/*
 	// this allows the class to be Echo'd as a string in HTML format
 	public function __toString() {
 		//create an HTML formatted Profile
@@ -137,7 +138,7 @@ class Address {
 			. "</p>";
 		return($html);
 	}
-
+*/
 	/**
 	 * accessor method to $addressId
 	 *
@@ -198,7 +199,7 @@ class Address {
 		}
 		//convert emailId into an int (just for safesies)
 		//THEN store it into THIS object's emailId
-		$this->addressId = intval($newEmailId);
+		$this->emailId = intval($newEmailId);
 	}
 
 	/**
@@ -359,39 +360,18 @@ class Address {
 	 *
 	 * @return string value of addressCountry
 	 */
-	/*
-	public function getAddressCountry() {
-		return($this->addressCountry);
-	}
-	*/
 
-	/*
-	 * mutator method for addressCountry
-	 *
-	 * @param string $newAddressCountry new value of addressCountry
-	 * @throws UnexpectedValueException if $addressCountry is not a string
-	 */
-	/*
-	public function setAddressCountry($newAddressCountry) {
-		// verify the value of addressCountry is a valid string
-		$newAddressCountry = filter_var($newAddressCountry, FILTER_SANITIZE_STRING);
-		if($newAddressCountry === false) {
-			throw(new UnexpectedValueException('Country entry is not a valid string.'));
-		}
-		// store the $newAddressCountry string
-		$this->addressCountry = $newAddressCountry;
-	}
-	*/
-	/*
+
+	/**
 	 * accessor method to addressZip
 	 *
 	 * @return string value of addressZip
 	 */
-	/*
+
 	public function getAddressZip() {
 		return($this->addressZip);
 	}
-	*/
+
 
 	/**
 	 * mutator method for addressZip
@@ -448,7 +428,7 @@ class Address {
 		// ensure that you don't attempt to pass an address ID directly to database
 		// address ID is an auto_incremental value!
 		if($this->addressId !== null) {
-			throw(new PDOException("Invalid Email/Address ID."));
+			throw(new PDOException("Invalid Address ID."));
 		}
 
 		// First step in the process to send an SQL command from PHP
@@ -491,9 +471,7 @@ class Address {
 		if($this->addressId === null) {
 			throw(new PDOException("How you gonna delete somethin' that ain't THERE?"));
 		}
-		$query = "DELETE FROM addressId, emailId, addressLabel, addressAttention, addressStreet1,
-					 addressStreet2, addressCity, addressState, addressZip, addressHidden
-					 WHERE addressId = :addressId";
+		$query = "DELETE FROM address WHERE addressId = :addressId";
 		$preparedStatement = $adminDeleteParameters->prepare($query);
 		$parameters = array("addressId" => $this->addressId);
 		$preparedStatement->execute($parameters);
@@ -561,9 +539,9 @@ class Address {
 			// now if we actually got something, we want to be able to assign it to returnAddress. Remember
 			// results are from the PDO statement, returnAddress is what we want the METHOD to output.
 			if($results !== false) {
-				$returnAddress = new Address($results["emailId"], $results["addressId"], $results["addressLabel"], $results["addressAttention"],
-					$results["addressStreet1"], $results["addressStreet2"], $results["addressCity"], $results["addressState"],
-					$results["addressZip"], $results["addressHidden"]);
+				$returnAddress = new Address($results["addressId"], $results["emailId"], $results["addressAttention"], $results["addressStreet1"],
+					$results["addressCity"], $results["addressState"], $results["addressZip"], $results["addressStreet2"],
+					$results["addressLabel"], $results["addressHidden"]);
 			}
 		} catch(Exception $exception) {
 			// exception? NO PROBLEM! Throw it ...away...to someone else.
@@ -619,9 +597,9 @@ class Address {
 			// now if we actually got something, we want to be able to assign it to returnAddress. Remember
 			// results are from the PDO statement, returnAddress is what we want the METHOD to output.
 			if($results !== false) {
-				$returnAddress = new Address($results["emailId"], $results["addressId"], $results["addressLabel"], $results["addressAttention"],
-				$results["addressStreet1"], $results["addressStreet2"], $results["addressCity"], $results["addressState"],
-				$results["addressZip"], $results["addressHidden"]);
+				$returnAddress = new Address($results["addressId"], $results["emailId"], $results["addressAttention"], $results["addressStreet1"],
+					$results["addressCity"], $results["addressState"], $results["addressZip"], $results["addressStreet2"],
+					$results["addressLabel"], $results["addressHidden"]);
 			}
 		} catch(Exception $exception) {
 			// exception? NO PROBLEM! Throw it ...away...to someone else.
