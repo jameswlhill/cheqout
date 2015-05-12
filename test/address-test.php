@@ -63,7 +63,7 @@ class AddressTest extends CheqoutTest {
 	 * valid addressStreet2 to use
 	 * @var string $VALID_STREET2
 	 **/
-	protected $VALID_HIDDEN = 2;
+	protected $VALID_HIDDEN = 0;
 
 	/**
 	 * Email that created the Address; this is for foreign key relations
@@ -221,9 +221,9 @@ class AddressTest extends CheqoutTest {
 	/**
 	 * test inserting an Address and regrabbing it from mySQL via emailid
 	 **/
-	public function testGetValidAddressByEmailId() {
+	public function testGetValidAddressesByEmailId() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
+		$numRows = $this->getConnection()->getRowCount("Address");
 
 		// create a new Address and insert to into mySQL
 		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,

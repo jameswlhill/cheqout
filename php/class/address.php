@@ -96,7 +96,7 @@ class Address {
 	 */
 	public function __construct($newAddressId, $newEmailId, $newAddressAttention, $newAddressStreet1,
 										 $newAddressCity, $newAddressState, $newAddressZip,
-										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=2) {
+										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=0) {
 		try {
 			$this->setAddressId($newAddressId);
 			$this->setEmailId($newEmailId);
@@ -115,30 +115,6 @@ class Address {
 		}
 	}
 
-
-	/**
-	 * toString() magic method
-	 *
-	 * @return string formatted in HTML for Address class constructor
-	 */
-/*
-	// this allows the class to be Echo'd as a string in HTML format
-	public function __toString() {
-		//create an HTML formatted Profile
-		$html = 		"<p>Address ID: " . $this->addressId . "<br />"
-			. "Address Label: ".	$this->addressLabel . "<br />"
-			. "Attention: ".	$this->addressAttention . "<br />"
-			. "Street 1: ".	$this->addressStreet1 . "<br />"
-			. "Street 2: ".	$this->addressStreet2 . "<br />"
-			. "City: ".	$this->addressCity . "<br />"
-			. "State: ".	$this->addressState . "<br />"
-			. "Zip: ".	$this->addressZip . "<br />"
-			. "Hidden: ".	$this->addressHidden . "<br />"
-
-			. "</p>";
-		return($html);
-	}
-*/
 	/**
 	 * accessor method to $addressId
 	 *
@@ -229,7 +205,7 @@ class Address {
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressVisible() {
-		$newAddressHidden = 2;
+		$newAddressHidden = 0;
 		$this->addressHidden = intval($newAddressHidden);
 	}
 
@@ -253,6 +229,9 @@ class Address {
 		$newAddressAttention = filter_var($newAddressAttention, FILTER_SANITIZE_STRING);
 		if($newAddressAttention === false) {
 			throw(new UnexpectedValueException('Address ATTN: line is not a valid string.'));
+		}
+		if(strlen($newAddressAttention) > 100) {
+			throw(new UnexpectedValueException('Address ATTN: line is longer than 100 characters.'));
 		}
 		//store the $newAddressAttention string
 		$this->addressAttention = $newAddressAttention;
@@ -279,6 +258,9 @@ class Address {
 		if($newAddressStreet1 === false) {
 			throw(new UnexpectedValueException('Street 1 line is not a valid string.'));
 		}
+		if(strlen($newAddressStreet1) > 128) {
+			throw(new UnexpectedValueException('Address Street1 line is longer than 128 characters.'));
+		}
 		// store the $newAddressStreet1 string
 		$this->addressStreet1 = $newAddressStreet1;
 	}
@@ -304,6 +286,9 @@ class Address {
 		if($newAddressStreet2 === false) {
 			throw(new UnexpectedValueException('Street 2 line is not a valid string.'));
 		}
+		if(strlen($newAddressStreet2) > 128) {
+			throw(new UnexpectedValueException('Address Street2 line is longer than 128 characters.'));
+		}
 		// store the $newAddressStreet2 string
 		$this->addressStreet2 = $newAddressStreet2;
 	}
@@ -327,6 +312,9 @@ class Address {
 		$newAddressCity = filter_var($newAddressCity, FILTER_SANITIZE_STRING);
 		if($newAddressCity === false) {
 			throw(new UnexpectedValueException('City entry is not a valid string.'));
+		}
+		if(strlen($newAddressCity) > 128) {
+			throw(new UnexpectedValueException('Address City line is longer than 128 characters.'));
 		}
 		// store the $newAddressCity string
 		$this->addressCity = $newAddressCity;
@@ -352,15 +340,12 @@ class Address {
 		if($newAddressState === false) {
 			throw(new UnexpectedValueException('State entry not a valid string.'));
 		}
+		if(strlen($newAddressState) > 64) {
+			throw(new UnexpectedValueException('Address State line is longer than 64 characters.'));
+		}
 		// store the $newAddressState string
 		$this->addressState = $newAddressState;
 	}
-	/**
-	 * accessor method to addressCountry, commented out until needed
-	 *
-	 * @return string value of addressCountry
-	 */
-
 
 	/**
 	 * accessor method to addressZip
@@ -384,6 +369,9 @@ class Address {
 		$newAddressZip = filter_var($newAddressZip, FILTER_SANITIZE_STRING);
 		if($newAddressZip === false) {
 			throw(new UnexpectedValueException('Zip code is not a valid string.'));
+		}
+		if(strlen($newAddressZip) !== 5 || (strlen($newAddressZip !== 9) && strpos("-", $newAddressZip) === 6)|| strlen($newAddressZip !== 10)) {
+			throw(new UnexpectedValueException('Address Zip code is not formatted to 5, 9 or 10 characters'));
 		}
 		// store the $newAddressZip string
 		$this->addressZip = $newAddressZip;
@@ -409,6 +397,9 @@ class Address {
 		$newAddressLabel = filter_var($newAddressLabel, FILTER_SANITIZE_STRING);
 		if($newAddressLabel === false) {
 			throw(new UnexpectedValueException('Address Label line is not a valid string.'));
+		}
+		if(strlen($newAddressLabel) > 20) {
+			throw(new UnexpectedValueException('Address Label line is longer than 20 characters.'));
 		}
 		// store the $newAddressLabel string
 		$this->addressLabel = $newAddressLabel;
