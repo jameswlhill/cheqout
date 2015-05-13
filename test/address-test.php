@@ -72,6 +72,10 @@ class AddressTest extends CheqoutTest {
 	protected $VALID_EMAIL = null;
 
 	/**
+	 * invalid character string that is 129 characters long to break every string limit
+	 */
+	protected $INVALID_STRING = "qqqqqqqqq1wwwwwwwww2eeeeeeeee3rrrrrrrrr4tttttttt5yyyyyyyyy6uuuuuuuuu7iiiiiiiii8ooooooooo9ppppppppp0qqqqqqqqq1wwwwwwwww2eeeeeeeee3";
+	/**
 	 * create dependent objects before running each test
 	 **/
 	public final function setUp() {
@@ -124,7 +128,6 @@ class AddressTest extends CheqoutTest {
 
 		// edit the addressHidden field in the object, then send it to mySQL
 		// i think the setAddressHidden is redundant based on the way my "update" works...
-		$address->setAddressHidden($this->VALID_HIDDEN);
 		$address->userDelete($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoAddress = Address::getAddressByAddressId($this->getPDO(), $address->getAddressId());
@@ -219,20 +222,19 @@ class AddressTest extends CheqoutTest {
 	}
 
 	/**
-	 * test inserting an Address and regrabbing it from mySQL via emailid
+	 * test inserting an Address and regrabbing it from mySQL by emailId
 	 **/
 	public function testGetValidAddressesByEmailId() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("Address");
-
-		// create a new Address and insert to into mySQL
+		$numRows = $this->getConnection()->getRowCount("address");
+		// create a new address and insert to into mySQL
 		$address = new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 		$address->insert($this->getPDO());
-
+		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Address::getAddressesByEmailId($this->getPDO(), $address->getEmailId());
-		$this->assertSame($numRows, $this->getConnection()->getRowCount("address"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("address"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Address", $results);
 		// grab the result from the array and validate it
@@ -256,5 +258,84 @@ class AddressTest extends CheqoutTest {
 		$this->assertNull($address);
 	}
 
+
+	/**
+	 * test breaking attention string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+
+	public function testBreakingAttentionStringTheory() {
+		//make a new address object and break attention
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->INVALID_STRING, $this->VALID_STREET1,
+			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
+			$this->VALID_LABEL, $this->VALID_HIDDEN);
+	}
+	/**
+	 * test breaking street1 string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+	public function testBreakingStreet1StringTheory() {
+		// break street1
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->INVALID_STRING,
+			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
+			$this->VALID_LABEL, $this->VALID_HIDDEN);
+	}
+	/**
+	 * test breaking city string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+	public function testBreakingCityStringTheory() {
+		// break city
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+			$this->INVALID_STRING, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
+			$this->VALID_LABEL, $this->VALID_HIDDEN);
+	}
+	/**
+	 * test breaking state string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+	public function testBreakingStateStringTheory() {
+		// break state
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+			$this->VALID_CITY, $this->INVALID_STRING, $this->VALID_ZIP, $this->VALID_STREET2,
+			$this->VALID_LABEL, $this->VALID_HIDDEN);
+	}
+	/**
+	 * test breaking ZIP string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+	public function testBreakingZipStringTheory() {
+		// break ZIP
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+			$this->VALID_CITY, $this->VALID_STATE, $this->INVALID_STRING, $this->VALID_STREET2,
+			$this->VALID_LABEL, $this->VALID_HIDDEN);
+	}
+	/**
+	 * test breaking street2 string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+	public function testBreakingStreet2StringTheory() {
+		// break street 2
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->INVALID_STRING,
+			$this->VALID_LABEL, $this->VALID_HIDDEN);
+	}
+	/**
+	 * test breaking label string
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+	public function testBreakingLabelStringTheory() {
+		// break label
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
+			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
+			$this->INVALID_STRING, $this->VALID_HIDDEN);
+	}
 }
 ?>

@@ -108,7 +108,6 @@ class Address {
 			$this->setAddressState($newAddressState);
 			$this->setAddressZip($newAddressZip);
 			$this->setAddressVisible($newAddressHidden);
-
 		} catch(UnexpectedValueException $exception) {
 			// RE-Throw to the construct requester
 			throw(new UnexpectedValueException("Unable to create Address.", 0, $exception));
@@ -190,7 +189,6 @@ class Address {
 	/**
 	 * mutator method for $addressHidden
 	 *
-	 * @param int $newAddressHidden - new value of $addressHidden
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressHidden() {
@@ -201,7 +199,6 @@ class Address {
 	/**
 	 * mutator method for $addressVisible
 	 *
-	 * @param int $newAddressHidden - new value of $addressHidden
 	 * @throws UnexpectedValueException if $addressHidden is NOT INT
 	 */
 	public function setAddressVisible() {
@@ -230,9 +227,10 @@ class Address {
 		if($newAddressAttention === false) {
 			throw(new UnexpectedValueException('Address ATTN: line is not a valid string.'));
 		}
-		if(strlen($newAddressAttention) > 100) {
-			throw(new UnexpectedValueException('Address ATTN: line is longer than 100 characters.'));
-		}
+		// make sure attn line isnt longer than sql can hold
+		if(strlen($newAddressAttention) > 20) {
+			throw(new UnexpectedValueException("Address ATTN: line is too long by " . intval((strlen($newAddressAttention) - 20)) . " characters."));
+	}
 		//store the $newAddressAttention string
 		$this->addressAttention = $newAddressAttention;
 	}
@@ -258,8 +256,9 @@ class Address {
 		if($newAddressStreet1 === false) {
 			throw(new UnexpectedValueException('Street 1 line is not a valid string.'));
 		}
+		// make sure street1 line isnt longer than sql can hold
 		if(strlen($newAddressStreet1) > 128) {
-			throw(new UnexpectedValueException('Address Street1 line is longer than 128 characters.'));
+			throw(new UnexpectedValueException("Address Street 1 line is too long by " . intval((strlen($newAddressStreet1) - 128)) . " characters."));
 		}
 		// store the $newAddressStreet1 string
 		$this->addressStreet1 = $newAddressStreet1;
@@ -287,7 +286,7 @@ class Address {
 			throw(new UnexpectedValueException('Street 2 line is not a valid string.'));
 		}
 		if(strlen($newAddressStreet2) > 128) {
-			throw(new UnexpectedValueException('Address Street2 line is longer than 128 characters.'));
+			throw(new UnexpectedValueException("Address Street 2 line is too long by " . intval((strlen($newAddressStreet2) - 128)) . " characters."));
 		}
 		// store the $newAddressStreet2 string
 		$this->addressStreet2 = $newAddressStreet2;
@@ -314,7 +313,7 @@ class Address {
 			throw(new UnexpectedValueException('City entry is not a valid string.'));
 		}
 		if(strlen($newAddressCity) > 128) {
-			throw(new UnexpectedValueException('Address City line is longer than 128 characters.'));
+			throw(new UnexpectedValueException("Address City line is too long by " . intval((strlen($newAddressCity) - 128)) . " characters."));
 		}
 		// store the $newAddressCity string
 		$this->addressCity = $newAddressCity;
@@ -341,7 +340,7 @@ class Address {
 			throw(new UnexpectedValueException('State entry not a valid string.'));
 		}
 		if(strlen($newAddressState) > 64) {
-			throw(new UnexpectedValueException('Address State line is longer than 64 characters.'));
+			throw(new UnexpectedValueException("Address State line is too long by " . intval((strlen($newAddressState) - 64)) . " characters."));
 		}
 		// store the $newAddressState string
 		$this->addressState = $newAddressState;
@@ -370,9 +369,9 @@ class Address {
 		if($newAddressZip === false) {
 			throw(new UnexpectedValueException('Zip code is not a valid string.'));
 		}
-		if(strlen($newAddressZip) !== 5 || (strlen($newAddressZip !== 10) && strpos("-", $newAddressZip) !== 6)
-												  || strlen($newAddressZip !== 9)) {
-			throw(new UnexpectedValueException('Address Zip code is not formatted to 5, 9 or 10 characters'));
+		$pattern = '/^([0-9]{5}(?:-[0-9]{4})?$)|([0-9]{9})/';
+		if(preg_match($pattern, $newAddressZip) === 0) {
+			throw(new UnexpectedValueException('Zip code is improperly formatted. Please use 5 or 9 digits.'));
 		}
 		// store the $newAddressZip string
 		$this->addressZip = $newAddressZip;
@@ -400,7 +399,7 @@ class Address {
 			throw(new UnexpectedValueException('Address Label line is not a valid string.'));
 		}
 		if(strlen($newAddressLabel) > 20) {
-			throw(new UnexpectedValueException('Address Label line is longer than 20 characters.'));
+			throw(new UnexpectedValueException("Address Label line is too long by " . intval((strlen($newAddressLabel) - 20)) . " characters."));
 		}
 		// store the $newAddressLabel string
 		$this->addressLabel = $newAddressLabel;
@@ -441,8 +440,8 @@ class Address {
 			"addressZip" => $this->addressZip,
 			"addressHidden" => $this->addressHidden);
 
-			// take the parameters given and stick them into the :denoted places in $query
-			// the prepared statement now executes with inserted parameters
+		// take the parameters given and stick them into the :denoted places in $query
+		// the prepared statement now executes with inserted parameters
 		$preparedStatement->execute($parameters);
 
 		// FINALLY, we can catch up to a full object with the addressId that
@@ -546,7 +545,7 @@ class Address {
 	}
 
 	/**
-	 * gets the address by emailId
+	 * gets addresses by emailId
 	 *
 	 * @param PDO $getEmailParameters pointer to PDO connection, by reference
 	 * @param int $emailId to search for
@@ -578,7 +577,7 @@ class Address {
 		// with parameters to do the execute. it's still there!
 
 
-		// now we have to make an array and stuff it full of arrays!
+		// now we have to make an array and stuff it full of arrays!..until theyre objects
 		$addresses = new SplFixedArray($preparedStatement->rowCount());
 		$preparedStatement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($results = $preparedStatement->fetch()) !== false) {
