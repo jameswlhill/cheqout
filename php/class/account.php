@@ -264,38 +264,34 @@ class Account {
 	}
 
 	/**
-	 * get the account by emailId
+	 * get all accounts
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param int $emailId account name to search for
 	 * @return mixed SplFixedArray of accounts found/null if not found
 	 * @throws PDOException when mySQL related error occurs
 	 **/
-	public static function getAccountByEmailId(PDO &$pdo, $emailId) {
-		// sanitize the description before searching
-		$emailId = trim($emailId);
-		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
-		if(empty($emailId) === true) {
-			throw(new PDOException("email does not exist"));
-		}
-
+	/**
+	 * gets all accounts
+	 *
+	 * @param PDO $pdo pointer to PDO connection, by reference
+	 * @return mixed SplFixedArray of accounts found or null if not found
+	 * @throws PDOException when mySQL related errors occur
+	 **/
+	public static function getAllAccounts(PDO &$pdo) {
 		// create query template
-		$query = "SELECT accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId FROM account WHERE emailId LIKE :emailId";
+		$query = "SELECT accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId FROM account";
 		$statement = $pdo->prepare($query);
+		$statement->execute();
 
-		// bind the account name to the place holder in the template
-		$emailId = "%$emailId%";
-		$parameters = array("emailId" => $emailId);
-		$statement->execute($parameters);
-
-		// build an array of emails
-		$emailIds = new SplFixedArray($statement->rowCount());
+		// build an array of accounts
+		$accounts = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$emailId = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"], $row["Activation"], $row["accountCreateDateTime"], $row["emailId"]);
-				$emailIds[$emailIds->key()] = $emailId;
-				$emailIds->next();
+				$account = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"], $row["activation"], $row["accountCreateDateTime"], $row["emailId"]);
+				$accounts[$accounts->key()] = $account;
+				$accounts->next();
 			} catch(Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new PDOException($exception->getMessage(), 0, $exception));
@@ -305,11 +301,11 @@ class Account {
 		// count the results in the array and return:
 		// 1) null if 0 results
 		// 2) the entire array if >= 1 result
-		$numberOfEmailIds = count($emailIds);
-		if($numberOfEmailIds === 0) {
+		$numberOfAccounts = count($accounts);
+		if($numberOfAccounts === 0) {
 			return (null);
 		} else {
-			return ($emailIds);
+			return ($accounts);
 		}
 	}
 }

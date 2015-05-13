@@ -56,11 +56,15 @@ class Email {
 	 *
 	 * @param string $newEmailAddress new value of email address
 	 * @throws UnexpectedValueException if $newEmailAddress is not a valid email
+	 * @throws RangeException if email address is too long
 	 **/
 	public function setEmailAddress($newEmailAddress) {
 		$newEmailAddress = filter_var($newEmailAddress, FILTER_SANITIZE_EMAIL);
 		if($newEmailAddress === false) {
 			throw(new UnexpectedValueException("email is not valid"));
+		}
+		if(strlen($newEmailAddress) > 128) {
+			throw(new RangeException("email address too long"));
 		}
 		//assign and store the email address
 		$this->emailAddress = $newEmailAddress;
@@ -80,11 +84,15 @@ class Email {
 	 *
 	 * @param string $newStripeId new value of stripe Id
 	 * @throws UnexpectedValueException if $newStripeId is not valid
+	 * @throws RangeException if stripe id is too long
 	 */
 	public function setStripeId($newStripeId) {
 		$newStripeId = filter_var($newStripeId, FILTER_SANITIZE_STRING);
 		if($newStripeId === false) {
 			throw(new UnexpectedValueException("account creation date invalid"));
+		}
+		if(strlen($newStripeId) > 25) {
+			throw(new RangeException("stripeID too long"));
 		}
 		//assign and store account date
 		$this->stripeId = $newStripeId;
@@ -96,16 +104,20 @@ class Email {
 	 * @param int $newEmailId new value for email Id
 	 * @param string $newEmailAddress new value for email address
 	 * @param string $newStripeId new value for stripe ID
-	 * @throws UnexpectedValueException if any of the parameters are not valid
+	 * @throws InvalidArgumentException if any of the parameters are not valid
+	 * @throws RangeException if any of the data is out of bounds
 	 **/
 	public function __construct($newEmailId, $newEmailAddress, $newStripeId) {
 		try {
 			$this->setEmailId($newEmailId);
 			$this->setEmailAddress($newEmailAddress);
 			$this->setstripeId($newStripeId);
-		} catch(UnexpectedValueException $exception) {
-			//rethrow to caller
-			throw(new UnexpectedValueException("unable to create email", 0, $exception));
+		} catch(InvalidArgumentException $exception) {
+
+			throw(new InvalidArgumentException("unable to create email", 0, $exception));
+		} catch(RangeException $range) {
+		
+			throw(new RangeException($range->getMessage(), 0, $range));
 		}
 	}
 
@@ -170,41 +182,29 @@ class Email {
 		$statement = $pdo->prepare($query);
 
 		//match the variables to the placeholders in query
-		$parameters = array("emailAddress" => $this->emailAddress, "stripeId" => $this->stripeId, "emailId" => $this->emailId);
+		$parameters = array("emailId" => $this->emailId, "emailAddress" => $this->emailAddress, "stripeId" => $this->stripeId);
 		$statement->execute($parameters);
 	}
 
 	/**
-	 * get the email address by content
+	 * get all emails
 	 *
 	 * @param PDO $pdo references the pdo connection
-	 * @param string $emailAddress account name to search for
 	 * @return mixed SplFixedArray of emails found/null if not found
 	 * @throws PDOException when mySQL related error occurs
 	 **/
-	public static function getEmailByEmailAddress(PDO &$pdo, $emailAddress) {
-		// sanitize the description before searching
-		$emailAddress = trim($emailAddress);
-		$emailAddress = filter_var($emailAddress, FILTER_SANITIZE_EMAIL);
-		if(empty($emailAddress) === true) {
-			throw(new PDOException("email does not exist"));
-		}
-
+	public static function getAllEmails(PDO &$pdo) {
 		// create query template
-		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE emailAddress LIKE :emailAddress";
+		$query = "SELECT emailId, emailAddress, stripeId FROM email";
 		$statement = $pdo->prepare($query);
-
-		// bind the account name to the place holder in the template
-		$emailAddress = "%$emailAddress%";
-		$parameters = array("emailAddress" => $emailAddress);
-		$statement->execute($parameters);
+		$statement->execute();
 
 		// build an array of emails
 		$emails = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$email = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				$email = new email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
 				$emails[$emails->key()] = $email;
 				$emails->next();
 			} catch(Exception $exception) {
