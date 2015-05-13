@@ -96,7 +96,7 @@ class Address {
 	 */
 	public function __construct($newAddressId, $newEmailId, $newAddressAttention, $newAddressStreet1,
 										 $newAddressCity, $newAddressState, $newAddressZip,
-										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden) {
+										 $newAddressStreet2="", $newAddressLabel="") {
 		try {
 			$this->setAddressId($newAddressId);
 			$this->setEmailId($newEmailId);
