@@ -96,7 +96,7 @@ class Address {
 	 */
 	public function __construct($newAddressId, $newEmailId, $newAddressAttention, $newAddressStreet1,
 										 $newAddressCity, $newAddressState, $newAddressZip,
-										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden=0) {
+										 $newAddressStreet2="", $newAddressLabel="", $newAddressHidden) {
 		try {
 			$this->setAddressId($newAddressId);
 			$this->setEmailId($newEmailId);
@@ -107,7 +107,7 @@ class Address {
 			$this->setAddressCity($newAddressCity);
 			$this->setAddressState($newAddressState);
 			$this->setAddressZip($newAddressZip);
-			$this->setAddressVisible($newAddressHidden);
+			$this->setAddressVisible();
 		} catch(UnexpectedValueException $exception) {
 			// RE-Throw to the construct requester
 			throw(new UnexpectedValueException("Unable to create Address.", 0, $exception));
