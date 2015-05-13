@@ -412,10 +412,10 @@ class Address {
 	 * into the mySQL database table "address." It utilizes the PDO
 	 * class built into PHP. @see php.net PDO class.
 	 *
-	 * @param PDO $insertParameters pointer to PDO connection, by reference
+	 * @param PDO $insertPdo pointer to PDO connection, by reference
 	 * @throws PDOException when mySQL related errors occur
 	 **/
-	public function insert(PDO &$insertParameters) {
+	public function insert(PDO &$insertPdo) {
 		// ensure that you don't attempt to pass an address ID directly to database
 		// address ID is an auto_incremental value!
 		if($this->addressId !== null) {
@@ -427,7 +427,7 @@ class Address {
 					 				 VALUES(:emailId, :addressLabel, :addressAttention, :addressStreet1, :addressStreet2, :addressCity, :addressState, :addressZip, :addressHidden)";
 
 		// turn $unpreparedStatement into $preparedStatement with the contents of $query and the prepare PDO method
-		$preparedStatement = $insertParameters->prepare($query);
+		$preparedStatement = $insertPdo->prepare($query);
 
 		// create an array filled with
 		$parameters = array("emailId" => $this->emailId,
@@ -449,21 +449,21 @@ class Address {
 		// "please tell me what box i just stuck all my junk into, please mySQL??"
 		// remember, you're just telling the OBJECT what the ID is,
 		// NOT mySQL; hence, "catch up" to the autointeger mySQL created
-		$this->addressId = intval($insertParameters->lastInsertId());
+		$this->addressId = intval($insertPdo->lastInsertId());
 	}
 
 	/**
 	 * deletes function for the ADMINs to manually delete an address entry
 	 *
-	 * @param PDO $adminDeleteParameters pointer to PDO connection, by reference
+	 * @param PDO $adminDeletePdo pointer to PDO connection, by reference
 	 * @throws PDOException when mySQL related errors occur
 	 **/
-	public function adminDelete(PDO &$adminDeleteParameters) {
+	public function adminDelete(PDO &$adminDeletePdo) {
 		if($this->addressId === null) {
 			throw(new PDOException("How you gonna delete somethin' that ain't THERE?"));
 		}
 		$query = "DELETE FROM address WHERE addressId = :addressId";
-		$preparedStatement = $adminDeleteParameters->prepare($query);
+		$preparedStatement = $adminDeletePdo->prepare($query);
 		$parameters = array("addressId" => $this->addressId);
 		$preparedStatement->execute($parameters);
 	}
@@ -471,16 +471,16 @@ class Address {
 	/**
 	 * edit function (simulated) for the USERs to HIDE an address entry
 	 *
-	 * @param PDO $userDeleteParameters pointer to PDO connection, by reference
+	 * @param PDO $userDeletePdo pointer to PDO connection, by reference
 	 * @throws PDOException when mySQL related errors occur
 	 **/
-	public function userDelete(PDO &$userDeleteParameters) {
+	public function userDelete(PDO &$userDeletePdo) {
 		if($this->addressId === null) {
 			throw(new PDOException("How you gonna delete somethin' that ain't THERE?"));
 		}
 		$this->setAddressHidden();
 		$query = "UPDATE address SET addressHidden = :addressHidden WHERE addressId = :addressId";
-		$preparedStatement = $userDeleteParameters->prepare($query);
+		$preparedStatement = $userDeletePdo->prepare($query);
 		$parameters = array("addressId" => $this->addressId,
 								  "addressHidden" => $this->addressHidden);
 		$preparedStatement->execute($parameters);
@@ -489,12 +489,12 @@ class Address {
 	/**
 	 * gets the address by addressId
 	 *
-	 * @param PDO $getAddressParameters pointer to PDO connection, by reference
+	 * @param PDO $getAddressPdo pointer to PDO connection, by reference
 	 * @param int $addressId to search for
 	 * @return mixed Address found or null if not found
 	 * @throws PDOException when mySQL related errors occur
 	 **/
-	public static function getAddressByAddressId(PDO &$getAddressParameters, $addressId) {
+	public static function getAddressByAddressId(PDO &$getAddressPdo, $addressId) {
 		$addressId = filter_var($addressId, FILTER_VALIDATE_INT);
 		if($addressId === false) {
 			throw(new PDOException("Address ID given is not valid."));
@@ -507,7 +507,7 @@ class Address {
 		$query = "SELECT 	emailId, addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
 								addressState, addressZip, addressHidden FROM address WHERE addressId = :addressId";
 		// prepare the statement. PDO does it!
-		$preparedStatement = $getAddressParameters->prepare($query);
+		$preparedStatement = $getAddressPdo->prepare($query);
 		// lets give some parameters for our statement. or arguments. ARGUE WITH STATEMENT!
 		$parameters = array("addressId" => $addressId);
 		// so we've just given $parameters something to chew on, and it's addressId, which came from our array
@@ -547,12 +547,12 @@ class Address {
 	/**
 	 * gets addresses by emailId
 	 *
-	 * @param PDO $getEmailParameters pointer to PDO connection, by reference
+	 * @param PDO $getEmailPdo pointer to PDO connection, by reference
 	 * @param int $emailId to search for
 	 * @return mixed Address found or null if not found
 	 * @throws PDOException when mySQL related errors occur
 	 **/
-	public static function getAddressesByEmailId(PDO &$getEmailParameters, $emailId) {
+	public static function getAddressesByEmailId(PDO &$getEmailPdo, $emailId) {
 		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
 		if($emailId === false) {
 			throw(new PDOException("Email ID given is not valid."));
@@ -565,7 +565,7 @@ class Address {
 		$query = "SELECT 	emailId, addressId, addressLabel, addressAttention, addressStreet1, addressStreet2, addressCity,
 								addressState, addressZip, addressHidden FROM address WHERE emailId = :emailId";
 		// prepare the statement. PDO does it!
-		$preparedStatement = $getEmailParameters->prepare($query);
+		$preparedStatement = $getEmailPdo->prepare($query);
 		// lets give some parameters for our statement. or arguments. ARGUE WITH STATEMENT!
 		$parameters = array("emailId" => $emailId);
 		// so we've just given $parameters something to chew on, and it's addressId, which came from our array
