@@ -14,17 +14,17 @@
 
 class Account {
 	//Primary Key for the account
-	private $accountId;
+	protected $accountId;
 	//hashed password
-	private $accountPassword;
+	protected $accountPassword;
 	//salt for password
-	private $accountPasswordSalt;
+	protected $accountPasswordSalt;
 	//unique activation string
-	private $activation;
+	protected $activation;
 	//account creation date
-	private $accountCreateDateTime;
+	protected $accountCreateDateTime;
 	//unique emailId attached to the account
-	private $emailId;
+	protected $emailId;
 
 	/**
 	 * accessor method for account id

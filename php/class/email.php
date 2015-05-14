@@ -7,11 +7,11 @@
 
 class Email {
 	//Primary Key for the email
-	private $emailId;
+	protected $emailId;
 	//unique email address
-	private $emailAddress;
+	protected $emailAddress;
 	//stripe ID if they've made a purchase
-	private $stripeId;
+	protected $stripeId;
 
 	/**
 	 * accessor method for email id
@@ -245,7 +245,7 @@ class Email {
 		$statement = $pdo->prepare($query);
 
 		// bind the email content to the place holder in the template
-		$emailContent = "%$stripeId%";
+		$stripeId = "%$stripeId%";
 		$parameters = array("stripeId" => $stripeId);
 		$statement->execute($parameters);
 
@@ -254,7 +254,7 @@ class Email {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$email = new email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				$email = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
 				$emails[$emails->key()] = $email;
 				$emails->next();
 			} catch(Exception $exception) {
@@ -262,12 +262,56 @@ class Email {
 				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		$numberOfEmails = count($email);
+		$numberOfEmails = count($emails);
 		if($numberOfEmails === 0) {
-			return(null);
+			return (null);
 		} else {
-			return($emails);
+			return ($emails);
 		}
+	}
+
+	/**
+	 * get email by emailId
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param int $emailId emailId to search for
+	 * @return mixed SplFixedArray of emails found or null if not found
+	 * @throws PDOException when anything goes wrong in mySQL
+	 */
+	public static function getEmailByEmailId(PDO &$pdo, $emailId) {
+		//validate integer before searching
+		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
+		if(empty($emailId) === true) {
+			throw(new PDOException("email does not exist"));
+		}
+		//create the query
+		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE emailId LIKE :emailId";
+		$statement = $pdo->prepare($query);
+
+		//bind the email id to the placeholder above
+		$emailId = "%$emailId%";
+		$parameters = array("emailId" => $emailId);
+		$statement->execute($parameters);
+
+		//build the array of results
+		$emails = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while (($row = $statement->fetch()) !== false) {
+			try {
+				$email = new Email ($row["emailId", $row["emailaddress"], $row["stripeId"]);
+				$emails[$emails->key()] = $email;
+				$emails->next();
+			} catch(Exception $exception) {
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		$numberOfEmails = count($emails);
+		if($numberOfEmails === 0) {
+			return (null);
+		} else {
+			return ($emails);
+		}
+
 	}
 
 }
