@@ -91,7 +91,6 @@ class Address {
 	 * @param string $newAddressState newAddressState
 	 * @param string $newAddressZip newAddressZip
 	 * @param string $newAddressStreet2 newAddressStreet2
-	 * @param int $newAddressHidden newAddressHidden
 	 * @throws UnexpectedValueException if any parameters don't meet expectation (see mutator methods)
 	 */
 	public function __construct($newAddressId, $newEmailId, $newAddressAttention, $newAddressStreet1,

@@ -17,6 +17,7 @@ abstract class CheqoutTest extends PHPUnit_Extensions_Database_TestCase {
 	 * @var int INVALID_KEY
 	 **/
 	const INVALID_KEY = 4294967296;
+	const INVALID_STRING = "qqqqqqqqq1wwwwwwwww2eeeeeeeee3rrrrrrrrr4tttttttt5yyyyyyyyy6uuuuuuuuu7iiiiiiiii8ooooooooo9ppppppppp0qqqqqqqqq1wwwwwwwww2eeeeeeeee3";
 
 	/**
 	 * PHPUnit database connection interface
