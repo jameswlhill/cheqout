@@ -2,7 +2,6 @@
 	<testsuites>
 		<testsuite name="Cheqout Data Design">
 			<file>productunittest.php</file>
-			<file>address-test.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>

@@ -23,16 +23,6 @@ class ProductTest extends CheqoutTest {
 	 **/
 	protected $VALID_TITLE2 = "Updated Valid Title";
 	/**
-	 * invalid product title to check
-	 * @var null $INVALID_TITLE
-	 **/
-	protected $INVALID_TITLE = "";
-	/**
-	 * invalid product description to check
-	 * @var null $INVALID_DESCRIPTION
-	 **/
-	protected $INVALID_DESCRIPTION = "";
-	/**
 	 * valid product price to use
 	 * @var float $VALID_PRICE
 	 **/
@@ -67,11 +57,11 @@ class ProductTest extends CheqoutTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoProduct = Product::getProductByProductId($this->getPDO(), $product->getProductId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("product"));
-		$this->assertSame($pdoProduct->getTitle(), $this->VALID_TITLE);
-		$this->assertSame($pdoProduct->getPrice(), $this->VALID_PRICE);
-		$this->assertSame($pdoProduct->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoProduct->getInventory(), $this->VALID_INVENTORY);
-		$this->assertSame($pdoProduct->getSale(), $this->VALID_SALE);
+		$this->assertSame($pdoProduct->getProductTitle(), $this->VALID_TITLE);
+		$this->assertSame($pdoProduct->getProductPrice(), $this->VALID_PRICE);
+		$this->assertSame($pdoProduct->getProductDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoProduct->getProductInventory(), $this->VALID_INVENTORY);
+		$this->assertSame($pdoProduct->getProductSale(), $this->VALID_SALE);
 	}
 	/**
 	 * test inserting a Product which is invalid
@@ -101,11 +91,11 @@ class ProductTest extends CheqoutTest {
 		// grab the data from db and enforce the fields match our expectations
 		$pdoProduct = Product::getProductByProductId($this->getPDO(), $product->getProductId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("product"));
-		$this->assertSame($pdoProduct->getTitle(), $this->VALID_TITLE2);
-		$this->assertSame($pdoProduct->getPrice(), $this->VALID_PRICE);
-		$this->assertSame($pdoProduct->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoProduct->getInventory(), $this->VALID_INVENTORY);
-		$this->assertSame($pdoProduct->getSale(), $this->VALID_SALE);
+		$this->assertSame($pdoProduct->getProductTitle(), $this->VALID_TITLE2);
+		$this->assertSame($pdoProduct->getProductPrice(), $this->VALID_PRICE);
+		$this->assertSame($pdoProduct->getProductDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoProduct->getProductInventory(), $this->VALID_INVENTORY);
+		$this->assertSame($pdoProduct->getProductSale(), $this->VALID_SALE);
 	}
 	/**
 	 * test updating a Product that doesn't exist
@@ -161,11 +151,11 @@ class ProductTest extends CheqoutTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoProduct = Product::getProductByProductId($this->getPDO(), $product->getProductId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("product"));
-		$this->assertSame($pdoProduct->getTitle(), $this->VALID_TITLE);
-		$this->assertSame($pdoProduct->getPrice(), $this->VALID_PRICE);
-		$this->assertSame($pdoProduct->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoProduct->getInventory(), $this->VALID_INVENTORY);
-		$this->assertSame($pdoProduct->getSale(), $this->VALID_SALE);
+		$this->assertSame($pdoProduct->getProductTitle(), $this->VALID_TITLE);
+		$this->assertSame($pdoProduct->getProductPrice(), $this->VALID_PRICE);
+		$this->assertSame($pdoProduct->getProductDescription(), $this->VALID_DESCRIPTION);
+		$this->assertSame($pdoProduct->getProductInventory(), $this->VALID_INVENTORY);
+		$this->assertSame($pdoProduct->getProductSale(), $this->VALID_SALE);
 	}
 	/**
 	 * test grabbing a Product by product id that does not exist
@@ -187,20 +177,24 @@ class ProductTest extends CheqoutTest {
 		$product->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoProduct = Product::getProductByProductTitle($this->getPDO(), $product->getProductTitle());
+		$pdoProductArray = Product::getProductByProductTitle($this->getPDO(), $this->VALID_TITLE);
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("product"));
-		$this->assertSame($pdoProduct->getTitle(), $this->VALID_TITLE);
-		$this->assertSame($pdoProduct->getPrice(), $this->VALID_PRICE);
-		$this->assertSame($pdoProduct->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoProduct->getInventory(), $this->VALID_INVENTORY);
-		$this->assertSame($pdoProduct->getSale(), $this->VALID_SALE);
+		foreach($pdoProductArray as $pdoProduct) {
+			$this->assertSame($pdoProduct->getProductTitle(), $this->VALID_TITLE);
+			$this->assertSame($pdoProduct->getProductPrice(), $this->VALID_PRICE);
+			$this->assertSame($pdoProduct->getProductDescription(), $this->VALID_DESCRIPTION);
+			$this->assertSame($pdoProduct->getProductInventory(), $this->VALID_INVENTORY);
+			$this->assertSame($pdoProduct->getProductSale(), $this->VALID_SALE);
+		}
 	}
 	/**
 	 * test grabbing a Product by invalid product title
+	 *
+	 * @expectedException PDOException
 	 **/
 	public function testGetInvalidProductByProductTitle() {
 		// grab a product title that's null
-		$product = Product::getProductByProductTitle($this->getPDO(), $this->INVALID_TITLE);
+		$product = Product::getProductByProductTitle($this->getPDO(), CheqoutTest::INVALID_STRING);
 		$this->assertNull($product);
 	}
 	/**
@@ -215,20 +209,24 @@ class ProductTest extends CheqoutTest {
 		$product->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoProduct = Product::getProductByProductDescription($this->getPDO(), $product->getProductDescription());
+		$pdoProductArray = Product::getProductByProductDescription($this->getPDO(), $product->getProductDescription());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("product"));
-		$this->assertSame($pdoProduct->getTitle(), $this->VALID_TITLE);
-		$this->assertSame($pdoProduct->getPrice(), $this->VALID_PRICE);
-		$this->assertSame($pdoProduct->getDescription(), $this->VALID_DESCRIPTION);
-		$this->assertSame($pdoProduct->getInventory(), $this->VALID_INVENTORY);
-		$this->assertSame($pdoProduct->getSale(), $this->VALID_SALE);
+		foreach($pdoProductArray as $pdoProduct) {
+			$this->assertSame($pdoProduct->getProductTitle(), $this->VALID_TITLE);
+			$this->assertSame($pdoProduct->getProductPrice(), $this->VALID_PRICE);
+			$this->assertSame($pdoProduct->getProductDescription(), $this->VALID_DESCRIPTION);
+			$this->assertSame($pdoProduct->getProductInventory(), $this->VALID_INVENTORY);
+			$this->assertSame($pdoProduct->getProductSale(), $this->VALID_SALE);
+		}
 	}
 	/**
 	 * test grabbing a Product by invalid product description
+	 *
+	 * @expectedException PDOException
 	 **/
 	public function testGetInvalidProductByProductDescription() {
 		// grab a product description that's null
-		$product = Product::getProductByProductDescription($this->getPDO(), $this->INVALID_DESCRIPTION);
+		$product = Product::getProductByProductDescription($this->getPDO(), CheqoutTest::INVALID_STRING);
 		$this->assertNull($product);
 	}
 }

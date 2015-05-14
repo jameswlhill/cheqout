@@ -47,6 +47,32 @@ class Product {
 	protected $productSale;
 
 	/**
+	 * Magic method __construct() for Product class
+	 *
+	 * @param int $newProductId for product id
+	 * @param string $newProductTitle
+	 * @param float $newProductPrice for product price
+	 * @param string $newProductDescription for product description
+	 * @param int $newProductInventory for product inventory
+	 * @param int $newProductSale for product sale multiplier
+	 * @throws UnexpectedValueException in case any of the methods throw an exception
+	 **/
+	public function __construct($newProductId, $newProductTitle, $newProductPrice, $newProductDescription, $newProductInventory, $newProductSale) {
+		//attempt to set new field values
+		try {
+			$this->setProductId($newProductId);
+			$this->setProductTitle($newProductTitle);
+			$this->setProductPrice($newProductPrice);
+			$this->setProductDescription($newProductDescription);
+			$this->setProductInventory($newProductInventory);
+			$this->setProductSale($newProductSale);
+		} catch(UnexpectedValueException $exception) {
+			//rethrow to handle exceptions outside the constructor
+			throw(new UnexpectedValueException("unable to construct Product object", 0, $exception));
+		}
+	}
+
+	/**
 	 * Getter method for product id
 	 *
 	 * @return int value of product id
@@ -230,34 +256,8 @@ class Product {
 			throw(new RangeException("new product sale multiplier is not positive"));
 		}
 
-		//if no exception thrown, use intval for added security and store the new value
-		$this->productSale = intval($newProductSale);
-	}
-
-	/**
-	 * Magic method __construct() for Product class
-	 *
-	 * @param int $newProductId for product id
-	 * @param string $newProductTitle
-	 * @param float $newProductPrice for product price
-	 * @param string $newProductDescription for product description
-	 * @param int $newProductInventory for product inventory
-	 * @param int $newProductSale for product sale multiplier
-	 * @throws UnexpectedValueException in case any of the methods throw an exception
-	 **/
-	public function __construct($newProductId, $newProductTitle, $newProductPrice, $newProductDescription, $newProductInventory, $newProductSale) {
-		//attempt to set new field values
-		try {
-			$this->setProductId($newProductId);
-			$this->setProductTitle($newProductTitle);
-			$this->setProductPrice($newProductPrice);
-			$this->setProductDescription($newProductDescription);
-			$this->setProductInventory($newProductInventory);
-			$this->setProductSale($newProductSale);
-		} catch(UnexpectedValueException $exception) {
-			//rethrow to handle exceptions outside the constructor
-			throw(new UnexpectedValueException("unable to construct Product object", 0, $exception));
-		}
+		//if no exception thrown, use floatval for added security and store the new value
+		$this->productSale = floatval($newProductSale);
 	}
 
 	/**
@@ -413,6 +413,7 @@ EOF;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
+				var_dump($row);
 				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
 			}
 
@@ -451,7 +452,7 @@ EOF;
 		//create array of products found
 		$products = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch() !== false)) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
 				$products[$products->key()] = $product;
@@ -501,7 +502,7 @@ EOF;
 		//create array of products found
 		$products = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch() !== false)) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
 				$products[$products->key()] = $product;

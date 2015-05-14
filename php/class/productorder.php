@@ -336,5 +336,48 @@ EOF;
 		);
 		$statement->execute($parameters);
 	}
+	/**
+	 * Gets product order by composite primary key
+	 *
+	 * @param PDO $pdo pointer to pdo MySQL connection by reference
+	 * @param int $orderId foreign key (one of two which make up primary)
+	 * @param int $productId foreign key (one of two which make up primary)
+	 * @return mixed ProductOrder object or null if not found
+	 * @throws PDOException if MySQL error(s) occur
+	 **/
+	public static function getProductOrderByOrderIdAndProductId(PDO &$pdo, $orderId, $productId) {
+		//validate orderId int and productId int before proceeding with search
+		$orderId = filter_var($orderId, FILTER_VALIDATE_INT);
+		$productId = filter_var($productId, FILTER_VALIDATE_INT);
+		if($orderId === false && $productId === false) {
+			throw(new PDOException("order id and/or product id are not valid integers"));
+		}
+		if($orderId <= 0 || $productId <= 0) {
+			throw(new PDOException("order id and product id must be positive integers"));
+		}
+
+
+		//create query string template and pdo->prepare the query
+		$query = "SELECT orderId, productId, quantity, shippingCost, orderPrice FROM productOrder WHERE orderId = :orderId AND productId = :productId";
+		$statement = $pdo->prepare($query);
+
+		//bind member variable to pdo placeholder in query template
+		$parameters = array("orderId" => $orderId, "productId" => $productId);
+		$statement->execute($parameters);
+
+		//retrieve the product order from MySQL database
+		try {
+			$productOrder = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$productOrder = new ProductOrder($row["orderId"], $row["productId"], $row["quantity"], $row["shippingCost"], $row["orderPrice"]);
+			}
+
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($productOrder);
+	}
 
 }

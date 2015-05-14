@@ -67,13 +67,16 @@ CREATE TABLE product (
 CREATE TABLE cheqoutOrder (
 	orderId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	emailId INT UNSIGNED NOT NULL,
-	addressId INT UNSIGNED NOT NULL,
+	billingAddressId INT UNSIGNED NOT NULL,
+	shippingAddressId INT UNSIGNED NOT NULL,
 	stripeId VARCHAR (25) NOT NULL,
 	orderDateTime DATETIME NOT NULL,
 	INDEX(emailId),
-	INDEX(addressId),
+	INDEX(billingAddressId),
+	INDEX(shippingAddressId),
 	FOREIGN KEY(emailId) REFERENCES email(emailId),
-	FOREIGN KEY(addressId) REFERENCES address(addressId),
+	FOREIGN KEY(billingAddressId) REFERENCES address(addressId),
+	FOREIGN KEY(shippingAddressId) REFERENCES address(addressId),
 	PRIMARY KEY(orderId)
 );
 
