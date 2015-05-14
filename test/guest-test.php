@@ -69,5 +69,25 @@ class GuestTest extends CheqoutTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("guest"));
 		$this->assertSame($pdoGuest->getEmailId(), $guest->getEmailId());
 	}
+	/**
+	 * test creating bad guests by invalid emailId
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+
+	public function testCreateBadGuestByEmailId() {
+		//make a new address object and break attention
+		new Guest(null, CheqoutTest::INVALID_STRING);
+	}
+	/**
+	 * test creating bad guests by invalid guestId
+	 *
+	 * @expectedException UnexpectedValueException
+	 **/
+
+	public function testCreateBadGuestByGuestId() {
+		//make a new address object and break attention
+		new Guest(CheqoutTest::INVALID_STRING, $this->VALID_EMAIL->getEmailId());
+	}
 }
 ?>

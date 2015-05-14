@@ -59,7 +59,8 @@ class Guest {
 			$newGuestId = null;
 			return;
 		}
-		if(($newGuestId = filter_var($newGuestId, FILTER_VALIDATE_INT)) === false) {
+		$newGuestId = filter_var($newGuestId, FILTER_VALIDATE_INT);
+		if($newGuestId === false) {
 			throw(new UnexpectedValueException("Guest Id is not a valid integer"));
 		}
 		//assign and store the filtered guestId
@@ -84,7 +85,8 @@ class Guest {
 	 **/
 
 	public function setEmailId($newEmailId) {
-		if(($newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT)) === false) {
+		$newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT);
+		if($newEmailId === false) {
 			throw(new UnexpectedValueException("Email Id is not a valid integer"));
 		}
 		//assign and store the filtered guestId
