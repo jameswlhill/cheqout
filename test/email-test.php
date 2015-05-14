@@ -45,7 +45,7 @@ class EmailTest extends CheqoutTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoEmail = Email::getEmailByStripeId($this->getPDO(), $email->getEmailId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAIL);
+		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
 		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
 	}
 	/**
