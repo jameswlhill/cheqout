@@ -4,6 +4,8 @@ require_once("cheqouttest.php");
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/php/class/productorder.php");
+require_once(dirname(__DIR__) . "/php/class/email.php");
+require_once(dirname(__DIR__) . "/php/class/address.php");
 
 //load product.php, class to be tested
 require_once('../php/class/product.php');
@@ -28,6 +30,21 @@ class ProductOrderTest extends CheqoutTest {
 	 * @var Product $product
 	 **/
 	protected $product = null;
+	/**
+	 * email parent object for foreign key relations
+	 * @var Email $email
+	 */
+	protected $email = null;
+	/**
+	 * billing address parent object for foreign key relations
+	 * @var Address $billingAddress
+	 */
+	protected $billingAddress = null;
+	/**
+	 * shipping address parent object for foreign key relations
+	 * @var Address $shippingAddress
+	 */
+	protected $shippingAddress = null;
 	/**
 	 * valid inventory quantity
 	 *
@@ -65,8 +82,17 @@ class ProductOrderTest extends CheqoutTest {
 	public final function setUp() {
 		// run the default setUp() method first
 		parent::setUp();
+		//create and insert an Email parent object
+		$this->email = new Email(null,"jim@cnm.edu","stripe");
+		$this->email->insert($this->getPDO());
+		//create and insert billing Address object
+		$this->billingAddress = new Address(null, $this->email->getEmailId(),"attn","streetone","city","state","87102-5784","streettwo","label");
+		$this->billingAddress->insert($this->getPDO());
+		//create and insert shipping Address object
+		$this->shippingAddress = new Address(null,$this->email->getEmailId(),"attn","streetone","city","state","87102-5785","streettwo","label");
+		$this->shippingAddress->insert($this->getPDO());
 		// create and insert a CheqoutOrder to own the test ProductOrder
-		$this->cheqoutOrder = new CheqoutOrder(12, 32, 34, 53, 23, new DateTime());
+		$this->cheqoutOrder = new CheqoutOrder(null, $this->email->getEmailId(), $this->billingAddress->getAddressId(), $this->shippingAddress->getAddressId(), "12", "date");
 		$this->cheqoutOrder->insert($this->getPDO());
 		// create the test Product
 		$this->product = new Product(null,"Title", 8.99, "Descriptive description", 150, .75);
@@ -81,7 +107,7 @@ class ProductOrderTest extends CheqoutTest {
 		$numRows = $this->getConnection()->getRowCount("productOrder");
 
 		// create a new ProductOrder and insert it into MySQL
-		$productOrder = new ProductOrder($this->cheqoutOrder, $this->product, $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
+		$productOrder = new ProductOrder($this->cheqoutOrder->getOrderId(), $this->product->getProductId(), $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
 		$productOrder->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations

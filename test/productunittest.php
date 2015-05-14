@@ -189,8 +189,6 @@ class ProductTest extends CheqoutTest {
 	}
 	/**
 	 * test grabbing a Product by invalid product title
-	 *
-	 * @expectedException PDOException
 	 **/
 	public function testGetInvalidProductByProductTitle() {
 		// grab a product title that's null
@@ -221,8 +219,6 @@ class ProductTest extends CheqoutTest {
 	}
 	/**
 	 * test grabbing a Product by invalid product description
-	 *
-	 * @expectedException PDOException
 	 **/
 	public function testGetInvalidProductByProductDescription() {
 		// grab a product description that's null
