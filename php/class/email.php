@@ -154,7 +154,7 @@ class Email {
 	public function delete(PDO &$pdo) {
 		//don't allow deletion if account doesn't exist
 		if($this->emailId === null) {
-			throw(new PDOException("account does not exist"));
+			throw(new PDOException("email does not exist"));
 		}
 
 		//create the pdo query template
@@ -285,33 +285,30 @@ class Email {
 			throw(new PDOException("email does not exist"));
 		}
 		//create the query
-		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE emailId LIKE :emailId";
+		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE emailId = :emailId";
 		$statement = $pdo->prepare($query);
 
-		//bind the email id to the placeholder above
-		$emailId = "%$emailId%";
 		$parameters = array("emailId" => $emailId);
 		$statement->execute($parameters);
 
-		//build the array of results
-		$emails = new SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
-		while (($row = $statement->fetch()) !== false) {
-			try {
-				$email = new Email ($row["emailId"], $row["emailaddress"], $row["stripeId"]);
-				$emails[$emails->key()] = $email;
-				$emails->next();
+		try {
+			$email = null;
+
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+
+			$row = $statement->fetch();
+
+			if ($row !== false) {
+
+				$email = new Email ($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+			}
 			} catch(Exception $exception) {
 				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
+		return ($email);
 		}
-		$numberOfEmails = count($emails);
-		if($numberOfEmails === 0) {
-			return (null);
-		} else {
-			return ($emails);
-		}
-
-	}
 
 }
+
+
+

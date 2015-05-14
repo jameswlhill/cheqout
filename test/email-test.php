@@ -43,7 +43,7 @@ class EmailTest extends CheqoutTest {
 		$email->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoEmail = Email::getEmailByStripeId($this->getPDO(), $email->getEmailId());
+		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("email"));
 		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
 		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
@@ -51,10 +51,10 @@ class EmailTest extends CheqoutTest {
 	/**
 	 * test insert on an invalid email
 	 *
-	 * @expectedException PDOException faulty insert function throws this exception
+	 * @expectedException RangeException
 	 **/
 	public function testInsertInvalidEmail() {
-		$email = new Email(CheqoutTest::INVALID_KEY, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
+		$email = new Email(null, CheqoutTest::INVALID_STRING, $this->VALID_STRIPEID);
 		$email->insert($this->getPDO());
 	}
 
@@ -73,15 +73,15 @@ class EmailTest extends CheqoutTest {
 		//run the delete function
 		$email->delete($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoEmail = Email::getEmailByStripeId($this->getPDO(), $email->getEmailId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
+		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
+		$this->assertNull($pdoEmail);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("email"));
 	}
 
 	/**
 	 * test delete of invalid email
 	 *
-	 * @ExpectedException PDOException faulty delete function throws this exception
+	 * @expectedException PDOException
 	 */
 	public function testDeleteInvalidEmail() {
 		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
@@ -105,12 +105,12 @@ class EmailTest extends CheqoutTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertSame($pdoEmail->getEmailAddress, $this->VALID_EMAILADDRESS2);
+		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS2);
 	}
 	/**
 	 * test update with invalid email address
 	 *
-	 * @ExpectedException PDOException
+	 * @expectedException RangeException
 	 */
 	public function testUpdateInvalidEmail() {
 		// count the number of rows and save it for later
@@ -135,14 +135,10 @@ class EmailTest extends CheqoutTest {
 		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
 		$email->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
+		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Email", $results);
-		// grab the result from the array and validate it
-		$pdoEmail = $results[0];
-		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
-		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
+		$this->assertEquals($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
+		$this->assertEquals($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
 	}
 	/**
 	 * test grabbing an email that does not exist by email id
@@ -161,12 +157,12 @@ class EmailTest extends CheqoutTest {
 		// create a new address and insert to into mySQL
 		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
 		$email->insert($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Email::getEmailByStripeId($this->getPDO(), $email->getEmailId());
+		$results = Email::getEmailByStripeId($this->getPDO(), $email->getStripeId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Email", $results);
-		// grab the result from the array and validate it
+
+		// grab the result
 		$pdoEmail = $results[0];
 		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
 		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
@@ -202,7 +198,7 @@ class EmailTest extends CheqoutTest {
 	/**
 	 * test breaking email address string
 	 *
-	 * @expectedException UnexpectedValueException
+	 * @expectedException RangeException
 	 **/
 
 	public function testBreakingEmailAddressString() {
@@ -212,7 +208,7 @@ class EmailTest extends CheqoutTest {
 	/**
 	 * test breaking stripe id string
 	 *
-	 * @expectedException UnexpectedValueException
+	 * @expectedException RangeException
 	 **/
 
 	public function testBreakingStripeIdString() {
