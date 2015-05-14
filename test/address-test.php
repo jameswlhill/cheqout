@@ -263,7 +263,7 @@ class AddressTest extends CheqoutTest {
 
 	public function testBreakingAttentionStringTheory() {
 		//make a new address object and break attention
-		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->CheqoutTest::INVALID_STRING, $this->VALID_STREET1,
+		new Address(null, $this->VALID_EMAIL->getEmailId(), CheqoutTest::INVALID_STRING, $this->VALID_STREET1,
 			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 	}
@@ -274,7 +274,7 @@ class AddressTest extends CheqoutTest {
 	 **/
 	public function testBreakingStreet1StringTheory() {
 		// break street1
-		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->CheqoutTest::INVALID_STRING,
+		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, CheqoutTest::INVALID_STRING,
 			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 	}
@@ -286,7 +286,7 @@ class AddressTest extends CheqoutTest {
 	public function testBreakingCityStringTheory() {
 		// break city
 		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
-			$this->CheqoutTest::INVALID_STRING, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
+			CheqoutTest::INVALID_STRING, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 	}
 	/**
@@ -297,7 +297,7 @@ class AddressTest extends CheqoutTest {
 	public function testBreakingStateStringTheory() {
 		// break state
 		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
-			$this->VALID_CITY, $this->CheqoutTest::INVALID_STRING, $this->VALID_ZIP, $this->VALID_STREET2,
+			$this->VALID_CITY, CheqoutTest::INVALID_STRING, $this->VALID_ZIP, $this->VALID_STREET2,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 	}
 	/**
@@ -308,7 +308,7 @@ class AddressTest extends CheqoutTest {
 	public function testBreakingZipStringTheory() {
 		// break ZIP
 		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
-			$this->VALID_CITY, $this->VALID_STATE, $this->CheqoutTest::INVALID_STRING, $this->VALID_STREET2,
+			$this->VALID_CITY, $this->VALID_STATE, CheqoutTest::INVALID_STRING, $this->VALID_STREET2,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 	}
 	/**
@@ -319,7 +319,7 @@ class AddressTest extends CheqoutTest {
 	public function testBreakingStreet2StringTheory() {
 		// break street 2
 		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
-			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->CheqoutTest::INVALID_STRING,
+			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, CheqoutTest::INVALID_STRING,
 			$this->VALID_LABEL, $this->VALID_HIDDEN);
 	}
 	/**
@@ -331,7 +331,7 @@ class AddressTest extends CheqoutTest {
 		// break label
 		new Address(null, $this->VALID_EMAIL->getEmailId(), $this->VALID_ATTENTION, $this->VALID_STREET1,
 			$this->VALID_CITY, $this->VALID_STATE, $this->VALID_ZIP, $this->VALID_STREET2,
-			$this->CheqoutTest::INVALID_STRING, $this->VALID_HIDDEN);
+			CheqoutTest::INVALID_STRING, $this->VALID_HIDDEN);
 	}
 }
 ?>
