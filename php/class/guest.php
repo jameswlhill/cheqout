@@ -59,9 +59,8 @@ class Guest {
 			$newGuestId = null;
 			return;
 		}
-		$newGuestId = filter_var($newGuestId, FILTER_VALIDATE_INT);
-		if($newGuestId === false) {
-			throw(new UnexpectedValueException("Guest Id is an invalid integer"));
+		if(($newGuestId = filter_var($newGuestId, FILTER_VALIDATE_INT)) === false) {
+			throw(new UnexpectedValueException("Guest Id is not a valid integer"));
 		}
 		//assign and store the filtered guestId
 		$this->guestId = intval($newGuestId);
@@ -85,16 +84,15 @@ class Guest {
 	 **/
 
 	public function setEmailId($newEmailId) {
-		$newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT);
-		if($newEmailId === false) {
-			throw(new UnexpectedValueException("Email Id is an invalid integer"));
+		if(($newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT)) === false) {
+			throw(new UnexpectedValueException("Email Id is not a valid integer"));
 		}
 		//assign and store the filtered guestId
 		$this->emailId = intval($newEmailId);
 	}
 
 	/**
-	 * inserts this guest into mySQL
+	 * inserts the guest into mySQL
 	 *
 	 * @param PDO $insertPdo referencing the pdo connection
 	 * @throws PDOException when any error occurs in mySQL
@@ -132,7 +130,7 @@ class Guest {
 		}
 
 		// create query template
-		$query = "SELECT guestId, emailId FROM guest WHERE guestId IS :guestId";
+		$query = "SELECT 	emailId, guestId FROM guest WHERE guestId = :guestId";
 		$preparedStatement = $guestPdo->prepare($query);
 		$parameters = array("guestId" => $guestId);
 		$preparedStatement->execute($parameters);
@@ -173,7 +171,7 @@ class Guest {
 		}
 
 		// create query template
-		$query = "SELECT guestId, emailId FROM guest WHERE emailId IS :emailId";
+		$query = "SELECT 	emailId, guestId FROM guest WHERE emailId = :emailId";
 		$preparedStatement = $emailPdo->prepare($query);
 		$parameters = array("emailId" => $emailId);
 		$preparedStatement->execute($parameters);

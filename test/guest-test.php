@@ -36,19 +36,38 @@ class GuestTest extends CheqoutTest {
 	}
 	/**
 	 * test inserting a valid guest and verify that the actual mySQL data matches
+	 * lets get guestId by emailId this time
 	 **/
-	public function testInsertValidGuest() {
+	public function testGetGuestIdByEmailId() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("guest");
 
-		// create a new Address and insert to into mySQL
+		// create a new guest and insert to into mySQL
 		$guest = new Guest(null, $this->VALID_EMAIL->getEmailId());
 		$guest->insert($this->getPDO());
 
-		// grab the data from mySQL and enforce the fields match our expectations
+		// grab the data by emailId from mySQL and compare!
 		$pdoGuest = Guest::getGuestIdByEmailId($this->getPDO(), $guest->getEmailId());
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("guest"));
 		$this->assertSame($pdoGuest->getGuestId(), $guest->getGuestId());
+	}
+
+	/**
+	 * test inserting a valid guest and verify that the actual mySQL data matches
+	 * lets get emailId by guestId this time
+	 **/
+	public function testGetEmailIdByGuestId() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("guest");
+
+		// create a new guest and insert to into mySQL
+		$guest = new Guest(null, $this->VALID_EMAIL->getEmailId());
+		$guest->insert($this->getPDO());
+
+		// grab the data by emailId from mySQL and compare!
+		$pdoGuest = Guest::getEmailIdByGuestId($this->getPDO(), $guest->getGuestId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("guest"));
+		$this->assertSame($pdoGuest->getEmailId(), $guest->getEmailId());
 	}
 }
 ?>
