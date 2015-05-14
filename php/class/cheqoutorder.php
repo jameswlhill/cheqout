@@ -12,17 +12,17 @@
 
 class CheqoutOrder {
 	//the auto-incrementing id associated with each order. this is the primary key
-	private $orderId;
+	protected $orderId;
 	//referenced foreign key for email
-	private $emailId;
+	protected $emailId;
 	//referenced foreign key for shipping address
-	private $shippingAddressId;
+	protected $shippingAddressId;
 	//referenced foreign key for billing address
-	private $billingAddressId;
+	protected $billingAddressId;
 	//referenced stripeId for payment
-	private $stripeId;
+	protected $stripeId;
 	//generated date time of order
-	private $orderDateTime;
+	protected $orderDateTime;
 
 	/**
 	 * accessor method for orderId
