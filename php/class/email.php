@@ -298,7 +298,7 @@ class Email {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while (($row = $statement->fetch()) !== false) {
 			try {
-				$email = new Email ($row["emailId", $row["emailaddress"], $row["stripeId"]);
+				$email = new Email ($row["emailId"], $row["emailaddress"], $row["stripeId"]);
 				$emails[$emails->key()] = $email;
 				$emails->next();
 			} catch(Exception $exception) {
