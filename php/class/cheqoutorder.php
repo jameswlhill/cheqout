@@ -4,19 +4,21 @@
  *
  * this is the order class, with the primary key of orderId,
  * references the emailId and stripeId of the user who placed the order,
- * the addressId of whatever address was stored to be used for shipping.
+ * the shippingAddressId of whatever address was stored to be used for shipping.
  * creates the datetime of the order placement.
  *
  * @author Kyla Carroll <kylacarroll43@gmail.com>
  */
 
-class cheqoutOrder {
+class CheqoutOrder {
 	//the auto-incrementing id associated with each order. this is the primary key
 	private $orderId;
 	//referenced foreign key for email
 	private $emailId;
-	//referenced foreign key for address
-	private $addressId;
+	//referenced foreign key for shipping address
+	private $shippingAddressId;
+	//referenced foreign key for billing address
+	private $billingAddressId;
 	//referenced stripeId for payment
 	private $stripeId;
 	//generated date time of order
@@ -85,30 +87,59 @@ class cheqoutOrder {
 	}
 
 	/**
-	 * accessor method for addressId
+	 * accessor method for shippingAddressId
 	 *
-	 * @return int value of addressId
+	 * @return int value of shippingAddressId
 	 */
-	public function getAddressId() {
-		return ($this->addressId);
+	public function getShippingAddressId() {
+		return ($this->shippingAddressId);
 	}
+
 	/**
-	 * mutator method for addressId
+	 * mutator method for shippingAddressId
 	 *
-	 * @param int $newAddressId new value for addressId
-	 * @throw UnexpectedValueException if $newAddressId is not a valid integer
+	 * @param int $newShippingAddressId new value for shippingAddressId
+	 * @throw UnexpectedValueException if $newShippingAddressId is not a valid integer
 	 */
-	public function setAddressId($newAddressId) {
-		if ($newAddressId === null) {
+	public function setShippingAddressId($newShippingAddressId) {
+		if ($newShippingAddressId === null) {
 			return;
 		}
-		$newAddressId = filter_var($newAddressId, FILTER_VALIDATE_INT);
-		if($newAddressId === false) {
-			throw (new UnexpectedValueException("address ID is invalid"));
+		$newShippingAddressId = filter_var($newShippingAddressId, FILTER_VALIDATE_INT);
+		if($newShippingAddressId === false) {
+			throw (new UnexpectedValueException(" shipping address ID is invalid"));
 		}
 		//store the new address Id
-		$this->addressId = intval($newAddressId);
+		$this->shippingAddressId = intval($newShippingAddressId);
 	}
+	
+	/**
+	 * accessor method for billingAddressId
+	 *
+	 * @return int value of billingAddressId
+	 */
+	public function getBillingAddressId() {
+		return ($this->billingAddressId);
+	}
+	
+	/**
+	 * mutator method for billingAddressId
+	 *
+	 * @param int $newBillingAddressId new value for BillingAddressId
+	 * @throw UnexpectedValueException if $newBillingAddressId is not a valid integer
+	 */
+	public function setBillingAddressId($newBillingAddressId) {
+		if ($newBillingAddressId === null) {
+			return;
+		}
+		$newBillingAddressId = filter_var($newBillingAddressId, FILTER_VALIDATE_INT);
+		if($newBillingAddressId === false) {
+			throw (new UnexpectedValueException(" billing address ID is invalid"));
+		}
+		//store the new address Id
+		$this->billingAddressId = intval($newBillingAddressId);
+	}
+	
 	/**
 	 * accessor method for stripeId
 	 *
@@ -139,6 +170,7 @@ class cheqoutOrder {
 		//store Stripe Id
 		$this->stripeId = $newStripeId;
 	}
+
 	/**
 	 * accessor method for orderDateTime
 	 *
@@ -165,27 +197,30 @@ class cheqoutOrder {
 		//store Order Date/Time
 		$this->orderDateTime = $newOrderDateTime;
 	}
+
 	/**
 	 * constructor magic method for Order
 	 *
 	 * @param int $newOrderId new value of orderId
 	 * @param int $newEmailId new value of emailId
-	 * @param int $newAddressId new value of addressId
+	 * @param int $newShippingAddressId new value of shippingAddressId
 	 * @param string $newStripeId new value of stripeId
 	 * @param string $newOrderDateTime new value of orderDateTime
 	 * @throw UnexpectedValueException if any params are not valid
 	 */
-	public function __construct($newOrderId, $newEmailId, $newAddressId, $newStripeId, $newOrderDateTime) {
+	public function __construct($newOrderId, $newEmailId, $newShippingAddressId, $newBillingAddressId, $newStripeId, $newOrderDateTime) {
 		try {
 			$this->setOrderId($newOrderId);
 			$this->setEmailId($newEmailId);
-			$this->setAddressId($newAddressId);
+			$this->setShippingAddressId($newShippingAddressId);
+			$this->setBillingAddressId($newBillingAddressId);
 			$this->setStripeId($newStripeId);
 			$this->setOrderDateTime($newOrderDateTime);
 		} catch (UnexpectedValueException $exception) {
 			throw (new UnexpectedValueException("unable to create order", 0, $exception));
 		}
 	}
+
 	/////// PDO FUNCTIONS ////////
 	/**
 	 * inserts this order into mySQL
@@ -197,10 +232,13 @@ class cheqoutOrder {
 		if($this->orderId !== null) {
 			throw (new UnexpectedValueException("unable to insert order; order already exists"));
 		}
-		$query = "INSERT INTO cheqoutOrder(emailId, addressId, stripeId, orderDateTime) VALUES (:emailId, :addressId, :stripId, :orderDateTime)";
+		$query = "INSERT INTO cheqoutOrder(emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime)
+						VALUES (:emailId, :shippingAddressId, :billingAddressId, :stripeId, :orderDateTime)";
 		$statement = $pdo->prepare($query);
 
-		$parameters = array("emailId" => $this->emailId, "addressId" => $this->addressId, "stripeId" => $this->stripeId, "orderDateTime" => $this->orderDateTime);
+		$parameters = array("emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
+			"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
+			"orderDateTime" => $this->orderDateTime);
 		$statement->execute($parameters);
 
 		$this->orderId = intval($pdo->lastInsertId());
@@ -233,10 +271,14 @@ class cheqoutOrder {
 		if($this->orderId === null) {
 			throw (new PDOException("cannot update order that does not exist"));
 		}
-		$query = "UPDATE cheqoutOrder SET emailId = :emailId, addressId = :addressId, stripeId = :stripeId, orderDateTime = :orderDateTime WHERE orderId = :orderId";
+		$query = "UPDATE cheqoutOrder SET emailId = :emailId, shippingAddressId = :shippingAddressId,
+					billingAddressId = :billingAddressId, stripeId = :stripeId, orderDateTime = :orderDateTime
+					WHERE orderId = :orderId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = array("emailId" => $this->emailId, "addressId" => $this->addressId, "stripeId" => $this->stripeId, "orderDateTime" => $this->orderDateTime);
+		$parameters = array("emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
+							"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
+							"orderDateTime" => $this->orderDateTime);
 		$statement->execute($parameters);
 	}
 
@@ -249,7 +291,7 @@ class cheqoutOrder {
 	 */
 	public static function getAllOrders(PDO &$pdo) {
 		// create query template
-		$query = "SELECT orderId, emailId, addressId, stripeId, orderDateTime FROM cheqoutOrder";
+		$query = "SELECT orderId, emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime FROM cheqoutOrder";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
@@ -258,7 +300,8 @@ class cheqoutOrder {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["addressId"], $row["stripeId"], $row["orderDateTime"]);
+				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["shippingAddressId"],
+					$row ["billingAddressId"], $row["stripeId"], $row["orderDateTime"]);
 				$orders[$orders->key()] = $order;
 				$orders->next();
 			} catch(Exception $exception) {

@@ -223,4 +223,51 @@ class Email {
 			return ($emails);
 		}
 	}
+
+	/**
+	 * get email by stripe Id
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param string $stripeId stripeId to search for
+	 * @return mixed SplFixedArray of emails found or null if not found
+	 * @throws PDOException when anything goes wrong in mySQL
+	 */
+	public static function getEmailByStripeId(PDO &$pdo, $stripeId) {
+		// sanitize the description before searching
+		$stripeId = trim($stripeId);
+		$stripeId = filter_var($stripeId, FILTER_SANITIZE_STRING);
+		if(empty($stripeId) === true) {
+			throw(new PDOException("email has not been assigned a stripe Id"));
+		}
+
+		// create query template
+		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE stripeId LIKE :stripeId";
+		$statement = $pdo->prepare($query);
+
+		// bind the email content to the place holder in the template
+		$emailContent = "%$stripeId%";
+		$parameters = array("stripeId" => $stripeId);
+		$statement->execute($parameters);
+
+		// build an array of emails
+		$emails = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$email = new email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				$emails[$emails->key()] = $email;
+				$emails->next();
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		$numberOfEmails = count($email);
+		if($numberOfEmails === 0) {
+			return(null);
+		} else {
+			return($emails);
+		}
+	}
+
 }
