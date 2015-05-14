@@ -29,8 +29,8 @@ class Guest {
 	 **/
 	public function __construct($newGuestId, $newEmailId) {
 		try {
-			$this->setEmailId($newEmailId);
 			$this->setGuestId($newGuestId);
+			$this->setEmailId($newEmailId);
 		} catch(UnexpectedValueException $exception) {
 			//rethrow to caller
 			throw(new UnexpectedValueException('Unable to create Guest Account', 0, $exception));
@@ -128,7 +128,7 @@ class Guest {
 		// sanitize the description before searching
 		$guestId = intval($guestId);
 		if(empty($guestId) === true) {
-			throw(new PDOException("Guest does not exist"));
+			throw(new PDOException("You must provide a guest ID to search by."));
 		}
 
 		// create query template
@@ -138,16 +138,16 @@ class Guest {
 		$preparedStatement->execute($parameters);
 		try {
 
-			// declare returnAddress so we can return it after we find what we're looking for (IF we do!)
+			// declare returnEmail so we can return it after we find what we're looking for (IF we do!)
 			// but we cant return NOTHING...well, we CAN return NULL but not nothing...ironic...
 			$returnEmailId = null;
 			// within our preparedStatement variable, change the fetch mode in PDO so it gets it as an
 			// associative array (you have to)
 			$preparedStatement->setFetchMode(PDO::FETCH_ASSOC);
 			// now our preparedStatement isn't what we care about. we want our results (as an array)
-			$results   = $preparedStatement->fetch();
-			// now if we actually got something, we want to be able to assign it to returnAddress. Remember
-			// results are from the PDO statement, returnAddress is what we want the METHOD to output.
+			$results = $preparedStatement->fetch();
+			// now if we actually got something, we want to be able to assign it to returnEmail. Remember
+			// results are from the PDO statement, returnEmail is what we want the METHOD to output.
 			if($results !== false) {$returnEmailId = new Guest($results["guestId"], $results["emailId"]);
 			}
 		} catch(Exception $exception) {
@@ -160,26 +160,26 @@ class Guest {
 	/**
 	 * get the guest ID by email ID
 	 *
-	 * @param PDO $guestPdo references the pdo connection
+	 * @param PDO $emailPdo references the pdo connection
 	 * @param int $emailId account name to search for
 	 * @return mixed SplFixedArray of guests found/null if not found
 	 * @throws PDOException when mySQL related error occurs
 	 **/
-	public static function getGuestIdByEmailId(PDO &$guestPdo, $emailId) {
+	public static function getGuestIdByEmailId(PDO &$emailPdo, $emailId) {
 		// sanitize the description before searching
 		$emailId = intval($emailId);
 		if(empty($emailId) === true) {
-			throw(new PDOException("Email does not exist"));
+			throw(new PDOException("You must provide an Email ID by which to search."));
 		}
 
 		// create query template
 		$query = "SELECT guestId, emailId FROM guest WHERE emailId IS :emailId";
-		$preparedStatement = $guestPdo->prepare($query);
+		$preparedStatement = $emailPdo->prepare($query);
 		$parameters = array("emailId" => $emailId);
 		$preparedStatement->execute($parameters);
 		try {
 
-			// declare returnAddress so we can return it after we find what we're looking for (IF we do!)
+			// declare returnGuest so we can return it after we find what we're looking for (IF we do!)
 			// but we cant return NOTHING...well, we CAN return NULL but not nothing...ironic...
 			$returnGuestId = null;
 			// within our preparedStatement variable, change the fetch mode in PDO so it gets it as an
@@ -187,8 +187,8 @@ class Guest {
 			$preparedStatement->setFetchMode(PDO::FETCH_ASSOC);
 			// now our preparedStatement isn't what we care about. we want our results (as an array)
 			$results   = $preparedStatement->fetch();
-			// now if we actually got something, we want to be able to assign it to returnAddress. Remember
-			// results are from the PDO statement, returnAddress is what we want the METHOD to output.
+			// now if we actually got something, we want to be able to assign it to returnGuest. Remember
+			// results are from the PDO statement, returnGuest is what we want the METHOD to output.
 			if($results !== false) {
 				$returnGuestId = new Guest($results["guestId"], $results["emailId"]);
 			}
