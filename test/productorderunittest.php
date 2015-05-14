@@ -66,7 +66,7 @@ class ProductOrderTest extends CheqoutTest {
 		// run the default setUp() method first
 		parent::setUp();
 		// create and insert a CheqoutOrder to own the test ProductOrder
-		$this->cheqoutOrder = new CheqoutOrder(null, "foo@bar.fuz", 34, "L33t", 01-01-01 02:02:02);
+		$this->cheqoutOrder = new CheqoutOrder(12, 32, 34, 53, 23, new DateTime());
 		$this->cheqoutOrder->insert($this->getPDO());
 		// create the test Product
 		$this->product = new Product(null,"Title", 8.99, "Descriptive description", 150, .75);
@@ -94,7 +94,7 @@ class ProductOrderTest extends CheqoutTest {
 	}
 
 	/**
-	 * test inserting a Product which is invalid
+	 * test inserting a ProductOrder which is invalid
 	 *
 	 * @expectedException PDOException
 	 **/
@@ -102,6 +102,51 @@ class ProductOrderTest extends CheqoutTest {
 		// create a product order with non null orderId/productId pair that fail
 		$productOrder = new ProductOrder(CheqoutTest::INVALID_KEY, CheqoutTest::INVALID_KEY, $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
 		$productOrder->insert($this->getPDO());
+	}
+
+	/**
+	 * test creating a ProductOrder and then deleting it
+	 **/
+	public function testDeleteValidProductOrder() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("productOrder");
+		// create a new ProductOrder and insert to into MySQL
+		$productOrder = new ProductOrder($this->cheqoutOrder->getOrderId(), $this->product->getProductId(), $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
+		$productOrder->insert($this->getPDO());
+		// delete the ProductOrder from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("productOrder"));
+		$productOrder->delete($this->getPDO());
+		// grab the data from MySQL and enforce the ProductOrder does not exist
+		$pdoProductOrder = ProductOrder::getProductOrderByOrderIdAndProductId($this->getPDO(), $this->cheqoutOrder->getOrderId(), $this->product->getProductId());
+		$this->assertNull($pdoProductOrder);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("productOrder"));
+	}
+
+	/**
+	 * test inserting a ProductOrder and retrieving it from MySQL
+	 **/
+	public function testGetValidProductOrderByOrderIdAndProductId() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("productOrder");
+		// create a new ProductOrder and insert to into MySQL
+		$productOrder = new ProductOrder($this->cheqoutOrder->getOrderId(), $this->product->getProductId(), $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
+		$productOrder->insert($this->getPDO());
+		// grab the data from MySQL and enforce the fields match our expectations
+		$pdoProductOrder = ProductOrder::getProductOrderByOrderIdAndProductId($this->getPDO(), $this->cheqoutOrder->getOrderId(), $this->product->getProductId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("productOrder"));
+		$this->assertEquals($pdoProductOrder->getOrderId(), $this->cheqoutOrder->getOrderId());
+		$this->assertEquals($pdoProductOrder->getProductId(), $this->product->getProductId());
+		$this->assertEquals($pdoProductOrder->getQuantity(), $this->VALID_QUANTITY);
+		$this->assertEquals($pdoProductOrder->getShippingCost(), $this->VALID_SHIPPINGCOST);
+		$this->assertEquals($pdoProductOrder->getOrderPrice(), $this->VALID_ORDERPRICE);
+	}
+	/**
+	 * test grabbing a ProductOrder that does not exist
+	 **/
+	public function testGetInvalidProductOrderByOrderIdAndProductId() {
+		// grab an order id and product id that exceeds the maximum allowable range for order id and profile id
+		$productOrder = ProductOrder::getProductOrderByOrderIdAndProductId($this->getPDO(), CheqoutTest::INVALID_KEY, CheqoutTest::INVALID_KEY);
+		$this->assertNull($productOrder);
 	}
 
 }

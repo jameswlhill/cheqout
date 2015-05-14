@@ -44,6 +44,30 @@ class ProductOrder {
 	protected $orderPrice;
 
 	/**
+	 * Magic method __construct() for ProductOrder class
+	 *
+	 * @param int $newOrderId for order id
+	 * @param int $newProductId for product id
+	 * @param int $newQuantity for units shipped
+	 * @param float $newShippingCost for flat rate shipping charges
+	 * @param float $newOrderPrice for order price total
+	 * @throws UnexpectedValueException in case any of the methods throw an exception
+	 **/
+	public function __construct($newOrderId, $newProductId, $newQuantity, $newShippingCost, $newOrderPrice) {
+		//attempt to set new field values
+		try {
+			$this->setOrderId($newOrderId);
+			$this->setProductId($newProductId);
+			$this->setQuantity($newQuantity);
+			$this->setShippingCost($newShippingCost);
+			$this->setOrderPrice($newOrderPrice);
+		} catch(UnexpectedValueException $exception) {
+			//rethrow to handle exceptions outside the constructor
+			throw(new UnexpectedValueException("unable to construct ProductOrder object", 0, $exception));
+		}
+	}
+
+	/**
 	 * Getter method for order id
 	 *
 	 * @return int value of order id
@@ -198,30 +222,6 @@ class ProductOrder {
 
 		//if $newOrderPrice is valid, store in $orderPrice via floatval() for added security
 		$this->orderPrice = floatval($newOrderPrice);
-	}
-
-	/**
-	 * Magic method __construct() for ProductOrder class
-	 *
-	 * @param int $newOrderId for order id
-	 * @param int $newProductId for product id
-	 * @param int $newQuantity for units shipped
-	 * @param float $newShippingCost for flate rate shipping charges
-	 * @param float $newOrderPrice for order price total
-	 * @throws UnexpectedValueException in case any of the methods throw an exception
-	 **/
-	public function __construct($newOrderId, $newProductId, $newQuantity, $newShippingCost, $newOrderPrice) {
-		//attempt to set new field values
-		try {
-			$this->setOrderId($newOrderId);
-			$this->setProductId($newProductId);
-			$this->setQuantity($newQuantity);
-			$this->setShippingCost($newShippingCost);
-			$this->setOrderPrice($newOrderPrice);
-		} catch(UnexpectedValueException $exception) {
-			//rethrow to handle exceptions outside the constructor
-			throw(new UnexpectedValueException("unable to construct ProductOrder object", 0, $exception));
-		}
 	}
 
 	/**
