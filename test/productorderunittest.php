@@ -56,7 +56,7 @@ class ProductOrderTest extends CheqoutTest {
 	 *
 	 * @var float $VALID_SHIPPINGCOST
 	 **/
-	protected $VALID_SHIPPINGCOST = 5;
+	protected $VALID_SHIPPINGCOST = 5.0;
 	/**
 	 * invalid shipping cost
 	 *
