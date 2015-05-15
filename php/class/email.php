@@ -2,16 +2,49 @@
 /**
  * Email class for Cheqout
  *
+ * This is the email class for Cheqout; the email Id is an auto-incrementing assigned integer,
+ * the email address it is assigned to must be unique, and if the email has purchased anything,
+ * there will be a stripe Id assigned.
+ *
  * @author Kyla Carroll <kylacarroll43@gmail.com>
  **/
 
 class Email {
-	//Primary Key for the email
+	/**
+	 * The email id is the primary key, an auto-incremented unsigned int
+	 **/
 	protected $emailId;
-	//unique email address
+	/**
+	 * The email address is a unique string no greater than 128 characters
+	 **/
 	protected $emailAddress;
-	//stripe ID if they've made a purchase
+	/**
+	 * The stripe Id will only be present if the email has made a purchase, the stripe API will provide
+	 **/
 	protected $stripeId;
+
+	/**
+	 * constructor magic method for the email
+	 *
+	 * @param int $newEmailId new value for email Id
+	 * @param string $newEmailAddress new value for email address
+	 * @param string $newStripeId new value for stripe ID
+	 * @throws InvalidArgumentException if any of the parameters are not valid
+	 * @throws RangeException if any of the data is out of bounds
+	 **/
+	public function __construct($newEmailId, $newEmailAddress, $newStripeId) {
+		try {
+			$this->setEmailId($newEmailId);
+			$this->setEmailAddress($newEmailAddress);
+			$this->setstripeId($newStripeId);
+		} catch(InvalidArgumentException $exception) {
+
+			throw(new InvalidArgumentException("unable to create email", 0, $exception));
+		} catch(RangeException $range) {
+
+			throw(new RangeException($range->getMessage(), 0, $range));
+		}
+	}
 
 	/**
 	 * accessor method for email id
@@ -97,30 +130,7 @@ class Email {
 		//assign and store account date
 		$this->stripeId = $newStripeId;
 	}
-
-	/**
-	 * constructor magic method for the email
-	 *
-	 * @param int $newEmailId new value for email Id
-	 * @param string $newEmailAddress new value for email address
-	 * @param string $newStripeId new value for stripe ID
-	 * @throws InvalidArgumentException if any of the parameters are not valid
-	 * @throws RangeException if any of the data is out of bounds
-	 **/
-	public function __construct($newEmailId, $newEmailAddress, $newStripeId) {
-		try {
-			$this->setEmailId($newEmailId);
-			$this->setEmailAddress($newEmailAddress);
-			$this->setstripeId($newStripeId);
-		} catch(InvalidArgumentException $exception) {
-
-			throw(new InvalidArgumentException("unable to create email", 0, $exception));
-		} catch(RangeException $range) {
-		
-			throw(new RangeException($range->getMessage(), 0, $range));
-		}
-	}
-
+/////////////////PDO FUNCTIONS////////////////////////////
 	/**
 	 * inserts this email into mySQL
 	 *
@@ -185,7 +195,7 @@ class Email {
 		$parameters = array("emailId" => $this->emailId, "emailAddress" => $this->emailAddress, "stripeId" => $this->stripeId);
 		$statement->execute($parameters);
 	}
-
+/////////////Get email functions///////////////////
 	/**
 	 * get all emails
 	 *
@@ -229,7 +239,7 @@ class Email {
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param string $stripeId stripeId to search for
-	 * @return mixed SplFixedArray of emails found or null if not found
+	 * @return mixed Email or null if none
 	 * @throws PDOException when anything goes wrong in mySQL
 	 */
 	public static function getEmailByStripeId(PDO &$pdo, $stripeId) {
@@ -241,41 +251,32 @@ class Email {
 		}
 
 		// create query template
-		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE stripeId LIKE :stripeId";
+		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE stripeId = :stripeId";
 		$statement = $pdo->prepare($query);
 
-		// bind the email content to the place holder in the template
-		$stripeId = "%$stripeId%";
+
 		$parameters = array("stripeId" => $stripeId);
 		$statement->execute($parameters);
 
-		// build an array of emails
-		$emails = new SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
 			try {
-				$email = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
-				$emails[$emails->key()] = $email;
-				$emails->next();
+				$email = null;
+				$statement->setFetchMode(PDO::FETCH_ASSOC);
+				$row = $statement->fetch();
+				if ($row !== false) {
+					$email = new Email ($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				}
 			} catch(Exception $exception) {
-				// if the row couldn't be converted, rethrow it
 				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
+			return ($email);
 		}
-		$numberOfEmails = count($emails);
-		if($numberOfEmails === 0) {
-			return (null);
-		} else {
-			return ($emails);
-		}
-	}
 
 	/**
 	 * get email by emailId
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param int $emailId emailId to search for
-	 * @return mixed SplFixedArray of emails found or null if not found
+	 * @return mixed Email if found, or null if none found
 	 * @throws PDOException when anything goes wrong in mySQL
 	 */
 	public static function getEmailByEmailId(PDO &$pdo, $emailId) {
@@ -293,13 +294,9 @@ class Email {
 
 		try {
 			$email = null;
-
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
-
 			$row = $statement->fetch();
-
 			if ($row !== false) {
-
 				$email = new Email ($row["emailId"], $row["emailAddress"], $row["stripeId"]);
 			}
 			} catch(Exception $exception) {
@@ -307,7 +304,6 @@ class Email {
 			}
 		return ($email);
 		}
-
 }
 
 
