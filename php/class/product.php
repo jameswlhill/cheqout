@@ -413,7 +413,6 @@ EOF;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				var_dump($row);
 				$product = new Product($row["productId"], $row["productTitle"], $row["productPrice"], $row["productDescription"], $row["productInventory"], $row["productSale"]);
 			}
 
