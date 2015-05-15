@@ -13,26 +13,32 @@
 class CheqoutOrder {
 	/**
 	 * the order id, an auto-incrementing integer assigned when the order is placed
+	 * @var int $orderId
 	 */
 	protected $orderId;
 	/**
 	 * the email Id of the user who made a purchase, this is a foreign key
+	 * @var int $emailId
 	 */
 	protected $emailId;
 	/**
 	 * the address Id of the billing address put in by the user, this is used for stripe's API and is a foreign key
+	 * @var int $billingAddressId
 	 **/
 	protected $billingAddressId;
 	/**
 	 * the address Id of the shipping address put in by the user, this is a foreign key
+	 * @var int $shippingAddressId
 	 **/
 	protected $shippingAddressId;
 	/**
 	 * the users stripe Id used for purchase, provided via stripe's API, this is a foreign key
+	 * @var string $stripeId
 	 **/
 	protected $stripeId;
 	/**
 	 * the generated date time of order placement
+	 * @var string $orderDateTime
 	 **/
 	protected $orderDateTime;
 
@@ -46,7 +52,7 @@ class CheqoutOrder {
 	 * @param string $newOrderDateTime new value of orderDateTime
 	 * @throw UnexpectedValueException if any params are not valid
 	 */
-	public function __construct($newOrderId, $newEmailId, $newShippingAddressId, $newBillingAddressId, $newStripeId, $newOrderDateTime) {
+	public function __construct($newOrderId, $newEmailId, $newBillingAddressId, $newShippingAddressId, $newStripeId, $newOrderDateTime) {
 		try {
 			$this->setOrderId($newOrderId);
 			$this->setEmailId($newEmailId);
@@ -110,6 +116,9 @@ class CheqoutOrder {
 		if ($newEmailId === false) {
 			throw (new InvalidArgumentException("email ID is invalid"));
 		}
+		if(intval($newEmailId) > 4294967295) {
+			throw(new RangeException("email Id too large"));
+		}
 		//store the new email Id
 		$this->emailId = intval($newEmailId);
 	}
@@ -137,6 +146,9 @@ class CheqoutOrder {
 		if($newBillingAddressId === false) {
 			throw (new UnexpectedValueException(" billing address ID is invalid"));
 		}
+		if(intval($newBillingAddressId) > 4294967295) {
+			throw(new RangeException("billing address id too large"));
+		}
 		//store the new address Id
 		$this->billingAddressId = intval($newBillingAddressId);
 	}
@@ -163,6 +175,9 @@ class CheqoutOrder {
 		$newShippingAddressId = filter_var($newShippingAddressId, FILTER_VALIDATE_INT);
 		if($newShippingAddressId === false) {
 			throw (new UnexpectedValueException(" shipping address ID is invalid"));
+		}
+		if(intval($newShippingAddressId) > 4294967295) {
+			throw(new RangeException("shipping id too large"));
 		}
 		//store the new address Id
 		$this->shippingAddressId = intval($newShippingAddressId);
@@ -212,7 +227,7 @@ class CheqoutOrder {
 	 * mutator method for orderDateTime
 	 *
 	 * @param string $newOrderDateTime string value of date and time of order
-	 * @throw InvalidArgumentException if $newOrderDateTime is not a string
+	 * @throw UnexpectedValueException if $newOrderDateTime is not a string
 	 **/
 	public function setOrderDateTime($newOrderDateTime) {
 		if ($newOrderDateTime === null) {
@@ -220,7 +235,10 @@ class CheqoutOrder {
 		}
 		$newOrderDateTime = filter_var($newOrderDateTime, FILTER_SANITIZE_STRING);
 		if ($newOrderDateTime === false) {
-			throw (new InvalidArgumentException("order date/time is not valid"));
+			throw (new UnexpectedValueException ("order date/time is not valid"));
+		}
+		if(strlen($newOrderDateTime) > 25) {
+			throw(new RangeException("date/time too large"));
 		}
 		//store Order Date/Time
 		$this->orderDateTime = $newOrderDateTime;
@@ -234,7 +252,7 @@ class CheqoutOrder {
 	 **/
 	public function insert(PDO &$pdo) {
 		if($this->orderId !== null) {
-			throw (new UnexpectedValueException("unable to insert order; order already exists"));
+			throw (new PDOException("unable to insert order; order already exists"));
 		}
 		$query = "INSERT INTO cheqoutOrder(emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime)
 						VALUES (:emailId, :shippingAddressId, :billingAddressId, :stripeId, :orderDateTime)";
@@ -280,7 +298,7 @@ class CheqoutOrder {
 					WHERE orderId = :orderId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = array("emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
+		$parameters = array("orderId" => $this->orderId, "emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
 							"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
 							"orderDateTime" => $this->orderDateTime);
 		$statement->execute($parameters);
@@ -326,6 +344,8 @@ class CheqoutOrder {
 	}
 
 	/**
+	 * get order by order id
+	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param int $orderId to search for
 	 * @return mixed Order if found or null if none
@@ -345,11 +365,11 @@ class CheqoutOrder {
 		$statement->execute($parameters);
 
 		try {
-			$orders = null;
+			$order = null;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if ($row !== false) {
-				$order = new cheqoutOrder ($row["orderId"], $row["emailId"], $row["billingAddressId"],
+				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["billingAddressId"],
 					$row["shippingAddressId"], $row["stripeId"], $row["orderDateTime"]);
 			}
 		} catch(Exception $exception) {
@@ -369,7 +389,7 @@ class CheqoutOrder {
 		//validate integer before searching
 		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
 		if(empty($emailId) === true) {
-			throw(new PDOException("email has no orders"));
+			throw(new PDOException("email has no orders associated"));
 		}
 		//create the query
 		$query = "SELECT orderId, emailId, billingAddressId, shippingAddressId, stripeId, orderDateTime
@@ -380,11 +400,11 @@ class CheqoutOrder {
 		$statement->execute($parameters);
 
 		try {
-			$orders = null;
+			$order = null;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if ($row !== false) {
-				$order = new cheqoutOrder ($row["orderId"], $row["emailId"], $row["billingAddressId"],
+				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["billingAddressId"],
 					$row["shippingAddressId"], $row["stripeId"], $row["orderDateTime"]);
 			}
 		} catch(Exception $exception) {
