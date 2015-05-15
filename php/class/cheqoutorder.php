@@ -11,17 +11,29 @@
  */
 
 class CheqoutOrder {
-	//the auto-incrementing id associated with each order. this is the primary key
+	/**
+	 * the order id, an auto-incrementing integer assigned when the order is placed
+	 */
 	protected $orderId;
-	//referenced foreign key for email
+	/**
+	 * the email Id of the user who made a purchase, this is a foreign key
+	 */
 	protected $emailId;
-	//referenced foreign key for billing address
+	/**
+	 * the address Id of the billing address put in by the user, this is used for stripe's API and is a foreign key
+	 **/
 	protected $billingAddressId;
-	//referenced foreign key for shipping address
+	/**
+	 * the address Id of the shipping address put in by the user, this is a foreign key
+	 **/
 	protected $shippingAddressId;
-	//referenced stripeId for payment
+	/**
+	 * the users stripe Id used for purchase, provided via stripe's API, this is a foreign key
+	 **/
 	protected $stripeId;
-	//generated date time of order
+	/**
+	 * the generated date time of order placement
+	 **/
 	protected $orderDateTime;
 
 	/**
@@ -51,7 +63,7 @@ class CheqoutOrder {
 	 * accessor method for orderId
 	 *
 	 * @return int value of orderId
-	 */
+	 **/
 	public function getOrderId() {
 		return ($this->orderId);
 	}
@@ -61,7 +73,7 @@ class CheqoutOrder {
 	 *
 	 * @param int $newOrderId new value of orderId
 	 * @throws InvalidArgumentException if $newOrderId is not an integer
-	 */
+	 **/
 	public function setOrderId($newOrderId) {
 		if ($newOrderId === null) {
 			return;
@@ -79,7 +91,7 @@ class CheqoutOrder {
 	 * accessor method for emailId
 	 *
 	 * @return int value of emailId
-	 */
+	 **/
 	public function getEmailId() {
 		return ($this->emailId);
 	}
@@ -89,7 +101,7 @@ class CheqoutOrder {
 	 *
 	 * @param int $newEmailId new value of emailId
 	 * @throws InvalidArgumentException if $newEmailId is not an integer
-	 */
+	 **/
 	public function setEmailId($newEmailId) {
 		if ($newEmailId === null) {
 			return;
@@ -106,7 +118,7 @@ class CheqoutOrder {
 	 * accessor method for billingAddressId
 	 *
 	 * @return int value of billingAddressId
-	 */
+	 **/
 	public function getBillingAddressId() {
 		return ($this->billingAddressId);
 	}
@@ -116,7 +128,7 @@ class CheqoutOrder {
 	 *
 	 * @param int $newBillingAddressId new value for BillingAddressId
 	 * @throw UnexpectedValueException if $newBillingAddressId is not a valid integer
-	 */
+	 **/
 	public function setBillingAddressId($newBillingAddressId) {
 		if ($newBillingAddressId === null) {
 			return;
@@ -133,7 +145,7 @@ class CheqoutOrder {
 	 * accessor method for shippingAddressId
 	 *
 	 * @return int value of shippingAddressId
-	 */
+	 **/
 	public function getShippingAddressId() {
 		return ($this->shippingAddressId);
 	}
@@ -143,7 +155,7 @@ class CheqoutOrder {
 	 *
 	 * @param int $newShippingAddressId new value for shippingAddressId
 	 * @throw UnexpectedValueException if $newShippingAddressId is not a valid integer
-	 */
+	 **/
 	public function setShippingAddressId($newShippingAddressId) {
 		if ($newShippingAddressId === null) {
 			return;
@@ -160,7 +172,7 @@ class CheqoutOrder {
 	 * accessor method for stripeId
 	 *
 	 * @return string value of stripeId
-	 */
+	 **/
 	public function getStripeId() {
 		return ($this->stripeId);
 	}
@@ -171,7 +183,7 @@ class CheqoutOrder {
 	 * @param int $newStripeId
 	 * @throw  InvalidArgumentException if $newStripeId is not a string
 	 * @throws RangeException if $newStripeId is more than 25 char
-	 */
+	 **/
 	public function setStripeId($newStripeId) {
 		if ($newStripeId === null) {
 			return;
@@ -191,7 +203,7 @@ class CheqoutOrder {
 	 * accessor method for orderDateTime
 	 *
 	 * @return dateTime time of order
-	 */
+	 **/
 	public function getOrderDateTime() {
 		return ($this->orderDateTime);
 	}
@@ -201,7 +213,7 @@ class CheqoutOrder {
 	 *
 	 * @param string $newOrderDateTime string value of date and time of order
 	 * @throw InvalidArgumentException if $newOrderDateTime is not a string
-	 */
+	 **/
 	public function setOrderDateTime($newOrderDateTime) {
 		if ($newOrderDateTime === null) {
 			return;
@@ -219,7 +231,7 @@ class CheqoutOrder {
 	 *
 	 * @param PDO $pdo references the PDO connection
 	 * @throw PDOException when anything goes wrong in the PDO connection
-	 */
+	 **/
 	public function insert(PDO &$pdo) {
 		if($this->orderId !== null) {
 			throw (new UnexpectedValueException("unable to insert order; order already exists"));
@@ -241,7 +253,7 @@ class CheqoutOrder {
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @throws PDOException when anything goes wrong with the PDO connection
-	 */
+	 **/
 	public function delete(PDO &$pdo) {
 		if($this->orderId === null) {
 			throw (new PDOException("cannot delete order that does not exist"));
@@ -258,7 +270,7 @@ class CheqoutOrder {
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @throws PDOException when anything goes wrong with the PDO connection
-	 */
+	 **/
 	public function update(PDO &$pdo) {
 		if($this->orderId === null) {
 			throw (new PDOException("cannot update order that does not exist"));
@@ -280,7 +292,7 @@ class CheqoutOrder {
 	 * @param PDO $pdo references the pdo connection
 	 * @return mixed SplFixedArray of orders or null if none
 	 * @throws PDOException when anything goes wrong in mySQL
-	 */
+	 **/
 	public static function getAllOrders(PDO &$pdo) {
 		// create query template
 		$query = "SELECT orderId, emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime FROM cheqoutOrder";
@@ -316,7 +328,7 @@ class CheqoutOrder {
 	/**
 	 * @param PDO $pdo references the pdo connection
 	 * @param int $orderId to search for
-	 * @return mixed SplFixedArray of orders found or null if none
+	 * @return mixed Order if found or null if none
 	 */
 	public static function getOrderByOrderId(PDO &$pdo, $orderId) {
 		//validate integer before searching
@@ -334,13 +346,9 @@ class CheqoutOrder {
 
 		try {
 			$orders = null;
-
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
-
 			$row = $statement->fetch();
-
 			if ($row !== false) {
-
 				$order = new cheqoutOrder ($row["orderId"], $row["emailId"], $row["billingAddressId"],
 					$row["shippingAddressId"], $row["stripeId"], $row["orderDateTime"]);
 			}
@@ -373,13 +381,9 @@ class CheqoutOrder {
 
 		try {
 			$orders = null;
-
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
-
 			$row = $statement->fetch();
-
 			if ($row !== false) {
-
 				$order = new cheqoutOrder ($row["orderId"], $row["emailId"], $row["billingAddressId"],
 					$row["shippingAddressId"], $row["stripeId"], $row["orderDateTime"]);
 			}

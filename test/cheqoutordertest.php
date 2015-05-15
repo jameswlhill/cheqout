@@ -42,6 +42,11 @@ class CheqoutOrderTest extends CheqoutTest {
 	 * @var datetime $VALID_DATETIME
 	 */
 	protected $VALID_DATETIME = "04-20-2015 16:20:00";
+	/**
+	 * valid shipping Id to update
+	 * @var int $VALID_SHIPPING2
+	 */
+	protected $VALID_SHIPPING2 = "102";
 
 	/**
 	 * test insert on valid order and verify mySQL data matches
@@ -65,171 +70,220 @@ class CheqoutOrderTest extends CheqoutTest {
 		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
 	/**
-	 * test insert on an invalid email
+	 * test insert on an invalid order
 	 *
-	 * @expectedException RangeException
+	 * @expectedException InvalidArgumentException
 	 **/
 	public function testInsertInvalidOrder() {
-		$email = new CheqoutOrder(null, CheqoutTest::INVALID_STRING, $this->VALID_BILLING, $this->VALID_SHIPPING, $this->VALID_STRIPEID, $this->VALID_DATETIME);
+		$email = new CheqoutOrder(null, CheqoutTest::INVALID_KEY, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
 		$email->insert($this->getPDO());
 	}
 
 	/**
-	 * test delete of valid email
+	 * test delete of valid order
 	 **/
-	public function testDeleteValidEmail() {
+	public function testDeleteValidOrder() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
+		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 
-		// create a new email and insert to into mySQL
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
+		// create a new order and insert to into mySQL
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
 
-		$email->insert($this->getPDO());
+		$order->insert($this->getPDO());
 
 		//run the delete function
-		$email->delete($this->getPDO());
+		$order->delete($this->getPDO());
+
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
-		$this->assertNull($pdoEmail);
-		$this->assertSame($numRows, $this->getConnection()->getRowCount("email"));
+		$pdoOrder = CheqoutOrder::getOrderByOrderId($this->getPDO(), $order->getOrderId());
+		$this->assertNull($pdoOrder);
+		$this->assertSame($numRows, $this->getConnection()->getRowCount("cheqoutOrder"));
 	}
 
 	/**
-	 * test delete of invalid email
+	 * test delete of invalid order
 	 *
 	 * @expectedException PDOException
 	 */
-	public function testDeleteInvalidEmail() {
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
-		$email->delete($this->getPDO());
+	public function testDeleteInvalidOrder() {
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+		$order->delete($this->getPDO());
 	}
-	/**
-	 * test update on a valid email
-	 **/
-	public function testUpdateValidEmail() {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
 
-		// create a new Address and insert to into mySQL
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
-		$email->insert($this->getPDO());
+	/**
+	 * test update on a valid order
+	 **/
+	public function testUpdateValidOrder() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
+
+		// create a new order and insert to into mySQL
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+		$order->insert($this->getPDO());
 
 		// update the email address field
-		$email->setEmailAddress($this->VALID_EMAILADDRESS2);
-		$email->update($this->getPDO());
+		$order->setShippingAddressId($this->VALID_SHIPPING2);
+		$order->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
-		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS2);
+		$pdoOrder = CheqoutOrder::getOrderByOrderId($this->getPDO(), $order->getOrderId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("cheqoutOrder"));
+		$this->assertSame($pdoOrder->getShippingAddressId(), $this->VALID_EMAILADDRESS2);
 	}
 	/**
-	 * test update with invalid email address
+	 * test update with invalid shipping address
 	 *
-	 * @expectedException RangeException
+	 * @expectedException InvalidArgumentException
 	 */
-	public function testUpdateInvalidEmail() {
+	public function testUpdateInvalidOrder() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
+		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 
-		// create a new email and insert to into mySQL
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
-		$email->insert($this->getPDO());
+		// create a new order and insert to into mySQL
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+		$order->insert($this->getPDO());
 
-		//update the email address field
-		$email->setEmailAddress(CheqoutTest::INVALID_STRING);
-		$email->update($this->getPDO());
+		//update the shipping address field
+		$order->setShippingAddressId(CheqoutTest::INVALID_STRING);
+		$order->update($this->getPDO());
 	}
 
 	/**
 	 * test getting email by email id
 	 **/
-	public function testGetValidEmailByEmailId() {
+	public function testGetValidOrderByOrderId() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
+		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 		// create a new address and insert to into mySQL
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
-		$email->insert($this->getPDO());
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+		$order->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoEmail = Email::getEmailByEmailId($this->getPDO(), $email->getEmailId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
-		$this->assertEquals($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
-		$this->assertEquals($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
+		$pdoOrder = CheqoutOrder::getOrderByOrderId($this->getPDO(), $order->getOrderId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("cheqoutOrder"));
+		$this->assertSame($pdoOrder->getEmailId(), $this->VALID_EMAILID);
+		$this->assertSame($pdoOrder->getBillingAddressId(), $this->VALID_BILLING);
+		$this->assertSame($pdoOrder->getShippingAddressId(), $this->VALID_SHIPPING);
+		$this->assertSame($pdoOrder->getStripeId(), $this->VALID_STRIPE);
+		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
 	/**
 	 * test grabbing an email that does not exist by email id
 	 **/
-	public function testGetInvalidEmailByEmailId() {
-		// grab an email id that exceeds the maximum allowable address id
-		$email = Email::getEmailByEmailId($this->getPDO(), CheqoutTest::INVALID_KEY);
-		$this->assertNull($email);
+	public function testGetInvalidOrderByOrderId() {
+		// grab an order id that exceeds the maximum allowable order id int
+		$order = CheqoutOrder::getORderByOrderId($this->getPDO(), CheqoutTest::INVALID_KEY);
+		$this->assertNull($order);
 	}
 	/**
 	 * test inserting an email and re-grabbing it from mySQL by stripeId
 	 **/
-	public function testGetValidEmailByStripeId() {
+	public function testGetValidOrderByEmailId() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
+		$numRows = $this->getConnection()->getRowCount("CheqoutOrder");
 		// create a new address and insert to into mySQL
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
-		$email->insert($this->getPDO());
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+		$order->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Email::getEmailByStripeId($this->getPDO(), $email->getStripeId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
+		$results = CheqoutOrder::getOrderByEmailId($this->getPDO(), $order->getEmailId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("cheqoutOrder"));
 
 		// grab the result
-		$pdoEmail = $results[0];
-		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
-		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
+		$pdoOrder = $results[0];
+		$this->assertSame($pdoOrder->getEmailId(), $this->VALID_EMAILID);
+		$this->assertSame($pdoOrder->getBillingAddressId(), $this->VALID_BILLING);
+		$this->assertSame($pdoOrder->getShippingAddressId(), $this->VALID_SHIPPING);
+		$this->assertSame($pdoOrder->getStripeId(), $this->VALID_STRIPE);
+		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
 	/**
-	 * test grabbing an email that does not exist by stripe id
+	 * test grabbing an order that does not exist by email id
 	 **/
-	public function testGetInvalidEmailByStripeId() {
+	public function testGetInvalidOrderByEmailId() {
 		// grab an email id that exceeds the maximum allowable address id
-		$email = Email::getEmailByStripeId($this->getPDO(), CheqoutTest::INVALID_STRING);
-		$this->assertNull($email);
+		$order = CheqoutOrder::getOrderByEmailId($this->getPDO(), CheqoutTest::INVALID_STRING);
+		$this->assertNull($order);
 	}
 	/**
-	 * test getting all emails and verifying same as inserted
+	 * test getting all orders and verifying same as inserted
 	 */
-	public function testGetAllEmails() {
+	public function testGetAllOrders() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("email");
+		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 		// create a new address and insert to into mySQL
-		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
-		$email->insert($this->getPDO());
+		$order = new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+		$order->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Email::getAllEmails($this->getPDO(), $email->getEmailId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
+		$results = CheqoutOrder::getAllOrders($this->getPDO(), $order->getOrderId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("cheqoutOrder"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Email", $results);
+		$this->assertContainsOnlyInstancesOf("CheqoutOrder", $results);
 		// grab the result from the array and validate it
-		$pdoEmail = $results[0];
-		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
-		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
+		$pdoOrder = $results[0];
+		$this->assertSame($pdoOrder->getEmailId(), $this->VALID_EMAILID);
+		$this->assertSame($pdoOrder->getBillingAddressId(), $this->VALID_BILLING);
+		$this->assertSame($pdoOrder->getShippingAddressId(), $this->VALID_SHIPPING);
+		$this->assertSame($pdoOrder->getStripeId(), $this->VALID_STRIPE);
+		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
 
 	/**
-	 * test breaking email address string
+	 * test breaking emailId
 	 *
 	 * @expectedException RangeException
 	 **/
 
-	public function testBreakingEmailAddressString() {
-		//make a new email entry and break email address
-		new Email(null, CheqoutTest::INVALID_STRING, $this->VALID_STRIPEID);
+	public function testBreakingEmailId() {
+		new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+	}
+	/**
+	 * test breaking billing address id
+	 *
+	 * @expectedException InvalidArgumentException
+	 **/
+
+	public function testBreakingBillingAddressId() {
+		new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+	}
+	/**
+	 * test breaking shipping address Id
+	 *
+	 * @expectedException InvalidArgumentException
+	 **/
+
+	public function testBreakingShippingAddressId() {
+		new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
 	}
 	/**
 	 * test breaking stripe id string
 	 *
-	 * @expectedException RangeException
+	 * @expectedException InvalidArgumentException
 	 **/
 
-	public function testBreakingStripeIdString() {
-		//make a new email entry and break stripe id string
-		new Email(null, $this->VALID_EMAILADDRESS, CheqoutTest::INVALID_STRING);
+	public function testBreakingStripeId() {
+		new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, $this->VALID_DATETIME);
+	}
+	/**
+	 * test breaking order date time
+	 *
+	 * @expectedException InvalidArgumentException
+	 **/
+
+	public function testBreakingOrderDateTime() {
+		new CheqoutOrder(null, $this->VALID_EMAILID, $this->VALID_BILLING, $this->VALID_SHIPPING,
+			$this->VALID_STRIPE, CheqoutTest::INVALID_STRING);
 	}
 
 }
