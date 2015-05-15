@@ -175,4 +175,29 @@ class ProductOrderTest extends CheqoutTest {
 		$this->assertNull($productOrder);
 	}
 
+	/**
+	 * test inserting a ProductOrder, editing it, and then updating it
+	 **/
+	public function testUpdateValidProductOrder() {
+		// count the number of rows and save that number in $numRows
+		$numRows = $this->getConnection()->getRowCount("productOrder");
+
+		// create a new ProductOrder and insert into db using MySQL
+		$productOrder = new ProductOrder($this->cheqoutOrder->getOrderId(), $this->product->getProductId(), $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
+		$productOrder->insert($this->getPDO());
+
+		// edit the ProductOrder and update it in the db
+		$productOrder->setQuantity($this->VALID_QUANTITY);
+		$productOrder->update($this->getPDO());
+
+		// grab the data from db and enforce the fields match our expectations
+		$pdoProductOrder = ProductOrder::getProductOrderByOrderIdAndProductId($this->getPDO(), $productOrder->getOrderId(), $productOrder->getProductId());
+		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("productOrder"));
+		$this->assertEquals($pdoProductOrder->getOrderId(), $this->cheqoutOrder->getOrderId());
+		$this->assertEquals($pdoProductOrder->getProductId(), $this->product->getProductId());
+		$this->assertEquals($pdoProductOrder->getQuantity(), $this->VALID_QUANTITY);
+		$this->assertEquals($pdoProductOrder->getShippingCost(), $this->VALID_SHIPPINGCOST);
+		$this->assertEquals($pdoProductOrder->getOrderPrice(), $this->VALID_ORDERPRICE);
+	}
+
 }

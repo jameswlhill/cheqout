@@ -83,12 +83,6 @@ class ProductOrder {
 	 * @throws UnexpectedValueException if $newOrderId is not an integer
 	 **/
 	public function setOrderId($newOrderId) {
-		//base case, if order id is null this is a new database entry without a current id
-		if($newOrderId === null) {
-			$this->orderId = null;
-			return;
-		}
-
 		//verify new order id is a valid integer
 		$newOrderId = filter_var($newOrderId, FILTER_VALIDATE_INT);
 		if($newOrderId === false) {
@@ -120,12 +114,6 @@ class ProductOrder {
 	 * @throws UnexpectedValueException if $newProductId is not an integer
 	 **/
 	public function setProductId($newProductId) {
-		//base case, if product id is null this is a new database entry without a current id
-		if($newProductId === null) {
-			$this->productId = null;
-			return;
-		}
-
 		//verify new product id is a valid integer
 		$newProductId = filter_var($newProductId, FILTER_VALIDATE_INT);
 		if($newProductId === false) {
@@ -257,7 +245,7 @@ class ProductOrder {
 	 * @throws PDOException on MySQL errors
 	 **/
 	public function insert(PDO &$pdo) {
-		//make sure initial order and product id's in db are not null
+		//make sure initial order and product id's in db are not null (because they are being used here as foreign key components of a composite primary key)
 		if($this->orderId === null || $this->productId === null) {
 			throw(new PDOException("this is not a new ProductOrder"));
 		}

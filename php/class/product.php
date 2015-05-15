@@ -529,7 +529,7 @@ EOF;
 	 * @return mixed SplFixedArray of products found or null if not found
 	 * @throws PDOException if any MySQL related errors occur
 	 **/
-	public static function getAllProducts(PDO $pdo) {
+	public static function getAllProducts(PDO &$pdo) {
 		//create query template
 		$query = "SELECT productId, productTitle, productPrice, productDescription, productInventory, productSale FROM product";
 		$statement = $pdo->prepare($query);
