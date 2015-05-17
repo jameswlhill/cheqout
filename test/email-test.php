@@ -163,7 +163,7 @@ class EmailTest extends CheqoutTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
 
 		// grab the result
-		$pdoEmail = $results[0];
+		$pdoEmail = $results;
 		$this->assertSame($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
 		$this->assertSame($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
 	}
