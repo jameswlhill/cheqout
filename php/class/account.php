@@ -27,6 +27,32 @@ class Account {
 	protected $emailId;
 
 	/**
+	 * constructor magic method for the account
+	 *
+	 * @param int $newAccountId new value for account id
+	 * @param string $newAccountPassword new value for password
+	 * @param string $newAccountPasswordSalt new value for account pw salt
+	 * @param string $newAccountCreateDateTime new value for account create date
+	 * @param string $newActivation new value for activation key
+	 * @param int $newEmailId new value for emailId
+	 * @throws UnexpectedValueException if any of the parameters are not valid
+	 **/
+	public function __construct($newAccountId, $newAccountPassword, $newAccountPasswordSalt, $newActivation, $newAccountCreateDateTime, $newEmailId) {
+		try {
+			$this->setAccountId($newAccountId);
+			$this->setAccountPassword($newAccountPassword);
+			$this->setAccountPasswordSalt($newAccountPasswordSalt);
+			$this->setActivation($newActivation);
+			$this->setAccountCreateDateTime($newAccountCreateDateTime);
+			$this->setEmailId($newEmailId);
+		} catch(UnexpectedValueException $exception) {
+			//rethrow to caller
+			throw(new UnexpectedValueException("unable to construct account", 0, $exception));
+		}
+	}
+
+
+	/**
 	 * accessor method for account id
 	 *
 	 * @return int value of account id
@@ -51,6 +77,7 @@ class Account {
 		if($newAccountId === false) {
 			throw(new UnexpectedValueException("accountId is an invalid integer"));
 		}
+
 		//assign and store the filtered accountId
 		$this->accountId = intval($newAccountId);
 	}
@@ -68,11 +95,15 @@ class Account {
 	 *
 	 * @param string $newAccountPassword new value of account password
 	 * @throws UnexpectedValueException if $newAccountPassword is not valid
+	 * @throws RangeException if $newAccountPassword is too long
 	 **/
 	public function setAccountPassword($newAccountPassword) {
 		$newAccountPassword = filter_var($newAccountPassword, FILTER_SANITIZE_STRING);
 		if($newAccountPassword === false) {
 			throw(new UnexpectedValueException("password is not valid"));
+		}
+		if(strlen($newAccountPassword) > 128) {
+			throw(new RangeException("hashed password too long"));
 		}
 		//assign and store Account name
 		$this->accountPassword = $newAccountPassword;
@@ -91,11 +122,15 @@ class Account {
 	 *
 	 * @param string $newAccountPasswordSalt new value of account password salt
 	 * @throws UnexpectedValueException if $newAccountPasswordSalt is not valid
+	 * @throws RangeException if $newAccountPasswordSalt is too long
 	 **/
 	public function setAccountPasswordSalt($newAccountPasswordSalt) {
 		$newAccountPasswordSalt = filter_var($newAccountPasswordSalt, FILTER_SANITIZE_STRING);
 		if($newAccountPasswordSalt === false) {
 			throw(new UnexpectedValueException("salt invalid"));
+		}
+		if(strlen($newAccountPasswordSalt) > 64) {
+			throw(new RangeException("pw salt too long"));
 		}
 		//assign and store Account name
 		$this->accountPasswordSalt = $newAccountPasswordSalt;
@@ -114,11 +149,15 @@ class Account {
 	 *
 	 * @param string $newActivation new value of account activation code
 	 * @throws UnexpectedValueException if $newActivation is not valid
+	 * @throws RangeException if $newActivation is too long
 	 **/
 	public function setActivation($newActivation) {
 		$newActivation = filter_var($newActivation, FILTER_SANITIZE_STRING);
 		if($newActivation === false) {
 			throw(new UnexpectedValueException("account activation invalid"));
+		}
+		if(strlen($newActivation) > 32) {
+			throw(new RangeException("activation code invalid"));
 		}
 		//assign and store Account name
 		$this->activation = $newActivation;
@@ -138,11 +177,15 @@ class Account {
 	 *
 	 * @param string $newAccountCreateDateTime new value of account creation date
 	 * @throws UnexpectedValueException if $newAccountCreateDateTime is not valid
+	 * @throws RangeException if $newAccountCreateDateTime is not valid
 	 */
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
 		$newAccountCreateDateTime = filter_var($newAccountCreateDateTime, FILTER_SANITIZE_STRING);
 		if($newAccountCreateDateTime === false) {
 			throw(new UnexpectedValueException("account creation date invalid"));
+		}
+		if(strlen($newAccountCreateDateTime) > 25) {
+			throw(new RangeException("create date invalid"));
 		}
 		//assign and store account date
 		$this->accountCreateDateTime = $newAccountCreateDateTime;
@@ -170,32 +213,6 @@ class Account {
 		}
 		//assign and store the email
 		$this->emailId = $newEmailId;
-	}
-
-	/**
-	 * constructor magic method for the account
-	 *
-	 * @param int $newAccountId new value for account id
-	 * @param int $newEmailId new value for emailId
-	 * @param string $newAccountPassword new value for password
-	 * @param string $newAccountPasswordSalt new value for account pw salt
-	 * @param string $newAccountCreateDateTime new value for account create date
-	 * @param string $newActivation new value for activation key
-	 *
-	 * @throws UnexpectedValueException if any of the parameters are not valid
-	 **/
-	public function __construct($newAccountId, $newEmailId, $newAccountPassword, $newAccountPasswordSalt, $newActivation, $newAccountCreateDateTime) {
-		try {
-			$this->setAccountId($newAccountId);
-			$this->setEmailId($newEmailId);
-			$this->setAccountPassword($newAccountPassword);
-			$this->setAccountPasswordSalt($newAccountPasswordSalt);
-			$this->setActivation($newActivation);
-			$this->setAccountCreateDateTime($newAccountCreateDateTime);
-		} catch(UnexpectedValueException $exception) {
-			//rethrow to caller
-			throw(new UnexpectedValueException("unable to construct account", 0, $exception));
-		}
 	}
 
 	/**
@@ -262,15 +279,6 @@ class Account {
 		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $this->accountCreateDateTime, "activation" => $this->activation, "accountId" => $this->accountId);
 		$statement->execute($parameters);
 	}
-
-	/**
-	 * get all accounts
-	 *
-	 * @param PDO $pdo references the pdo connection
-	 * @param int $emailId account name to search for
-	 * @return mixed SplFixedArray of accounts found/null if not found
-	 * @throws PDOException when mySQL related error occurs
-	 **/
 	/**
 	 * gets all accounts
 	 *
@@ -307,5 +315,73 @@ class Account {
 		} else {
 			return ($accounts);
 		}
+	}
+	/**
+	 * get account by account id
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param int $accountId to search for
+	 * @return mixed Account if found or null if none
+	 */
+	public static function getAccountByAccountId(PDO &$pdo, $accountId) {
+		//validate integer before searching
+		$accountId = filter_var($accountId, FILTER_VALIDATE_INT);
+		if(empty($accountId) === true) {
+			throw(new PDOException("account does not exist"));
+		}
+		//create the query
+		$query = "SELECT accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId
+							FROM account WHERE accountId = :accountId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = array("accountId" => $accountId);
+		$statement->execute($parameters);
+
+		try {
+			$account = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if ($row !== false) {
+				$account = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"],
+					$row["activation"], $row["accountCreateDateTime"], $row["emailId"]);
+			}
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($account);
+	}
+	/**
+	 * get account by email id
+	 *
+	 * @param PDO $pdo references pdo connection
+	 * @param int $emailId email id to search for
+	 * @return mixed Account or null if not found
+	 */
+	public static function getAccountByEmailId(PDO &$pdo, $emailId) {
+		//validate integer before searching
+		$emailId = filter_var($emailId, FILTER_VALIDATE_INT);
+		if(empty($emailId) === true) {
+			throw(new PDOException("account does not exist"));
+		}
+		//create the query
+		$query = "SELECT accountId, accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId
+						FROM account WHERE emailId = :emailId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = array("emailId" => $emailId);
+		$statement->execute($parameters);
+
+		try {
+			$account = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if ($row !== false) {
+				$account = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"],
+					$row["activation"], $row["accountCreateDateTime"], $row["emailId"]);
+			}
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($account);
 	}
 }
