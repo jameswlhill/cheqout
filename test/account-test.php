@@ -20,17 +20,17 @@ class AccountTest extends CheqoutTest {
 	 * valid password
 	 * @var string $VALID_PW
 	 */
-	protected $VALID_PW = "qqqqqqqqq1wwwwwwwww2eeeeeeeee3rrrrrrrrr4tttttttt5yyyyyyyyy6uuuuuuuuu7iiiiiiiii8ooooooooo9ppppppppp0qqqqqqqqq1wwwwwwwww2eeeeeeeee";
+	protected $VALID_PW = "6e09e646a19b5b3006a0ba101d6196b389e987596dd90aa9122c9fa3944eeaf2d92536f1e04626f7047cdc260c2534203ffd3b95b88dfee24c989aee62e10f1d";
 	/**
 	 * valid password salt
 	 * @var int $VALID_PWSALT
 	 */
-	protected $VALID_PWSALT = "FE0766A6AC18F9EDC1662BA66940D6A03E7EF9C332D049980F3B036CF1E93310";
+	protected $VALID_PWSALT = "ef238ea00a26528de40ff231e5a97f50ef238ea00a26528de40ff231e5a97f50";
 	/**
 	 * valid activation code
 	 * @var int $VALID_ACTIVATION
 	 */
-	protected $VALID_ACTIVATION = "activationactivationactivation32";
+	protected $VALID_ACTIVATION = "ef238ea00a26528de40ff231e5a97f50";
 	/**
 	 * valid account creation date time
 	 * @var datetime $VALID_CREATEDATE
@@ -40,7 +40,7 @@ class AccountTest extends CheqoutTest {
 	 * valid password change
 	 * @var string $VALID_PW2
 	 */
-	protected $VALID_PW2 = "qqqqqqqqq1wwwwwwwww2eeeeeeeee3rrrrrrrrr4tttttttt5yyyyyyyyy6uuuuuuuuu7iiiiiiiii8ooooooooo9ppppppppp0qqqqqqqqq1wwwwwwwww2eeeeeeeeF";
+	protected $VALID_PW2 = "6e09e646a19b5b3006a0ba101d6196b389e987596dd90aa9122c9fa3944eeaf2d92536f1e04626f7047cdc260c2534203ffd3b95b88dfee24c989aee62e10f1f";
 	/**
 	 * email parent object for foreign key relations
 	 * @var Email $email
@@ -151,7 +151,7 @@ class AccountTest extends CheqoutTest {
 	/**
 	 * test update with invalid shipping address
 	 *
-	 * @expectedException RangeException
+	 * @expectedException PDOException
 	 */
 	public function testUpdateInvalidAccount() {
 		// count the number of rows and save it for later
@@ -160,10 +160,6 @@ class AccountTest extends CheqoutTest {
 		// create a new account and insert to into mySQL
 		$account = new Account(null, $this->VALID_PW, $this->VALID_PWSALT, $this->VALID_ACTIVATION,
 			$this->VALID_CREATEDATE, $this->email->getEmailId());
-		$account->insert($this->getPDO());
-
-		//update the password field
-		$account->setAccountPassword(CheqoutTest::INVALID_STRING);
 		$account->update($this->getPDO());
 	}
 
@@ -231,7 +227,7 @@ class AccountTest extends CheqoutTest {
 	/**
 	 * test breaking password
 	 *
-	 * @expectedException RangeException
+	 * @expectedException UnexpectedValueException
 	 **/
 
 	public function testBreakingPassword() {
@@ -241,7 +237,7 @@ class AccountTest extends CheqoutTest {
 	/**
 	 * test breaking password salt
 	 *
-	 * @expectedException RangeException
+	 * @expectedException UnexpectedValueException
 	 **/
 
 	public function testBreakingPasswordSalt() {
@@ -251,7 +247,7 @@ class AccountTest extends CheqoutTest {
 	/**
 	 * test breaking activation
 	 *
-	 * @expectedException RangeException
+	 * @expectedException UnexpectedValueException
 	 **/
 
 	public function testBreakingActivation() {

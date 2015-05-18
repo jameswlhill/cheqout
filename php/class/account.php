@@ -116,11 +116,11 @@ class Account {
 	 * @throws RangeException if $newAccountPassword is too long
 	 **/
 	public function setAccountPassword($newAccountPassword) {
-		$newAccountPassword = ctype_xdigit($newAccountPassword, FILTER_SANITIZE_STRING);
-		if($newAccountPassword === false) {
+		$newAccountPasswordIsHex = ctype_xdigit($newAccountPassword);
+		if($newAccountPasswordIsHex === false) {
 			throw(new UnexpectedValueException("password is not valid"));
 		}
-		if(strlen($newAccountPassword) != 128) {
+		if(strlen($newAccountPassword) !== 128) {
 			throw(new RangeException("hashed password wrong length"));
 		}
 		//assign and store Account name
@@ -143,11 +143,11 @@ class Account {
 	 * @throws RangeException if $newAccountPasswordSalt is too long
 	 **/
 	public function setAccountPasswordSalt($newAccountPasswordSalt) {
-		$newAccountPasswordSalt = ctype_xdigit($newAccountPasswordSalt, FILTER_SANITIZE_STRING);
-		if($newAccountPasswordSalt === false) {
+		$newAccountPasswordSaltIsHex = ctype_xdigit($newAccountPasswordSalt);
+		if($newAccountPasswordSaltIsHex === false) {
 			throw(new UnexpectedValueException("salt invalid"));
 		}
-		if(strlen($newAccountPasswordSalt) != 64) {
+		if(strlen($newAccountPasswordSalt) !== 64) {
 			throw(new RangeException("pw salt wrong length"));
 		}
 		//assign and store Account name
@@ -170,11 +170,11 @@ class Account {
 	 * @throws RangeException if $newActivation is too long
 	 **/
 	public function setActivation($newActivation) {
-		$newActivation = ctype_xdigit($newActivation, FILTER_SANITIZE_STRING);
-		if($newActivation === false) {
+		$newActivationIsHex = ctype_xdigit($newActivation);
+		if($newActivationIsHex === false) {
 			throw(new UnexpectedValueException("account activation invalid"));
 		}
-		if(strlen($newActivation) != 32) {
+		if(strlen($newActivation) !== 32) {
 			throw(new RangeException("activation code invalid"));
 		}
 		//assign and store Account name
