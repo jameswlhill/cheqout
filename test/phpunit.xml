@@ -1,24 +1,24 @@
 <phpunit>
 	<testsuites>
 		<testsuite name="Cheqout Data Design">
-			<file>address-test.php</file>
-			<file>email-test.php</file>
-			<file>account-test.php</file>
-			<file>guest-test.php</file>
-			<file>product-test.php</file>
-			<file>cheqoutorder-test.php</file>
-			<file>productorder-test.php</file>
+			<file>emailtest.php</file>
+			<file>accounttest.php</file>
+			<file>guesttest.php</file>
+			<file>addresstest.php</file>
+			<file>producttest.php</file>
+			<file>cheqoutordertest.php</file>
+			<file>productordertest.php</file>
 		</testsuite>
 	</testsuites>
 </phpunit>
 
 
 <!--
-<file>address-test.php</file>
-<file>email-test.php</file>
-<file>account-test.php</file>
-<file>guest-test.php</file>
-<file>product-test.php</file>
-<file>cheqoutorder-test.php</file>
-<file>productorder-test.php</file>
+			<file>emailtest.php</file>
+			<file>accounttest.php</file>
+			<file>guesttest.php</file>
+			<file>addresstest.php</file>
+			<file>producttest.php</file>
+			<file>cheqoutordertest.php</file>
+			<file>productordertest.php</file>
 -->
