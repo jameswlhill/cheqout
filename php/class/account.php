@@ -19,7 +19,7 @@ class Account {
 	 */
 	protected $accountId;
 	/**
-	 * hashed password for account, hexidecimal
+	 * hashed password for account, hexadecimal
 	 * @var string $accountPassword
 	 */
 	protected $accountPassword;
@@ -29,7 +29,7 @@ class Account {
 	 */
 	protected $accountPasswordSalt;
 	/**
-	 * unique hexidecimal activation code for account
+	 * unique hexadecimal activation code for account
 	 * @var string $activation
 	 */
 	protected $activation;
@@ -145,10 +145,10 @@ class Account {
 	public function setAccountPasswordSalt($newAccountPasswordSalt) {
 		$newAccountPasswordSaltIsHex = ctype_xdigit($newAccountPasswordSalt);
 		if($newAccountPasswordSaltIsHex === false) {
-			throw(new UnexpectedValueException("salt invalid"));
+			throw(new UnexpectedValueException("salt is invalid"));
 		}
 		if(strlen($newAccountPasswordSalt) !== 64) {
-			throw(new RangeException("pw salt wrong length"));
+			throw(new RangeException("salt is invalid length"));
 		}
 		//assign and store Account name
 		$this->accountPasswordSalt = $newAccountPasswordSalt;
@@ -172,10 +172,10 @@ class Account {
 	public function setActivation($newActivation) {
 		$newActivationIsHex = ctype_xdigit($newActivation);
 		if($newActivationIsHex === false) {
-			throw(new UnexpectedValueException("account activation invalid"));
+			throw(new UnexpectedValueException("account activation is invalid"));
 		}
 		if(strlen($newActivation) !== 32) {
-			throw(new RangeException("activation code invalid"));
+			throw(new RangeException("activation code is invalid"));
 		}
 		//assign and store Account name
 		$this->activation = $newActivation;
@@ -200,10 +200,10 @@ class Account {
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
 		$newAccountCreateDateTime = filter_var($newAccountCreateDateTime, FILTER_SANITIZE_STRING);
 		if($newAccountCreateDateTime === false) {
-			throw(new UnexpectedValueException("account creation date invalid"));
+			throw(new UnexpectedValueException("account creation is date invalid"));
 		}
 		if(strlen($newAccountCreateDateTime) > 25) {
-			throw(new RangeException("create date invalid"));
+			throw(new RangeException("create date is invalid"));
 		}
 		//assign and store account date
 		$this->accountCreateDateTime = $newAccountCreateDateTime;

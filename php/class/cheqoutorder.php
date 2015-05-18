@@ -144,7 +144,7 @@ class CheqoutOrder {
 		}
 		$newBillingAddressId = filter_var($newBillingAddressId, FILTER_VALIDATE_INT);
 		if($newBillingAddressId === false) {
-			throw (new UnexpectedValueException(" billing address ID is invalid"));
+			throw (new UnexpectedValueException("billing address ID is invalid"));
 		}
 		if(intval($newBillingAddressId) > 4294967295) {
 			throw(new RangeException("billing address id too large"));
@@ -174,7 +174,7 @@ class CheqoutOrder {
 		}
 		$newShippingAddressId = filter_var($newShippingAddressId, FILTER_VALIDATE_INT);
 		if($newShippingAddressId === false) {
-			throw (new UnexpectedValueException(" shipping address ID is invalid"));
+			throw (new UnexpectedValueException("shipping address ID is invalid"));
 		}
 		if(intval($newShippingAddressId) > 4294967295) {
 			throw(new RangeException("shipping id too large"));
