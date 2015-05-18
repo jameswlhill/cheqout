@@ -169,7 +169,7 @@ class CheqoutOrderTest extends CheqoutTest {
 		$this->assertSame($numRows + 1, $this->getConnection()->getRowCount("cheqoutOrder"));
 		$this->assertSame($pdoOrder->getEmailId(), $this->email->getEmailId());
 		$this->assertSame($pdoOrder->getBillingAddressId(), $this->billingAddress->getAddressId());
-		$this->assertSame($pdoOrder->getShippingAddressId(), $this->shippingAddress->getAddressId());
+		$this->assertSame($pdoOrder->getShippingAddressId(), $this->billingAddress->getAddressId());
 		$this->assertSame($pdoOrder->getStripeId(), $this->VALID_STRIPE);
 		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
