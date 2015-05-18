@@ -13,17 +13,35 @@
  **/
 
 class Account {
-	//Primary Key for the account
+	/**
+	 * primary key for account
+	 * @var int $accountId
+	 */
 	protected $accountId;
-	//hashed password
+	/**
+	 * hashed password for account, hexidecimal
+	 * @var string $accountPassword
+	 */
 	protected $accountPassword;
-	//salt for password
+	/**
+	 * salt for further protecting password
+	 * @var string $accountPasswordSalt
+	 */
 	protected $accountPasswordSalt;
-	//unique activation string
+	/**
+	 * unique hexidecimal activation code for account
+	 * @var string $activation
+	 */
 	protected $activation;
-	//account creation date
+	/**
+	 * datetime of account creation
+	 * @var string $accountCreateDateTime
+	 */
 	protected $accountCreateDateTime;
-	//unique emailId attached to the account
+	/**
+	 * foreign key, email id attached to account
+	 * @var int $emailId
+	 */
 	protected $emailId;
 
 	/**
@@ -98,12 +116,12 @@ class Account {
 	 * @throws RangeException if $newAccountPassword is too long
 	 **/
 	public function setAccountPassword($newAccountPassword) {
-		$newAccountPassword = filter_var($newAccountPassword, FILTER_SANITIZE_STRING);
+		$newAccountPassword = ctype_xdigit($newAccountPassword, FILTER_SANITIZE_STRING);
 		if($newAccountPassword === false) {
 			throw(new UnexpectedValueException("password is not valid"));
 		}
-		if(strlen($newAccountPassword) > 128) {
-			throw(new RangeException("hashed password too long"));
+		if(strlen($newAccountPassword) != 128) {
+			throw(new RangeException("hashed password wrong length"));
 		}
 		//assign and store Account name
 		$this->accountPassword = $newAccountPassword;
@@ -125,12 +143,12 @@ class Account {
 	 * @throws RangeException if $newAccountPasswordSalt is too long
 	 **/
 	public function setAccountPasswordSalt($newAccountPasswordSalt) {
-		$newAccountPasswordSalt = filter_var($newAccountPasswordSalt, FILTER_SANITIZE_STRING);
+		$newAccountPasswordSalt = ctype_xdigit($newAccountPasswordSalt, FILTER_SANITIZE_STRING);
 		if($newAccountPasswordSalt === false) {
 			throw(new UnexpectedValueException("salt invalid"));
 		}
-		if(strlen($newAccountPasswordSalt) > 64) {
-			throw(new RangeException("pw salt too long"));
+		if(strlen($newAccountPasswordSalt) != 64) {
+			throw(new RangeException("pw salt wrong length"));
 		}
 		//assign and store Account name
 		$this->accountPasswordSalt = $newAccountPasswordSalt;
@@ -152,11 +170,11 @@ class Account {
 	 * @throws RangeException if $newActivation is too long
 	 **/
 	public function setActivation($newActivation) {
-		$newActivation = filter_var($newActivation, FILTER_SANITIZE_STRING);
+		$newActivation = ctype_xdigit($newActivation, FILTER_SANITIZE_STRING);
 		if($newActivation === false) {
 			throw(new UnexpectedValueException("account activation invalid"));
 		}
-		if(strlen($newActivation) > 32) {
+		if(strlen($newActivation) != 32) {
 			throw(new RangeException("activation code invalid"));
 		}
 		//assign and store Account name
