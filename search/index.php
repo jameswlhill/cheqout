@@ -28,7 +28,7 @@
 	</head>
 
 	<body>
-		//user input search bar
+		<!--user input search bar-->
 		<div class="container">
 			<p>Search Products</p>
 			<input id="my-input" class="typeahead" type="text" placeholder="search for a product">
