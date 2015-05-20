@@ -6,11 +6,18 @@
  */
 
 session_start();
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-//required files
-
-//if isset
-
+if(isset($_GET['page'])) {
+	$pages = array('shop', 'cart');
+	if(in_array($_GET['page'], $pages)) {
+		$page = $_GET['page'];
+	} else {
+		$page = "shop";
+	}
+} else {
+	$page = "shop";
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -43,7 +50,7 @@ session_start();
 	<body>
 		<div class="container">
 			<div id="main">
-
+				<h2>Your Shopping Cart</h2>
 			</div>
 		</div>
 	</body>
