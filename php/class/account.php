@@ -201,7 +201,6 @@ class Account {
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
 		if(is_object($newAccountCreateDateTime) === true) {
 			validateDate($newAccountCreateDateTime);
-			return($newAccountCreateDateTime);
 		}
 		$newAccountCreateDateTime = filter_var($newAccountCreateDateTime, FILTER_SANITIZE_STRING);
 		if($newAccountCreateDateTime === false) {
