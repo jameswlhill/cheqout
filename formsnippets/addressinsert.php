@@ -13,7 +13,6 @@ try {
 		(@isset($_POST["city"]) 		=== false) ||
 		(@isset($_POST["state"]) 		=== false) ||
 		(@isset($_POST["zip"]) 			=== false)) {
-		 var_dump($_POST);
 		throw(new InvalidArgumentException("Please fill in all required fields."));
 	}
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
