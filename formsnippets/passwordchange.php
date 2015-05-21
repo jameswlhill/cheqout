@@ -11,8 +11,12 @@ $actCode = bin2hex(openssl_random_pseudo_bytes(16));
 $createTime = new DateTime();
 // use 2048 for interations for login!
 $oldPassword = hash_pbkdf2("sha512", "shjkdfgh", $oldSalt, 2048, 128);
-$_SESSION["email"] = new Email(1844, "emailaddy@email.email", "stripeidiswhat");
-$_SESSION["account"] = new Account(1844, $oldPassword, $oldSalt, $actCode, strval($createTime), $_SESSION["email"]->getEmailId);
+$email = new Email(1844, "emailaddy@email.email", "stripeidiswhat");
+$_SESSION["email"] = $email;
+var_dump($_SESSION["email"]);
+$account = new Account(1844, $oldPassword, $oldSalt, $actCode, $createTime, 1844);
+$_SESSION["account"] = $account;
+var_dump($_SESSION["account"]);
 // end test area
 
 
@@ -24,7 +28,7 @@ try {
 	$newSalt = bin2hex(openssl_random_pseudo_bytes(32));
 	// use 2048 for interations for login!
 	$newPassword = hash_pbkdf2("sha512", $_POST["new-password"], $newSalt, 2048, 128);
-	$account = new Account($_SESSION["account"]->getAccountId(), $newPassword, $newSalt, $_SESSION["account"]->getActivation(), $_SESSION["account"]->getAccountCreateDateTime(), $_SESSION["email"]->getEmailId);
+	$account = new Account(1844, $newPassword, $newSalt, $actCode, $createTime, 1844);
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$account->update($pdo);
 	echo "<p class=\"alert alert-success\">E-Mail (id = " . $account->getAccountId() . ") posted!</p>";

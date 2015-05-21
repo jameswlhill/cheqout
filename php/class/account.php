@@ -197,10 +197,12 @@ class Account {
 	 * @param string $newAccountCreateDateTime new value of account creation date
 	 * @throws UnexpectedValueException if $newAccountCreateDateTime is not valid
 	 * @throws RangeException if $newAccountCreateDateTime is not valid
+	 * @return accountCreateDateTime if is_object and validateDate works on it
 	 */
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
 		if(is_object($newAccountCreateDateTime) === true) {
 			validateDate($newAccountCreateDateTime);
+			return($this->accountCreateDateTime = $newAccountCreateDateTime);
 		}
 		$newAccountCreateDateTime = filter_var($newAccountCreateDateTime, FILTER_SANITIZE_STRING);
 		if($newAccountCreateDateTime === false) {
@@ -298,7 +300,8 @@ class Account {
 		$statement = $pdo->prepare($query);
 
 		//match the variables to the placeholders in query
-		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $this->accountCreateDateTime, "activation" => $this->activation, "accountId" => $this->accountId);
+		$formattedDate = $this->accountCreateDateTime->format("Y-m-d H:i:s");
+		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $formattedDate, "activation" => $this->activation, "accountId" => $this->accountId);
 		$statement->execute($parameters);
 	}
 	/**
