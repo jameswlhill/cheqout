@@ -13,10 +13,10 @@ $createTime = new DateTime();
 $oldPassword = hash_pbkdf2("sha512", "shjkdfgh", $oldSalt, 2048, 128);
 $email = new Email(1844, "emailaddy@email.email", "stripeidiswhat");
 $_SESSION["email"] = $email;
-var_dump($_SESSION["email"]);
-$account = new Account(1844, $oldPassword, $oldSalt, $actCode, $createTime, 1844);
+$account = new Account(null, $oldPassword, $oldSalt, $actCode, $createTime, $_SESSION["email"]->getEmailId());
 $_SESSION["account"] = $account;
-var_dump($_SESSION["account"]);
+$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+$account->insert($pdo);
 // end test area
 
 
@@ -31,7 +31,7 @@ try {
 	$account = new Account(1844, $newPassword, $newSalt, $actCode, $createTime, 1844);
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$account->update($pdo);
-	echo "<p class=\"alert alert-success\">E-Mail (id = " . $account->getAccountId() . ") posted!</p>";
+	echo "<p class=\"alert alert-success\">Password for (id = " . $account->getAccountId() . ") changed!</p>";
 }	catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }

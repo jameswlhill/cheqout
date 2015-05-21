@@ -256,7 +256,8 @@ class Account {
 		$statement = $pdo->prepare($query);
 
 		//match the variables input with the query
-		$parameters = array("accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "activation" => $this->activation, "accountCreateDateTime" => $this->accountCreateDateTime, "emailId" => $this->emailId);
+		$formattedDate = $this->accountCreateDateTime->format("Y-m-d H:i:s");
+		$parameters = array("accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "activation" => $this->activation, "accountCreateDateTime" => $formattedDate, "emailId" => $this->emailId);
 		$statement->execute($parameters);
 
 		//updates the null accountId with the value of the variable

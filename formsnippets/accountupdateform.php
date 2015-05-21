@@ -48,7 +48,7 @@ $_SESSION["address"] = $address;
 							<input type="text" id="new-password" name="new-password" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Password"></div>
 				</form>
 		</section>
 		<section>
