@@ -13,10 +13,8 @@ $createTime = new DateTime();
 $oldPassword = hash_pbkdf2("sha512", "shjkdfgh", $oldSalt, 2048, 128);
 $email = new Email(1844, "emailaddy@email.email", "stripeidiswhat");
 $_SESSION["email"] = $email;
-$account = new Account(null, $oldPassword, $oldSalt, $actCode, $createTime, $_SESSION["email"]->getEmailId());
+$account = new Account(1844, $oldPassword, $oldSalt, $actCode, $createTime, 1844);
 $_SESSION["account"] = $account;
-$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-$account->insert($pdo);
 // end test area
 
 

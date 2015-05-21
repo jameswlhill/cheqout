@@ -2,6 +2,7 @@
 session_start();
 require_once(dirname(__DIR__)) . "/php/class/cheqoutorder.php";
 require_once(dirname(__DIR__)) . "/php/class/email.php";
+require_once(dirname(__DIR__)) . "/php/class/address.php";
 require_once(dirname(__DIR__)) . "/php/class/account.php";
 require_once(dirname(__DIR__)) . "/php/class/product.php";
 require_once(dirname(__DIR__)) . "/php/class/productorder.php";
@@ -19,7 +20,10 @@ $order = new CheqoutOrder(1844, 1844, 1844, 1844, "hfgsdjkgk", new DateTime());
 $_SESSION["order1"] = $order;
 // end testing area
 
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
 		xmlns="http://www.w3.org/1999/html">
@@ -38,16 +42,13 @@ $_SESSION["order1"] = $order;
 		<h1 class="text-center">My Past Orders</h1>
 		<section>
 			<div class="container">
-				Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				<form method='POST' action="emailchange.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-email">New Email: </label></div><div class="row col-xs-4 col-md-3">
+				<form method='POST' action="getorderbyorderid.php">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="order-number">Order Number: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="new-email" name="new-email" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="emailcheck" name="emailcheck" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Get Order Info"></div>
 				</form>
 			</div>
-			Your current password is <span class="text-info">not going to be displayed.</span>
+<!--			Your current password is <span class="text-info">not going to be displayed.</span>
 			<form method='POST' action="passwordchange.php">
 				<div class="row"><div class="col-xs-4 col-md-2"><label for="new-password">Password: </label></div><div class="row col-xs-4 col-md-3">
 						<input type="text" id="new-password" name="new-password" required /></div></div>
@@ -81,7 +82,7 @@ $_SESSION["order1"] = $order;
 							<input type="text" id="zip" name="zip" value="<?php echo $_SESSION["address"]->getAddressZip() ?>" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Address"></div>
 				</form>
-			</div>
+			</div> -->
 		</section>
 
 	</body>

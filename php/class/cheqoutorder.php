@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__DIR__)) . "/lib/datetime.php";
 /**
  * CheqoutOrder class
  *
@@ -230,16 +231,14 @@ class CheqoutOrder {
 	 * @throw UnexpectedValueException if $newOrderDateTime is not a string
 	 **/
 	public function setOrderDateTime($newOrderDateTime) {
-		if ($newOrderDateTime === null) {
-			return;
+		try {
+			$newOrderDateTime = validateDate($newOrderDateTime);
+		} catch(RangeException $range) {
+			throw(new RangeException($range->getMessage(), 0, $range));
+		} catch(InvalidArgumentException $invalidArgument) {
+			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		}
-		$newOrderDateTime = filter_var($newOrderDateTime, FILTER_SANITIZE_STRING);
-		if ($newOrderDateTime === false) {
-			throw (new UnexpectedValueException ("order date/time is not valid"));
-		}
-		if(strlen($newOrderDateTime) > 25) {
-			throw(new RangeException("date/time too large"));
-		}
+
 		//store Order Date/Time
 		$this->orderDateTime = $newOrderDateTime;
 	}
@@ -258,9 +257,10 @@ class CheqoutOrder {
 						VALUES (:emailId, :shippingAddressId, :billingAddressId, :stripeId, :orderDateTime)";
 		$statement = $pdo->prepare($query);
 
+		$formattedDate = $this->orderDateTime->format("Y-m-d H:i:s");
 		$parameters = array("emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
 			"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
-			"orderDateTime" => $this->orderDateTime);
+			"orderDateTime" => $formattedDate);
 		$statement->execute($parameters);
 
 		$this->orderId = intval($pdo->lastInsertId());
@@ -298,9 +298,10 @@ class CheqoutOrder {
 					WHERE orderId = :orderId";
 		$statement = $pdo->prepare($query);
 
+		$formattedDate = $this->orderDateTime->format("Y-m-d H:i:s");
 		$parameters = array("orderId" => $this->orderId, "emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
 							"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
-							"orderDateTime" => $this->orderDateTime);
+							"orderDateTime" => $formattedDate);
 		$statement->execute($parameters);
 	}
 //////////////GET functions/////////////////

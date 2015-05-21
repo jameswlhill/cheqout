@@ -200,17 +200,14 @@ class Account {
 	 * @return accountCreateDateTime if is_object and validateDate works on it
 	 */
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
-		if(is_object($newAccountCreateDateTime) === true) {
-			validateDate($newAccountCreateDateTime);
-			return($this->accountCreateDateTime = $newAccountCreateDateTime);
+		try {
+			$newAccountCreateDateTime = validateDate($newAccountCreateDateTime);
+		} catch(RangeException $range) {
+			throw(new RangeException($range->getMessage(), 0, $range));
+		} catch(InvalidArgumentException $invalidArgument) {
+			throw(new InvalidArgumentException($invalidArgument->getMessage(), 0, $invalidArgument));
 		}
-		$newAccountCreateDateTime = filter_var($newAccountCreateDateTime, FILTER_SANITIZE_STRING);
-		if($newAccountCreateDateTime === false) {
-			throw(new UnexpectedValueException("account creation is date invalid"));
-		}
-		if(strlen($newAccountCreateDateTime) > 25) {
-			throw(new RangeException("create date is invalid"));
-		}
+
 		//assign and store account date
 		$this->accountCreateDateTime = $newAccountCreateDateTime;
 	}
