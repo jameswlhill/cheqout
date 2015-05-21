@@ -12,12 +12,11 @@ try {
 		$_POST["new-email"] !== $_POST["emailcheck"]) {
 		throw(new InvalidArgumentException("Please fill in all required fields."));
 	}
-
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$email = new Email($_SESSION["email"]->getEmailId(),$_POST["emailcheck"] ,$_SESSION["email"]->getStripeId());
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$email->update($pdo);
 	echo "<p class=\"alert alert-success\">E-Mail (id = " . $email->getEmailId() . ") posted!</p>";
-}catch(Exception $exception) {
+}	catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
 }
 ?>

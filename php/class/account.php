@@ -1,4 +1,5 @@
 <?php
+require_once(dirname(__DIR__)) . "/lib/datetime.php";
 /**
  * Account class for Cheqout
  *
@@ -198,6 +199,10 @@ class Account {
 	 * @throws RangeException if $newAccountCreateDateTime is not valid
 	 */
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
+		if(is_object($newAccountCreateDateTime) === true) {
+			validateDate($newAccountCreateDateTime);
+			return($newAccountCreateDateTime);
+		}
 		$newAccountCreateDateTime = filter_var($newAccountCreateDateTime, FILTER_SANITIZE_STRING);
 		if($newAccountCreateDateTime === false) {
 			throw(new UnexpectedValueException("account creation is date invalid"));
