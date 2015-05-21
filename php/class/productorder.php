@@ -11,7 +11,7 @@
 
 class ProductOrder {
 	/**
-	 * This is the order id referencing $ordererId in the CheqoutOrder class. It is one of two
+	 * This is the order id referencing $orderId in the CheqoutOrder class. It is one of two
 	 * id's which make up the composite primary key for the productOrder table.
 	 *
 	 * @var int $orderId

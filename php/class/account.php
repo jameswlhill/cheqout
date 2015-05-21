@@ -36,7 +36,7 @@ class Account {
 	protected $activation;
 	/**
 	 * datetime of account creation
-	 * @var string $accountCreateDateTime
+	 * @var DateTime $accountCreateDateTime
 	 */
 	protected $accountCreateDateTime;
 	/**
@@ -51,7 +51,7 @@ class Account {
 	 * @param int $newAccountId new value for account id
 	 * @param string $newAccountPassword new value for password
 	 * @param string $newAccountPasswordSalt new value for account pw salt
-	 * @param string $newAccountCreateDateTime new value for account create date
+	 * @param DateTime $newAccountCreateDateTime new value for account create date
 	 * @param string $newActivation new value for activation key
 	 * @param int $newEmailId new value for emailId
 	 * @throws UnexpectedValueException if any of the parameters are not valid
@@ -185,7 +185,7 @@ class Account {
 	/**
 	 * accountCreateDateTime accessor method
 	 *
-	 * @return string date of account creation
+	 * @return DateTime date of account creation
 	 */
 	public function getAccountCreateDateTime() {
 		return ($this->accountCreateDateTime);
@@ -194,12 +194,17 @@ class Account {
 	/**
 	 * mutator method for account creation date
 	 *
-	 * @param string $newAccountCreateDateTime new value of account creation date
+	 * @param DateTime $newAccountCreateDateTime new value of account creation date
 	 * @throws UnexpectedValueException if $newAccountCreateDateTime is not valid
 	 * @throws RangeException if $newAccountCreateDateTime is not valid
-	 * @return accountCreateDateTime if is_object and validateDate works on it
+	 * @return $accountCreateDateTime if is_object and validateDate works on it
 	 */
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
+		if($newAccountCreateDateTime === null) {
+			$this->accountCreateDateTime = new DateTime();
+			return;
+		}
+
 		try {
 			$newAccountCreateDateTime = validateDate($newAccountCreateDateTime);
 		} catch(RangeException $range) {
@@ -249,12 +254,14 @@ class Account {
 		}
 
 		//create the pdo query template
-		$query = "INSERT INTO account(accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId) VALUES(:accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTime, :emailId)";
+		$query = "INSERT INTO account(accountPassword, accountPasswordSalt, activation, accountCreateDateTime, emailId)
+VALUES(:accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTime, :emailId)";
 		$statement = $pdo->prepare($query);
 
 		//match the variables input with the query
 		$formattedDate = $this->accountCreateDateTime->format("Y-m-d H:i:s");
-		$parameters = array("accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "activation" => $this->activation, "accountCreateDateTime" => $formattedDate, "emailId" => $this->emailId);
+		$parameters = array("accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt,
+			"activation" => $this->activation, "accountCreateDateTime" => $formattedDate, "emailId" => $this->emailId);
 		$statement->execute($parameters);
 
 		//updates the null accountId with the value of the variable
@@ -294,12 +301,15 @@ class Account {
 			throw(new PDOException("unable to update account that does not exist"));
 		}
 		//query template
-		$query = "UPDATE account SET accountPassword = :accountPassword, accountPasswordSalt = :accountPasswordSalt, activation = :activation, accountCreateDateTime = :accountCreateDateTime, emailId = :emailId WHERE accountId = :accountId";
+		$query = "UPDATE account SET accountPassword = :accountPassword, accountPasswordSalt = :accountPasswordSalt,
+activation = :activation, accountCreateDateTime = :accountCreateDateTime, emailId = :emailId WHERE accountId = :accountId";
 		$statement = $pdo->prepare($query);
 
 		//match the variables to the placeholders in query
 		$formattedDate = $this->accountCreateDateTime->format("Y-m-d H:i:s");
-		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword, "accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $formattedDate, "activation" => $this->activation, "accountId" => $this->accountId);
+		$parameters = array("emailId" => $this->emailId, "accountPassword" => $this->accountPassword,
+			"accountPasswordSalt" => $this->accountPasswordSalt, "accountCreateDateTime" => $formattedDate,
+			"activation" => $this->activation, "accountId" => $this->accountId);
 		$statement->execute($parameters);
 	}
 	/**
@@ -320,7 +330,8 @@ class Account {
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$account = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"], $row["activation"], $row["accountCreateDateTime"], $row["emailId"]);
+				$account = new account($row["accountId"], $row["accountPassword"], $row["accountPasswordSalt"],
+					$row["activation"], $row["accountCreateDateTime"], $row["emailId"]);
 				$accounts[$accounts->key()] = $account;
 				$accounts->next();
 			} catch(Exception $exception) {

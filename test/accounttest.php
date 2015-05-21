@@ -5,6 +5,7 @@ require_once("cheqouttest.php");
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/php/class/email.php");
 require_once(dirname(__DIR__) . "/php/class/account.php");
+require_once(dirname(__DIR__) . "/php/lib/datetime.php");
 
 /**
  * Full PHPUnit test for the Account class
@@ -33,9 +34,9 @@ class AccountTest extends CheqoutTest {
 	protected $VALID_ACTIVATION = "ef238ea00a26528de40ff231e5a97f50";
 	/**
 	 * valid account creation date time
-	 * @var datetime $VALID_CREATEDATE
+	 * @var DateTime $VALID_CREATEDATE
 	 */
-	protected $VALID_CREATEDATE = "0000-00-00 00:00:00";
+	protected $VALID_CREATEDATE = null;
 	/**
 	 * valid password change
 	 * @var string $VALID_PW2
@@ -56,6 +57,10 @@ class AccountTest extends CheqoutTest {
 		//create and insert an Email parent object
 		$this->email = new Email(null,"jim@cnm.edu","stripe");
 		$this->email->insert($this->getPDO());
+
+		//create the account date?
+		$this->VALID_CREATEDATE = new DateTime();
+
 	}
 
 	/**
@@ -76,7 +81,7 @@ class AccountTest extends CheqoutTest {
 		$this->assertSame($pdoAccount->getAccountPassword(), $this->VALID_PW);
 		$this->assertSame($pdoAccount->getAccountPasswordSalt(), $this->VALID_PWSALT);
 		$this->assertSame($pdoAccount->getActivation(), $this->VALID_ACTIVATION);
-		$this->assertSame($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
+		$this->assertEquals($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
 		$this->assertSame($pdoAccount->getEmailId(), $this->email->getEmailId());
 	}
 	/**
@@ -145,7 +150,7 @@ class AccountTest extends CheqoutTest {
 		$this->assertSame($pdoAccount->getAccountPassword(), $this->VALID_PW2);
 		$this->assertSame($pdoAccount->getAccountPasswordSalt(), $this->VALID_PWSALT);
 		$this->assertSame($pdoAccount->getActivation(), $this->VALID_ACTIVATION);
-		$this->assertSame($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
+		$this->assertEquals($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
 		$this->assertSame($pdoAccount->getEmailId(), $this->email->getEmailId());
 	}
 	/**
@@ -181,7 +186,7 @@ class AccountTest extends CheqoutTest {
 		$this->assertSame($pdoAccount->getAccountPassword(), $this->VALID_PW);
 		$this->assertSame($pdoAccount->getAccountPasswordSalt(), $this->VALID_PWSALT);
 		$this->assertSame($pdoAccount->getActivation(), $this->VALID_ACTIVATION);
-		$this->assertSame($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
+		$this->assertEquals($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
 		$this->assertSame($pdoAccount->getEmailId(), $this->email->getEmailId());
 	}
 	/**
@@ -212,7 +217,7 @@ class AccountTest extends CheqoutTest {
 		$this->assertSame($pdoAccount->getAccountPassword(), $this->VALID_PW);
 		$this->assertSame($pdoAccount->getAccountPasswordSalt(), $this->VALID_PWSALT);
 		$this->assertSame($pdoAccount->getActivation(), $this->VALID_ACTIVATION);
-		$this->assertSame($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
+		$this->assertEquals($pdoAccount->getAccountCreateDateTime(), $this->VALID_CREATEDATE);
 		$this->assertSame($pdoAccount->getEmailId(), $this->email->getEmailId());
 	}
 	/**
@@ -257,7 +262,7 @@ class AccountTest extends CheqoutTest {
 	/**
 	 * test breaking create date time
 	 *
-	 * @expectedException RangeException
+	 * @expectedException InvalidArgumentException
 	 **/
 
 	public function testBreakingDateTime() {
