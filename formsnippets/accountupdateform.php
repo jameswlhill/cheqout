@@ -12,7 +12,6 @@ $email = new Email(1845, "emailadddyhere@wsup.com", "stripeidgoeshere");
 $_SESSION["email"] = $email;
 $address = new Address(1845, $_SESSION["email"]->getEmailId(), "attentionbro", "street1bro", "citybro", "statebro", "34567");
 $_SESSION["address"] = $address;
-var_dump($_SESSION["email"])
 // end testing area
 
 ?>
@@ -34,40 +33,51 @@ var_dump($_SESSION["email"])
 		<h1 class="text-center">Update My Account</h1>
 		<section>
 			<div class="container">
-				<h2 class="text-center">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				</h2>
 				<form method='POST' action="emailchange.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-email">New Email: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-email">New Email: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="new-email" name="new-email" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="emailcheck" name="emailcheck" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-password">Password: </label></div><div class="row col-xs-4 col-md-2">
-							<input type="text" id="new-password" name="new-password" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-2">
-							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-3"><input type="submit"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
 				</form>
 			</div>
+				Your current password is <span class="text-info">not going to be displayed.</span>
+				<form method='POST' action="passwordchange.php">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-password">Password: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="new-password" name="new-password" required /></div></div>
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
+				</form>
 		</section>
 		<section>
 			<div class="container">
+			Your current email is: <br /><span class="text-info text-left"><?php echo
+																							 $_SESSION["address"]->getAddressLabel()
+																			. "<br />" . $_SESSION["address"]->getAddressAttention()
+																			. "<br />" . $_SESSION["address"]->getAddressStreet1()
+																			. "<br />" . $_SESSION["address"]->getAddressStreet2()
+																			. "<br />" . $_SESSION["address"]->getAddressCity()
+																			. "<br />" . $_SESSION["address"]->getAddressState()
+																			. "<br />" . $_SESSION["address"]->getAddressZip() ?></span>
 				<form method='POST' action="accountupdateinsert.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="attention">ATTN: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="attention">ATTN: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="attention" name="attention" value="<?php echo $_SESSION["address"]->getAddressAttention() ?>" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="street1">Street 1: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="street1">Street 1: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="street1" name="street1" value="<?php echo $_SESSION["address"]->getAddressStreet1() ?>" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="street2">Street 2: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="street2">Street 2: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="street2" name="street2"  value="<?php echo $_SESSION["address"]->getAddressStreet2() ?>" /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="city">City: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="city">City: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="city" name="city" value="<?php echo $_SESSION["address"]->getAddressCity() ?>" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="state">State: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="state">State: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="state" name="state" value="<?php echo $_SESSION["address"]->getAddressState() ?>" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="zip">Zip Code: </label></div><div class="row col-xs-4 col-md-2">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="zip">Zip Code: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="zip" name="zip" value="<?php echo $_SESSION["address"]->getAddressZip() ?>" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-3"><input type="submit"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Address"></div>
 				</form>
 			</div>
 		</section>
+		
 	</body>
 </html>
