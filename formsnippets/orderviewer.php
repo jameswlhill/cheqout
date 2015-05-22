@@ -9,17 +9,6 @@ require_once(dirname(__DIR__)) . "/php/class/productorder.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
-//   ******** FOR TESTING ONLY **************
-$email = new Email(1844, "emailadddyhere@wsup.com", "stripeidgoeshere");
-$_SESSION["email"] = $email;
-$address = new Address(1844, $_SESSION["email"]->getEmailId(), "attentionbro", "street1bro", "citybro", "statebro", "34567");
-$_SESSION["address"] = $address;
-$product = new Product(1844, "Deez Nuts", 18.49, "This item is in yo mouf", 10, .8);
-$_SESSION["product"] = $product;
-$order = new CheqoutOrder(1844, 1844, 1844, 1844, "hfgsdjkgk", new DateTime());
-$_SESSION["order1"] = $order;
-// end testing area
-
 
 ?>
 

@@ -39,6 +39,6 @@
 				<div class="row"><div class="col-xs-4 col-md-4"><input type="submit"></div>
 				</form>
 		</section>
-		<p id="outputArea"></p>
+		<p id="addressOutputArea"></p>
 	</body>
 </html>

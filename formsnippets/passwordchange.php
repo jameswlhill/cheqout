@@ -5,20 +5,20 @@ require_once(dirname(__DIR__)) . "/php/class/account.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // go into the database and grab their email object
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-$_SESSION["email"] = Email::getEmailByEmailId($pdo, 1);
-// get their account by their email id
-$account = Account::getAccountByEmailId($pdo, $_SESSION["email"]->getEmailId);
-$oldsalt = $account->getAccountPasswordSalt();
+$email = Email::getEmailByEmailId($pdo, 1);
+$_SESSION["email"] = $email;
+$account = Account::getAccountByEmailId($pdo, 1);
+$oldSalt = $account->getAccountPasswordSalt();
 // get their old password salt and value to check it against their old password
-$checkOldPassword = hash_pbkdf2("sha512", $_POST["old-password"], $oldsalt, 2048, 128);
+$checkOldPassword = hash_pbkdf2("sha512", $_POST["oldpassword"], $oldSalt, 2048, 128);
 // get their new password POST and hash it to check against the old password (so it can't be used again)
-$checkNewPassword = hash_pbkdf2("sha512", $_POST["new-password"], $oldsalt, 2048, 128);
+$checkNewPassword = hash_pbkdf2("sha512", $_POST["newpassword"], $oldSalt, 2048, 128);
 
 try {
 	if($account->getAccountPassword() !== $checkOldPassword) {
-		throw(new InvalidArgumentException('You must enter your old password to change it.'));
+		throw(new InvalidArgumentException('Your current password is incorrect.'));
 	}
-	if(@isset($_POST["new-password"]) 	=== false	||
+	if(@isset($_POST["newpassword"]) 	=== false	||
 		(@isset($_POST["passwordcheck"]) === false) ||
 		$account->getAccountPassword() === $checkNewPassword ||
 		$account->getAccountPassword() !== $checkOldPassword)
@@ -27,7 +27,7 @@ try {
 	}
 	$newSalt = bin2hex(openssl_random_pseudo_bytes(32));
 	// use 2048 for interations for login!
-	$newPassword = hash_pbkdf2("sha512", $_POST["new-password"], $newSalt, 2048, 128);
+	$newPassword = hash_pbkdf2("sha512", $_POST["newpassword"], $newSalt, 2048, 128);
 	$account = new Account(1844, $newPassword, $newSalt, $actCode, $createTime, 1844);
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$account->update($pdo);

@@ -33,11 +33,11 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<section>
 			<div class="container">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				<form id="accountupdate" method='POST' action="emailchange.php">
+				<form id="emailchange" method='POST' action="emailchange.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="activation-code">Activation Code: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="activation-code" name="activationcode" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-email">New Email: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="new-email" name="newemail" required /></div></div>
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="newemail">New Email: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="newemail" name="newemail" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="emailcheck" name="emailcheck" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
@@ -45,11 +45,11 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 				<p id="emailOutputArea"></p>
 			</div>
 				Your current password is <span class="text-info">not going to be displayed.</span>
-				<form method='POST' action="passwordchange.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="old-password">Current Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="old-password" name="old-password" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-password">New Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="new-password" name="new-password" required /></div></div>
+				<form id="passwordchange" method='POST' action="passwordchange.php">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="oldpassword">Current Password: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="oldpassword" name="oldpassword" required /></div></div>
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="newpassword">New Password: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="newpassword" name="newpassword" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter New Password: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Password"></div>
@@ -58,7 +58,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		</section>
 		<section>
 			<div class="container">
-			Your current email is: <br /><span class="text-info text-left"><?php echo
+			Your selected address is: <br /><span class="text-info text-left"><?php echo
 																							 $_SESSION["address"]->getAddressLabel()
 																			. "<br />" . $_SESSION["address"]->getAddressAttention()
 																			. "<br />" . $_SESSION["address"]->getAddressStreet1()
@@ -66,7 +66,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 																			. "<br />" . $_SESSION["address"]->getAddressCity()
 																			. "<br />" . $_SESSION["address"]->getAddressState()
 																			. "<br />" . $_SESSION["address"]->getAddressZip() ?></span>
-				<form method='POST' action="addressinsert.php">
+				<form id="address" method='POST' action="addressinsert.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailid">Email ID: </label></div><div class="row col-xs-4 col-md-2">
 							<input type="text" id="emailid" name="emailid" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="attention">ATTN: </label></div><div class="row col-xs-4 col-md-3">

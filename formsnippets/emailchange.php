@@ -7,9 +7,9 @@ $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 $_SESSION["email"] = Email::getEmailByEmailId($pdo, 1);
 
 try {
-	if(@isset($_POST["new-email"]) 	=== false  ||
+	if(@isset($_POST["newemail"]) 	=== false  ||
 		(@isset($_POST["emailcheck"]) === false) ||
-		$_POST["new-email"] !== $_POST["emailcheck"]) {
+		$_POST["newemail"] !== $_POST["emailcheck"]) {
 		throw(new InvalidArgumentException("Please fill in all required fields."));
 	}
 	$email = new Email($_SESSION["email"]->getEmailId(),$_POST["emailcheck"] ,$_SESSION["email"]->getStripeId());
