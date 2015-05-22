@@ -4,17 +4,11 @@ require_once(dirname(__DIR__)) . "/php/class/address.php";
 require_once(dirname(__DIR__)) . "/php/class/email.php";
 require_once(dirname(__DIR__)) . "/php/class/account.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-
-
-// FOR TESTING ONLY -- TO TEST FUNCTIONALITY ASSUMING SESSION WILL ALWAYS HAVE AN ADDRESS
-//   ******** FOR TESTING ONLY 1845 EMAIL ID **************
-$email = new Email(1845, "emailadddyhere@wsup.com", "stripeidgoeshere");
-$_SESSION["email"] = $email;
-$address = new Address(1845, $_SESSION["email"]->getEmailId(), "attentionbro", "street1bro", "citybro", "statebro", "34567");
-$_SESSION["address"] = $address;
-// end testing area
-
+$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+$_SESSION["email"] = Email::getEmailByEmailId($pdo, 1);
+$_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 ?>
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
 		xmlns="http://www.w3.org/1999/html">
@@ -34,22 +28,28 @@ $_SESSION["address"] = $address;
 		<section>
 			<div class="container">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				<form method='POST' action="emailchange.php">
+				<form id="account-update" method='POST' action="emailchange.php">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="activation-code">Activation Code: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="activation-code" name="activationcode" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-email">New Email: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="new-email" name="new-email" required /></div></div>
+							<input type="text" id="new-email" name="newemail" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="emailcheck" name="emailcheck" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
 				</form>
+				<p id="emailOutputArea"></p>
 			</div>
 				Your current password is <span class="text-info">not going to be displayed.</span>
 				<form method='POST' action="passwordchange.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-password">Password: </label></div><div class="row col-xs-4 col-md-3">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="old-password">Current Password: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="old-password" name="old-password" required /></div></div>
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-password">New Password: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="new-password" name="new-password" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter New Password: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Password"></div>
 				</form>
+			<p id="passwordOutputArea"></p>
 		</section>
 		<section>
 			<div class="container">
@@ -77,6 +77,7 @@ $_SESSION["address"] = $address;
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Address"></div>
 				</form>
 			</div>
+			<p id="addressOutputArea"></p>
 		</section>
 		
 	</body>

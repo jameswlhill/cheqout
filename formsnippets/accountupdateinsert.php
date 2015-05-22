@@ -7,21 +7,23 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //   ******** FOR TESTING ONLY ACCOUNT/ADDRESS/EMAIL ENTRIES **************
 //    IN REAL LIFE I WANT TO MAKE SURE IT PULLS FROM THE DATABASE
-if(@isset($_SESSION["currentemail"]) !== true) {
-	$email = new Email(null, "emailadddyhere@wsup.com", "stripeidgoeshere");
-	$_SESSION["currentemail"] = $email;
-}
+$emailId = $_POST["emailid"];
+$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+$_SESSION["email"] = Email::getEmailByEmailId($pdo, $emailId);
+$account = Account::getAccountByEmailId($pdo, $emailId);
 
-if(@isset($_SESSION["currentaddress"]) !== true) {
-	$address = new Address(null, "addressaddy", "123 first street", "lost begaz", "New Vada", "State Variable", "45879");
-	$_SESSION["currentaddress"] = $address;
-}
 
 try {
-	 if(@isset($_POST["new-email"]) 	=== false  ||
-		(@isset($_POST["email"]) 	=== false) ||
-		$_POST["new-email"] !== $_POST["email"]) {
-		throw(new InvalidArgumentException("Please ensure the new and old e-mails do not match."));
+	if($account->getActivation() !== $_POST["activation-code"]) {
+		throw(new InvalidArgumentException('Please enter the activation code as it was sent in the email.'));
+	}
+	if($_POST["new-email"] !== $_POST["email"]) {
+		throw(new InvalidArgumentException('Please ensure both E-Mail entries match each other.'));
+	}
+	 if(@isset($_POST["activation-code"]) 	=== false  ||
+		 @isset($_POST["new-email"]) 	=== false  ||
+		(@isset($_POST["email"]) 	=== false)) {
+		throw(new InvalidArgumentException("Please fill out all E-Mail fields."));
 	}
 	$email = $_SESSION["currentemail"];
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");

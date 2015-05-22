@@ -5,10 +5,9 @@ require_once(dirname(__DIR__)) . "/php/class/email.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //   ******** FOR TESTING ONLY 1844 EMAIL ID **************
-$email = new Email(null, "emailadddyhere@wsup.com", "stripeidgoeshere");
-$_SESSION["email"] = $email;
+$emailId = $_POST["emailid"];
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-$email->insert($pdo);
+$_SESSION["email"] = Email::getEmailByEmailId($pdo, $emailId);
 
 try {
 	 if(@isset($_POST["attention"]) 	=== false  ||
@@ -19,7 +18,7 @@ try {
 		throw(new InvalidArgumentException("Please fill in all required fields."));
 	}
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-	$address = new Address(null, $_SESSION["emailId"], $_POST["attention"], $_POST["street1"],
+	$address = new Address(null, $_SESSION["email"]->getEmailId(), $_POST["attention"], $_POST["street1"],
 		$_POST["city"], $_POST["state"], $_POST["zip"], $_POST["street2"],
 		$_POST["label"]);
 	$address->insert($pdo);

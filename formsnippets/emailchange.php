@@ -3,8 +3,8 @@ session_start();
 require_once(dirname(__DIR__)) . "/php/class/email.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-//   ******** FOR TESTING ONLY 1844 EMAIL ID **************
-$_SESSION["email"] = new Email(1844, "emailaddy@email.email", "stripeidiswhat");
+$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+$_SESSION["email"] = Email::getEmailByEmailId($pdo, 1);
 
 try {
 	if(@isset($_POST["new-email"]) 	=== false  ||
