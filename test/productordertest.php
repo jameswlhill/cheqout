@@ -75,6 +75,11 @@ class ProductOrderTest extends CheqoutTest {
 	 * @var float $INVALID_ORDERPRICE
 	 **/
 	protected $INVALID_ORDERPRICE = -23;
+	/**
+	 * valid orderDateTime
+	 * @var datetime $VALID_DATETIME
+	 */
+	protected $VALID_DATETIME = "0000-00-00 00:00:00";
 
 	/**
 	 * create dependent objects before running each test
@@ -92,7 +97,7 @@ class ProductOrderTest extends CheqoutTest {
 		$this->shippingAddress = new Address(null,$this->email->getEmailId(),"attn","streetone","city","state","87102-5785","streettwo","label");
 		$this->shippingAddress->insert($this->getPDO());
 		// create and insert a CheqoutOrder to own the test ProductOrder
-		$this->cheqoutOrder = new CheqoutOrder(null, $this->email->getEmailId(), $this->billingAddress->getAddressId(), $this->shippingAddress->getAddressId(), "12", "date");
+		$this->cheqoutOrder = new CheqoutOrder(null, $this->email->getEmailId(), $this->billingAddress->getAddressId(), $this->shippingAddress->getAddressId(), "12", $this->VALID_DATETIME);
 		$this->cheqoutOrder->insert($this->getPDO());
 		// create the test Product
 		$this->product = new Product(null,"Title", 8.99, "Descriptive description", 150, .75);

@@ -8,16 +8,7 @@
 session_start();
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
-if(isset($_GET['page'])) {
-	$pages = array('shop', 'cart');
-	if(in_array($_GET['page'], $pages)) {
-		$page = $_GET['page'];
-	} else {
-		$page = "shop";
-	}
-} else {
-	$page = "shop";
-}
+
 ?>
 
 <!DOCTYPE HTML>
