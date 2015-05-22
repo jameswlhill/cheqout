@@ -2,14 +2,12 @@
 $(document).ready(
 	// inner function for the ready() event
 	function() {
-
 		// tell the validator to validate this form
 		$("#address").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",
 			errorLabelContainer: "#outputArea",
 			wrapper: "li",
-
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the input's name (NOT id)
@@ -35,7 +33,7 @@ $(document).ready(
 				},
 				zip: {
 					min: 1,
-					max: 99999-9999,
+					max: 99999 - 9999,
 					required: true,
 					maxlength: 10
 				},
@@ -49,28 +47,27 @@ $(document).ready(
 			messages: {
 				attention: {
 					maxlength: "Your Attention line is too long! Like this message!",
-					required: true
+					required: "We need Attention. Blame the USPS..."
 				},
 				street1: {
 					maxlength: "We need Street 1 to be a little...smaller...Please?",
-					required: true
+					required: "We REALLY NEED at least one street line to be entered..."
 				},
 				street2: {
-					maxlength: "You don't need to fill it out, but if you do, LESS! PLEASE!",
-					required: false
+					maxlength: "You don't need to fill it out, but if you do, LESS! PLEASE!"
 				},
 				city: {
 					maxlength: "Less. Much less.",
-					required: true
+					required: "Please tell us where you City!"
 				},
 				state: {
 					maxlength: "There aren't even states with this many PEOPLE!",
-					required: true
+					required: "We need to know your State. Please."
 				},
 				zip: {
 					min: "We need a few numbers at least...",
 					max: "The ZIP CODE IS TOO HIGH!",
-					required: true,
+					required: "Zip Code must be entered to proceed. Go directly to jail, do not collect $200.",
 					maxlength: "Too long! Sorry!"
 				},
 				label: {
@@ -103,14 +100,74 @@ $(document).ready(
 				});
 			}
 		});
-	});
+			// tell the validator to validate this form ID
+			$("#accountupdate").validate({
+				// setup the formatting for the errors
+				errorClass: "label-danger",
+				errorLabelContainer: "#emailOutputArea",
+				wrapper: "li",
+				// rules define what is good/bad input
+				rules: {
+					// each rule starts with the inputs name (NOT id)
+					activationcode: {
+						min: 32,
+						maxlength: 32,
+						required: true
+					},
+					newemail: {
+						maxlength: 128,
+						required: true
+					},
+					emailcheck: {
+						maxlength: 128,
+						required: true
+					}
+				},
+				// error messages to display to the end user
+				messages: {
+					activationcode: {
+						min: "Activation code must be copy/pasted directly from the email.",
+						maxlength: "Activation code must be copy/pasted directly from the email.",
+						required: "Activation code is required."
+					},
+					newemail: {
+						maxlength: "Your E-Mail is WAY too long.",
+						required: "You DO have an E-Mail...right?"
+					},
+					emailcheck: {
+						maxlength: "Your E-Mail is WAY too long.",
+						required: "We need your E-Mail twice...sorry =("
+					}
+				},
 
-// document ready event
-$(document).ready(
-	// inner function for the ready() event
-	function() {
+				// setup an AJAX call to submit the form without reloading
+				submitHandler: function(form) {
+					$(form).ajaxSubmit({
+						// GET or POST
+						type: "POST",
+						// where to submit data
+						url: "accountupdateinsert.php",
+						// TL; DR: reformat POST data
+						data: $(form).serialize(),
+						// success is an event that happens when the server replies
+						success: function(ajaxOutput) {
+							// clear the output area's formatting
+							$("#emailOutputArea").css("display", "");
+							// write the server's reply to the output area
+							$("#emailOutputArea").html(ajaxOutput);
+
+
+							// reset the form if it was successful
+							// this makes it easier to reuse the form again
+							if($(".alert-success").length >= 1) {
+								$(form)[0].reset();
+							}
+						}
+					});
+				}
+			});
 		// tell the validator to validate this form ID
-		$("#account-update").validate({
+		$("#accountupdate").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",
 			errorLabelContainer: "#emailOutputArea",
@@ -155,7 +212,7 @@ $(document).ready(
 					// GET or POST
 					type: "POST",
 					// where to submit data
-					url: "accountupdateinsert.php",
+					url: "emailchange.php",
 					// TL; DR: reformat POST data
 					data: $(form).serialize(),
 					// success is an event that happens when the server replies
@@ -175,4 +232,10 @@ $(document).ready(
 				});
 			}
 		});
-	});
+
+
+
+
+		});
+
+

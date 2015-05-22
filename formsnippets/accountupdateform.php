@@ -20,6 +20,11 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<!--	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>										-->
 		<script type="text/javascript" src="../js/jquery214.js"></script>
 		<!--	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>		-->
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
+		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="ajax.js"></script>
 		<script type="text/javascript" src="../js/bootstrap.js"></script>
 		<title>The Address Form</title>
 	</head>
@@ -28,7 +33,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<section>
 			<div class="container">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				<form id="account-update" method='POST' action="emailchange.php">
+				<form id="accountupdate" method='POST' action="emailchange.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="activation-code">Activation Code: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="activation-code" name="activationcode" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="new-email">New Email: </label></div><div class="row col-xs-4 col-md-3">
@@ -61,7 +66,9 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 																			. "<br />" . $_SESSION["address"]->getAddressCity()
 																			. "<br />" . $_SESSION["address"]->getAddressState()
 																			. "<br />" . $_SESSION["address"]->getAddressZip() ?></span>
-				<form method='POST' action="accountupdateinsert.php">
+				<form method='POST' action="addressinsert.php">
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailid">Email ID: </label></div><div class="row col-xs-4 col-md-2">
+							<input type="text" id="emailid" name="emailid" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="attention">ATTN: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="attention" name="attention" value="<?php echo $_SESSION["address"]->getAddressAttention() ?>" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="street1">Street 1: </label></div><div class="row col-xs-4 col-md-3">
