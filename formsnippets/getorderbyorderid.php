@@ -1,17 +1,14 @@
 <?php
 session_start();
-require_once(dirname(__DIR__)) . "/php/class/address.php";
+require_once(dirname(__DIR__)) . "/php/class/cheqoutorder.php";
 require_once(dirname(__DIR__)) . "/php/class/email.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 //   ******** FOR TESTING ONLY 1844 EMAIL ID **************
-$email = new Email(null, "emailadddyhere@wsup.com", "stripeidgoeshere");
-$_SESSION["email"] = $email;
-$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-$email->insert($pdo);
+$_SESSION["emailId"] = 1844;
 
 try {
-	 if(@isset($_POST["attention"]) 	=== false  ||
+	if(@isset($_POST["attention"]) 	=== false  ||
 		(@isset($_POST["street1"]) 	=== false) ||
 		(@isset($_POST["city"]) 		=== false) ||
 		(@isset($_POST["state"]) 		=== false) ||

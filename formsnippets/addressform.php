@@ -6,15 +6,20 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/superhero/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="../css/flow.css">
-		<!--	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>										-->
-		<script type="text/javascript" src="../js/jquery214.js"></script>
-		<!--	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>		-->
-		<script type="text/javascript" src="../js/bootstrap.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!--		<script type="text/javascript" src="../js/jquery214.js"></script>-->
+<!--		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>		-->
+<!--		<script type="text/javascript" src="../js/bootstrap.js"></script>-->
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
+		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="ajax.js"></script>
 		<title>The Address Form</title>
 	</head>
 	<body>
 		<section>
-			<form method='POST' action="addressinsert.php">
+			<form id="address" method='POST' action="addressinsert.php">
 				<h1 class="text-center">Address</h1>
 				<div class="row">
 					<div class="col-xs-4 col-md-2">
@@ -33,5 +38,6 @@
 				<div class="row"><div class="col-xs-4 col-md-4"><input type="submit"></div>
 				</form>
 		</section>
+		<p id="outputArea"></p>
 	</body>
 </html>
