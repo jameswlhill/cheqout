@@ -84,7 +84,7 @@ class CheqoutOrderTest extends CheqoutTest {
 	}
 
 	/**
-	 * test insert on valid order and verify mySQL data matches
+	 * test insert on valid checkout and verify mySQL data matches
 	 **/
 	public function testInsertValidOrder() {
 		// count the number of rows and save it for later
@@ -105,7 +105,7 @@ class CheqoutOrderTest extends CheqoutTest {
 		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
 	/**
-	 * test insert on an invalid order
+	 * test insert on an invalid checkout
 	 *
 	 * @expectedException PDOException
 	 **/
@@ -116,13 +116,13 @@ class CheqoutOrderTest extends CheqoutTest {
 	}
 
 	/**
-	 * test delete of valid order
+	 * test delete of valid checkout
 	 **/
 	public function testDeleteValidOrder() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 
-		// create a new order and insert to into mySQL
+		// create a new checkout and insert to into mySQL
 		$order = new CheqoutOrder(null, $this->email->getEmailId(), $this->billingAddress->getAddressId(), $this->shippingAddress->getAddressId(),
 			$this->VALID_STRIPE, $this->VALID_DATETIME);
 
@@ -138,7 +138,7 @@ class CheqoutOrderTest extends CheqoutTest {
 	}
 
 	/**
-	 * test delete of invalid order
+	 * test delete of invalid checkout
 	 *
 	 * @expectedException PDOException
 	 */
@@ -149,13 +149,13 @@ class CheqoutOrderTest extends CheqoutTest {
 	}
 
 	/**
-	 * test update on a valid order
+	 * test update on a valid checkout
 	 **/
 	public function testUpdateValidOrder() {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 
-		// create a new order and insert to into mySQL
+		// create a new checkout and insert to into mySQL
 		$order = new CheqoutOrder(null, $this->email->getEmailId(), $this->billingAddress->getAddressId(), $this->shippingAddress->getAddressId(),
 			$this->VALID_STRIPE, $this->VALID_DATETIME);
 		$order->insert($this->getPDO());
@@ -182,7 +182,7 @@ class CheqoutOrderTest extends CheqoutTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("cheqoutOrder");
 
-		// create a new order and insert to into mySQL
+		// create a new checkout and insert to into mySQL
 		$order = new CheqoutOrder(null, $this->email->getEmailId(), $this->billingAddress->getAddressId(), $this->shippingAddress->getAddressId(),
 			$this->VALID_STRIPE, $this->VALID_DATETIME);
 		$order->insert($this->getPDO());
@@ -215,7 +215,7 @@ class CheqoutOrderTest extends CheqoutTest {
 	 * test grabbing an email that does not exist by email id
 	 **/
 	public function testGetInvalidOrderByOrderId() {
-		// grab an order id that exceeds the maximum allowable order id int
+		// grab an checkout id that exceeds the maximum allowable checkout id int
 		$order = CheqoutOrder::getOrderByOrderId($this->getPDO(), CheqoutTest::INVALID_KEY);
 		$this->assertNull($order);
 	}
@@ -243,7 +243,7 @@ class CheqoutOrderTest extends CheqoutTest {
 		$this->assertSame($pdoOrder->getOrderDateTime(), $this->VALID_DATETIME);
 	}
 	/**
-	 * test grabbing an order that does not exist by email id
+	 * test grabbing an checkout that does not exist by email id
 	 **/
 	public function testGetInvalidOrderByEmailId() {
 		// grab an email id that exceeds the maximum allowable address id
@@ -292,7 +292,7 @@ class CheqoutOrderTest extends CheqoutTest {
 			CheqoutTest::INVALID_STRING, $this->VALID_DATETIME);
 	}
 	/**
-	 * test breaking order date time
+	 * test breaking checkout date time
 	 *
 	 * @expectedException RangeException
 	 **/

@@ -64,7 +64,7 @@ class ProductOrderTest extends CheqoutTest {
 	 **/
 	protected $INVALID_SHIPPINGCOST = -3;
 	/**
-	 * valid order price
+	 * valid checkout price
 	 *
 	 * @var float $VALID_ORDERPRICE
 	 **/
@@ -125,7 +125,7 @@ class ProductOrderTest extends CheqoutTest {
 	 * @expectedException PDOException
 	 **/
 	public function testInsertInvalidProductOrder() {
-		// create a product order with non null orderId/productId pair that fail
+		// create a product checkout with non null orderId/productId pair that fail
 		$productOrder = new ProductOrder(CheqoutTest::INVALID_KEY, CheqoutTest::INVALID_KEY, $this->VALID_QUANTITY, $this->VALID_SHIPPINGCOST, $this->VALID_ORDERPRICE);
 		$productOrder->insert($this->getPDO());
 	}
@@ -170,7 +170,7 @@ class ProductOrderTest extends CheqoutTest {
 	 * test grabbing a ProductOrder that does not exist
 	 **/
 	public function testGetInvalidProductOrderByOrderIdAndProductId() {
-		// grab an order id and product id that exceeds the maximum allowable range for order id and profile id
+		// grab an checkout id and product id that exceeds the maximum allowable range for checkout id and profile id
 		$productOrder = ProductOrder::getProductOrderByOrderIdAndProductId($this->getPDO(), CheqoutTest::INVALID_KEY, CheqoutTest::INVALID_KEY);
 		$this->assertNull($productOrder);
 	}

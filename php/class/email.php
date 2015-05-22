@@ -304,6 +304,39 @@ class Email {
 			}
 		return ($email);
 		}
+	/**
+	 * get emailId by email address
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param string $emailAddress email address to search for
+	 * @return mixed emailId if found, or null if none found
+	 * @throws PDOException when anything goes wrong in mySQL
+	 */
+	public static function getEmailIdByEmailAddress(PDO &$pdo, $emailAddress) {
+		//validate integer before searching
+		$emailAddress = filter_var($emailAddress, FILTER_SANITIZE_EMAIL);
+		if(empty($emailAddress) === true) {
+			throw(new PDOException("this email does not exist"));
+		}
+		//create the query
+		$query = "SELECT emailId, emailAddress, stripeId FROM email WHERE emailAddress = :emailAddress";
+		$statement = $pdo->prepare($query);
+
+		$parameters = array("emailAddress" => $emailAddress);
+		$statement->execute($parameters);
+
+		try {
+			$email = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if ($row !== false) {
+				$email = new Email ($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+			}
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($email);
+	}
 }
 
 

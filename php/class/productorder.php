@@ -3,15 +3,15 @@
  * ProductOrder Class
  *
  * This class is a weak entity composed of elements from the Product and CheqoutOrder classes.
- * It contains pertinent information concerning customer identification and order details,
- * such as shipping costs, unit quantities, and total order price.
+ * It contains pertinent information concerning customer identification and checkout details,
+ * such as shipping costs, unit quantities, and total checkout price.
  *
  * @author James Hill <james@appists.com>
  **/
 
 class ProductOrder {
 	/**
-	 * This is the order id referencing $orderId in the CheqoutOrder class. It is one of two
+	 * This is the checkout id referencing $orderId in the CheqoutOrder class. It is one of two
 	 * id's which make up the composite primary key for the productOrder table.
 	 *
 	 * @var int $orderId
@@ -31,13 +31,13 @@ class ProductOrder {
 	 **/
 	protected $quantity;
 	/**
-	 * This is the flat-rate shipping cost for the order
+	 * This is the flat-rate shipping cost for the checkout
 	 *
 	 * @var float $shippingCost
 	 **/
 	protected $shippingCost;
 	/**
-	 * This is the order total
+	 * This is the checkout total
 	 *
 	 * @var float $orderPrice
 	 **/
@@ -46,11 +46,11 @@ class ProductOrder {
 	/**
 	 * Magic method __construct() for ProductOrder class
 	 *
-	 * @param int $newOrderId for order id
+	 * @param int $newOrderId for checkout id
 	 * @param int $newProductId for product id
 	 * @param int $newQuantity for units shipped
 	 * @param float $newShippingCost for flat rate shipping charges
-	 * @param float $newOrderPrice for order price total
+	 * @param float $newOrderPrice for checkout price total
 	 * @throws UnexpectedValueException in case any of the methods throw an exception
 	 **/
 	public function __construct($newOrderId, $newProductId, $newQuantity, $newShippingCost, $newOrderPrice) {
@@ -68,30 +68,30 @@ class ProductOrder {
 	}
 
 	/**
-	 * Getter method for order id
+	 * Getter method for checkout id
 	 *
-	 * @return int value of order id
+	 * @return int value of checkout id
 	 **/
 	public function getOrderId() {
 		return ($this->orderId);
 	}
 
 	/**
-	 * Setter method for order id
+	 * Setter method for checkout id
 	 *
-	 * @param int $newOrderId new value for order id
+	 * @param int $newOrderId new value for checkout id
 	 * @throws UnexpectedValueException if $newOrderId is not an integer
 	 **/
 	public function setOrderId($newOrderId) {
-		//verify new order id is a valid integer
+		//verify new checkout id is a valid integer
 		$newOrderId = filter_var($newOrderId, FILTER_VALIDATE_INT);
 		if($newOrderId === false) {
-			throw(new UnexpectedValueException("order id not a valid integer"));
+			throw(new UnexpectedValueException("checkout id not a valid integer"));
 		}
 
-		//verify order id is positive
+		//verify checkout id is positive
 		if($newOrderId <= 0) {
-			throw(new RangeException("order id is not positive"));
+			throw(new RangeException("checkout id is not positive"));
 		}
 
 		//if no exception thrown, use intval for added security and store the new id
@@ -130,30 +130,30 @@ class ProductOrder {
 	}
 
 	/**
-	 * Getter method for order quantity
+	 * Getter method for checkout quantity
 	 *
-	 * @return int value of order quantity
+	 * @return int value of checkout quantity
 	 **/
 	public function getQuantity() {
 		return ($this->quantity);
 	}
 
 	/**
-	 * Setter method for order quantity
+	 * Setter method for checkout quantity
 	 *
 	 * @param int $newQuantity
 	 * @throws UnexpectedValueException if $newQuantity is not valid
 	 **/
 	public function setQuantity($newQuantity) {
-		//verify order quantity is a valid integer
+		//verify checkout quantity is a valid integer
 		$newQuantity = filter_var($newQuantity, FILTER_VALIDATE_INT);
 		if($newQuantity === false) {
-			throw(new UnexpectedValueException("order quantity is not a valid integer"));
+			throw(new UnexpectedValueException("checkout quantity is not a valid integer"));
 		}
 
 		//verify quantity is a positive number
 		if($newQuantity <= 0) {
-			throw(new RangeException("order quantity is not a positive integer"));
+			throw(new RangeException("checkout quantity is not a positive integer"));
 		}
 
 		//if no exception is thrown, use intval for added security and store the value
@@ -187,25 +187,25 @@ class ProductOrder {
 	}
 
 	/**
-	 * Getter method for total order price
+	 * Getter method for total checkout price
 	 *
-	 * @return float value of total order price
+	 * @return float value of total checkout price
 	 **/
 	public function getOrderPrice() {
 		return ($this->orderPrice);
 	}
 
 	/**
-	 * Setter method for total order price
+	 * Setter method for total checkout price
 	 *
 	 * @param float $newOrderPrice
 	 * @throws UnexpectedValueException if $newOrderPrice is not valid
 	 **/
 	public function setOrderPrice($newOrderPrice) {
-		//validate float value of total order price
+		//validate float value of total checkout price
 		$newOrderPrice = filter_var($newOrderPrice, FILTER_VALIDATE_FLOAT);
 		if($newOrderPrice === false) {
-			throw(new UnexpectedValueException("total order price is not a valid float value"));
+			throw(new UnexpectedValueException("total checkout price is not a valid float value"));
 		}
 
 		//if $newOrderPrice is valid, store in $orderPrice via floatval() for added security
@@ -245,7 +245,7 @@ class ProductOrder {
 	 * @throws PDOException on MySQL errors
 	 **/
 	public function insert(PDO &$pdo) {
-		//make sure initial order and product id's in db are not null (because they are being used here as foreign key components of a composite primary key)
+		//make sure initial checkout and product id's in db are not null (because they are being used here as foreign key components of a composite primary key)
 		if($this->orderId === null || $this->productId === null) {
 			throw(new PDOException("this is not a new ProductOrder"));
 		}
@@ -269,13 +269,13 @@ EOF;
 	}
 
 	/**
-	 * Deletes a product order from MySQL database
+	 * Deletes a product checkout from MySQL database
 	 *
 	 * @param PDO $pdo pointer to pdo connection by reference
 	 * @throws PDOException when MySQL error occurs
 	 **/
 	public function delete(PDO &$pdo) {
-		//check to see if order id and product id are null so that you don't try to delete an entry that doesn't exist
+		//check to see if checkout id and product id are null so that you don't try to delete an entry that doesn't exist
 		if($this->orderId === null && $this->productId === null) {
 			throw(new PDOException("can't delete a row that doesn't exist"));
 		}
@@ -293,13 +293,13 @@ EOF;
 	}
 
 	/**
-	 * Update product order in MySQL database
+	 * Update product checkout in MySQL database
 	 *
 	 * @param PDO $pdo pointer to pdo connection by reference
 	 * @throws PDOException when MySQL errors occurs
 	 **/
 	public function update(PDO &$pdo) {
-		//make sure product id and order id are not null, since there's no point adding superfluous request traffic
+		//make sure product id and checkout id are not null, since there's no point adding superfluous request traffic
 		if($this->orderId === null && $this->productId === null) {
 			throw(new PDOException("can't update record that doesn't exist"));
 		}
@@ -325,7 +325,7 @@ EOF;
 		$statement->execute($parameters);
 	}
 	/**
-	 * Gets product order by composite primary key
+	 * Gets product checkout by composite primary key
 	 *
 	 * @param PDO $pdo pointer to pdo MySQL connection by reference
 	 * @param int $orderId foreign key (one of two which make up primary)
@@ -338,10 +338,10 @@ EOF;
 		$orderId = filter_var($orderId, FILTER_VALIDATE_INT);
 		$productId = filter_var($productId, FILTER_VALIDATE_INT);
 		if($orderId === false && $productId === false) {
-			throw(new PDOException("order id and/or product id are not valid integers"));
+			throw(new PDOException("checkout id and/or product id are not valid integers"));
 		}
 		if($orderId <= 0 || $productId <= 0) {
-			throw(new PDOException("order id and product id must be positive integers"));
+			throw(new PDOException("checkout id and product id must be positive integers"));
 		}
 
 
@@ -353,7 +353,7 @@ EOF;
 		$parameters = array("orderId" => $orderId, "productId" => $productId);
 		$statement->execute($parameters);
 
-		//retrieve the product order from MySQL database
+		//retrieve the product checkout from MySQL database
 		try {
 			$productOrder = null;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);

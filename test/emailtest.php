@@ -175,6 +175,30 @@ class EmailTest extends CheqoutTest {
 		$email = Email::getEmailByStripeId($this->getPDO(), CheqoutTest::INVALID_STRING);
 		$this->assertNull($email);
 	}
+
+	/**
+	 * test finding email Id by email address
+	 */
+	public function testGetValidEmailIdByEmailAddress() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("email");
+		// create a new address and insert to into mySQL
+		$email = new Email(null, $this->VALID_EMAILADDRESS, $this->VALID_STRIPEID);
+		$email->insert($this->getPDO());
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoEmail = Email::getEmailIdByEmailAddress($this->getPDO(), $email->getEmailAddress());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("email"));
+		$this->assertEquals($pdoEmail->getEmailAddress(), $this->VALID_EMAILADDRESS);
+		$this->assertEquals($pdoEmail->getStripeId(), $this->VALID_STRIPEID);
+	}
+	/**
+	 * test finding email id by non-existing email address
+	 */
+	public function testGetInvalidEmailIdByEmailAddress() {
+		// grab an email id that exceeds the maximum allowable address id
+		$email = Email::getEmailIdByEmailAddress($this->getPDO(), CheqoutTest::INVALID_STRING);
+		$this->assertNull($email);
+	}
 	/**
 	 * test getting all emails and verifying same as inserted
 	 */

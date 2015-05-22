@@ -3,17 +3,17 @@ require_once(dirname(__DIR__)) . "/lib/datetime.php";
 /**
  * CheqoutOrder class
  *
- * this is the order class, with the primary key of orderId,
- * references the emailId and stripeId of the user who placed the order,
+ * this is the checkout class, with the primary key of orderId,
+ * references the emailId and stripeId of the user who placed the checkout,
  * the shippingAddressId of whatever address was stored to be used for shipping.
- * creates the datetime of the order placement.
+ * creates the datetime of the checkout placement.
  *
  * @author Kyla Carroll <kylacarroll43@gmail.com>
  */
 
 class CheqoutOrder {
 	/**
-	 * the order id, an auto-incrementing integer assigned when the order is placed
+	 * the checkout id, an auto-incrementing integer assigned when the checkout is placed
 	 * @var int $orderId
 	 */
 	protected $orderId;
@@ -38,7 +38,7 @@ class CheqoutOrder {
 	 **/
 	protected $stripeId;
 	/**
-	 * the generated date time of order placement
+	 * the generated date time of checkout placement
 	 * @var string $orderDateTime
 	 **/
 	protected $orderDateTime;
@@ -62,7 +62,7 @@ class CheqoutOrder {
 			$this->setStripeId($newStripeId);
 			$this->setOrderDateTime($newOrderDateTime);
 		} catch (UnexpectedValueException $exception) {
-			throw (new UnexpectedValueException("unable to create order", 0, $exception));
+			throw (new UnexpectedValueException("unable to create checkout", 0, $exception));
 		}
 	}
 
@@ -76,7 +76,7 @@ class CheqoutOrder {
 	}
 
 	/**
-	 * mutator method for order Id
+	 * mutator method for checkout Id
 	 *
 	 * @param int $newOrderId new value of orderId
 	 * @throws InvalidArgumentException if $newOrderId is not an integer
@@ -87,7 +87,7 @@ class CheqoutOrder {
 		}
 		$newOrderId = filter_var($newOrderId, FILTER_VALIDATE_INT);
 		if ($newOrderId === false) {
-			throw (new InvalidArgumentException("order ID is invalid"));
+			throw (new InvalidArgumentException("checkout ID is invalid"));
 		}
 
 		//store the new Order Id
@@ -218,7 +218,7 @@ class CheqoutOrder {
 	/**
 	 * accessor method for orderDateTime
 	 *
-	 * @return dateTime time of order
+	 * @return dateTime time of checkout
 	 **/
 	public function getOrderDateTime() {
 		return ($this->orderDateTime);
@@ -227,7 +227,7 @@ class CheqoutOrder {
 	/**
 	 * mutator method for orderDateTime
 	 *
-	 * @param string $newOrderDateTime string value of date and time of order
+	 * @param string $newOrderDateTime string value of date and time of checkout
 	 * @throw UnexpectedValueException if $newOrderDateTime is not a string
 	 **/
 	public function setOrderDateTime($newOrderDateTime) {
@@ -244,14 +244,14 @@ class CheqoutOrder {
 	}
 	//////////// PDO FUNCTIONS //////////////////
 	/**
-	 * inserts this order into mySQL
+	 * inserts this checkout into mySQL
 	 *
 	 * @param PDO $pdo references the PDO connection
 	 * @throw PDOException when anything goes wrong in the PDO connection
 	 **/
 	public function insert(PDO &$pdo) {
 		if($this->orderId !== null) {
-			throw (new PDOException("unable to insert order; order already exists"));
+			throw (new PDOException("unable to insert checkout; checkout already exists"));
 		}
 		$query = "INSERT INTO cheqoutOrder(emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime)
 						VALUES (:emailId, :shippingAddressId, :billingAddressId, :stripeId, :orderDateTime)";
@@ -267,14 +267,14 @@ class CheqoutOrder {
 	}
 
 	/**
-	 * deletes this order from mySQL
+	 * deletes this checkout from mySQL
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @throws PDOException when anything goes wrong with the PDO connection
 	 **/
 	public function delete(PDO &$pdo) {
 		if($this->orderId === null) {
-			throw (new PDOException("cannot delete order that does not exist"));
+			throw (new PDOException("cannot delete checkout that does not exist"));
 		}
 		$query = "DELETE FROM cheqoutOrder WHERE orderId = :orderId";
 		$statement = $pdo->prepare($query);
@@ -284,14 +284,14 @@ class CheqoutOrder {
 	}
 
 	/**
-	 * updates this order in mySQL
+	 * updates this checkout in mySQL
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @throws PDOException when anything goes wrong with the PDO connection
 	 **/
 	public function update(PDO &$pdo) {
 		if($this->orderId === null) {
-			throw (new PDOException("cannot update order that does not exist"));
+			throw (new PDOException("cannot update checkout that does not exist"));
 		}
 		$query = "UPDATE cheqoutOrder SET emailId = :emailId, shippingAddressId = :shippingAddressId,
 					billingAddressId = :billingAddressId, stripeId = :stripeId, orderDateTime = :orderDateTime
@@ -345,7 +345,7 @@ class CheqoutOrder {
 	}
 
 	/**
-	 * get order by order id
+	 * get checkout by checkout id
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param int $orderId to search for
@@ -355,7 +355,7 @@ class CheqoutOrder {
 		//validate integer before searching
 		$orderId = filter_var($orderId, FILTER_VALIDATE_INT);
 		if(empty($orderId) === true) {
-			throw(new PDOException("order does not exist"));
+			throw(new PDOException("checkout does not exist"));
 		}
 		//create the query
 		$query = "SELECT orderId, emailId, billingAddressId, shippingAddressId, stripeId, orderDateTime
