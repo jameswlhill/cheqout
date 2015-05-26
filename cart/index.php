@@ -1,104 +1,67 @@
 <?php
-$PAGE_TITLE = "Shop - Cheqout";
-session_start();
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once("../lib/utilities.php");
+/**
+ * Cheqout cart index/view
+ *
+ * @author James Hill <james@appists.com>
+ */
 ?>
 
+<!DOCTYPE HTML>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Cheqout shopping cart</title>
 
-<div class="row">
-	<section class="side-panel col-md-3">
-		<?php require_once("../lib/sidebar.php"); ?>
-	</section>
-	<div class="container">
-		<header>
-			<?php require_once("../lib/header.php"); ?>
-		</header>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" />
+		<!-- HTML5 shiv and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<!-- Load jQuery and the typeahead JS files -->
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
 
-<div class="row">
-	<div class="col-xs-8">
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<div class="panel-title">
-					<div class="row">
-						<div class="col-xs-6">
-							<h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
-						</div>
-						<div class="col-xs-6">
-							<button type="button" class="btn btn-primary btn-sm btn-block">
-								<span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
-					</div>
-					<div class="col-xs-4">
-						<h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
-					</div>
-					<div class="col-xs-6">
-						<div class="col-xs-6 text-right">
-							<h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
-						</div>
-						<div class="col-xs-4">
-							<input type="text" class="form-control input-sm" value="1">
-						</div>
-						<div class="col-xs-2">
-							<button type="button" class="btn btn-link btn-xs">
-								<span class="glyphicon glyphicon-trash"> </span>
-							</button>
-						</div>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
-					</div>
-					<div class="col-xs-4">
-						<h4 class="product-name"><strong>Product name</strong></h4><h4><small>Product description</small></h4>
-					</div>
-					<div class="col-xs-6">
-						<div class="col-xs-6 text-right">
-							<h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
-						</div>
-						<div class="col-xs-4">
-							<input type="text" class="form-control input-sm" value="1">
-						</div>
-						<div class="col-xs-2">
-							<button type="button" class="btn btn-link btn-xs">
-								<span class="glyphicon glyphicon-trash"> </span>
-							</button>
-						</div>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="text-center">
-						<div class="col-xs-9">
-							<h6 class="text-right">Changed quantity?</h6>
-						</div>
-						<div class="col-xs-3">
-							<button type="button" class="btn btn-default btn-sm btn-block">
-								Update cart
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<div class="row text-center">
-					<div class="col-xs-9">
-						<h4 class="text-right">Total <strong>$50.00</strong></h4>
-					</div>
-					<div class="col-xs-3">
-						<button type="button" class="btn btn-success btn-block">
-							Checkout
-						</button>
-				</div>
+		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
+		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div id="main">
+				<h2>Your Shopping Cart</h2>
 			</div>
 		</div>
-	</div>
-</div>
+		<div id="cart">
+			<h1>Cheqout Shopping Cart</h1>
+			<?php
+			if(isset($_SESSION["cart"]))
+			{
+				$cheqoutTotal = 0;
+				echo '<ol>';
+				foreach ($_SESSION["cart"] as $cartItem)
+				{
+					echo '<li class="cartItem">';
+					echo '<h3>'.$cartItem["title"].'</h3>';
+					echo '<div class="qty">Qty : '.$cartItem["qty"].'</div>';
+					echo '<div class="price">Price :'.$cartItem["price"].'</div>';
+					echo '</li>';
+					$total = ($cartItem["price"]*$cartItem["qty"]);
+				}
+				echo '</ol>';
+				echo '<span class="cheqouttotal"><strong>Total : $ '.$total.'</strong> <a href="#">Continue to Checqout</a></span>';
+				echo '<span class="emptycart"><a href="#">Empty Cart</a></span>';
+			}else{
+				echo 'There are no items in your cart';
+			}
+			?>
+		</div>
+	</body>
+</html>
