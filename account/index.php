@@ -1,5 +1,5 @@
 <?php
-$PAGE_TITLE = "Shop - Cheqout";
+$PAGE_TITLE = "My Account - Cheqout";
 require_once("../lib/utilities.php");
 ?>
 
@@ -12,6 +12,7 @@ require_once("../lib/utilities.php");
 			<header>
 				<?php require_once("../lib/header.php"); ?>
 			</header>
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-5  toppad  pull-right col-md-offset-3 ">
@@ -53,13 +54,10 @@ require_once("../lib/utilities.php");
 										<td>theiremail@me.com</td>
 									</tr>
 
-
-									</tr>
-
 								</tbody>
 							</table>
 
-							<a href="#" class="btn btn-primary">Update Address</a>
+							<a href="#" class="btn btn-default">Update Address</a>
 						</div>
 					</div>
 				</div>

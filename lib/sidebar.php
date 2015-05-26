@@ -13,7 +13,7 @@ require_once("../lib/utilities.php");
 						<a href="#menu-toggle" class="btn btn-link" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
 					</li>
 					<li class="link sidebar-brand">
-						<a href="../">
+						<a href="../checkout">
 							Cheqout
 						</a>
 					</li>
@@ -26,16 +26,16 @@ require_once("../lib/utilities.php");
 						<a href="#">Login</a>
 					</li>
 					<li class="link">
-						<a href="#">Shop</a>
+						<a href="../shop">Shop</a>
 					</li>
 					<li class="link">
-						<a href="#">Account</a>
+						<a href="../account">Account</a>
 					</li>
 					<li class="link">
-						<a href="#">Cart</a>
+						<a href="../cart">Cart</a>
 					</li>
 					<li class="link">
-						<a href="#">About</a>
+						<a href="../about">About</a>
 					</li>
 				</ul>
 			</div>
@@ -52,4 +52,3 @@ require_once("../lib/utilities.php");
 			});
 		</script>
 
-	</body>

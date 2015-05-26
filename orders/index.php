@@ -12,6 +12,7 @@ require_once("../lib/utilities.php");
 		<header>
 			<?php require_once("../lib/header.php"); ?>
 		</header>
+
 <div class="panel panel-default panel-order">
 	<div class="panel-heading">
 		<strong>Order history</strong>
@@ -30,7 +31,6 @@ require_once("../lib/utilities.php");
 
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-md-1"><img src="http://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail"></div>
 			<div class="col-md-11">
 				<div class="row">
 					<div class="col-md-12">
@@ -47,9 +47,8 @@ require_once("../lib/utilities.php");
 				</div>
 			</div>
 		</div>
-
+<hr>
 		<div class="row">
-			<div class="col-md-1"><img src="http://bootdey.com/img/Content/user_1.jpg" class="media-object img-thumbnail"></div>
 			<div class="col-md-11">
 				<div class="row">
 					<div class="col-md-12">
@@ -66,9 +65,8 @@ require_once("../lib/utilities.php");
 				</div>
 			</div>
 		</div>
-
+<hr>
 		<div class="row">
-			<div class="col-md-1"><img src="http://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail"></div>
 			<div class="col-md-11">
 				<div class="row">
 					<div class="col-md-12">
@@ -85,9 +83,8 @@ require_once("../lib/utilities.php");
 				</div>
 			</div>
 		</div>
-
+<hr>
 		<div class="row">
-			<div class="col-md-1"><img src="http://bootdey.com/img/Content/user_2.jpg" class="media-object img-thumbnail"></div>
 			<div class="col-md-11">
 				<div class="row">
 					<div class="col-md-12">

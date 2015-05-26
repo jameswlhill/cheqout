@@ -61,7 +61,7 @@ class CheqoutOrder {
 			$this->setBillingAddressId($newBillingAddressId);
 			$this->setStripeId($newStripeId);
 			$this->setOrderDateTime($newOrderDateTime);
-		} catch (UnexpectedValueException $exception) {
+		} catch(UnexpectedValueException $exception) {
 			throw (new UnexpectedValueException("unable to create checkout", 0, $exception));
 		}
 	}
@@ -82,11 +82,11 @@ class CheqoutOrder {
 	 * @throws InvalidArgumentException if $newOrderId is not an integer
 	 **/
 	public function setOrderId($newOrderId) {
-		if ($newOrderId === null) {
+		if($newOrderId === null) {
 			return;
 		}
 		$newOrderId = filter_var($newOrderId, FILTER_VALIDATE_INT);
-		if ($newOrderId === false) {
+		if($newOrderId === false) {
 			throw (new InvalidArgumentException("checkout ID is invalid"));
 		}
 
@@ -110,11 +110,11 @@ class CheqoutOrder {
 	 * @throws InvalidArgumentException if $newEmailId is not an integer
 	 **/
 	public function setEmailId($newEmailId) {
-		if ($newEmailId === null) {
+		if($newEmailId === null) {
 			return;
 		}
 		$newEmailId = filter_var($newEmailId, FILTER_VALIDATE_INT);
-		if ($newEmailId === false) {
+		if($newEmailId === false) {
 			throw (new InvalidArgumentException("email ID is invalid"));
 		}
 		if(intval($newEmailId) > 4294967295) {
@@ -132,7 +132,7 @@ class CheqoutOrder {
 	public function getBillingAddressId() {
 		return ($this->billingAddressId);
 	}
-	
+
 	/**
 	 * mutator method for billingAddressId
 	 *
@@ -140,7 +140,7 @@ class CheqoutOrder {
 	 * @throw UnexpectedValueException if $newBillingAddressId is not a valid integer
 	 **/
 	public function setBillingAddressId($newBillingAddressId) {
-		if ($newBillingAddressId === null) {
+		if($newBillingAddressId === null) {
 			return;
 		}
 		$newBillingAddressId = filter_var($newBillingAddressId, FILTER_VALIDATE_INT);
@@ -170,7 +170,7 @@ class CheqoutOrder {
 	 * @throw UnexpectedValueException if $newShippingAddressId is not a valid integer
 	 **/
 	public function setShippingAddressId($newShippingAddressId) {
-		if ($newShippingAddressId === null) {
+		if($newShippingAddressId === null) {
 			return;
 		}
 		$newShippingAddressId = filter_var($newShippingAddressId, FILTER_VALIDATE_INT);
@@ -201,11 +201,11 @@ class CheqoutOrder {
 	 * @throws RangeException if $newStripeId is more than 25 char
 	 **/
 	public function setStripeId($newStripeId) {
-		if ($newStripeId === null) {
+		if($newStripeId === null) {
 			return;
 		}
 		$newStripeId = filter_var($newStripeId, FILTER_SANITIZE_STRING);
-		if ($newStripeId === false) {
+		if($newStripeId === false) {
 			throw (new InvalidArgumentException("Stripe Id is not a valid string"));
 		}
 		if(strlen($newStripeId) > 25) {
@@ -279,7 +279,7 @@ class CheqoutOrder {
 		$query = "DELETE FROM cheqoutOrder WHERE orderId = :orderId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = array("orderId" =>$this->orderId);
+		$parameters = array("orderId" => $this->orderId);
 		$statement->execute($parameters);
 	}
 
@@ -300,8 +300,8 @@ class CheqoutOrder {
 
 		$formattedDate = $this->orderDateTime->format("Y-m-d H:i:s");
 		$parameters = array("orderId" => $this->orderId, "emailId" => $this->emailId, "shippingAddressId" => $this->shippingAddressId,
-							"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
-							"orderDateTime" => $formattedDate);
+			"billingAddressId" => $this->billingAddressId, "stripeId" => $this->stripeId,
+			"orderDateTime" => $formattedDate);
 		$statement->execute($parameters);
 	}
 //////////////GET functions/////////////////
@@ -369,7 +369,7 @@ class CheqoutOrder {
 			$order = null;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-			if ($row !== false) {
+			if($row !== false) {
 				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["billingAddressId"],
 					$row["shippingAddressId"], $row["stripeId"], $row["orderDateTime"]);
 			}
@@ -377,7 +377,7 @@ class CheqoutOrder {
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($order);
-		}
+	}
 
 	/**
 	 * get all orders associated with a single email
@@ -400,17 +400,29 @@ class CheqoutOrder {
 		$parameters = array("emailId" => $emailId);
 		$statement->execute($parameters);
 
-		try {
-			$order = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if ($row !== false) {
-				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["billingAddressId"],
-					$row["shippingAddressId"], $row["stripeId"], $row["orderDateTime"]);
+		//builds the array of orders
+		$orders = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$order = new cheqoutOrder($row["orderId"], $row["emailId"], $row["billingAddressId"], $row["shippingAddressId"],
+					$row['stripeId'], $row['orderDateTime']);
+				$orders[$orders->key()] = $order;
+				$orders->next();
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(Exception $exception) {
-			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($order);
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfOrders = count($orders);
+		if($numberOfOrders === 0) {
+			return (null);
+		} else {
+			return ($orders);
+		}
 	}
 }

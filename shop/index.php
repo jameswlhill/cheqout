@@ -4,7 +4,6 @@ require_once("../lib/utilities.php");
 ?>
 
 
-	<body>
 		<div class="row">
 			<section class="side-panel col-md-3">
 				<?php require_once("../lib/sidebar.php"); ?>
@@ -13,6 +12,7 @@ require_once("../lib/utilities.php");
 				<header>
 					<?php require_once("../lib/header.php"); ?>
 				</header>
+
 
 			<!-- Page Header -->
 			<div class="row">
@@ -25,8 +25,19 @@ require_once("../lib/utilities.php");
 			</div>
 
 			<!-- /.row -->
-
+				<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					Categories
+				</button>
+				<div class="collapse" id="collapseExample">
+					<div class="well">
+						<a href="#">Celebrity</a>
+						<a href="#">Topical</a>
+						<a href="#">Political</a>
+					</div>
+				</div>
+				<hr>
 			<!-- Projects Row -->
+
 			<div class="row">
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
@@ -149,32 +160,17 @@ require_once("../lib/utilities.php");
 							<a href="#">3</a>
 						</li>
 						<li>
-							<a href="#">4</a>
-						</li>
-						<li>
-							<a href="#">5</a>
-						</li>
-						<li>
 							<a href="#">&raquo;</a>
 						</li>
 					</ul>
 				</div>
 			</div>
+		</div>
+	</div>
 			<!-- /.row -->
 
 			<hr>
 
-			<!-- Footer -->
-			<footer>
-				<div class="row">
-					<div class="col-lg-12">
-						<p>Copyright &copy; Your Website 2014</p>
-					</div>
-				</div>
-				<!-- /.row -->
-			</footer>
-
-		</div>
 
 		<!-- /.container -->
 
