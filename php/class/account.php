@@ -240,7 +240,7 @@ class Account {
 		//assign and store the email
 		$this->emailId = $newEmailId;
 	}
-
+/////////////////////////////////// PDO functions ////////////////////////////////////
 	/**
 	 * inserts this account into mySQL
 	 *
@@ -267,7 +267,6 @@ VALUES(:accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTi
 		//updates the null accountId with the value of the variable
 		$this->accountId = intval($pdo->lastInsertId());
 	}
-
 	/**
 	 * deletes the account from mySQL
 	 *

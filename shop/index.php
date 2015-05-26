@@ -30,8 +30,8 @@ require_once("../lib/utilities.php");
 				</button>
 				<div class="collapse" id="collapseExample">
 					<div class="well">
-						<a href="#">Celebrity</a>
-						<a href="#">Topical</a>
+						<a href="#">Celebrity</a> |
+						<a href="#">Topical</a> |
 						<a href="#">Political</a>
 					</div>
 				</div>

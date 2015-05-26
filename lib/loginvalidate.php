@@ -19,17 +19,17 @@ if(!isset( $_POST['emailAddress'], $_POST['password']))
 }
 
 /*** check the username is the correct length ***/
-elseif (strlen( $_POST['emailAddress']) > 128 || strlen($_POST['emailAddress']) < 5)
+if(strlen( $_POST['emailAddress']) > 128 || strlen($_POST['emailAddress']) < 5)
 {
 	$message = 'Incorrect Length for Email';
 }
 /*** check the password is the correct length ***/
-elseif (strlen( $_POST['password']) > 128 || strlen($_POST['password']) < 4)
+if(strlen( $_POST['password']) > 128 || strlen($_POST['password']) < 4)
 {
 	$message = 'Incorrect Length for Password';
 }
 /*** check the username has only alpha numeric characters ***/
-elseif(!ctype_alnum(str_replace($eValid, '', $email)))
+if(!ctype_alnum(str_replace($eValid, '', $email)))
 {
 	$message = "Email contains disallowed characters.";
 }

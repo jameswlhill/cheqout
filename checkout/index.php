@@ -23,7 +23,7 @@ require_once("../lib/utilities.php");
 										</div>
 										<div class="col-xs-6">
 											<button type="button" class="btn btn-primary btn-sm btn-block">
-												<span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+												<span class="glyphicon glyphicon-share-alt"></span>Continue shopping
 											</button>
 										</div>
 									</div>
