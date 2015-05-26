@@ -10,6 +10,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 
 
+
 ?>
 
 
@@ -32,22 +33,22 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<section>
 			<div class="container">
 				<form method='POST' action="getorderbyorderid.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="order-number">Order Number: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="order-number" name="order-number" required /></div></div>
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="orderid">Order Number: </label></div><div class="row col-xs-4 col-md-3">
+							<input type="text" id="orderid" name="orderid" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Get Order Info"></div>
 				</form>
 			</div>
 		</section>
-		<section>
-			<div class="container">
-				<form method='POST' action="getorderbyemailaddress.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="email-address">Email Address: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="email-address" name="email-address" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="password">Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="password" name="password" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Get All Orders"></div>
-				</form>
-			</div>
-		</section>
+<!--		<section>-->
+<!--			<div class="container">-->
+<!--				<form method='POST' action="getorderbyemailaddress.php">-->
+<!--					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailaddress">Email Address: </label></div><div class="row col-xs-4 col-md-3">-->
+<!--							<input type="text" id="emailaddress" name="email-address" required /></div></div>-->
+<!--					<div class="row"><div class="col-xs-4 col-md-2"><label for="password">Password: </label></div><div class="row col-xs-4 col-md-3">-->
+<!--							<input type="text" id="password" name="password" required /></div></div>-->
+<!--					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Get All Orders"></div>-->
+<!--				</form>-->
+<!--			</div>-->
+<!--		</section>-->
 	</body>
 </html>
