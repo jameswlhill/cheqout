@@ -41,7 +41,7 @@ if($quantity <= 0) {
 } elseif($quantity === 0) {
 	unset($_SESSION["cart"][$productId]);
 } else {
-	$quantity = $_POST['quantity'];
+	$quantity = $_SESSION["cart"][$quantity];
 }
 
 ?>
