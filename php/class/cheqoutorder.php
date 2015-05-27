@@ -439,6 +439,7 @@ class CheqoutOrder {
 		if(empty($emailAddress) === true) {
 			throw(new PDOException("E-Mail did not sanitize without changes."));
 		}
+		$input = intval($input);
 		//create the query
 		$query = "SELECT email.emailAddress,
                     cheqoutOrder.orderId,
@@ -463,6 +464,9 @@ class CheqoutOrder {
                     INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
                     WHERE cheqoutOrder.orderId = :input";
 		$statement = $pdo->prepare($query);
+
+		$parameters = array("input" => $input);
+		$statement->execute($parameters);
 
 		try {
 			$order = null;
