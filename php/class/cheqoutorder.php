@@ -425,4 +425,70 @@ class CheqoutOrder {
 			return ($orders);
 		}
 	}
+	/**
+	 * get orders by email address MADE BY TYLER WIEGAND (not james or kyla)
+	 *
+	 * @param PDO $pdo references the pdo connection
+	 * @param string $input email address to search for
+	 * @return mixed emailId if found, or null if none found
+	 * @throws PDOException when anything goes wrong in mySQL
+	 */
+	public static function getOrderHistoryByOrderId(PDO &$pdo, $input) {
+		//validate integer before searching
+		$input = filter_var($input, FILTER_VALIDATE_INT);
+		if(empty($emailAddress) === true) {
+			throw(new PDOException("E-Mail did not sanitize without changes."));
+		}
+		//create the query
+		$query = "SELECT email.emailAddress,
+                    cheqoutOrder.orderId,
+                    productOrder.quantity,
+                    product.productId,
+                    product.productTitle,
+                    product.productPrice * product.productSale * productOrder.quantity,
+                    shippingCost,
+                    orderPrice,
+                    address.addressAttention,
+                    address.addressLabel,
+                    address.addressStreet1,
+                    address.addressStreet2,
+                    address.addressCity,
+                    address.addressState,
+                    address.addressZip,
+                    cheqoutOrder.orderDateTime
+                    FROM email
+                    INNER JOIN cheqoutOrder ON email.emailId = cheqoutOrder.emailId
+                    INNER JOIN productOrder ON cheqoutOrder.orderId = productOrder.orderId
+                    INNER JOIN product ON product.productId = productOrder.productId
+                    INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
+                    WHERE cheqoutOrder.orderId = :input";
+		$statement = $pdo->prepare($query);
+
+		try {
+			$order = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$order = array($row["emailAddress"],
+									$row["orderId"],
+									$row["quantity"],
+									$row["productId"],
+									$row["productTitle"],
+									$row["productQuantityTotal"],
+									$row["shippingCost"],
+									$row["orderPrice"],
+									$row["attention"],
+									$row["label"],
+									$row["street1"],
+									$row["street2"],
+									$row["city"],
+									$row["state"],
+									$row["zip"],
+									$row["orderDateTime"]);
+			}
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($order);
+	}
 }

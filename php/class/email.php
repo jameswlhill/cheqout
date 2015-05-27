@@ -373,7 +373,7 @@ class Email {
 		return ($login);
 	}
 	/**
-	 * get orders by email address
+	 * get orders by email address MADE BY TYLER WIEGAND (not james or kyla)
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param string $input email address to search for
