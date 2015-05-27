@@ -345,6 +345,7 @@ class Email {
 	 * @param string $emailAddress the entered email address
 	 * @return mixed login details (email/password) if found or null if none found
 	 * @throws PDOException when anything goes wrong in mySQL
+	 *
 	 */
 	public static function getLoginDataByEmailAddress(PDO &$pdo, $emailAddress) {
 		//validate email before searching
@@ -356,20 +357,22 @@ class Email {
 		$query = "SELECT emailAddress, accountPassword, accountPasswordSalt FROM email, account WHERE emailAddress = :emailAddress";
 		$statement = $pdo->prepare($query);
 
-		$parameters = array("emailAddress" => $emailAddress, );
+		$parameters = array("emailAddress" => $emailAddress,);
 		$statement->execute($parameters);
 
 		try {
 			$login = null;
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-			if ($row !== false) {
-				$login =  array($row["emailAddress"], $row["accountPassword"], $row["accountPasswordSalt"]);
+			if($row !== false) {
+				$login = array($row["emailAddress"], $row["accountPassword"], $row["accountPasswordSalt"]);
 			}
 		} catch(Exception $exception) {
 			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
 		return ($login);
+
+		echo "HI";
 	}
 }
 
