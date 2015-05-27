@@ -193,7 +193,6 @@ class Account {
 
 	/**
 	 * mutator method for account creation date
-	 *
 	 * @param DateTime $newAccountCreateDateTime new value of account creation date
 	 * @throws UnexpectedValueException if $newAccountCreateDateTime is not valid
 	 * @throws RangeException if $newAccountCreateDateTime is not valid

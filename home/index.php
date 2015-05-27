@@ -2,7 +2,7 @@
 $PAGE_TITLE = "Home - Cheqout";
 require_once("../lib/utilities.php");
 ?>
-<div class="full">
+<body class="full">
 <div class="row">
 	<section class="side-panel col-md-3">
 		<?php require_once("../lib/sidebar.php"); ?>
