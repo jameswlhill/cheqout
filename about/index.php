@@ -34,13 +34,13 @@ if(isset($_POST['submit'])) {
 	<section class="side-panel col-md-3">
 		<?php require_once("../lib/sidebar.php"); ?>
 	</section>
-	<div class="container">
 		<header>
 			<?php require_once("../lib/header.php"); ?>
 		</header>
 
-		<div class="col-md-8" id="divMain">
-
+	<div class="container-fluid">
+		<div class="content-wrapper">
+			<div class="container-fluid contact col-md-8">
 			<h2>Contact Us</h2>
 			<hr>
 			<!--Start Contact form -->
@@ -61,11 +61,8 @@ if(isset($_POST['submit'])) {
 					<button type="submit" name="submit">Submit</button>
 				</div>
 			</form>
-		</div>
-			<!--End Contact form -->
-					<!--About us portion-->
-		<div class="col-md-4 sidebar">
-		<div class="sidebox">
+			</div>
+		<div class="sidebox col-md-4">
 			<h3 class="sidebox-title">About Us</h3>
 			<p>I'm gonna build me an airport, put my name on it. Why, Michael? So you can fly away from your feelings? That
 				coat costs more than your house! Michael was concerned that he was caught in a lie about his family. The
@@ -73,5 +70,6 @@ if(isset($_POST['submit'])) {
 				bench. Whoa whoa whoa whoa. Wait. Are you telling me you have a multi-stage trick with hidden identities? I
 				thought the two of us could talk man-on-man. But I'm the oldest. The matriarch if you will. Do you guys know
 				where I could get one of those gold necklaces with the T on it? That's a cross. Across from where?</p>
+			</div>
 		</div>
 	</div>

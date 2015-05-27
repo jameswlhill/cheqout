@@ -7,11 +7,11 @@ require_once("../lib/utilities.php");
 		<section class="side-panel col-md-3">
 			<?php require_once("../lib/sidebar.php"); ?>
 		</section>
-		<div class="container">
 			<header>
 				<?php require_once("../lib/header.php"); ?>
 			</header>
 
+		<div class="container">
 				<div class="row">
 					<div class="col-xs-8">
 						<div class="panel panel-info">

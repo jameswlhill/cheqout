@@ -8,13 +8,13 @@ require_once("../lib/utilities.php");
 			<section class="side-panel col-md-3">
 				<?php require_once("../lib/sidebar.php"); ?>
 			</section>
-			<div class="container">
 				<header>
 					<?php require_once("../lib/header.php"); ?>
 				</header>
 
 
 			<!-- Page Header -->
+			<div class="container">
 			<div class="row">
 
 				<div class="col-lg-12">

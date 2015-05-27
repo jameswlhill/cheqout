@@ -337,6 +337,40 @@ class Email {
 		}
 		return ($email);
 	}
+	/**
+	 * get login data by email address
+	 *
+	 * this includes a join with the account table to get password
+	 * @param PDO $pdo references the pdo connection
+	 * @param string $emailAddress the entered email address
+	 * @return mixed login details (email/password) if found or null if none found
+	 * @throws PDOException when anything goes wrong in mySQL
+	 */
+	public static function getLoginDataByEmailAddress(PDO &$pdo, $emailAddress) {
+		//validate email before searching
+		$emailAddress = filter_var($emailAddress, FILTER_SANITIZE_EMAIL);
+		if(empty($emailAddress) === true) {
+			throw(new PDOException("Email is not in our records or is invalid"));
+		}
+		//create the query
+		$query = "SELECT emailAddress, accountPassword, accountPasswordSalt FROM email, account WHERE emailAddress = :emailAddress";
+		$statement = $pdo->prepare($query);
+
+		$parameters = array("emailAddress" => $emailAddress, );
+		$statement->execute($parameters);
+
+		try {
+			$login = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if ($row !== false) {
+				$login =  array($row["emailAddress"], $row["accountPassword"], $row["accountPasswordSalt"]);
+			}
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($login);
+	}
 }
 
 
