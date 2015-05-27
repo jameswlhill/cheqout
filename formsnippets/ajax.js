@@ -100,107 +100,43 @@ $(document).ready(
 				});
 			}
 		});
-			// tell the validator to validate this form ID
-			$("#emailchange").validate({
-				// setup the formatting for the errors
-				errorClass: "label-danger",
-				errorLabelContainer: "#emailOutputArea",
-				wrapper: "li",
-				// rules define what is good/bad input
-				rules: {
-					// each rule starts with the inputs name (NOT id)
-					activationcode: {
-						min: 32,
-						maxlength: 32,
-						required: true
-					},
-					newemail: {
-						maxlength: 128,
-						required: true
-					},
-					emailcheck: {
-						maxlength: 128,
-						required: true
-					}
-				},
-				// error messages to display to the end user
-				messages: {
-					activationcode: {
-						min: "Activation code must be copy/pasted directly from the email.",
-						maxlength: "Activation code must be copy/pasted directly from the email.",
-						required: "Activation code is required."
-					},
-					newemail: {
-						maxlength: "Your E-Mail is WAY too long.",
-						required: "You DO have an E-Mail...right?"
-					},
-					emailcheck: {
-						maxlength: "Your E-Mail is WAY too long.",
-						required: "We need your E-Mail twice...sorry =("
-					}
-				},
-
-				// setup an AJAX call to submit the form without reloading
-				submitHandler: function(form) {
-					$(form).ajaxSubmit({
-						// GET or POST
-						type: "POST",
-						// where to submit data
-						url: "emailchange.php",
-						// TL; DR: reformat POST data
-						data: $(form).serialize(),
-						// success is an event that happens when the server replies
-						success: function(ajaxOutput) {
-							// clear the output area's formatting
-							$("#emailOutputArea").css("display", "");
-							// write the server's reply to the output area
-							$("#emailOutputArea").html(ajaxOutput);
-
-
-							// reset the form if it was successful
-							// this makes it easier to reuse the form again
-							if($(".alert-success").length >= 1) {
-								$(form)[0].reset();
-							}
-						}
-					});
-				}
-			});
 		// tell the validator to validate this form ID
-		$("#passwordchange").validate({
+		$("#emailchange").validate({
 			// setup the formatting for the errors
 			errorClass: "label-danger",
-			errorLabelContainer: "#passwordOutputArea",
+			errorLabelContainer: "#emailOutputArea",
 			wrapper: "li",
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
-				oldpassword: {
+				activationcode: {
+					min: 32,
+					maxlength: 32,
+					required: true
+				},
+				newemail: {
 					maxlength: 128,
 					required: true
 				},
-				newpassword: {
-					maxlength: 128,
-					required: true
-				},
-				passwordcheck: {
+				emailcheck: {
 					maxlength: 128,
 					required: true
 				}
 			},
 			// error messages to display to the end user
 			messages: {
-				oldpassword: {
-					maxlength: "Email TOO LONG!.",
-					required: "Your old password is required."
+				activationcode: {
+					min: "Activation code must be copy/pasted directly from the email.",
+					maxlength: "Activation code must be copy/pasted directly from the email.",
+					required: "Activation code is required."
 				},
-				newpassword: {
-					maxlength: "Your new password is WAY too long.",
-					required: "You wanna change your password, or what?"
+				newemail: {
+					maxlength: "Your E-Mail is WAY too long.",
+					required: "You DO have an E-Mail...right?"
 				},
-				passwordcheck: {
-					maxlength: "EMAIL -- TOO -- LONG -- ERROR -- ERROR",
-					required: "We went over this...enter it twice..."
+				emailcheck: {
+					maxlength: "Your E-Mail is WAY too long.",
+					required: "We need your E-Mail twice...sorry =("
 				}
 			},
 
@@ -210,15 +146,127 @@ $(document).ready(
 					// GET or POST
 					type: "POST",
 					// where to submit data
-					url: "passwordchange.php",
+					url: "emailchange.php",
 					// TL; DR: reformat POST data
 					data: $(form).serialize(),
 					// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
 						// clear the output area's formatting
-						$("#passwordOutputArea").css("display", "");
+						$("#emailOutputArea").css("display", "");
 						// write the server's reply to the output area
-						$("#passwordOutputArea").html(ajaxOutput);
+						$("#emailOutputArea").html(ajaxOutput);
+
+
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
+			}
+		});
+		// tell the validator to validate this form ID
+		$("#passwordchange").validate({
+		// setup the formatting for the errors
+		errorClass: "label-danger",
+		errorLabelContainer: "#passwordOutputArea",
+		wrapper: "li",
+		// rules define what is good/bad input
+		rules: {
+			// each rule starts with the inputs name (NOT id)
+			oldpassword: {
+				maxlength: 128,
+				required: true
+			},
+			newpassword: {
+				maxlength: 128,
+				required: true
+			},
+			passwordcheck: {
+				maxlength: 128,
+				required: true
+			}
+		},
+		// error messages to display to the end user
+		messages: {
+			oldpassword: {
+				maxlength: "Email TOO LONG!.",
+				required: "Your old password is required."
+			},
+			newpassword: {
+				maxlength: "Your new password is WAY too long.",
+				required: "You wanna change your password, or what?"
+			},
+			passwordcheck: {
+				maxlength: "EMAIL -- TOO -- LONG -- ERROR -- ERROR",
+				required: "We went over this...enter it twice..."
+			}
+		},
+
+		// setup an AJAX call to submit the form without reloading
+		submitHandler: function(form) {
+			$(form).ajaxSubmit({
+				// GET or POST
+				type: "POST",
+				// where to submit data
+				url: "passwordchange.php",
+				// TL; DR: reformat POST data
+				data: $(form).serialize(),
+				// success is an event that happens when the server replies
+				success: function(ajaxOutput) {
+					// clear the output area's formatting
+					$("#passwordOutputArea").css("display", "");
+					// write the server's reply to the output area
+					$("#passwordOutputArea").html(ajaxOutput);
+
+
+					// reset the form if it was successful
+					// this makes it easier to reuse the form again
+					if($(".alert-success").length >= 1) {
+						$(form)[0].reset();
+					}
+				}
+			});
+		}
+	});
+		// tell the validator to validate this form ID
+		$("#orderbyid").validate({
+			// setup the formatting for the errors
+			errorClass: "label-danger",
+			errorLabelContainer: "#orderOutputArea",
+			wrapper: "li",
+			// rules define what is good/bad input
+			rules: {
+				// each rule starts with the inputs name (NOT id)
+				orderid: {
+					min: 1,
+					required: true
+				}
+			},
+			// error messages to display to the end user
+			messages: {
+				orderid: {
+					min: "Order number is 1 or higher.",
+					required: "Please input your Order Id."
+				}
+			},
+
+			// setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "getorderbyorderid.php",
+					// TL; DR: reformat POST data
+					data: $(form).serialize(),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#orderOutputArea").css("display", "");
+						// write the server's reply to the output area
+						$("#orderOutputArea").html(ajaxOutput);
 
 
 						// reset the form if it was successful
@@ -234,6 +282,6 @@ $(document).ready(
 
 
 
-		});
+	});
 
 

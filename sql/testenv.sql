@@ -140,3 +140,4 @@ VALUES(2, 2, 3, 3.00, 76);
 
 INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
 VALUES(2, 1, 4, 2.00, 12);
+

@@ -12,11 +12,10 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-	$email = Email::getEmailByEmailId($pdo, 1);
-	$account = Account::getAccountByEmailId($pdo, 1);
 	$orderId = $_POST["orderid"];
 	$orderObject = CheqoutOrder::getOrderByOrderId($pdo, $orderId);
-	var_dump($orderObject);
+	$email = Email::getEmailByEmailId($pdo, 1);
+	$account = Account::getAccountByEmailId($pdo, 1);
 
 	if(@isset($_POST["orderid"]) 	=== false) {
 		throw(new InvalidArgumentException("Please fill in your orderObject ID."));
@@ -24,14 +23,20 @@ try {
 	if($email->getEmailId() !== $orderObject->getEmailId()) {
 		throw(new InvalidArgumentException("You can only get orders associated with YOUR E-Mail."));
 	}
-	echo "Valid Request.";
 
-	$order = array($orderObject->getOrderId, $orderObject->getEmailId, $orderObject->getBillingAddressId,
-						$orderObject->getShippingAddressId, $orderObject->getStripeId, $orderObject->getOrderDateTime);
+	$formattedDate = $orderObject->getOrderDateTime()->format("Y-m-d H:i:s");
+	$order = array($orderObject->getOrderId(), $email->getEmailAddress(), $orderObject->getBillingAddressId(),
+						$orderObject->getShippingAddressId(), $orderObject->getStripeId(), $formattedDate);
+	echo '<table><tr><th>Order Id</th>
+						  <th>Email Address</th>
+						  <th>Billing Address Id</th>
+						  <th>Shipping Address Id</th>
+						  <th>Stripe Id</th>
+						  <th>Order Date</th></tr>';
 	foreach($order as $list) {
-	echo $list;
+	echo '<td>' . $list  . '</td>';
 	}
-	echo "End of For Each.";
+	echo '</table>';
 
 }catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

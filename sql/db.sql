@@ -92,3 +92,4 @@ CREATE TABLE productOrder (
 	FOREIGN KEY(productId) REFERENCES product(productId),
 	PRIMARY KEY(orderId,productId)
 );
+
