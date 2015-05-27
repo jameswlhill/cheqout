@@ -13,26 +13,50 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$orderId = $_POST["orderid"];
-	$orderObject = CheqoutOrder::getOrderByOrderId($pdo, $orderId);
-	$email = Email::getEmailByEmailId($pdo, 1);
-	$account = Account::getAccountByEmailId($pdo, 1);
 
 	if(@isset($_POST["orderid"]) 	=== false) {
-		throw(new InvalidArgumentException("Please fill in your orderObject ID."));
+		throw(new InvalidArgumentException("Please fill in your orderArray ID."));
 	}
-	if($email->getEmailId() !== $orderObject->getEmailId()) {
+	if($email->getEmailAddress() !== $orderArray["emailAddress"]) {
 		throw(new InvalidArgumentException("You can only get orders associated with YOUR E-Mail."));
 	}
 
-	$formattedDate = $orderObject->getOrderDateTime()->format("Y-m-d H:i:s");
-	$order = array($orderObject->getOrderId(), $email->getEmailAddress(), $orderObject->getBillingAddressId(),
-						$orderObject->getShippingAddressId(), $orderObject->getStripeId(), $formattedDate);
-	echo '<table><tr><th>Order Id</th>
-						  <th>Email Address</th>
-						  <th>Billing Address Id</th>
-						  <th>Shipping Address Id</th>
-						  <th>Stripe Id</th>
-						  <th>Order Date</th></tr>';
+	$orderArray = CheqoutOrder::getOrderHistoryByOrderId($pdo, $orderId);
+	$email = Email::getEmailByEmailId($pdo, 1);
+	$account = Account::getAccountByEmailId($pdo, 1);
+//	$formattedDate = $orderArray->getOrderDateTime()->format("Y-m-d H:i:s");
+	$order = array($orderArray["emailAddress"],
+		$orderArray["orderId"],
+		$orderArray["quantity"],
+		$orderArray["productId"],
+		$orderArray["productTitle"],
+		$orderArray["productQuantityTotal"],
+		$orderArray["shippingCost"],
+		$orderArray["orderPrice"],
+		$orderArray["attention"],
+		$orderArray["label"],
+		$orderArray["street1"],
+		$orderArray["street2"],
+		$orderArray["city"],
+		$orderArray["state"],
+		$orderArray["zip"],
+		$orderArray["orderDateTime"]);
+	echo '<table><tr><th>Email Address</th>
+						  <th>Order ID</th>
+						  <th>Quantity</th>
+						  <th>Product ID</th>
+						  <th>Product Title</th>
+						  <th>Price (quantity*sale)</th>
+						  <th>Shipping Cost</th>
+						  <th>Order Total</th>
+						  <th>Attention</th>
+						  <th>Label</th>
+						  <th>Street 1</th>
+						  <th>Street 2</th>
+						  <th>City</th>
+						  <th>State</th>
+						  <th>Zip</th>
+						  <th>Time of Order</th></tr>';
 	foreach($order as $list) {
 	echo '<td>' . $list  . '</td>';
 	}
