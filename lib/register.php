@@ -25,5 +25,3 @@ if($_POST['password'] !== $_POST['password2']){
 		 }
 	 }
 ?>
-
-?>
