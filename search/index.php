@@ -29,8 +29,14 @@
 
 	<body>
 		<!--user input search bar-->
-
+		<div class="container">
+			<form action="../controllers/jsoncontroller.php" method="get">
+				<input type="text" size="30" id="input" placeholder="search our products">
+				<input type="submit" value="search">
+			</form>
+		</div>
 		<!-- Load jQuery -->
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../controllers/search.js"></script>
 	</body>
 </html>
