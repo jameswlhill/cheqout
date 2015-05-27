@@ -141,3 +141,60 @@ VALUES(2, 2, 3, 3.00, 76);
 INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
 VALUES(2, 1, 4, 2.00, 12);
 
+
+
+SELECT email.emailAddress,
+	cheqoutOrder.orderId,
+	productOrder.quantity,
+	product.productId,
+	product.productTitle,
+	product.productPrice * product.productSale * productOrder.quantity,
+	address.addressAttention,
+	address.addressLabel,
+	address.addressStreet1,
+	address.addressStreet2,
+	address.addressCity,
+	address.addressState,
+	address.addressZip,
+	cheqoutOrder.orderDateTime
+FROM email
+INNER JOIN cheqoutOrder ON email.emailId = cheqoutOrder.emailId
+INNER JOIN productOrder ON cheqoutOrder.orderId = productOrder.orderId
+INNER JOIN product ON product.productId = productOrder.productId
+INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
+WHERE cheqoutOrder.orderId = 1;
+
+
+SELECT email.emailAddress,
+	cheqoutOrder.orderId,
+	productOrder.quantity,
+	product.productId,
+	product.productTitle,
+	product.productPrice * product.productSale * productOrder.quantity,
+	shippingCost,
+	orderPrice,
+	address.addressAttention,
+	address.addressLabel,
+	address.addressStreet1,
+	address.addressStreet2,
+	address.addressCity,
+	address.addressState,
+	address.addressZip,
+	cheqoutOrder.orderDateTime
+FROM email
+	INNER JOIN cheqoutOrder ON email.emailId = cheqoutOrder.emailId
+	INNER JOIN productOrder ON cheqoutOrder.orderId = productOrder.orderId
+	INNER JOIN product ON product.productId = productOrder.productId
+	INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
+WHERE emailAddress = "oldemail@oldplace.com"
+ORDER BY orderDateTime;
+
+# INNER JOIN address ON email.emailId = address.emailId;
+# INNER JOIN address, cheqoutOrder, product
+# WHERE address.addressId = cheqoutOrder.shippingAddressId;
+
+
+SELECT email.emailAddress, cheqoutOrder.orderId
+FROM email
+INNER JOIN cheqoutOrder ON cheqoutOrder.emailId WHERE cheqoutOrder.emailId = email.emailId;
+
