@@ -24,12 +24,14 @@ if(strlen( $_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 else {
 		//sanitize the email to ensure no unwanted characters
 		$vEmail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+	if($_POST['email'] !== $vEmail) {
+		throw(new InvalidArgumentException ('email contains disallowed characters'));
+	}
 		//get the login data via sanitized email
 		$loginData = Email::getLoginDataByEmailAddress($pdo, $vEmail);
 		//hash the input password
 		$vPassword = hash_pbkdf2("sha512", $_POST['password'], $loginData["accountPasswordSalt"], 128, 2048);
 		//match the hashed password in db to input hashed password
-
 	if($vPassword === $loginData['accountPassword']) {
 		$_SESSION['login'];
 	}

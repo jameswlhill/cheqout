@@ -330,7 +330,7 @@ class Email {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if ($row !== false) {
-				$email = new Email ($row["emailId"], $row["emailAddress"], $row["stripeId"]);
+				$email = new Email($row["emailId"], $row["emailAddress"], $row["stripeId"]);
 			}
 		} catch(Exception $exception) {
 			throw(new PDOException($exception->getMessage(), 0, $exception));

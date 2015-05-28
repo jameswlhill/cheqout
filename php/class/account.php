@@ -200,7 +200,7 @@ class Account {
 	 */
 	public function setAccountCreateDateTime($newAccountCreateDateTime) {
 		if($newAccountCreateDateTime === null) {
-			$this->accountCreateDateTime = new DateTime();
+			$this->accountCreateDateTime = new DateTime('NOW');
 			return;
 		}
 
@@ -300,7 +300,7 @@ VALUES(:accountPassword, :accountPasswordSalt, :activation, :accountCreateDateTi
 		}
 		//query template
 		$query = "UPDATE account SET accountPassword = :accountPassword, accountPasswordSalt = :accountPasswordSalt,
-activation = :activation, accountCreateDateTime = :accountCreateDateTime, emailId = :emailId WHERE accountId = :accountId";
+		activation = :activation, accountCreateDateTime = :accountCreateDateTime, emailId = :emailId WHERE accountId = :accountId";
 		$statement = $pdo->prepare($query);
 
 		//match the variables to the placeholders in query
@@ -416,4 +416,39 @@ activation = :activation, accountCreateDateTime = :accountCreateDateTime, emailI
 		}
 		return ($account);
 	}
+	/**
+	 * get emailId by activation
+	 *
+	 * this is used when removing the activation code to fully activate users
+	 *
+	 * @param PDO $pdo references pdo connection
+	 * @param string $activation activation code
+	 * @return mixed emailId if found or null if not
+	 */
+	public static function getEmailIdByActivation(PDO &$pdo, $activation) {
+		//validate integer before searching
+		$activation = filter_var($activation, FILTER_SANITIZE_STRING);
+		if(empty($activation) === true) {
+			throw(new PDOException("account has not been registered"));
+		}
+		//create the query
+		$query = "SELECT emailId FROM account WHERE activation = :activation";
+		$statement = $pdo->prepare($query);
+
+		$parameters = array("activation" => $activation);
+		$statement->execute($parameters);
+
+		try {
+			$id = null;
+			$statement->setFetchMode(PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if ($row !== false) {
+				$id = $row['emailId'];
+			}
+		} catch(Exception $exception) {
+			throw(new PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($id);
+	}
+
 }

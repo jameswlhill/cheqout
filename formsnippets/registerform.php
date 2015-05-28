@@ -1,5 +1,4 @@
-<form id='register' action='../lib/register.php' method='post'
-		accept-charset='UTF-8'>
+<form id='register' action='../lib/register.php' method='post' accept-charset='UTF-8'>
 		<label for='email' >Email Address*:</label>
 		<input type='text' name='email' id='email' maxlength="256" />
 		<label for='password' >Password*:</label>
