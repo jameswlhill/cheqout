@@ -23,7 +23,7 @@ try {
 	}
 	// fill in an array with the order based on the order's ID only
 	$orderArray = Email::getOrdersByEmail($pdo, $emailId);
-	echo '<table><tr><th>Email Address</th>
+	echo '<table><tr id="order-header" class="text-info"><th>Email Address</th>
 						  <th>Order ID</th>
 						  <th>Quantity</th>
 						  <th>Product ID</th>
