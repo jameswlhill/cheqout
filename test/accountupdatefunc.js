@@ -11,28 +11,39 @@ module("tabs", {
 
 // global variables for POST values
 var INVALID_ANYTHING = "7yt8hu3wergsfdbuhiqruegfs8hbjergfiluskhjebrgdlifubhjkbwertsbdfiluhjksnetdghusdgfkjhserliugjsethsrthrthdfghdsetrhsrdghesrthsthgsdfb";
-//var VALID_ = "1";
+var VALID_EMAILID = "1";
+var VALID_LABEL = "Work";
+var VALID_ATTENTION = "Irene Butts";
+var VALID_STREET1 = "123 Idiot St";
+var VALID_STREET2 = "Apt 27";
+var VALID_CITY = "Los Rancheros";
+var VALID_STATE = "New Montana";
+var VALID_ZIP = "87923";
 
-///**
-// * test what we assume to be CORRECT
-// **/
-//function testValidFields() {
-//	// fill in the form values
-//	F("#INPUTID").type(VALID_);
-//
-//	// click the button once all the fields are filled in
-//	F("#BUTTONID").click();
-//
-//	// assert we got the success message from the AJAX call
-//	F(".alert").visible(function() {
-//		// create a regular expression that evaluates the successful text
-//		var successRegex = /Order \(id = \d+\) submitted!/;
-//
-//		// ok() to assert truthiness
-//		ok(F(this).hasClass("alert-success"), "successful order happy colors");
-//		ok(successRegex.test(F(this).html()), "your order was a success!");
-//	});
-//}
+/**
+* test what we assume to be CORRECT
+**/
+function testValidFields() {
+	// fill in the form values
+	F("#emailid").type(VALID_EMAILID);
+	F("#label").type(VALID_LABEL);
+	F("#attention").type(VALID_ATTENTION);
+	F("#street1").type(VALID_STREET1);
+	F("#street2").type(VALID_STREET2);
+	F("#city").type(VALID_CITY);
+	F("#state").type(VALID_STATE);
+	F("#zip").type(VALID_ZIP);
+
+	// click the button once all the fields are filled in
+	F("#submitaddress").click();
+
+	// assert we got the success message from the AJAX call
+	F(".alert").visible(function() {
+		// ok() to assert truthiness
+		ok(F(this).hasClass("alert-success"), "PRETTY GREEN!");
+		ok(F(this).html().indexOf("Address (id = ") >= 0, "It posted!");
+	});
+}
 
 /**
  * test what we assume to be WRROOOOOOOOOOONG (lex luthor)
@@ -87,5 +98,5 @@ function testInvalidFields() {
 }
 
 // the test function *MUST* be called in order for the test to execute
-//test("test valid fields", testValidFields);
+test("test valid fields", testValidFields);
 test("test invalid fields", testInvalidFields);
