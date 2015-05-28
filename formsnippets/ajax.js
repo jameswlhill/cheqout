@@ -37,8 +37,7 @@ $(document).ready(
 					required: true
 				},
 				zip: {
-					min: 1,
-					max: 99999 - 9999,
+					pattern: /^([0-9]{5}(?:-[0-9]{4})?$)|([0-9]{9})/,
 					required: true,
 					maxlength: 10
 				},
@@ -70,8 +69,7 @@ $(document).ready(
 					required: "We need to know your State. Please."
 				},
 				zip: {
-					min: "We need a few numbers at least...",
-					max: "The ZIP CODE IS TOO HIGH!",
+					pattern: "The Zip Code must be formatted with 5 digits or 9 digits. Only.",
 					required: "Zip Code must be entered to proceed. Go directly to jail, do not collect $200.",
 					maxlength: "Too long! Sorry!"
 				},

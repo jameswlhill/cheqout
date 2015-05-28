@@ -25,13 +25,21 @@ var VALID_ZIP = "87923";
 **/
 function testValidFields() {
 	// fill in the form values
+	F("#emailid").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#emailid").type(VALID_EMAILID);
+	F("#label").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#label").type(VALID_LABEL);
+	F("#attention").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#attention").type(VALID_ATTENTION);
+	F("#street1").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#street1").type(VALID_STREET1);
+	F("#street2").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#street2").type(VALID_STREET2);
+	F("#city").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#city").type(VALID_CITY);
+	F("#state").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#state").type(VALID_STATE);
+	F("#zip").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#zip").type(VALID_ZIP);
 
 	// click the button once all the fields are filled in
@@ -50,13 +58,21 @@ function testValidFields() {
  **/
 function testInvalidFields() {
 	// fill in the form values
+	F("#emailid").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#emailid").type(INVALID_ANYTHING);
+	F("#label").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#label").type(INVALID_ANYTHING);
+	F("#attention").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#attention").type(INVALID_ANYTHING);
+	F("#street1").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#street1").type(INVALID_ANYTHING);
+	F("#street2").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#street2").type(INVALID_ANYTHING);
+	F("#city").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#city").type(INVALID_ANYTHING);
+	F("#state").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#state").type(INVALID_ANYTHING);
+	F("#zip").visible().click().type('[ctrl]a[ctrl-up][delete]');
 	F("#zip").type(INVALID_ANYTHING);
 
 	// click the button once all the fields are filled in
