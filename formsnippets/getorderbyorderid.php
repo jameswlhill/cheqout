@@ -30,9 +30,9 @@ try {
 	if($email->getEmailAddress() !== $challengeEmail) {
 		throw(new InvalidArgumentException("You can only get orders associated with YOUR E-Mail."));
 	}
-//	$formattedDate = $orderArray->getOrderDateTime()->format("Y-m-d H:i:s");
 
-	echo '<table><tr id="order-header" class="text-info"><th>Email Address</th>
+	echo '<table class="table table-striped table-bordered"><tr id="order-header" class="text-info">
+						  <th>Email Address</th>
 						  <th>Order ID</th>
 						  <th>Quantity</th>
 						  <th>Product ID</th>
