@@ -109,7 +109,7 @@ function testInvalidFields() {
 	});
 	F("#zip-error").visible(function() {
 		ok(F(this).hasClass("label-danger"), "It's a danger class!");
-		ok(F(this).html().indexOf("a few numbers") >= 0, "Zip works!");
+		ok(F(this).html().indexOf("5 digits or 9") >= 0, "Zip works!");
 	});
 }
 
