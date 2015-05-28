@@ -16,8 +16,8 @@ var VALID_PRODUCTID = "1";
 var VALID_QUANTITY = "25";
 
 /**
- * test filling in only valid POST data
- **/
+* test filling in only valid POST data
+**/
 function testValidFields() {
 	// fill in the form values
 	F("#productId").type(VALID_PRODUCTID);

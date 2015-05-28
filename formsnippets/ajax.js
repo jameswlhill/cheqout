@@ -11,6 +11,11 @@ $(document).ready(
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the input's name (NOT id)
+				emailid: {
+					maxlength: 100,
+					required: true
+				},
+
 				attention: {
 					maxlength: 100,
 					required: true
@@ -71,7 +76,7 @@ $(document).ready(
 					maxlength: "Too long! Sorry!"
 				},
 				label: {
-					maxlength: "We only allow twenty characters to live here. My bad.",
+					maxlength: "We only allow twenty characters to live here. My bad."
 				}
 			},
 

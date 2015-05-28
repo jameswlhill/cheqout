@@ -40,7 +40,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 							<input type="text" id="newemail" name="newemail" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailcheck">Re-enter: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="emailcheck" name="emailcheck" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Email"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="emailchange" type="submit" value="Change Email"></div>
 				</form>
 				<p id="emailOutputArea"></p>
 			</div>
@@ -52,23 +52,18 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 							<input type="text" id="newpassword" name="newpassword" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter New Password: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Password"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="passwordchange" type="submit" value="Change Password"></div>
 				</form>
 			<p id="passwordOutputArea"></p>
 		</section>
 		<section>
 			<div class="container">
-			Your selected address is: <br /><span class="text-info text-left"><?php echo
-																							 $_SESSION["address"]->getAddressLabel()
-																			. "<br />" . $_SESSION["address"]->getAddressAttention()
-																			. "<br />" . $_SESSION["address"]->getAddressStreet1()
-																			. "<br />" . $_SESSION["address"]->getAddressStreet2()
-																			. "<br />" . $_SESSION["address"]->getAddressCity()
-																			. "<br />" . $_SESSION["address"]->getAddressState()
-																			. "<br />" . $_SESSION["address"]->getAddressZip() ?></span>
+			Your selected address is: <br />
 				<form id="address" method='POST' action="addressinsert.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailid">Email ID: </label></div><div class="row col-xs-4 col-md-2">
 							<input type="text" id="emailid" name="emailid" required /></div></div>
+					<div class="row"><div class="col-xs-4 col-md-2"><label for="label">Label: </label></div><div class="row col-xs-4 col-md-2">
+							<input type="text" id="label" name="label" value="<?php echo $_SESSION["address"]->getAddressLabel() ?>" /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="attention">ATTN: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="attention" name="attention" value="<?php echo $_SESSION["address"]->getAddressAttention() ?>" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="street1">Street 1: </label></div><div class="row col-xs-4 col-md-3">
@@ -81,7 +76,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 							<input type="text" id="state" name="state" value="<?php echo $_SESSION["address"]->getAddressState() ?>" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="zip">Zip Code: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="zip" name="zip" value="<?php echo $_SESSION["address"]->getAddressZip() ?>" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Change Address"></div>
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="submitaddress" type="submit" value="Change Address"></div>
 				</form>
 			</div>
 			<p id="addressOutputArea"></p>
