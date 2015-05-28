@@ -30,12 +30,13 @@
 						<input type="text" id="label" name="label" />
 					</div>
 				</div>
-				<div class="row"><div class="col-xs-4 col-md-2"><label>ATTN: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="attention" name="attention" required /></div></div>
-				<div class="row"><div class="col-xs-4 col-md-2"><label>Street 1: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="street1" name="street1" required /></div></div>
-				<div class="row"><div class="col-xs-4 col-md-2"><label>Street 2: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="street2" name="street2" /></div></div>
-				<div class="row"><div class="col-xs-4 col-md-2"><label>City: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="city" name="city" required /></div></div>
-				<div class="row"><div class="col-xs-4 col-md-2"><label>State: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="state" name="state" required /></div></div>
-				<div class="row"><div class="col-xs-4 col-md-2"><label>Zip Code: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="zip" name="zip" required /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="label">Label: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="label" name="label" /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="attention">ATTN: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="attention" name="attention" required /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="street1">Street 1: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="street1" name="street1" required /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="street2">Street 2: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="street2" name="street2" /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="city">City: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="city" name="city" required /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="state">State: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="state" name="state" required /></div></div>
+				<div class="row"><div class="col-xs-4 col-md-2"><label for="zip">Zip Code: </label></div><div class="row col-xs-4 col-md-2"><input type="text" id="zip" name="zip" required /></div></div>
 				<div class="row"><div class="col-xs-4 col-md-4"><input type="submit"></div>
 				</form>
 		</section>

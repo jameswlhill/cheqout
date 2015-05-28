@@ -8,30 +8,21 @@ require_once(dirname(__DIR__)) . "/php/class/productorder.php";
 require_once(dirname(__DIR__)) . "/php/class/address.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
+// INSERTED FOR TESTING WITHOUT A SESSION
+$_SESSION["emailId"] = 1;
+$_SESSION["accountId"] = 1;
+// FUTURE VERSION WILL HAVE SESSION["emailId"] ALREAYD SET
 
 
 try {
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-	$orderId = $_POST["orderid"];
+	$emailId = $_SESSION["emailId"];
 
-	if(@isset($orderId) 	=== false) {
-		throw(new InvalidArgumentException("Please fill in your Order ID."));
+	if(@isset($emailId) 	=== false && @isset($_SESSION["accountId"])) {
+		throw(new InvalidArgumentException("You aren't logged in!"));
 	}
 	// fill in an array with the order based on the order's ID only
-	$orderArray = CheqoutOrder::getOrderHistoryByOrderId($pdo, $orderId);
-	// THIS EMAIL GETTER WILL CHANGE TO SESSION LATER
-	$email = Email::getEmailByEmailId($pdo, 1);
-	// END COMMENT
-
-
-	$orderArray = CheqoutOrder::getOrderHistoryByOrderId($pdo, $orderId);
-	$challengeEmail = $orderArray[0][0];
-	$account = Account::getAccountByEmailId($pdo, 1);
-	if($email->getEmailAddress() !== $challengeEmail) {
-		throw(new InvalidArgumentException("You can only get orders associated with YOUR E-Mail."));
-	}
-//	$formattedDate = $orderArray->getOrderDateTime()->format("Y-m-d H:i:s");
-
+	$orderArray = Email::getOrdersByEmail($pdo, $emailId);
 	echo '<table><tr><th>Email Address</th>
 						  <th>Order ID</th>
 						  <th>Quantity</th>
@@ -49,11 +40,11 @@ try {
 						  <th>Zip</th>
 						  <th>Time of Order</th></tr>';
 	foreach($orderArray as $list) {
-		echo '<tr>';
+	echo '<tr>';
 		foreach($list as $listItem) {
 			echo '<td>' . $listItem  . '</td>';
 		}
-		echo '</tr>';
+	echo '</tr>';
 	}
 	echo '</table>';
 

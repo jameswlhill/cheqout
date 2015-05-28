@@ -72,7 +72,6 @@ $(document).ready(
 				},
 				label: {
 					maxlength: "We only allow twenty characters to live here. My bad.",
-					required: false
 				}
 			},
 
@@ -259,6 +258,35 @@ $(document).ready(
 					type: "POST",
 					// where to submit data
 					url: "getorderbyorderid.php",
+					// TL; DR: reformat POST data
+					data: $(form).serialize(),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#orderOutputArea").css("display", "");
+						// write the server's reply to the output area
+						$("#orderOutputArea").html(ajaxOutput);
+
+
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
+			}
+		});
+		// tell the validator to validate this form ID
+		$("#getorderhistory").validate({
+			// setup the formatting for the errors
+			// setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "getorderhistory.php",
 					// TL; DR: reformat POST data
 					data: $(form).serialize(),
 					// success is an event that happens when the server replies

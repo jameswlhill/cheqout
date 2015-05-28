@@ -37,7 +37,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<h1 class="text-center">My Past Orders</h1>
 		<section>
 			<div class="container">
-				<form id="orderbyid" method='POST' action="OLDgetorderbyorderid.php">
+				<form id="orderbyid" method='POST' action="getorderbyorderid.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="orderid">Order Number: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="orderid" name="orderid" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Get Order Info"></div>
@@ -46,12 +46,8 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		</section>
 		<section>
 			<div class="container">
-				<form id="orderbyemail" method='POST' action="getorderbyemailaddress.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailaddress">Email Address: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="emailaddress" name="email-address" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="password">Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="password" name="password" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="Get All Orders"></div>
+				<form id="getorderhistory" method='POST' action="getorderhistory.php">
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input type="submit" value="View Order History"></div>
 				</form>
 			</div>
 		</section>

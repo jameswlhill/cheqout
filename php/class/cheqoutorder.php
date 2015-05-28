@@ -426,7 +426,7 @@ class CheqoutOrder {
 		}
 	}
 	/**
-	 * get orders by email address MADE BY TYLER WIEGAND (not james or kyla)
+	 * get order by order ID -- MADE BY TYLER WIEGAND (not james or kyla)
 	 *
 	 * @param PDO $pdo references the pdo connection
 	 * @param string $input email address to search for
@@ -435,9 +435,10 @@ class CheqoutOrder {
 	 */
 	public static function getOrderHistoryByOrderId(PDO &$pdo, $input) {
 		//validate integer before searching
+		$input = intval($input);
 		$input = filter_var($input, FILTER_VALIDATE_INT);
-		if(empty($emailAddress) === true) {
-			throw(new PDOException("E-Mail did not sanitize without changes."));
+		if(empty($input) === true) {
+			throw(new PDOException("Input should be a valid Order ID."));
 		}
 		$input = intval($input);
 		//create the query
@@ -464,35 +465,44 @@ class CheqoutOrder {
                     INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
                     WHERE cheqoutOrder.orderId = :input";
 		$statement = $pdo->prepare($query);
-
 		$parameters = array("input" => $input);
 		$statement->execute($parameters);
-
-		try {
-			$order = null;
-			$statement->setFetchMode(PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
+		$orders = new SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
 				$order = array($row["emailAddress"],
 									$row["orderId"],
 									$row["quantity"],
 									$row["productId"],
 									$row["productTitle"],
-									$row["productQuantityTotal"],
+									$row["product.productPrice * product.productSale * productOrder.quantity"],
 									$row["shippingCost"],
 									$row["orderPrice"],
-									$row["attention"],
-									$row["label"],
-									$row["street1"],
-									$row["street2"],
-									$row["city"],
-									$row["state"],
-									$row["zip"],
+									$row["addressAttention"],
+									$row["addressLabel"],
+									$row["addressStreet1"],
+									$row["addressStreet2"],
+									$row["addressCity"],
+									$row["addressState"],
+									$row["addressZip"],
 									$row["orderDateTime"]);
+				$orders[$orders->key()] = $order;
+				$orders->next();
+			} catch(Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(Exception $exception) {
-			throw(new PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($order);
+
+		// count the results in the array and return:
+		// 1) null if 0 results
+		// 2) the entire array if >= 1 result
+		$numberOfOrders = count($orders);
+		if($numberOfOrders === 0) {
+			return (null);
+		} else {
+			return ($orders);
+		}
 	}
 }

@@ -18,9 +18,14 @@ try {
 		throw(new InvalidArgumentException("Please fill in all required fields."));
 	}
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-	$address = new Address(null, $_SESSION["email"]->getEmailId(), $_POST["attention"], $_POST["street1"],
-		$_POST["city"], $_POST["state"], $_POST["zip"], $_POST["street2"],
-		$_POST["label"]);
+	$address = new Address(null,  $_SESSION["email"]->getEmailId(),
+											$_POST["attention"],
+											$_POST["street1"],
+											$_POST["city"],
+											$_POST["state"],
+											$_POST["zip"],
+											$_POST["street2"],
+											$_POST["label"]);
 	$address->insert($pdo);
 	echo "<p class=\"alert alert-success\">Address (id = " . $address->getAddressId() . ") posted!</p>";
 }catch(Exception $exception) {

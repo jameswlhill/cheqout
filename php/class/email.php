@@ -382,9 +382,10 @@ class Email {
 	 */
 	public static function getOrdersByEmail(PDO &$pdo, $input) {
 		//validate integer before searching
-		$input = filter_var($input, FILTER_SANITIZE_EMAIL);
-		if(empty($emailAddress) === true) {
-			throw(new PDOException("E-Mail did not sanitize without changes."));
+		$input = intval($input);
+		$input = filter_var($input, FILTER_VALIDATE_INT);
+		if(empty($input) === true) {
+			throw(new PDOException("Input should be a valid Email ID."));
 		}
 		//create the query
 		$query = "SELECT email.emailAddress,
@@ -408,33 +409,31 @@ class Email {
                     INNER JOIN productOrder ON cheqoutOrder.orderId = productOrder.orderId
                     INNER JOIN product ON product.productId = productOrder.productId
                     INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
-                    WHERE emailAddress = :input
+                    WHERE email.emailId = :input
                     ORDER BY orderDateTime";
 		$statement = $pdo->prepare($query);
-
 		$parameters = array("input" => $input);
 		$statement->execute($parameters);
-
 		$orders = new SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$order = array($row["emailAddress"],
-					$row["orderId"],
-					$row["quantity"],
-					$row["productId"],
-					$row["productTitle"],
-					$row["productQuantityTotal"],
-					$row["shippingCost"],
-					$row["orderPrice"],
-					$row["attention"],
-					$row["label"],
-					$row["street1"],
-					$row["street2"],
-					$row["city"],
-					$row["state"],
-					$row["zip"],
-					$row["orderDateTime"]);
+									$row["orderId"],
+									$row["quantity"],
+									$row["productId"],
+									$row["productTitle"],
+									$row["product.productPrice * product.productSale * productOrder.quantity"],
+									$row["shippingCost"],
+									$row["orderPrice"],
+									$row["addressAttention"],
+									$row["addressLabel"],
+									$row["addressStreet1"],
+									$row["addressStreet2"],
+									$row["addressCity"],
+									$row["addressState"],
+									$row["addressZip"],
+									$row["orderDateTime"]);
 				$orders[$orders->key()] = $order;
 				$orders->next();
 			} catch(Exception $exception) {
