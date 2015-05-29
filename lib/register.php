@@ -20,20 +20,37 @@ try {
 	if($_POST["password"] !== $_POST["password2"]) {
 		throw(new RuntimeException("passwords do not match"));
 	}
-	// create a new salt and hash
+	// create a new hashed password, salt, and activation
 	$salt = bin2hex(openssl_random_pseudo_bytes(32));
 	$hash = hash_pbkdf2("sha512", $_POST["password"], $salt, 2048, 128);
+	$activation = bin2hex(openssl_random_pseudo_bytes(16));
 
 	//validate email before using with db to protect against injections
 	$newEmail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		if($_POST['email'] !== $newEmail) {
 			throw(new InvalidArgumentException('email contains disallowed characters'));
 		}
-		//now we can use newEmail in the db
-		$same = Email::getEmailIdByEmailAddress($pdo, $newEmail);
+
+
+
+		//check to see if the email already exists
+		$result = Email::getEmailIdByEmailAddress($pdo, $newEmail);
+			//if we get a result, the email has made a purchase
+			if($result !== null) {
+				//so check the account table if they have an account already
+				$account = Account::getAccountByEmailId($pdo, $result);
+					if($account !== null) {
+						throw(new InvalidArgumentException('Account already exists!'));
+					}
+				//if no account, update it with the password
+					if($account === null) {
+						$newAccount = new Account (null, $hash, $salt, $activation, null, $email->getEmailId);
+						$newAccount->insert($pdo);
+						echo 'Account successfully created, welcome back!';
+					}
+			}
 
 	// create a User and Profile object and insert them into mySQL
-	$activation = bin2hex(openssl_random_pseudo_bytes(16));
 	$email = new Email(null, $newEmail, null);
 	$email->insert($pdo);
 	$account = new Account(null, $hash, $salt, $activation, null, $email->getEmailId);

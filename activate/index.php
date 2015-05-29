@@ -24,5 +24,5 @@ $statement = $pdo->prepare($query);
 $parameters = array("emailId" => $emailId);
 $statement->execute($parameters);
 
-echo 'Your account has been successfully activated, thank you!'
+echo '<p class="success">Your account has been successfully activated, thank you!</p>'
 ?>
