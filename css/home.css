@@ -5,4 +5,15 @@ body.full {
 	-o-background-size: cover;
 	background-size: cover;
 }
+h1.front {
+	color: ghostwhite;
+	margin-top: 100px;
+	font-weight: bolder;
+	font-size: 4em;
+}
+
+p.front {
+	color: ghostwhite;
+}
+
 

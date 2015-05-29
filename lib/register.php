@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once(dirname(__DIR__)) . "/lib/csrfver.php";
-require_once("/etc/apache2/capstone-mysql/lib/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../php/class/email.php");
 require_once("../php/class/account.php");
 require_once("Mail.php");
@@ -32,7 +32,7 @@ try {
 		}
 
 
-
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 		//check to see if the email already exists
 		$result = Email::getEmailIdByEmailAddress($pdo, $newEmail);
 			//if we get a result, the email has made a purchase
