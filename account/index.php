@@ -1,10 +1,19 @@
 <?php
+session_start();
 $PAGE_TITLE = "My Account - Cheqout";
 require_once("../lib/utilities.php");
+require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+
+if(@isset($_SESSION["email"])) {
+	$email = $_SESSION["email"];
+}
+if(@isset($_SESSION["acount"])) {
+	$email = $_SESSION["account"];
+}
 ?>
 
-
-	<div class="row">
 		<section class="side-panel col-md-3">
 			<?php require_once("../lib/sidebar.php"); ?>
 		</section>
@@ -14,26 +23,14 @@ require_once("../lib/utilities.php");
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-			<a href="../formsnippets/accountupdateform.php">Edit Profile</a> |
-
-			<a href="../lib/logout.php" >Logout</a>
-			<br>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">Name</h3>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"> </div>
-
-						<div class=" col-md-9 col-lg-9 ">
-							<table class="table table-user-information">
-								<tbody>
-									<tr>
-										<td>Join date:</td>
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-offset-1 col-lg-8 toppad" >
+			<a class="pull-right" href="../lib/logout.php" >Logout</a>
+				<form class="form-horizontal">
+					<fieldset>
+					<legend>Account Information</legend>
+						<div class="form-group">
+							<label class="col-lg-2 control-label">Join date: <?php $account->getAccountCreateDateTime()?></label>
+						</div>
 										<td>06/23/2013</td>
 									</tr>
 									<tr>
