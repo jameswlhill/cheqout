@@ -5,14 +5,21 @@ require_once(dirname(__DIR__)) . "/php/class/account.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 // go into the database and grab their email object
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-$email = Email::getEmailByEmailId($pdo, 1);
-$_SESSION["email"] = $email;
-$account = Account::getAccountByEmailId($pdo, 1);
-$oldSalt = $account->getAccountPasswordSalt();
+//////// FOR TESTING YOUR VARIABLES ARE...
+//$_SESSION["emailAddress"]
+//$_SESSION["emailId"]
+//$_SESSION["password"] (its a hash)
+//$_SESSION["salt"]
+//$_SESSION["activation"]
+//$_SESSION["account"] (its an OBJECT)
+//////// END TESTING
+
+$oldSalt = $_SESSION["salt"];
 // get their old password salt and value to check it against their old password
 $checkOldPassword = hash_pbkdf2("sha512", $_POST["oldpassword"], $oldSalt, 2048, 128);
 // get their new password POST and hash it to check against the old password (so it can't be used again)
 $checkNewPassword = hash_pbkdf2("sha512", $_POST["newpassword"], $oldSalt, 2048, 128);
+$account = $_SESSION["account"];
 
 try {
 	if($account->getAccountPassword() !== $checkOldPassword) {
@@ -25,10 +32,13 @@ try {
 	{
 		throw(new InvalidArgumentException('Password fields must match, and must not be the same as your last password.'));
 	}
+	if($_GET["activation"] !== $account->getAccountActivation()) {
+		throw(new InvalidArgumentException('Activation codes do not match. Please try again.'));
+	}
 	$newSalt = bin2hex(openssl_random_pseudo_bytes(32));
 	// use 2048 for interations for login!
 	$newPassword = hash_pbkdf2("sha512", $_POST["newpassword"], $newSalt, 2048, 128);
-	$account = new Account(1844, $newPassword, $newSalt, $actCode, $createTime, 1844);
+	$account = new Account($account->getAccountId, $newPassword, $newSalt, $_GET["activation"], null, $_SESSION["emailId"]);
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$account->update($pdo);
 	echo "<p class=\"alert alert-success\">Password for (id = " . $account->getAccountId() . ") changed!</p>";

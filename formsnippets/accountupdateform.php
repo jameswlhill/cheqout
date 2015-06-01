@@ -31,9 +31,15 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 	<body>
 		<h1 class="text-center">Update My Account</h1>
 		<section>
-			<div class="container col-lg-6">
+			<div class="container">
+				<form class="form-horizontal" id="testsession" method='POST' action="testsession.php">
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="testsession" type="submit" value="Create Test Session"></div>
+				</form>
+				<p id="testSessionOutput"></p>
+			</div>
+			<div class="container">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				<form id="emailchange" method='POST' action="emailchange.php">
+				<form class="form-horizontal" id="emailchange" method='POST' action="emailchange.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="activation-code">Activation Code: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="activation-code" name="activationcode" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="newemail">New Email: </label></div><div class="row col-xs-4 col-md-3">
@@ -43,28 +49,16 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="emailchange" type="submit" value="Change Email"></div>
 				</form>
 				<p id="emailOutputArea"></p>
-			</div>
-			<div class="container col-lg-6">
-				<form id="emailchange" method='POST' action="testsession.php">
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="testsession" type="submit" value="Create Test Session"></div>
-				</form>
-			</div>
 				Your current password is <span class="text-info">not going to be displayed.</span>
-				<form id="passwordchange" method='POST' action="passwordchange.php">
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="oldpassword">Current Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="oldpassword" name="oldpassword" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="newpassword">New Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="newpassword" name="newpassword" required /></div></div>
-					<div class="row"><div class="col-xs-4 col-md-2"><label for="passwordcheck">Re-enter New Password: </label></div><div class="row col-xs-4 col-md-3">
-							<input type="text" id="passwordcheck" name="passwordcheck" /></div></div>
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="passwordchange" type="submit" value="Change Password"></div>
+				<form class="form-horizontal" id="passwordchangeemail" method='POST' action="passwordchangeemail.php">
+					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="passwordchangeemail" type="submit" value="Change Password"></div>
 				</form>
 			<p id="passwordOutputArea"></p>
 		</section>
 		<section>
 			<div class="container">
 			Your selected address is: <br />
-				<form id="address" method='POST' action="addressinsert.php">
+				<form class="form-horizontal" id="address" method='POST' action="addressinsert.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailid">Email ID: </label></div><div class="row col-xs-4 col-md-2">
 							<input type="text" id="emailid" name="emailid" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="label">Label: </label></div><div class="row col-xs-4 col-md-2">
@@ -86,6 +80,5 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 			</div>
 			<p id="addressOutputArea"></p>
 		</section>
-		
 	</body>
 </html>

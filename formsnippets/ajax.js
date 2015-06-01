@@ -232,6 +232,70 @@ $(document).ready(
 			});
 		}
 	});
+		$("#passwordchangeemail").validate({
+			// setup the formatting for the errors
+			errorClass: "label-danger",
+			errorLabelContainer: "#passwordOutputArea",
+			wrapper: "li",
+			// rules define what is good/bad input
+			rules: {
+				// each rule starts with the inputs name (NOT id)
+				oldpassword: {
+					maxlength: 128,
+					required: true
+				},
+				newpassword: {
+					maxlength: 128,
+					required: true
+				},
+				passwordcheck: {
+					maxlength: 128,
+					required: true
+				}
+			},
+			// error messages to display to the end user
+			messages: {
+				oldpassword: {
+					maxlength: "Email TOO LONG!.",
+					required: "Your old password is required."
+				},
+				newpassword: {
+					maxlength: "Your new password is WAY too long.",
+					required: "You wanna change your password, or what?"
+				},
+				passwordcheck: {
+					maxlength: "EMAIL -- TOO -- LONG -- ERROR -- ERROR",
+					required: "We went over this...enter it twice..."
+				}
+			},
+
+			// setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "passwordchange.php",
+					// TL; DR: reformat POST data
+					data: $(form).serialize(),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#passwordOutputArea").css("display", "");
+						// write the server's reply to the output area
+						$("#passwordOutputArea").html(ajaxOutput);
+
+
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
+			}
+		});
+
 		// tell the validator to validate this form ID
 		$("#orderbyid").validate({
 			// setup the formatting for the errors
@@ -309,7 +373,35 @@ $(document).ready(
 				});
 			}
 		});
+		// tell the validator to validate this form ID
+		$("#testsession").validate({
+			// setup the formatting for the errors
+			// setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "testsession.php",
+					// TL; DR: reformat POST data
+					data: $(form).serialize(),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#testSessionOutput").css("display", "");
+						// write the server's reply to the output area
+						$("#testSessionOutput").html(ajaxOutput);
 
+
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
+			}
+		});
 
 
 
