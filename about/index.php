@@ -1,33 +1,6 @@
 <?php
 $PAGE_TITLE = "About - Cheqout";
 require_once("../lib/utilities.php");
-
-//if the form has been submitted
-if(isset($_POST['submit'])) {
-	//check if name has been entered
-	if(!$_POST['name']) {
-		throw (new InvalidArgumentException('Please enter your first and last name'));
-	}
-// Check if email has been entered and is valid
-	if(!$_POST['email'] || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) === true) {
-		throw (new InvalidArgumentException('Please enter a valid email address'));
-	}
-//Check if message has been entered
-	if(!$_POST['message']) {
-		throw (new InvalidArgumentException('Please enter a message'));
-	}
-
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$message = $_POST['message'];
-
-	$from = 'Cheqout Contact Form';
-	$to = 'ouremailaddress@cheqout.com';
-	$subject = 'Comment on Cheqout';
-	$body = "From: $name\n E-Mail: $email\n Message:\n $message";
-
-	mail($to, $subject, $body, $from);
-}
 ?>
 
 <div class="row">
@@ -44,18 +17,18 @@ if(isset($_POST['submit'])) {
 			<h2>Contact Us</h2>
 			<hr>
 			<!--Start Contact form -->
-			<form id="contact" action="index.php" method="post">
+			<form id="contact" action="../lib/contact.php" method="post">
 				<div>
 					<label for="name">Name:</label>
-					<input type="text" id="name" maxlength="50" placeholder="First & Last Name">
+					<input type="text" id="name" maxlength="50" name="name" placeholder="First & Last Name">
 				</div>
 				<div>
 					<label for="email">Email:</label>
-					<input type="email" id="email" maxlength="256" placeholder="example@domain.com">
+					<input type="email" id="email" maxlength="256" name="email" placeholder="example@domain.com">
 				</div>
 				<div>
 					<label for="message" id="message">Message:</label>
-						<textarea id="message" minlength="50" rows="6" required="">Your message here</textarea>
+						<textarea id="message" minlength="50" rows="6" name="message" required="">Your message here</textarea>
 				</div>
 				<div>
 					<button type="submit" name="submit">Submit</button>

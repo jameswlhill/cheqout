@@ -5,7 +5,7 @@
 // open a new window with the controller under scrutiny
 module("tabs", {
 	setup: function() {
-		F.open("../search/index.php");
+		F.open("../search/activate.php");
 	}
 });
 

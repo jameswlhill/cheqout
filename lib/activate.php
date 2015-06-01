@@ -2,7 +2,7 @@
 //activation page the emailed url will redirect to
 $PAGE_TITLE = "Activated - Cheqout";
 require_once("../lib/utilities.php");
-require_once("/etc/apache2/capstone-mysql/lib/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../php/class/account.php");
 
 ?>
@@ -24,5 +24,5 @@ $statement = $pdo->prepare($query);
 $parameters = array("emailId" => $emailId);
 $statement->execute($parameters);
 
-echo '<p class="success">Your account has been successfully activated, thank you!</p>'
+echo '<div class="container"><p class="success">Your account has been successfully activated, thank you!</p></div>'
 ?>

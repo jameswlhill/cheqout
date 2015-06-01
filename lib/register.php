@@ -51,9 +51,7 @@ try {
 	if($result=== null) {
 		$email = new Email(null, $newEmail, null);
 		$email->insert($pdo);
-		$emailId = Email::getEmailIdByEmailAddress($pdo, $email);
-		$emailId = $emailId->getEmailId();
-		$account = new Account(null, $hash, $salt, $activation, null, $emailId);
+		$account = new Account(null, $hash, $salt, $activation, null, $email->getEmailId());
 		$account->insert($pdo);
 	}
 
@@ -71,7 +69,8 @@ try {
 	$headers["Content-Type"] = "text/html; charset=UTF-8";
 
 	// build message
-	$pageName = end(explode("/", $_SERVER["PHP_SELF"]));
+	$array = explode("/", $_SERVER["PHP_SELF"]);
+	$pageName = end($array);
 	$url = "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"];
 	$url = str_replace($pageName, "activate.php", $url);
 	$url = "$url?activation=$activation";
