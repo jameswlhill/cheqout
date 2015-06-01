@@ -35,6 +35,5 @@ else {
 		$_SESSION['login'];
 	}
 	header( 'Location:../account/index.php');
-
 }
 ?>

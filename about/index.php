@@ -17,7 +17,7 @@ require_once("../lib/utilities.php");
 			<h2>Contact Us</h2>
 			<hr>
 			<!--Start Contact form -->
-			<form id="contact" action="../lib/contact.php" method="post">
+			<form id="contact" action="contact.php" method="post">
 				<div>
 					<label for="name">Name:</label>
 					<input type="text" id="name" maxlength="50" name="name" placeholder="First & Last Name">
