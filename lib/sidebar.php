@@ -37,6 +37,9 @@ require_once("../lib/utilities.php");
 					<li class="link">
 						<a href="../about">About</a>
 					</li>
+					<li class="link">
+						<a href="../lib/logout.php">Logout</a>
+					</li>
 				</ul>
 			</div>
 			<!-- /#sidebar-wrapper -->

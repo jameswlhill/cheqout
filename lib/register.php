@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once(dirname(__DIR__)) . "/lib/csrfver.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once("../php/class/email.php");
 require_once("../php/class/account.php");
@@ -10,10 +9,6 @@ try {
 	// verify the form was submitted OK
 	if (@isset($_POST["email"]) === false || @isset($_POST["password"]) === false || @isset($_POST["password2"]) === false) {
 		throw(new RuntimeException("form variables incomplete or missing"));
-	}
-	// verify the CSRF tokens
-	if(verifyCsrf($_POST["csrfName"], $_POST["csrfToken"]) === false) {
-		throw(new RuntimeException("CSRF tokens incorrect or missing. Make sure cookies are enabled."));
 	}
 
 	// verify the passwords match
@@ -42,19 +37,25 @@ try {
 					if($account !== null) {
 						throw(new InvalidArgumentException('Account already exists!'));
 					}
+				$oldEmailId = Email::getEmailIdByEmailAddress($pdo, $email);
+				$oldEmailId = $oldEmailId->getEmailId();
 				//if no account, update it with the password
 					if($account === null) {
-						$newAccount = new Account (null, $hash, $salt, $activation, null, $email->getEmailId);
+						$newAccount = new Account (null, $hash, $salt, $activation, null, $oldEmailId);
 						$newAccount->insert($pdo);
 						echo 'Account successfully created, welcome back!';
 					}
 			}
 
 	// create a User and Profile object and insert them into mySQL
-	$email = new Email(null, $newEmail, null);
-	$email->insert($pdo);
-	$account = new Account(null, $hash, $salt, $activation, null, $email->getEmailId);
-	$account->insert($pdo);
+	if($result=== null) {
+		$email = new Email(null, $newEmail, null);
+		$email->insert($pdo);
+		$emailId = Email::getEmailIdByEmailAddress($pdo, $email);
+		$emailId = $emailId->getEmailId();
+		$account = new Account(null, $hash, $salt, $activation, null, $emailId);
+		$account->insert($pdo);
+	}
 
 	// email the user with an activation message
 	$to = $email->getEmailAddress();
