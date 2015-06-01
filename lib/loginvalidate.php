@@ -27,13 +27,14 @@ else {
 	}
 		//get the login data via sanitized email
 		$loginData = Email::getLoginDataByEmailAddress($pdo, $vEmail);
+		var_dump($loginData);
 		//hash the input password
-		$vPassword = hash_pbkdf2("sha512", $_POST['password'], $loginData["accountPasswordSalt"], 128, 2048);
+		$vPassword = hash_pbkdf2("sha512", $_POST['password'], $loginData[2], 128, 2048);
 		//match the hashed password in db to input hashed password
-	if($vPassword === $loginData['accountPassword']) {
+	if($vPassword === $loginData[1]) {
 		$_SESSION['login'];
 	}
-	echo 'Login successful!';
+	header( 'Location:../account/index.php');
 
 }
 ?>
