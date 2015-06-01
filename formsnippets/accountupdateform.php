@@ -32,12 +32,6 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<h1 class="text-center">Update My Account</h1>
 		<section>
 			<div class="container">
-				<form class="form-horizontal" id="testsession" method='POST' action="testsession.php">
-					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="testsession" type="submit" value="Create Test Session"></div>
-				</form>
-				<p id="testSessionOutput"></p>
-			</div>
-			<div class="container">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
 				<form class="form-horizontal" id="emailchange" method='POST' action="emailchange.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="activation-code">Activation Code: </label></div><div class="row col-xs-4 col-md-3">
@@ -50,7 +44,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 				</form>
 				<p id="emailOutputArea"></p>
 				Your current password is <span class="text-info">not going to be displayed.</span>
-				<form class="form-horizontal" id="passwordchangeemail" method='POST' action="passwordchangeemail.php">
+				<form class="form-horizontal" id="passwordchangeemail" method='POST' action="../formsnippets/passwordchangeemail.php">
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="passwordchangeemail" type="submit" value="Change Password"></div>
 				</form>
 			<p id="passwordOutputArea"></p>

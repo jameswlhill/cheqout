@@ -9,7 +9,7 @@
 		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
 
 		<!-- Optional Bootstrap theme -->
-		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet"/>
+		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css" rel="stylesheet"/>
 
 		<link type="text/css" href="../css/shop.css" rel="stylesheet"/>
 		<link type="text/css" href="../css/sidebar.css" rel="stylesheet">

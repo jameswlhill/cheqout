@@ -10,25 +10,15 @@ $emailAddress = $_SESSION["emailAddress"];
 $account = $_SESSION["account"];
 
 try {
-
-$oldSalt = $_SESSION["salt"];
-// get their old password salt and value to check it against their old password
-$checkOldPassword = hash_pbkdf2("sha512", $_POST["oldpassword"], $oldSalt, 2048, 128);
-// get their new password POST and hash it to check against the old password (so it can't be used again)
-$checkNewPassword = hash_pbkdf2("sha512", $_POST["newpassword"], $oldSalt, 2048, 128);
-$account = $_SESSION["account"];
-
-	if($account->getAccountPassword() !== $checkOldPassword) {
-		throw(new InvalidArgumentException('Your current password is incorrect.'));
-	}
-	if(@isset($_POST["newpassword"]) 	=== false	||
-		(@isset($_POST["passwordcheck"]) === false) ||
-		$account->getAccountPassword() === $checkNewPassword ||
-		$account->getAccountPassword() !== $checkOldPassword)
-	{
-		throw(new InvalidArgumentException('Password fields must match, and must not be the same as your last password.'));
-	}
-
+	$activation = bin2hex(openssl_random_pseudo_bytes(16));
+//	$newAccountId, $newAccountPassword, $newAccountPasswordSalt, $newActivation, $newAccountCreateDateTime, $newEmailId
+	$account = new Account($_SESSION["account"]->getAccountId(),
+					$_SESSION["account"]->getAccountPassword(),
+					$_SESSION["account"]->getAccountPasswordSalt(),
+					$activation,
+					$_SESSION["account"]->getAccountCreateDateTime(),
+					$_SESSION["account"]->getEmailId());
+	$account->update($pdo, $account);
 	// email the user with an activation message
 	$to = $emailAddress;
 	$from = "twiegand@cnm.edu";
@@ -43,7 +33,8 @@ $account = $_SESSION["account"];
 	$headers["Content-Type"] = "text/html; charset=UTF-8";
 
 	// build message
-	$pageName = end(explode("/", $_SERVER["PHP_SELF"]));
+	$serverself = explode("/", $_SERVER["PHP_SELF"]);
+	$pageName = end($serverself);
 	$url = "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"];
 	$url = str_replace($pageName, "passwordchangeform.php", $url);
 	$url = "$url?activation=$activation";
