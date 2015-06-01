@@ -1,6 +1,7 @@
 .jumbotron {
 	margin-bottom: 30px;
-	background-image: url(http://placekitten.com/g/1170/240);
+	background-image: url(http://placekitten.com/g/1920/1080);
+	background-repeat: unset;
 	color: ghostwhite;
 	text-shadow: black 0.3em 0.3em 0.3em;
 }

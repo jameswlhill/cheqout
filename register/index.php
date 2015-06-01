@@ -12,7 +12,7 @@ require_once("../lib/utilities.php");
 	</header>
 
 	<div class="container">
-		<form id='register' action='../lib/register.php' method='post' accept-charset='UTF-8'>
+		<form id='register' action='register.php' method='post' accept-charset='UTF-8'>
 				<label for='email' >Email Address*:</label>
 					<input type='text' name='email' id='email' maxlength="256" /><br />
 <!--				<label for='password' >Password*:</label>-->
