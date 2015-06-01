@@ -237,38 +237,6 @@ $(document).ready(
 			errorClass: "label-danger",
 			errorLabelContainer: "#passwordOutputArea",
 			wrapper: "li",
-			// rules define what is good/bad input
-			rules: {
-				// each rule starts with the inputs name (NOT id)
-				oldpassword: {
-					maxlength: 128,
-					required: true
-				},
-				newpassword: {
-					maxlength: 128,
-					required: true
-				},
-				passwordcheck: {
-					maxlength: 128,
-					required: true
-				}
-			},
-			// error messages to display to the end user
-			messages: {
-				oldpassword: {
-					maxlength: "Email TOO LONG!.",
-					required: "Your old password is required."
-				},
-				newpassword: {
-					maxlength: "Your new password is WAY too long.",
-					required: "You wanna change your password, or what?"
-				},
-				passwordcheck: {
-					maxlength: "EMAIL -- TOO -- LONG -- ERROR -- ERROR",
-					required: "We went over this...enter it twice..."
-				}
-			},
-
 			// setup an AJAX call to submit the form without reloading
 			submitHandler: function(form) {
 				$(form).ajaxSubmit({
