@@ -48,8 +48,29 @@ if(@isset($_SESSION["acount"])) {
 									</tr>
 								</tbody>
 							</table>
-
-							<a href="#" class="btn btn-default">Update Address</a>
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#updateaddress" aria-expanded="false" aria-controls="updateaddress">
+							Update Address
+						</button>
+						<div class="collapse" id="updateaddress">
+							<div class="well">
+								ADDRESS UPDATE GOES HERE
+							</div>
+						</div>
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changepassword" aria-expanded="false" aria-controls="updateaddress">
+							Change Password
+						</button>
+						<div class="collapse" id="changepassword">
+							<div class="well">
+								CHANGE PASSWORD GOES HERE
+							</div>
+						</div>
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changeemail" aria-expanded="false" aria-controls="changemail">
+							Change Email
+						</button>
+						<div class="collapse" id="changemail">
+							<div class="well">
+								CHANGE EMAIL GOES HERE
+							</div>
 						</div>
 					</div>
 				</div>

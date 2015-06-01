@@ -6,27 +6,15 @@ require_once("../lib/utilities.php");
 	<div class="container">
 		<h1>CAPSTEEEEEWN (Cheqout)</h1>
 		<p>A catchy description about our figurines</p>
-<!--		<div>-->
-<!--			<form id="login" method="post" action="../lib/loginvalidate.php">-->
-<!--				<input name="email" type="text" placeholder="Email Address" maxlength="128">-->
-<!--				<input name="password" type="password" placeholder="Password" maxlength="128">-->
-<!--				<input type="submit" name="login" value="Login">-->
-<!--			</form>-->
-<!--		</div>-->
-		<div class="container-fluid col-md-6"
-			<form id="login" method="post" action="../lib/loginvalidate.php">
-				<div class="form-group">
-					<div class="input-group">
-						<span class="input-group-addon">Email:</span>
-						<input type="text" class="form-control">
-						<span class="input-group-addon">Password:</span>
-						<input type="password" class="form-control">
-						<span class="input-group-btn">
-				<button class="btn btn-default" type="button">Login</button>
-			 </span>
-					</div>
-				</div>
-			</form>
+		<form class="form-inline" id="login" method="post" action="../lib/loginvalidate.php">
+			<div class="form-group">
+				<input type="email" class="form-control" id="email" name="email" placeholder="your@email.here">
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+			</div>
+			<button type="submit" class="btn btn-default">Login</button>
+		</form>
 		</div>
 	</div>
 </div>
