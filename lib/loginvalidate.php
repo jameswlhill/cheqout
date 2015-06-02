@@ -21,19 +21,20 @@ if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 else {
 		//sanitize the email to ensure no unwanted characters
 		$vEmail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-
-	if($_POST['email'] !== $vEmail) {
-		throw(new InvalidArgumentException ('email contains disallowed characters'));
-	}
 		//get the login data via sanitized email
 		$loginData = Email::getLoginDataByEmailAddress($pdo, $vEmail);
-		var_dump($loginData);
 		//hash the input password
 		$vPassword = hash_pbkdf2("sha512", $_POST['password'], $loginData[2], 128, 2048);
 		//match the hashed password in db to input hashed password
-	if($vPassword === $loginData[1]) {
-		$_SESSION['login'];
-	}
-	header( 'Location:../account/index.php');
+	var_dump($loginData);
+		if($vPassword === $loginData[1]) {
+			$_SESSION["email"] = Email::getEmailIdByEmailAddress($pdo, $vEmail);
+			var_dump($_SESSION["email"]);
+			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $_SESSION["email"]->getEmailId);
+			var_dump($_SESSION["account"]);
+			header('Location:../account/index.php');
+			echo "Login Successful!";
+		}
 }
 ?>
+

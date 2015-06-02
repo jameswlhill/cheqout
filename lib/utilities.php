@@ -33,6 +33,10 @@
 
 		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<!--	Our own javascript/ajax calls-->
+		<script type="text/javascript" src="../js/loginajax.js"></script>
+
 	<title><?php echo $PAGE_TITLE; ?></title>
 	</head>
 	<body>
