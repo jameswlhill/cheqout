@@ -1,5 +1,4 @@
 <?php
-require_once("../lib/utilities.php");
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -13,6 +12,7 @@ if(@isset($_SESSION["email"])) {
 if(@isset($_SESSION["account"])) {
 	$email = $_SESSION["account"];
 }
+require_once("../lib/utilities.php");
 ?>
 
 		<section class="side-panel col-md-3">
@@ -43,22 +43,27 @@ if(@isset($_SESSION["account"])) {
 								CHANGE EMAIL GOES HERE
 							</div>
 						</div>
-							<div class="collapse" id="pastorders">
-								<div class="well">
-									PAST ORDERS GO HERE
+						<div class="collapse" id="pastorders">
+							<div class="well">
+								<div class="container">
+									<?php require_once("ordersgetcontroller.php"); ?>
 								</div>
 							</div>
-							<div class="collapse" id="updateaddress">
-								<div class="well">
+						</div>
+						<div class="collapse" id="updateaddress">
+							<div class="well">
+								<div class="container">
 									<?php require_once("addressgetcontroller.php"); ?>
-									<?php require_once("addressform.php"); ?>
 								</div>
+								<hr />
+								<?php require_once("addressform.php"); ?>
 							</div>
-							<div class="collapse" id="changepassword">
-								<div class="well">
-									CHANGE PASSWORD GOES HERE
-								</div>
+						</div>
+						<div class="collapse" id="changepassword">
+							<div class="well">
+								CHANGE PASSWORD GOES HERE
 							</div>
+						</div>
 					</div>
 				</div>
 

@@ -18,12 +18,28 @@ try {
 	// fill in an array with the order based on the order's ID only
 	$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());
 	foreach($orderArray as $list) {
-	echo '<div class="col-md-4 col-sm-12 col-lg-3">';
-		foreach($list as $listItem) {
-			echo '<p>' . $listItem  . '</p>';
+		if($list[9] !== 1) {
+			var_dump($list);
+			echo '<div class="col-md-4 col-sm-6">';
+			echo	'<p><strong>' .
+					$list[8] . '</strong><a href="#" class="btn btn-success pull-right">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</a>
+												<a href="#" class="btn btn-danger pull-right">
+													<span class="glyphicon glyphicon-remove"></span>
+												</a>
+					</p><p>' .
+					$list[2] . '</p><p>' .
+					$list[3] . '</p><p>' .
+					$list[7] . '</p><p>' .
+					$list[4] . '</p><p>' .
+					$list[5] . '</p><p>' .
+					$list[6];
+			echo '</div>';
 		}
-	echo '</div>';
+
 	}
+
 
 }catch(Exception $exception) {
 	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";

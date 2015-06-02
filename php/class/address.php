@@ -581,9 +581,9 @@ class Address {
 		$preparedStatement->setFetchMode(PDO::FETCH_ASSOC);
 		while(($results = $preparedStatement->fetch()) !== false) {
 			try {
-				$address = new Address($results["addressId"], $results["emailId"], $results["addressAttention"], $results["addressStreet1"],
-											  $results["addressCity"], $results["addressState"], $results["addressZip"], $results["addressStreet2"],
-											  $results["addressLabel"], $results["addressHidden"]);
+				$address = array($results["addressId"], $results["emailId"], $results["addressAttention"], $results["addressStreet1"],
+										$results["addressCity"], $results["addressState"], $results["addressZip"], $results["addressStreet2"],
+										$results["addressLabel"], $results["addressHidden"]);
 				$addresses[$addresses->key()] = $address;
 				$addresses->next();
 			} catch(Exception $exception) {
