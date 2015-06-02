@@ -18,7 +18,7 @@ $userSearch = Product::getProductByProductDescription($pdo, filter_var($_GET['se
 
 if($userSearch !== null) {
 	echo "<table class='table table-striped'>"
-		. "<tr>"
+		. "<tr class='text-info'>"
 		. "<td>" . "Product ID" . "</td>"
 		. "<td>" . "Product Title" . "</td>"
 		. "<td>" . "Product Price" . "</td>"
@@ -27,7 +27,7 @@ if($userSearch !== null) {
 
 
 	foreach($userSearch as $product) {
-		echo '<tr>';
+		echo '<tr class="data-row">';
 		echo '<td>' . $product->getProductId() . '</td>';
 		echo '<td>' . $product->getProductTitle() . '</td>';
 		echo '<td>' . $product->getProductPrice() . '</td>';
@@ -38,6 +38,6 @@ if($userSearch !== null) {
 	echo '</table>';
 
 } else {
-	echo "<div>No matches found</div>";
+	echo "<p class=\"alert alert-warning\">No matches found</p>";
 }
 ?>
