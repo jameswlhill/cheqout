@@ -10,8 +10,8 @@ module("tabs", {
 });
 
 // global variables for POST values
-var VALID_SEARCH = "evil cheney";
-var INVALID_SEARCH = "<script></script>";
+var VALID_SEARCH = "second";
+var INVALID_SEARCH = "123456";
 
 /**
  * test filling in only valid POST data
@@ -24,13 +24,9 @@ function testValidFields() {
 	F("#searchSubmit").click();
 
 	// assert we got the success message from the AJAX call
-	F(".alert").visible(function() {
-		// create a regular expression that evaluates the successful text
-		var successRegex = /^[a-zA-Z]*$/;
+	F(".table").visible(function() {
 
-		// ok() to assert truthiness
-		ok(F(this).hasClass("alert-success"), "successful search happy colors");
-		ok(successRegex.test(F(this).html()), "your search was a success!");
+
 	});
 }
 
@@ -45,9 +41,9 @@ function testInvalidFields() {
 	F("#searchSubmit").click();
 
 	// assert we got the success message from the AJAX call
-	F(".alert").visible(function() {
-		ok(F(this).hasClass("alert-danger"), "unsuccessful unhappy search colors");
-		ok(F(this).html().indexOf("Cannot add or update a child row") >= 0, "no search for you");
+	F(".table").visible(function() {
+
+
 	});
 }
 
