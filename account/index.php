@@ -42,11 +42,11 @@ if(@isset($_SESSION["account"])) {
 							<div class="well">
 								CHANGE EMAIL GOES HERE
 							</div>
+							</div>
 							<div class="collapse" id="pastorders">
 								<div class="well">
 									PAST ORDERS GO HERE
 								</div>
-
 							</div>
 							<div class="collapse" id="updateaddress">
 								<div class="well">
@@ -58,7 +58,7 @@ if(@isset($_SESSION["account"])) {
 								<div class="well">
 									CHANGE PASSWORD GOES HERE
 								</div>
-						</div>
+							</div>
 					</div>
 				</div>
 
