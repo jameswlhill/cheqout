@@ -27,30 +27,29 @@ if(@isset($_SESSION["account"])) {
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-offset-1 col-lg-8 toppad" >
 			<a class="pull-right" href="../lib/logout.php" >Logout</a>
-
 						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#updateaddress" aria-expanded="false" aria-controls="updateaddress">
 							Update Address
 						</button>
-						<div class="collapse" id="updateaddress">
-							<div class="well">
-								ADDRESS UPDATE GOES HERE
-							</div>
-						</div>
-						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changepassword" aria-expanded="false" aria-controls="updateaddress">
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changepassword" aria-expanded="false" aria-controls="changepassword">
 							Change Password
 						</button>
-						<div class="collapse" id="changepassword">
-							<div class="well">
-								CHANGE PASSWORD GOES HERE
-							</div>
-						</div>
-						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changeemail" aria-expanded="false" aria-controls="changemail">
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changeemail" aria-expanded="false" aria-controls="changeemail">
 							Change Email
 						</button>
-						<div class="collapse" id="changemail">
+						<div class="collapse" id="changeemail">
 							<div class="well">
 								CHANGE EMAIL GOES HERE
 							</div>
+							</div>
+							<div class="collapse" id="updateaddress">
+								<div class="well">
+									ADDRESS UPDATE GOES HERE
+								</div>
+							</div>
+							<div class="collapse" id="changepassword">
+								<div class="well">
+									CHANGE PASSWORD GOES HERE
+								</div>
 						</div>
 					</div>
 				</div>

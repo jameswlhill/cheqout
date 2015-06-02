@@ -22,9 +22,6 @@ require_once("../lib/utilities.php");
 							<input type="text" class="form-control" placeholder="Search">
 						</form>
 					</li>
-					<li class="link login #menu-toggle" id="menu-toggle">
-						<a href="../formsnippets/loginform.php">Login</a>
-					</li>
 					<li class="link">
 						<a href="../shop">Shop</a>
 					</li>
