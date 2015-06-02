@@ -43,7 +43,7 @@ function testInvalidFields() {
 	// assert we got the success message from the AJAX call
 	F("p").visible(function() {
 		ok(F(this).hasClass("alert-warning"), "warning alert CSS");
-		//ok(F(this).html().indexOf("Cannot add or update a child row") >= 0, "unsuccessful message");
+		ok(F(this).html().indexOf("No matches found") >= 0, "successless");
 	});
 }
 
