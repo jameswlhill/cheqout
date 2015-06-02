@@ -7,7 +7,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
-<div class="row">
+<div>
 	<section class="side-panel col-md-3">
 		<?php require_once("../lib/sidebar.php"); ?>
 	</section>
@@ -15,7 +15,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<?php require_once("../lib/header.php"); ?>
 	</header>
 
-	<div class="container">
+	<div class="container-fluid">
 		<h2>Register with Cheqout</h2>
 		<form id='register' action='register.php' role="form" method='post' accept-charset='UTF-8'>
 			<div class="form-group">
@@ -27,8 +27,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			<div class="form-group">
 				<input type='password' name='password2' id='password2' maxlength="128" placeholder="Retype Password"/>
 			</div>
-				<input type='submit' name='Submit' value='Submit' class="btn btn-primary" />
+				<input type='submit' name='Submit' value='Submit' class="btn btn-primary pull-left" />
+			<span class="col-md-6" id="registerOutput"></span>
 		</form>
-		<p id="registerOutput"></p>
 	</div>
 </div>
