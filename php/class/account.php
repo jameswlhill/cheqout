@@ -175,8 +175,8 @@ class Account {
 			$this->activation = null;
 			return;
 		}
-		if(strlen($newActivation) === 64 &&
-			($newActivation = ctype_xdigit($newActivation)) === true) {
+		if(strlen($newActivation) === 32 &&
+			(ctype_xdigit($newActivation)) === true) {
 			$this->activation = $newActivation;
 			return;
 		} else {

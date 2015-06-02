@@ -19,8 +19,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			<h1 class="front">CHEQ US OUT!</h1>
 			<p class="front">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, iusto, unde, sunt incidunt id sapiente
 				rerum soluta voluptate harum veniam fuga odit ea pariatur vel eaque sint sequi tenetur eligendi.</p>
-			<button type="button" class="btn btn-default"><a href="../shop/index.php">Shop</a></button>
-			<button type="button" class="btn btn-default"><a href="../register/index.php">Sign Up</a></button>
+			<a href="../shop/index.php" class="btn btn-primary">Shop</a>
+			<a href="../register/index.php" class="btn btn-primary">Sign Up</a>
+			<a href="../account/index.php" class="btn btn-primary">Log In</a>
 		</div>
 	</div>
 	<!-- /.row -->

@@ -29,6 +29,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<form class="form-horizontal" id="passwordchangeemail" method='POST' action="../formsnippets/passwordchangeemail.php">
 			<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="passwordchangeemail" type="submit" value="Change Password"></div>
 		</form>
-		<p id="passwordOutputArea"></p>
+		<p id="registerOutput"></p>
 	</div>
 </div>
