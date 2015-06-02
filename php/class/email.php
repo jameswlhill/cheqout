@@ -354,10 +354,10 @@ class Email {
 			throw(new PDOException("Email is not in our records or is invalid"));
 		}
 		//create the query
-		$query = "SELECT emailAddress, accountPassword, accountPasswordSalt FROM email, account WHERE emailAddress = :emailAddress";
+		$query = "SELECT email.emailId, accountPassword, accountPasswordSalt FROM email INNER JOIN account ON email.emailId = account.emailId WHERE emailAddress = :emailAddress";
 		$statement = $pdo->prepare($query);
 
-		$parameters = array("emailAddress" => $emailAddress,);
+		$parameters = array("emailAddress" => $emailAddress);
 		$statement->execute($parameters);
 
 		try {
@@ -365,7 +365,7 @@ class Email {
 			$statement->setFetchMode(PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$login = array($row["emailAddress"], $row["accountPassword"], $row["accountPasswordSalt"]);
+				$login = array($row["emailAddress"], $row["accountPassword"], $row["accountPasswordSalt"], $row["emailId"]);
 			}
 		} catch(Exception $exception) {
 			throw(new PDOException($exception->getMessage(), 0, $exception));

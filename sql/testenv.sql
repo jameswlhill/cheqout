@@ -198,3 +198,5 @@ VALUES(2, 1, 4, 2.00, 12);
 # FROM email
 # INNER JOIN cheqoutOrder ON cheqoutOrder.emailId WHERE cheqoutOrder.emailId = email.emailId;
 #
+# SELECT email.emailId, accountPassword, accountPasswordSalt FROM email
+# INNER JOIN account ON email.emailId = account.emailId WHERE emailAddress = "kylacarroll43@gmail.com";
