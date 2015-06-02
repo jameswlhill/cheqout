@@ -37,3 +37,9 @@
 	padding-right: 0;
 	max-width: 100%;
 }
+
+
+textarea {
+	resize: none;
+	outline: none;
+}
