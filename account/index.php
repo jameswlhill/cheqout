@@ -35,10 +35,18 @@ if(@isset($_SESSION["account"])) {
 						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#changeemail" aria-expanded="false" aria-controls="changeemail">
 							Change Email
 						</button>
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#pastorders" aria-expanded="false" aria-controls="pastorders">
+							Past Orders
+						</button>
 						<div class="collapse" id="changeemail">
 							<div class="well">
 								CHANGE EMAIL GOES HERE
 							</div>
+							<div class="collapse" id="pastorders">
+								<div class="well">
+									PAST ORDERS GO HERE
+								</div>
+
 							</div>
 							<div class="collapse" id="updateaddress">
 								<div class="well">
