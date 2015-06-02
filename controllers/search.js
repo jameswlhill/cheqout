@@ -4,17 +4,22 @@
 //ajax call to $_GET['../controllers/jsoncontroller.php']
 
 $(document).ready(function(){
-	$("#input").click(function(){
-		$.getJSON( "jsoncontroller.php", function( data ) {
-			var items = [];
-			$.each( data, function( key, val ) {
-				items.push( "<li id='" + key + "'>" + val + "</li>" );
-			});
+	$( "#searchSubmit" ).submit(function( event ) {
 
-			$( "<ul/>", {
-				"class": "resultlist",
-				html: items.join( "" )
-			}).appendTo( "body" );
+		// Stop form from submitting normally
+		event.preventDefault();
+
+		var $form = $(this);
+		var url = $form.attr("action");
+		var data = $form.serialize();
+
+		$.ajax({
+			type: "GET",
+			url: url,
+			data: data,
+			success: function(data) {
+				$('#output').html(data);
+			}
 		});
 	});
 });

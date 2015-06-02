@@ -7,8 +7,8 @@
  *
  * @author James Hill <james@appists.com>
  **/
-
-class Product {
+//implement JsonSerializable interface then fill in the method to json_encode private variables
+class Product implements JsonSerializable {
 	/**
 	 * This is the product id, which is also the primary key
 	 *
@@ -71,6 +71,14 @@ class Product {
 			throw(new UnexpectedValueException("unable to construct Product object", 0, $exception));
 		}
 	}
+
+	/**
+	 * Method to serialize json
+	 */
+	public function jsonSerialize() {
+		$vars = get_object_vars($this);
+		return $vars;
+}
 
 	/**
 	 * Getter method for product id
@@ -460,14 +468,14 @@ EOF;
 				//rethrow exception if new Product object cannot be converted to array
 				throw(new PDOException($exception->getMessage(), 0, $exception));
 			}
+		}
 
-			//Count the results in the array, null for 0 rows, entire result set for rows >= 1
-			$numberOfProducts = count($products);
-			if($numberOfProducts === 0) {
-				return (null);
-			} else {
-				return ($products);
-			}
+		//Count the results in the array, null for 0 rows, entire result set for rows >= 1
+		$numberOfProducts = count($products);
+		if($numberOfProducts === 0) {
+			return (null);
+		} else {
+			return ($products);
 		}
 	}
 

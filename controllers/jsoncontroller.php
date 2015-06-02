@@ -4,7 +4,7 @@
  */
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once(dirname(dirname(__DIR__)) . "/php/class/product.php");
+require_once(dirname(__DIR__)) . "/php/class/product.php";
 
 /**
  * sets up the database connection
@@ -12,13 +12,32 @@ require_once(dirname(dirname(__DIR__)) . "/php/class/product.php");
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 
 /**
- * Make an array of products from MySQL to pass to json_encode for use in typeahead plugin
+ * Make an array of products from MySQL to pass to json_encode
  */
-$userSearch = Product::getProductByProductDescription($pdo, $_GET['search']);
+$userSearch = Product::getProductByProductDescription($pdo, filter_var($_GET['search'], FILTER_SANITIZE_STRING));
 
-/**
- * Encode array of products into json format and store in fs
- */
-$json = json_encode($userSearch);
-echo $json;
+if($userSearch !== null) {
+	echo "<table class='table table-striped'>"
+		. "<tr>"
+		. "<td>" . "Product ID" . "</td>"
+		. "<td>" . "Product Title" . "</td>"
+		. "<td>" . "Product Price" . "</td>"
+		. "<td>" . "Product Description" . "</td>"
+		. "</tr>";
+
+
+	foreach($userSearch as $product) {
+		echo '<tr>';
+		echo '<td>' . $product->getProductId() . '</td>';
+		echo '<td>' . $product->getProductTitle() . '</td>';
+		echo '<td>' . $product->getProductPrice() . '</td>';
+		echo '<td>' . $product->getProductDescription() . '</td>';
+		echo '</tr>';
+	}
+
+	echo '</table>';
+
+} else {
+	echo "<div>No matches found</div>";
+}
 ?>
