@@ -203,25 +203,25 @@ VALUES(2, 1, 4, 2.00, 12);
 
 
 # INSERT INTO cheqoutOrder(orderId, emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime)
-# VALUES (3, 2, 1, 1, "stripeid", "2015-05-22 07:55:51");
+# VALUES (3, 10, 4, 4, "stripeid", "2015-05-22 07:55:51");
 #
 # INSERT INTO cheqoutOrder(orderId, emailId, shippingAddressId, billingAddressId, stripeId, orderDateTime)
-# VALUES (4, 2, 1, 1, "stripeid", "2015-05-22 07:56:51");
+# VALUES (4, 10, 4, 4, "stripeid", "2015-05-22 07:56:51");
 #
 # INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
-# VALUES(1, 1, 2, 4.00, 8);
+# VALUES(3, 1, 2, 4.00, 8);
 #
 # INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
-# VALUES(1, 2, 3, 3.00, 3478);
+# VALUES(3, 2, 3, 3.00, 3478);
 #
 # INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
-# VALUES(1, 3, 4, 2.00, 324);
+# VALUES(3, 3, 4, 2.00, 324);
 #
 # INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
-# VALUES(2, 3, 2, 4.00, 43);
+# VALUES(4, 3, 2, 4.00, 43);
 #
 # INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
-# VALUES(2, 2, 3, 3.00, 76);
+# VALUES(4, 2, 3, 3.00, 76);
 #
 # INSERT INTO productOrder(orderId, productId, quantity, shippingCost, orderPrice )
-# VALUES(2, 1, 4, 2.00, 12);
+# VALUES(4, 1, 4, 2.00, 12);
