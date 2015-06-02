@@ -172,15 +172,15 @@ class Account {
 	 **/
 	public function setActivation($newActivation) {
 		$newActivationIsHex = ctype_xdigit($newActivation);
-		if($newActivationIsHex === false) {
-			throw(new UnexpectedValueException("account activation is invalid"));
+		if($newActivationIsHex === null) {
+			$this->activation = $newActivation;
 		}
-		if(strlen($newActivation) !== 32) {
+		if(strlen($newActivation) === 64) {
+			$this->activation = $newActivation;
+		} else {
 			throw(new RangeException("activation code is invalid"));
-		}
-		//assign and store Account name
-		$this->activation = $newActivation;
 	}
+}
 
 	/**
 	 * accountCreateDateTime accessor method
