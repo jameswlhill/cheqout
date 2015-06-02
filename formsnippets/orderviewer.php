@@ -29,7 +29,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="ajax.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
 		<script type="text/javascript" src="../js/bootstrap.js"></script>
 		<title>The Address Form</title>
 	</head>

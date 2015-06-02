@@ -24,7 +24,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.min.js"></script>
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="ajax.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
 		<script type="text/javascript" src="../js/bootstrap.js"></script>
 		<title>The Address Form</title>
 	</head>
@@ -52,7 +52,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<section>
 			<div class="container">
 			Your selected address is: <br />
-				<form class="form-horizontal" id="address" method='POST' action="addressinsert.php">
+				<form class="form-horizontal" id="address" method='POST' action="../account/addressinsert.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="emailid">Email ID: </label></div><div class="row col-xs-4 col-md-2">
 							<input type="text" id="emailid" name="emailid" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="label">Label: </label></div><div class="row col-xs-4 col-md-2">

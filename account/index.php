@@ -1,13 +1,12 @@
 <?php
+require_once("../lib/utilities.php");
+require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 $PAGE_TITLE = "My Account - Cheqout";
-require_once("../lib/utilities.php");
-require_once(dirname(__DIR__)) . "/php/class/autoload.php";
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-
 if(@isset($_SESSION["email"])) {
 	$email = $_SESSION["email"];
 }
@@ -43,7 +42,8 @@ if(@isset($_SESSION["account"])) {
 							</div>
 							<div class="collapse" id="updateaddress">
 								<div class="well">
-									ADDRESS UPDATE GOES HERE
+									<?php require_once("addressgetcontroller.php"); ?>
+									<?php require_once("addressform.php"); ?>
 								</div>
 							</div>
 							<div class="collapse" id="changepassword">

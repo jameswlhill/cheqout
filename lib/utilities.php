@@ -36,6 +36,8 @@
 
 		<!--	Our own javascript/ajax calls-->
 		<script type="text/javascript" src="../js/loginajax.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+
 
 	<title><?php echo $PAGE_TITLE; ?></title>
 	</head>

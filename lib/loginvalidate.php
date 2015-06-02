@@ -16,9 +16,7 @@ if(strlen($_POST['email']) > 128 || strlen($_POST['email']) < 5) {
 // check the password is the correct length
 if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 	throw(new RuntimeException("Incorrect Length for Password"));
-}
-
-else {
+} else {
 		//sanitize the email to ensure no unwanted characters
 		$vEmail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		//get the login data via sanitized email
@@ -30,7 +28,9 @@ else {
 		if($vPassword === $loginData[1]) {
 			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
 			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
-			echo '<p class="alert alert-success col-md-12"> Login Successful!</p>';
+			echo '<p class="label label-success col-md-12"> Login Successful!</p>';
+		} else {
+			echo '<p class="label label-danger col-md-12"> Login Unsuccessful!</p>';
 		}
 }
 ?>
