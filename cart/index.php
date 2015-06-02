@@ -1,6 +1,11 @@
 <?php
 $PAGE_TITLE = "Cart - Cheqout";
 require_once("../lib/utilities.php");
+require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+
+}
 ?>
 
 

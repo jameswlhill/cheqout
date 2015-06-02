@@ -4,6 +4,9 @@
  *
  * @author James Hill <james@appists.com>
  */
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 ?>
 
 <!DOCTYPE HTML>
