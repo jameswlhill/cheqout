@@ -7,6 +7,13 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../css/shop.css" />
+	</head>
+	<body>
 
 		<div class="row">
 			<section class="side-panel col-md-3">
@@ -47,31 +54,64 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- /.row -->
@@ -82,31 +122,64 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+							<button type="button" class="btn btn-success btn-xs add">
+								<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+							</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -116,31 +189,64 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
 						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
 					</a>
-					<h3>
-						<a href="#">Item Name</a>
-					</h3>
-					<p>Short description....</p>
-					<p class="price">$12</p>
+					<div class="row">
+						<div class="col-md-6">
+							<h3>
+								<a href="#">Item Name</a>
+							</h3>
+							<p>Short description....</p>
+							<p class="price">$12</p>
+						</div>
+						<div class="col-md-6">
+							<div class="container">
+								<button type="button" class="btn btn-success btn-xs add">
+									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- /.row -->
