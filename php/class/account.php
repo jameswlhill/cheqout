@@ -171,12 +171,14 @@ class Account {
 	 * @throws RangeException if $newActivation is too long
 	 **/
 	public function setActivation($newActivation) {
-		$newActivationIsHex = ctype_xdigit($newActivation);
-		if($newActivationIsHex === null) {
-			$this->activation = $newActivation;
+		if(isset($newActivation) === false) {
+			$this->activation = null;
+			return;
 		}
-		if(strlen($newActivation) === 64) {
+		if(strlen($newActivation) === 64 &&
+			($newActivation = ctype_xdigit($newActivation)) === true) {
 			$this->activation = $newActivation;
+			return;
 		} else {
 			throw(new RangeException("activation code is invalid"));
 	}

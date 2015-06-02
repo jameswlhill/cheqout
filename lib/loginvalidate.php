@@ -26,16 +26,11 @@ else {
 		//hash the input password
 		$vPassword = hash_pbkdf2("sha512", $_POST["password"], $loginData[2], 2048, 128);
 		//match the hashed password in db to input hashed password
-	var_dump($loginData, $vPassword);
 
 		if($vPassword === $loginData[1]) {
-			$_SESSION["email"] = Email::getEmailIdByEmailAddress($pdo, $vEmail);
-			var_dump($_SESSION["email"]);
-			$emailId = $_SESSION["email"]->getEmailId;
-			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $emailId);
-			var_dump($_SESSION["account"]);
-			header('Location:../account/index.php');
-			echo "Login Successful!";
+			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
+			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
+			echo '<p class="alert alert-success col-md-12"> Login Successful!</p>';
 		}
 }
 ?>
