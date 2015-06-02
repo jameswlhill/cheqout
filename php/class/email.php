@@ -354,7 +354,7 @@ class Email {
 			throw(new PDOException("Email is not in our records or is invalid"));
 		}
 		//create the query
-		$query = "SELECT email.emailId, accountPassword, accountPasswordSalt FROM email INNER JOIN account ON email.emailId = account.emailId WHERE emailAddress = :emailAddress";
+		$query = "SELECT email.emailId, emailAddress, accountPassword, accountPasswordSalt FROM email INNER JOIN account ON email.emailId = account.emailId WHERE emailAddress = :emailAddress";
 		$statement = $pdo->prepare($query);
 
 		$parameters = array("emailAddress" => $emailAddress);
