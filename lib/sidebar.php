@@ -1,19 +1,15 @@
 <?php
 require_once("../lib/utilities.php");
 ?>
-	<body>
-
 		<div id="wrapper">
-
 			<!-- Sidebar -->
 			<div id="sidebar-wrapper">
-
 				<ul class="sidebar-nav">
 					<li class="menu-button">
 						<a href="#menu-toggle" class="btn btn-link" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
 					</li>
 					<li class="link sidebar-brand">
-						<a href="../checkout">
+						<a href="../home">
 							Cheqout
 						</a>
 					</li>
@@ -34,16 +30,11 @@ require_once("../lib/utilities.php");
 					<li class="link">
 						<a href="../about">About</a>
 					</li>
-					<li class="link">
-						<a href="../lib/logout.php">Logout</a>
-					</li>
 				</ul>
 			</div>
 			<!-- /#sidebar-wrapper -->
-
 		</div>
 		<!-- /#wrapper -->
-
 		<!-- Menu Toggle Script -->
 		<script>
 			$("#menu-toggle").click(function(e) {
