@@ -18,15 +18,34 @@ try {
 	echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
 }
 
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-	// fill in an array with the order based on the order's ID only
-	$orderArray = Email::getOrdersByEmail($pdo, $email->getEmailId());
+$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+// fill in an array with the order based on the order's ID only
+$orderArray = Email::getOrdersByEmail($pdo, $email->getEmailId());
 	if(is_array($orderArray[0]) === true) {
 		try {
 			$tracker = 0;
 			$tracker2 = 1;
+			echo	'<div class="container">';
+			echo		'<div class="row">';
+			echo 			'<div class="col-md-3 text-info">Date of Purchase</div>';
+			echo 			'<div class="col-md-3 text-info">Order Total</div>';
+			echo 			'<div class="col-md-3 text-info">Shipped To</div>';
+			echo 			'<div class="col-md-3 text-info">Order Number</div>';
+			echo		'</div>';
+			echo		'<div class="row">';
+			echo 			'<div class="col-md-3">' . $orderArray[0][15] . '</div>';						//purchase datetime
+			echo 			'<div class="col-md-3">' . $orderArray[0][7] . '</div>';							//order total
+			echo 			'<div class="col-md-3">';																	//if we have a label, Label@Name
+								if(@isset($orderArray[0][9]) === true && $orderArray[0][9] !== null) {	//if not, just the name
+									echo $orderArray[0][8] . '@' . $orderArray[0][9];
+								} else echo $orderArray[0][8];
+			echo			'</div>';
+			echo 			'<div class="col-md-3">' . $orderArray[0][1] . '</div>';							//finally, the order number
+			echo		'</div>';
+			echo	'</div>';
 			foreach($orderArray as $list) {
-				if($orderArray[$tracker][1] !== $orderArray[$tracker2][1]) {
+				if($orderArray[$tracker][1] !== $orderArray[$tracker2][1]
+				&& (@isset($orderArray[$tracker][1]) === true)) {
 					echo	'<div class="container">';
 					echo		'<div class="row">';
 					echo 			'<div class="col-md-3 text-info">Date of Purchase</div>';
@@ -48,7 +67,6 @@ try {
 				}
 				$tracker++;
 				$tracker2++;
-				echo '</div>';
 			}
 		} catch(Exception $exception) {
 			echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
