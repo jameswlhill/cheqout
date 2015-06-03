@@ -10,7 +10,7 @@ if(@isset($_SESSION["email"])) {
 	$email = $_SESSION["email"];
 }
 if(@isset($_SESSION["account"])) {
-	$email = $_SESSION["account"];
+	$account = $_SESSION["account"];
 }
 require_once("../lib/utilities.php");
 ?>
@@ -25,53 +25,90 @@ require_once("../lib/utilities.php");
 <div class="container">
 
 	<div class="row">
-
-			<button class="btn btn-primary" data-toggle="collapse" data-target="#updateaddress" aria-expanded="false" aria-controls="updateaddress">
+		<div class="accordion" id="update">
+			<div class="accordion-group changers">
+			<button class="btn btn-primary openpanel1 closepanel1" data-toggle="collapse" data-parent="#update" aria-expanded="false">
 				Update Address
 			</button>
 
-			<button class="btn btn-primary" data-toggle="collapse" data-target="#changepassword" aria-expanded="false" aria-controls="changepassword">
+			<button class="btn btn-primary openpanel2 closepanel2" data-toggle="collapse" data-parent="#update" aria-expanded="false">
 				Change Password
 			</button>
 
-			<button class="btn btn-primary" data-toggle="collapse" data-target="#changeemail" aria-expanded="false" aria-controls="changeemail">
+			<button class="btn btn-primary openpanel3 closepanel3" data-toggle="collapse" data-parent="#update" aria-expanded="false">
 				Change Email
 			</button>
 
-			<button class="btn btn-primary" data-toggle="collapse" data-target="#pastorders" aria-expanded="false" aria-controls="pastorders">
+			<button class="btn btn-primary openpanel4 closepanel4" data-toggle="collapse" data-parent="#update" aria-expanded="false">
 				Past Orders
 			</button>
+		</div>
 
-			<div class="row">
-				<div class="collapse" id="changeemail">
-					<div class="well">
-						CHANGE EMAIL GOES HERE
-					</div>
-				</div>
+				<div class="row">
 
-			<div class="collapse" id="pastorders">
-				<div class="well">
-					<?php require_once("ordersgetcontroller.php"); ?>
-				</div>
-			</div>
-
-			<div class="collapse" id="updateaddress">
-				<div class="well">
-					<div class="container">
-						<?php require_once("addressgetcontroller.php"); ?>
+					<div class="panel">
+						<div class="panel-collapse collapse" id="panel1">
+							<?php require_once("addressgetcontroller.php"); ?>
+							<hr />
+							<?php require_once("addressform.php"); ?>
+						</div>
 					</div>
 
-					<hr />
+					<div class="panel">
+						<div class="panel-collapse collapse" id="panel2">
+							CHANGE PASSWORD GOES HERE
+						</div>
+					</div>
 
-					<?php require_once("addressform.php"); ?>
-				</div>
-			</div>
+					<div class="panel">
+						<div class="panel-collapse collapse" id="panel3">
+							<p>Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span></p>
+							<p>To change your email, you must enter your password:</p>
+							<form class="form-inline" id="step1" method="post" action="../account/emailchangeemail.php">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+								<button type="submit" class="btn btn-primary">Send Email</button>
+								<p id="passwordOutputArea"></p>
+							</form>
 
-			<div class="collapse" id="changepassword">
-				<div class="well">
-					CHANGE PASSWORD GOES HERE
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-collapse collapse" id="panel4">
+							<?php require_once("ordersgetcontroller.php"); ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
+	<script>
+		$(".openpanel1").on("click", function() {
+			$("#panel1").collapse('show');
+		});
+		$(".openpanel2").on("click", function() {
+			$("#panel2").collapse('show');
+		});
+		$(".openpanel3").on("click", function() {
+			$("#panel3").collapse('show');
+		});
+		$(".openpanel4").on("click", function() {
+			$("#panel4").collapse('show');
+		});
+		$('#update').on('show.bs.collapse', function () {
+			$('#update .in').collapse('hide');
+		});
+		$(".closepanel1").on("click", function() {
+			$("#panel1").collapse('hide');
+		});
+			$(".closepanel2").on("click", function() {
+				$("#panel2").collapse('hide');
+			});
+		$(".closepanel3").on("click", function() {
+				$("#panel3").collapse('hide');
+		});
+			$(".closepanel4").on("click", function() {
+				$("#panel4").collapse('hide');
+		});
+	</script>

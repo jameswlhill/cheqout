@@ -33,7 +33,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 		<section>
 			<div class="container">
 					Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span>
-				<form class="form-horizontal" id="emailchange" method='POST' action="emailchange.php">
+				<form class="form-horizontal" id="emailchange" method='POST' action="../account/emailchange.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="activation-code">Activation Code: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="activation-code" name="activationcode" required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="newemail">New Email: </label></div><div class="row col-xs-4 col-md-3">
