@@ -111,11 +111,6 @@ $(document).ready(
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
-				activationcode: {
-					min: 32,
-					maxlength: 32,
-					required: true
-				},
 				newemail: {
 					maxlength: 128,
 					required: true
@@ -127,11 +122,6 @@ $(document).ready(
 			},
 			// error messages to display to the end user
 			messages: {
-				activationcode: {
-					min: "Activation code must be copy/pasted directly from the email.",
-					maxlength: "Activation code must be copy/pasted directly from the email.",
-					required: "Activation code is required."
-				},
 				newemail: {
 					maxlength: "Your E-Mail is WAY too long.",
 					required: "You DO have an E-Mail...right?"
@@ -148,7 +138,7 @@ $(document).ready(
 					// GET or POST
 					type: "POST",
 					// where to submit data
-					url: "emailchange.php",
+					url: "updateemail.php",
 					// TL; DR: reformat POST data
 					data: $(form).serialize(),
 					// success is an event that happens when the server replies
