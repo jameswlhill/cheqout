@@ -12,7 +12,6 @@
 		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css" rel="stylesheet"/>
 
 		<link type="text/css" href="../css/shop.css" rel="stylesheet"/>
-		<link type="text/css" href="../css/sidebar.css" rel="stylesheet">
 		<link type="text/css" href="../css/header.css" rel="stylesheet">
 		<link type="text/css" href="../css/product.css" rel="stylesheet">
 		<link type="text/css" href="../css/about.css" rel="stylesheet">

@@ -7,13 +7,10 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 ?>
-		<div class="row">
-			<section class="side-panel col-md-3">
-				<?php require_once("../lib/sidebar.php"); ?>
-			</section>
-				<header>
-					<?php require_once("../lib/header.php"); ?>
-				</header>
+
+<header>
+	<?php require_once("../lib/header.php"); ?>
+</header>
 
 
 			<!-- Page Header -->

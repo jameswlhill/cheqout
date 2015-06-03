@@ -7,13 +7,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
-<div>
-	<section class="side-panel col-md-3">
-		<?php require_once("../lib/sidebar.php"); ?>
-	</section>
-	<header>
-		<?php require_once("../lib/header.php"); ?>
-	</header>
+<header>
+	<?php require_once("../lib/header.php"); ?>
+</header>
 
 	<div class="container-fluid">
 		<h2>Register with Cheqout</h2>
@@ -31,4 +27,4 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			<span class="col-md-6" id="registerOutput"></span>
 		</form>
 	</div>
-</div>
+

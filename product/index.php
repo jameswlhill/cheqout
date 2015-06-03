@@ -6,14 +6,10 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 ?>
+<header>
+	<?php require_once("../lib/header.php"); ?>
+</header>
 
-			<div class="row">
-				<section class="side-panel col-md-3">
-					<?php require_once("../lib/sidebar.php"); ?>
-				</section>
-					<header>
-						<?php require_once("../lib/header.php"); ?>
-					</header>
 				<div class="container">
 		<div class="container-fluid">
 			<div class="content-wrapper">

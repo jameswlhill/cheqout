@@ -1,7 +1,6 @@
 <?php
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once("../js/acctbuttons.js");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
@@ -16,9 +15,6 @@ if(@isset($_SESSION["account"])) {
 require_once("../lib/utilities.php");
 ?>
 
-		<section class="side-panel col-md-3">
-			<?php require_once("../lib/sidebar.php"); ?>
-		</section>
 			<header>
 				<?php require_once("../lib/header.php"); ?>
 			</header>

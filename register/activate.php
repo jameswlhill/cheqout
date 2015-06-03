@@ -7,10 +7,6 @@ require_once("../php/class/account.php");
 
 ?>
 
-<div class="row">
-	<section class="side-panel col-md-3">
-		<?php require_once("../lib/sidebar.php"); ?>
-	</section>
 	<header>
 		<?php require_once("../lib/header.php"); ?>
 	</header>

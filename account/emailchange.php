@@ -17,9 +17,6 @@ if(@isset($_SESSION["account"])) {
 require_once("../lib/utilities.php");
 ?>
 
-<section class="side-panel col-md-3">
-	<?php require_once("../lib/sidebar.php"); ?>
-</section>
 <header>
 	<?php require_once("../lib/header.php"); ?>
 </header>

@@ -1,4 +1,36 @@
-.jumbotron {
+.header {
 	background-image: url(http://placekitten.com/g/1920/1080);
 	background-repeat: unset;
+}
+.sidebar-wrapper {
+	width: 40px;
+}
+.sidebar-nav li span {
+	font-size: 250%;
+	color: ghostwhite;
+	margin: 5px;
+}
+.sidebar-nav {
+	top: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+span:hover{
+
+}
+span.home:hover {
+	color: #b3251b;
+}
+span.shop:hover {
+	color: #38b44a;
+}
+span.account:hover {
+	color: #dd9d12;
+}
+span.contact:hover {
+	color: #491933;
+}
+span.cart:hover {
+	color: #a5360f;
 }

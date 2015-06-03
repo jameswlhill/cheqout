@@ -7,19 +7,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 }
 ?>
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<link type="text/css" rel="stylesheet" href="../css/cart.css" />
-	</head>
- <div class="row" id="cartview">
-	<section class="side-panel col-md-3">
-		<?php require_once("../lib/sidebar.php"); ?>
-	</section>
-	<header>
-		<?php require_once("../lib/header.php"); ?>
-	</header>
+<header>
+	<?php require_once("../lib/header.php"); ?>
+</header>
 
 		<div class="container">
 			<div id="main">

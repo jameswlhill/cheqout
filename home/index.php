@@ -7,11 +7,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 <body class="full">
-<div class="row">
-	<section class="side-panel col-md-3">
-		<?php require_once("../lib/sidebar.php"); ?>
-	</section>
-</div>
+	<header>
+		<?php require_once("../lib/header.php"); ?>
+	</header>
 <!-- Page Content -->
 <div class="container">
 	<div class="row">
