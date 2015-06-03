@@ -39,7 +39,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 			</div>
 			<div class="container">
 				Your current password is <span class="text-info">not going to be displayed.</span>
-				<form class="form-horizontal" id="passwordchange" method='POST' action="passwordchange.php">
+				<form class="form-horizontal" id="passwordchange" method='POST' action="../account/passwordchange.php">
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="activationcode">Current Password: </label></div><div class="row col-xs-4 col-md-3">
 							<input type="text" id="activationcode" name="activationcode" value=""required /></div></div>
 					<div class="row"><div class="col-xs-4 col-md-2"><label for="oldpassword">Current Password: </label></div><div class="row col-xs-4 col-md-3">

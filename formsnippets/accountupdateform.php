@@ -44,7 +44,7 @@ $_SESSION["address"] = Address::getAddressByAddressId($pdo, 1)
 				</form>
 				<p id="emailOutputArea"></p>
 				Your current password is <span class="text-info">not going to be displayed.</span>
-				<form class="form-horizontal" id="passwordchangeemail" method='POST' action="../formsnippets/passwordchangeemail.php">
+				<form class="form-horizontal" id="passwordchangeemail" method='POST' action="../account/passwordchangeemail.php">
 					<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="passwordchangeemail" type="submit" value="Change Password"></div>
 				</form>
 			<p id="passwordOutputArea"></p>

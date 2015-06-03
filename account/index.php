@@ -49,14 +49,20 @@ require_once("../lib/utilities.php");
 					<div class="panel">
 						<div class="panel-collapse collapse" id="panel1">
 							<?php require_once("addressgetcontroller.php"); ?>
-							<hr />
+								<hr />
 							<?php require_once("addressform.php"); ?>
 						</div>
 					</div>
 
 					<div class="panel">
 						<div class="panel-collapse collapse" id="panel2">
-							CHANGE PASSWORD GOES HERE
+							<p>Your current password is <span class="text-info">not going to be displayed.</span></p>
+							<p>To select a new password, you must enter your current password and verify your email:</p>
+							<form class="form-inline" method="post" action="../account/passwordchangeemail.php">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+								<button type="submit" class="btn btn-primary">Send Email</button>
+								<p id="passwordOutputArea"></p>
+							</form>
 						</div>
 					</div>
 
@@ -64,12 +70,11 @@ require_once("../lib/utilities.php");
 						<div class="panel-collapse collapse" id="panel3">
 							<p>Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span></p>
 							<p>To change your email, you must enter your password:</p>
-							<form class="form-inline" id="step1" method="post" action="../account/emailchangeemail.php">
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+							<form class="form-inline" method="post" action="../account/emailchangeemail.php">
+								<input type="password" class="form-control" id="emailpassword" name="password" placeholder="Password">
 								<button type="submit" class="btn btn-primary">Send Email</button>
-								<p id="passwordOutputArea"></p>
+								<p id="emailOutputArea"></p>
 							</form>
-
 						</div>
 					</div>
 

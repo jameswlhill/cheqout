@@ -43,8 +43,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			$message = <<< EOF
 <html>
 	<body>
-		<h1>To select your new email</h1>
-		<hr />
+		<h3>To select your new email</h3>
 		<p>Click the following link: <a href="$url">Here</a>.</p>
 	</body>
 </html>

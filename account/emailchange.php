@@ -14,21 +14,21 @@ if(@isset($_SESSION["email"])) {
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
-if(isset($_POST["submit"])) {
-	try {
+try {
+	if(isset($_POST["submit"])) {
 		if(@isset($_POST["newemail"]) === false ||
 			(@isset($_POST["emailcheck"]) === false) ||
 			$_POST["newemail"] !== $_POST["emailcheck"]
 		) {
 			throw(new InvalidArgumentException("Please fill in all required fields and make sure they match."));
 		}
-		$email = new Email($_SESSION["email"]->getEmailId(), $_POST["emailcheck"], $_SESSION["email"]->getStripeId());
+		$email->setEmailAddress($_POST['emailcheck']);
 		$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 		$email->update($pdo);
 		echo "<p class=\"alert alert-success\">E-Mail (id = " . $email->getEmailId() . ") posted!</p>";
+	}
 	} catch(Exception $exception) {
 		echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
-	}
 }
 ?>
 
@@ -40,6 +40,6 @@ if(isset($_POST["submit"])) {
 </header>
 
 <div class="container-fluid">
-	<h2>Change your email</h2>
+	<h3>Change your email</h3>
 <?php require_once("emailchangeform.php"); ?>
 </div>
