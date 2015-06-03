@@ -410,7 +410,8 @@ class Email {
                     INNER JOIN product ON product.productId = productOrder.productId
                     INNER JOIN address ON address.addressId = cheqoutOrder.shippingAddressId
                     WHERE email.emailId = :input
-                    ORDER BY orderDateTime";
+                    ORDER BY cheqoutOrder.orderId
+";
 		$statement = $pdo->prepare($query);
 		$parameters = array("input" => $input);
 		$statement->execute($parameters);
