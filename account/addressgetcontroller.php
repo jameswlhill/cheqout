@@ -18,6 +18,7 @@ try {
 	// fill in an array with the order based on the order's ID only
 	$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());
 	if(is_array($orderArray[0]) === true) {
+		echo '<div class="row">';
 	foreach($orderArray as $list) {
 			if($list[9] !== 1) {
 				echo '<div class="col-md-4 col-sm-6">';
@@ -38,6 +39,7 @@ try {
 				echo '</div>';
 			}
 		}
+		echo '</div>';
 	}
 
 }catch(Exception $exception) {
