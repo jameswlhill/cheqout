@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once("Mail.php");
+
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
@@ -14,22 +14,7 @@ if(@isset($_SESSION["email"])) {
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
-try {
-	if(isset($_POST["submit"])) {
-		if(@isset($_POST["newemail"]) === false ||
-			(@isset($_POST["emailcheck"]) === false) ||
-			$_POST["newemail"] !== $_POST["emailcheck"]
-		) {
-			throw(new InvalidArgumentException("Please fill in all required fields and make sure they match."));
-		}
-		$email->setEmailAddress($_POST['emailcheck']);
-		$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-		$email->update($pdo);
-		echo "<p class=\"alert alert-success\">E-Mail (id = " . $email->getEmailId() . ") posted!</p>";
-	}
-	} catch(Exception $exception) {
-		echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
-}
+require_once("../lib/utilities.php");
 ?>
 
 <section class="side-panel col-md-3">
@@ -41,5 +26,12 @@ try {
 
 <div class="container-fluid">
 	<h3>Change your email</h3>
-<?php require_once("emailchangeform.php"); ?>
+	<div class="container">
+		<form class="form-inline" id="emailchange" method="post" action="updateemail.php">
+			<input type="email" class="form-control" id="newemail" name="newemail" placeholder="your@new.email">
+			<input type="email" class="form-control" id="emailcheck" name="emailcheck" placeholder="Retype Email">
+			<button type="submit" name="submit" class="btn btn-primary">Change Email</button>
+		</form>
+		<p id="emailOutputArea"></p>
+	</div>
 </div>
