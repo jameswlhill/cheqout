@@ -1,20 +1,12 @@
 <?php
 $PAGE_TITLE = "Shop - Cheqout";
-require_once("../lib/utilities.php");
-require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+require_once(dirname(__DIR__) . "/lib/csrfver.php");
+require_once(dirname(__DIR__) . "/lib/utilities.php");
+require_once(dirname(__DIR__) . "/php/class/autoload.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 ?>
-
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<link rel="stylesheet" href="../css/shop.css" />
-	</head>
-	<body>
-
 		<div class="row">
 			<section class="side-panel col-md-3">
 				<?php require_once("../lib/sidebar.php"); ?>
@@ -52,21 +44,29 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			<div class="row">
 				<div class="col-md-4 portfolio-item">
 					<a href="#">
-						<img class="img-responsive" src="http://placekitten.com/g/700/400" alt="placeholder">
+						<img class="img-responsive" src="//theuglytruth.files.wordpress.com/2011/09/evilcheney.jpg?w=472&h=375" alt="placeholder">
 					</a>
 					<div class="row">
 						<div class="col-md-6">
 							<h3>
-								<a href="#">Item Name</a>
+								<a href="#">Product 1</a>
 							</h3>
-							<p>Short description....</p>
-							<p class="price">$12</p>
+							<p>Our first product</p>
+							<p class="price">$1</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -283,12 +283,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 
 		<!-- /.container -->
-
-		<!-- jQuery -->
-		<script src="js/jquery.js"></script>
-
-		<!-- Bootstrap Core JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../controllers/addtocart.js"></script>
 
 	</body>
 

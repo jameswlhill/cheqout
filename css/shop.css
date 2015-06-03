@@ -27,5 +27,13 @@ footer {
 
 /*add to cart buttons*/
 .add {
+	margin-top: auto;
+}
+
+input#quantity.form-control {
+	width: 90px;
+}
+
+form.add {
 	margin-top: 20px;
 }
