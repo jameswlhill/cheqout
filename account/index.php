@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once("../js/acctbuttons.js");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
