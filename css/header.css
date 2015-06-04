@@ -1,6 +1,6 @@
 .header {
-	background-image: url(http://placekitten.com/g/1920/1080);
-	background-repeat: unset;
+	background: gray url("../img/bright-squares.png") repeat;
+	margin-bottom: 30px;
 }
 .sidebar-wrapper {
 	width: 40px;
@@ -33,4 +33,8 @@ span.contact:hover {
 }
 span.cart:hover {
 	color: #a5360f;
+}
+#loginform {
+	position: relative;
+	top: 165px;
 }

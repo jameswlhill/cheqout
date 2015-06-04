@@ -12,7 +12,6 @@ if(@isset($_SESSION["email"])) {
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
-var_dump($_POST["newemail"], $_POST["emailcheck"]);
 try {
 		if(@isset($_POST["newemail"]) === false ||
 			(@isset($_POST["emailcheck"]) === false) ||

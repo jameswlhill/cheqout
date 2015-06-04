@@ -15,9 +15,9 @@ if(@isset($_SESSION["account"])) {
 require_once("../lib/utilities.php");
 ?>
 
-			<header>
-				<?php require_once("../lib/header.php"); ?>
-			</header>
+<header>
+	<?php require_once("../lib/header.php"); ?>
+</header>
 
 <div class="container">
 
