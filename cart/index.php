@@ -21,9 +21,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	</head>
 	<body>
  <div class="row" id="cartview">
-	<section class="side-panel col-md-3">
-		<?php require_once("../lib/sidebar.php"); ?>
-	</section>
 	<header>
 		<?php require_once("../lib/header.php"); ?>
 	</header>
@@ -41,7 +38,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 				$cheqoutTotal = 0;
 
-					echo "<table class='table table-striped'>"
+					echo "<table class='table table-hover'>"
 						. "<tr class='text-info'>"
 						. "<td>" . "Product Title" . "</td>"
 						. "<td>" . "Product Description" . "</td>"

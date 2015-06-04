@@ -82,9 +82,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -103,9 +111,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -129,9 +145,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-							<button type="button" class="btn btn-success btn-xs add">
-								<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-							</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -150,9 +174,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -171,9 +203,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -196,9 +236,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -217,9 +265,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -238,9 +294,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 						<div class="col-md-6">
 							<div class="container">
-								<button type="button" class="btn btn-success btn-xs add">
-									<label for="add" class="btn"><i class="glyphicon glyphicon-flash"></i>Add To Cart</label>
-								</button>
+								<form class="add" method="post" action="../controllers/cartcontroller.php">
+									<input type="hidden" id="productId" name="productId" value="1" />
+									<?php echo generateInputTags(); ?>
+									<label for="quantity">
+										Quantity:
+										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
+									</label>
+									<button type="submit" class="btn btn-success btn-sm add">
+										<i class="glyphicon glyphicon-flash"></i>Add To Cart
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
