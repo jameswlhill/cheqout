@@ -11,19 +11,19 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<div id="sidebar-wrapper">
 			<ul class="sidebar-nav">
 				<li class="link">
-					<a class="btn" id="home" href="../home" data-toggle="tooltip" data-placement="right" title="" data-original-title="Home"><span class="glyphicon glyphicon-home home"></span></a>
+					<a class="btn" id="home" href="../home" data-toggle="tooltip" data-placement="right" title="" data-original-title="Home" data-animation=""><span class="glyphicon glyphicon-home home"></span></a>
 				</li>
 				<li class="link">
-					<a class="btn" id="shop" href="../shop" data-toggle="tooltip" data-placement="right" title="" data-original-title="Shop"><span class="glyphicon glyphicon-usd shop"></span></a>
+					<a class="btn" id="shop" href="../shop" data-toggle="tooltip" data-placement="right" title="" data-original-title="Shop" data-animation=""><span class="glyphicon glyphicon-usd shop"></span></a>
 				</li>
 				<li class="link">
-					<a class="btn" id="cart" href="../cart" data-toggle="tooltip" data-placement="right" title="" data-original-title="Cart"><span class="glyphicon glyphicon-shopping-cart cart"></span></a>
+					<a class="btn" id="cart" href="../cart" data-toggle="tooltip" data-placement="right" title="" data-original-title="Cart" data-animation=""><span class="glyphicon glyphicon-shopping-cart cart"></span></a>
 				</li>
 				<li class="link">
-					<a class="btn" id="acct" href="../account" data-toggle="tooltip" data-placement="right" title="" data-original-title="Account"><span class="glyphicon glyphicon-cog account"></span></a>
+					<a class="btn" id="acct" href="../account" data-toggle="tooltip" data-placement="right" title="" data-original-title="Account" data-animation=""><span class="glyphicon glyphicon-cog account"></span></a>
 				</li>
 				<li class="link">
-					<a class="btn" id="about" href="../about" data-toggle="tooltip" data-placement="right" title="" data-original-title="Contact"><span class="glyphicon glyphicon-comment contact"></span></a>
+					<a class="btn" id="about" href="../about" data-toggle="tooltip" data-placement="right" title="" data-original-title="Contact" data-animation=""><span class="glyphicon glyphicon-comment contact"></span></a>
 				</li>
 			</ul>
 		</div>

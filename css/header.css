@@ -7,7 +7,7 @@
 }
 .sidebar-nav li span {
 	font-size: 250%;
-	color: ghostwhite;
+	color: lightgrey;
 	margin: 5px;
 }
 .sidebar-nav {
@@ -15,9 +15,6 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-}
-span:hover{
-
 }
 span.home:hover {
 	color: #b3251b;
@@ -35,6 +32,6 @@ span.cart:hover {
 	color: #a5360f;
 }
 #loginform {
-	position: relative;
-	top: 165px;
+	margin-top: 165px;
+	margin-bottom: -50px;
 }

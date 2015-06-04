@@ -23,7 +23,6 @@ require_once("../lib/utilities.php");
 </header>
 
 <div class="container">
-
 	<div class="row">
 		<div class="accordion" id="update">
 			<div class="accordion-group changers">
