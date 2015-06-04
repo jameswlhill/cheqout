@@ -1,5 +1,9 @@
 <?php
 require_once("../lib/utilities.php");
+require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 ?>
 
 	<div class="row header">
@@ -29,46 +33,6 @@ require_once("../lib/utilities.php");
 		<p>A catchy description about our stuff</p>
 		<div id="loginform">
 		<?php require_once("loginform.php"); ?>
-		<span id="loginOutput" class="alert pull-left"></span>
+		<p id="loginOutput" class="alert pull-left"></p>
 		</div>
 	</div>
-
-<script>
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
-</script>
-
-<script>
-	$('#home').mouseenter(function () {
-		$('#home').effect("bounce", {
-			direction: 'right',
-			times: 1
-		}, 200);
-	});
-	$('#shop').mouseenter(function () {
-		$('#shop').effect("bounce", {
-			direction: 'right',
-			times: 1
-		}, 200);
-	});
-	$('#cart').mouseenter(function () {
-		$('#cart').effect("bounce", {
-			direction:'right',
-			times: 1
-		}, 200);
-	});
-	$('#acct').mouseenter(function () {
-		$('#acct').effect("bounce", {
-			direction:'right',
-			times: 1
-		}, 200);
-	});
-	$('#about').mouseenter(function () {
-		$('#about').effect("bounce", {
-			direction:'right',
-			times: 1
-		}, 200);
-	});
-</script>
-

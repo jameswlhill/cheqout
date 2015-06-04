@@ -8,7 +8,7 @@
 		<!-- Bootstrap Latest compiled and minified CSS -->
 		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
 
-		<!-- Optional Bootstrap theme -->
+		<!-- Bootstrap theme -->
 		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css" rel="stylesheet"/>
 
 		<link type="text/css" href="../css/shop.css" rel="stylesheet"/>
@@ -40,7 +40,8 @@
 		<script type="text/javascript" src="../js/registerajax.js"></script>
 		<script type="text/javascript" src="../js/loginajax.js"></script>
 		<script type="text/javascript" src="../js/ajax.js"></script>
-
+		<script type="text/javascript" src="../js/sidebar.js"></script>
+		<script type="text/javascript" src="../js/acctbuttons.js"></script>
 
 	<title><?php echo $PAGE_TITLE; ?></title>
 	</head>

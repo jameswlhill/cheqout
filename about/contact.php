@@ -1,6 +1,9 @@
 <?php
-require_once("../about/index.php");
-
+require_once("../lib/utilities.php");
+require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
 //if the form has been submitted
 if(isset($_POST['submit'])) {
 	//check if name has been entered
