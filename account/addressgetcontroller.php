@@ -21,7 +21,7 @@ try {
 	if(is_array($orderArray[0]) === true) {
 //		echo '<div class="row">';
 	foreach($orderArray as $list) {
-		getAddressForm()
+		addressFormGenerator($list[0],  $list[8], $list[2], $list[3], $list[7], $list[4], $list[5], $list[6]);
 //			if($list[9] !== 1) {
 //				echo '<div class="col-md-4 col-sm-6">';
 //				echo '<p><strong>' .
