@@ -23,7 +23,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			$activation = bin2hex(openssl_random_pseudo_bytes(16));
 			// email the user with an activation message
 			$to = $emailAddress;
-			$from = "twiegand@cnm.edu";
+			$from = "cheqoutinfo@gmail.com";
 
 			// build headers
 			$headers = array();
@@ -43,8 +43,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			$message = <<< EOF
 <html>
 	<body>
+		<p>Someone requested an email change for your Cheqout account. <br />Please reply to this message if you did not initiate this change.<br /></p>
 		<h3>To select your new email</h3>
-		<p>Click the following link: <a href="$url">Here</a>.</p>
+		<p>Click the following link: <br /><a href="$url">Here</a>.</p>
 	</body>
 </html>
 EOF;

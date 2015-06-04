@@ -21,7 +21,7 @@ if(isset($_POST['submit'])) {
 	$message = $_POST['message'];
 
 	$from = 'Cheqout Contact Form';
-	$to = 'kylacarroll43@gmail.com';
+	$to = 'cheqoutinfo@gmail.com';
 	$subject = 'Comment on Cheqout';
 	$body = "From: $name\n E-Mail: $email\n Message:\n $message";
 

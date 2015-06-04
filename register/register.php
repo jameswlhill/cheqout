@@ -58,7 +58,7 @@ try {
 
 	// email the user with an activation message
 	$to = $email->getEmailAddress();
-	$from = "ouremail@gmail.com";
+	$from = "cheqoutinfo@gmail.com";
 
 	//build headers
 	$headers = array();
@@ -78,9 +78,8 @@ try {
 	$message = <<< EOF
 <html>
 	<body>
-		<h1>Welcome to Cheqout</h1>
-		<hr />
-		<p>Thank you for signing up with us. Visit the following URL to complete your registration process: <a href="$url">$url</a>.</p>
+		<h3>Welcome to Cheqout</h3>
+		<p>Thank you for signing up with us. <br />Visit the following URL to complete your registration process: <br /><a href="$url">Here.</p>
 	</body>
 </html>
 EOF;

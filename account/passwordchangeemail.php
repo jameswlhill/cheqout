@@ -23,7 +23,7 @@ if($password === $loginData[1]) {
 		$activation = bin2hex(openssl_random_pseudo_bytes(16));
 		// email the user with an activation message
 		$to = $emailAddress;
-		$from = "twiegand@cnm.edu";
+		$from = "cheqoutinfo@gmail.com";
 
 		// build headers
 		$headers = array();
@@ -44,8 +44,9 @@ if($password === $loginData[1]) {
 		$message = <<< EOF
 <html>
 	<body>
-		<h3>Thank you for using the Cheqout Secure Password Change Form</h3>
-		<p>Click the following link to change your password: <a href="$url">Here.</p>
+		<p>Someone requested a password change for your Cheqout account. <br />Please reply to this message if you did not initiate this change.<br /></p>
+		<h3>To select your new password:</h3>
+		<p>Click the following link: <br /><a href="$url">Here.</p>
 	</body>
 </html>
 EOF;

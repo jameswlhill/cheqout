@@ -55,7 +55,7 @@ require_once("../lib/utilities.php");
 						<div class="panel-collapse collapse" id="panel2">
 							<p>Your current password is <span class="text-info">not going to be displayed.</span></p>
 							<p>To select a new password, you must enter your current password and verify your email:</p>
-							<form class="form-inline" method="post" action="../account/passwordchangeemail.php">
+							<form class="form-inline" id="passwordchangeemail" method="post" action="passwordchangeemail.php">
 								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 								<button type="submit" class="btn btn-primary">Send Email</button>
 								<p id="passwordOutputArea"></p>
@@ -67,7 +67,7 @@ require_once("../lib/utilities.php");
 						<div class="panel-collapse collapse" id="panel3">
 							<p>Your current email is <span class="text-info"><?php echo $_SESSION["email"]->getEmailAddress() ?></span></p>
 							<p>To change your email, you must enter your password:</p>
-							<form class="form-inline" method="post" action="../account/emailchangeemail.php">
+							<form class="form-inline" id="emailchangeemail" method="post" action="../account/emailchangeemail.php">
 								<input type="password" class="form-control" id="emailpassword" name="password" placeholder="Password">
 								<button type="submit" class="btn btn-primary">Send Email</button>
 								<p id="emailOutputArea"></p>

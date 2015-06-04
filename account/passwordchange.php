@@ -29,6 +29,6 @@ require_once("../lib/utilities.php");
 			<input type="password" class="form-control" id="passwordcheck" name="passwordcheck" placeholder="Retype Password">
 			<button type="submit" name="submit" class="btn btn-primary">Change Password</button>
 		</form>
-		<p id="passwordOutputArea"></p>
+		<p id="passwordChangeOutputArea"></p>
 	</div>
 </div>
