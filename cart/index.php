@@ -69,8 +69,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 					echo '</table>';
 
-					echo '<span class="cheqouttotal"><strong>Total : $ ' . $cheqoutTotal . '</strong> <a href="#">Continue to Checqout</a></span>';
-					echo '<span class="emptycart"><a href="#">Empty Cart</a></span>';
+					echo '<div class="cheqouttotal"><strong>Total</strong> : $'  . $cheqoutTotal;
+					echo '<div><button class="btn btn-primary btn-lg" href="#">Continue to Checqout</button></div>';
+					echo '<div><button class="btn btn-danger btn-lg" href="#">Empty Cart</button></div>';
 
 				}else{
 					echo 'There are no items in your cart';
