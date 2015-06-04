@@ -1,5 +1,5 @@
-$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();
+$(document).ready(function() {
+	$('[data-toggle="tooltip"]').tooltip();
 
 	$('#home').mouseenter(function () {
 		$('#home').effect("bounce", {
@@ -14,8 +14,8 @@ $(document).ready(function(){
 		}, 200);
 	});
 	$('#cart').mouseenter(function () {
-		$('#cart').effect("bounce", {
-			direction:'right',
+		$('#home').effect("bounce", {
+			direction: 'right',
 			times: 1
 		}, 200);
 	});

@@ -15,7 +15,7 @@
 					<input type="text" id="state" name="state" value="<?php if(@isset($_SESSION["address"]) === true) { echo $_SESSION["address"]->getAddressState(); } ?>" required /></div></div>
 			<div class="row"><div class="col-xs-4 col-md-2"><label for="zip">Zip Code: </label></div><div class="row col-xs-4 col-md-3">
 					<input type="text" id="zip" name="zip" value="<?php if(@isset($_SESSION["address"]) === true) { echo $_SESSION["address"]->getAddressZip(); } ?>" required /></div></div>
-			<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="submitaddress" type="submit" value="Add Address"></div>
+			<div class="row"><div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2"><input id="submitaddress" type="submit" class="btn btn-primary" value="Add Address"></div>
 		</form>
 	</div>
 	<p id="addressOutputArea"></p>
