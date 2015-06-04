@@ -8,11 +8,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 }
 ?>
-<<<<<<< Updated upstream
 <header>
 	<?php require_once("../lib/header.php"); ?>
 </header>
-=======
 <!doctype html>
 <html>
 	<head>
@@ -24,7 +22,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<header>
 		<?php require_once("../lib/header.php"); ?>
 	</header>
->>>>>>> Stashed changes
 
 		<div class="container">
 			<div id="main">
@@ -53,7 +50,18 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						echo '<td>' . $product->getProductTitle() . '</td>';
 						echo '<td>' . $product->getProductDescription() . '</td>';
 						echo '<td>' . $product->getProductPrice() . '</td>';
-						echo '<td>' . $quantity . '</td>';
+						echo '<td>' . $quantity
+							. '<form class="add" method="post" action="../controllers/cartcontroller.php">'
+							.		'<input type="hidden" id="productId" name="productId" value="1" />'
+							.		'<label for="quantity">'
+							.			'Update Qty:'
+							.			'<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />'
+							.			'<button type="submit" class="btn btn-success btn-xs update">'
+							.				'<i class="glyphicon glyphicon-ok"></i>'
+							.			'</button>'
+							.		'</label>'
+							. '</form>'
+							. '</td>';
 						echo '</tr>';
 
 						$cheqoutTotal = $cheqoutTotal + (($product->getProductPrice()) * ($quantity));

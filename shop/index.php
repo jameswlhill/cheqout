@@ -89,7 +89,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -118,7 +118,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -152,7 +152,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -181,7 +181,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -210,7 +210,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -243,7 +243,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -272,7 +272,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -301,7 +301,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 										Quantity:
 										<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />
 									</label>
-									<button type="submit" class="btn btn-success btn-sm add">
+									<button type="submit" class="btn btn-success btn-sm add" data-toggle="modal" data-target="#myModal">
 										<i class="glyphicon glyphicon-flash"></i>Add To Cart
 									</button>
 								</form>
@@ -324,7 +324,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								Good job!
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Okey Dokey</button>
+								<button type="button" class="btn btn-success" data-dismiss="modal">Okey Dokey</button>
 							</div>
 						</div>
 					</div>
