@@ -4,6 +4,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
+
 // go into the database and grab their email object
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 if(@isset($_SESSION["email"])) {
@@ -15,13 +16,20 @@ if(@isset($_SESSION["account"])) {
 try {
 		if(@isset($_POST["newemail"]) === false ||
 			(@isset($_POST["emailcheck"]) === false) ||
-			$_POST["newemail"] !== $_POST["emailcheck"]
-		) {
+			$_POST["newemail"] !== $_POST["emailcheck"]) {
 			throw(new InvalidArgumentException("Please fill in all required fields and make sure they match."));
+		}
+		if($account->getActivation() === null) {
+			throw(new InvalidArgumentException("You do not have an email change pending"));
+		}
+		if($account->getActivation() !== $_GET['activation']) {
+			throw(new InvalidArgumentException("Activation does not match, check that you are logged in, then try again."));
 		}
 $email->setEmailAddress($_POST["emailcheck"]);
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 $email->update($pdo);
+$account->setActivation(null);
+$account->update($pdo);
 
 echo "<p class=\"alert alert-success\">Email changed to " . $email->getEmailAddress() . "</p>";
 } catch(Exception $exception) {
