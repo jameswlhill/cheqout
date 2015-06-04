@@ -37,10 +37,12 @@ if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
 			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
 			generateLoginContainer($_SESSION["email"]);
-			echo '<p class="label label-success col-md-12"> Login Successful!</p>';
+			$_SESSION["notification"] = 'Login Successful!';
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
 			generateLoginContainer(null);
-			echo '<p class="label label-danger col-md-12"> Login Unsuccessful!</p>';
+			$_SESSION["notification"] = 'Login Unsuccessful!';
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
 }
 ?>

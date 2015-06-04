@@ -19,32 +19,21 @@ try {
 	// fill in an array with the order based on the order's ID only
 	$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());
 	if(is_array($orderArray[0]) === true) {
-//		echo '<div class="row">';
-	foreach($orderArray as $list) {
-		addressFormGenerator($list[0],  $list[8], $list[2], $list[3], $list[7], $list[4], $list[5], $list[6]);
-//			if($list[9] !== 1) {
-//				echo '<div class="col-md-4 col-sm-6">';
-//				echo '<p><strong>' .
-//					$list[8] . '</strong><a href="#" class="btn btn-success pull-right">
-//														<span class="glyphicon glyphicon-pencil"></span>
-//													</a>
-//													<a href="#" class="btn btn-danger pull-right">
-//														<span class="glyphicon glyphicon-remove"></span>
-//													</a>
-//						</p><p>' .
-//					$list[2] . '</p><p>' .
-//					$list[3] . '</p><p>' .
-//					$list[7] . '</p><p>' .
-//					$list[4] . '</p><p>' .
-//					$list[5] . '</p><p>' .
-//					$list[6];
-//				echo '</div>';
-//			}
+		$i = 1;
+		foreach($orderArray as $list) {
+			if(intval($list[9]) !== 1 && (is_array($list)) === true) {
+					echo '<div class="row">';
+				if($i%4 === 0) {
+					echo '</div><div class="row">';
+				}
+				addressFormGenerator($list[0], $list[8], $list[2], $list[3], $list[7], $list[4], $list[5], $list[6]);
+				$i++;
+				echo $i%4;
+			}
 		}
-//		echo '</div>';
 	}
-
-}catch(Exception $exception) {
-	echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+} catch(Exception $exception) {
+	$_SESSION["notification"] = 'Exception: ' . $exception->getMessage();
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>

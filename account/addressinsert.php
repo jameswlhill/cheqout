@@ -31,8 +31,9 @@ $address = new Address(null,  $email->getEmailId(),
 										$_POST["label"]);
 $address->insert($pdo);
 
-echo '<p class="alert alert-success">Address for <span class="text-info">' . $email->getEmailAddress() . '</span> posted!</p>';
+	$_SESSION["notification"] = 'Address for <span class="text-info">' . $email->getEmailAddress() . ' changed/deleted.';
 } catch(Exception $exception) {
-echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
+	$_SESSION["notification"] = 'Exception: ' . $exception->getMessage();
 }
+header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>
