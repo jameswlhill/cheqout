@@ -1,3 +1,7 @@
 #cartview {
 	margin: 0 auto;
 }
+
+#cart > div.cheqouttotal.pull-right {
+	margin-right: 225px;
+}

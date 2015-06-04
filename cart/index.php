@@ -1,6 +1,7 @@
 <?php
 $PAGE_TITLE = "Cart - Cheqout";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once(dirname(__DIR__) . "/lib/csrfver.php");
 require_once("../lib/utilities.php");
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -49,15 +50,19 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						echo '<tr class="data-row">';
 						echo '<td>' . $product->getProductTitle() . '</td>';
 						echo '<td>' . $product->getProductDescription() . '</td>';
-						echo '<td>' . $product->getProductPrice() . '</td>';
+						echo '<td>' . '$' . $product->getProductPrice() . '0' . '</td>';
 						echo '<td>' . $quantity
 							. '<form class="add" method="post" action="../controllers/cartcontroller.php">'
 							.		'<input type="hidden" id="productId" name="productId" value="1" />'
+							.		 generateInputTags()
 							.		'<label for="quantity">'
 							.			'Update Qty:'
 							.			'<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />'
 							.			'<button type="submit" class="btn btn-success btn-xs update">'
 							.				'<i class="glyphicon glyphicon-ok"></i>'
+							.			'</button>'
+							.			'<button type="" class="btn btn-danger btn-xs update">'
+							.				'<i class="glyphicon glyphicon-remove"></i>'
 							.			'</button>'
 							.		'</label>'
 							. '</form>'
@@ -69,9 +74,19 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 					echo '</table>';
 
-					echo '<div class="cheqouttotal"><strong>Total</strong> : $'  . $cheqoutTotal;
-					echo '<div><button class="btn btn-primary btn-lg" href="#">Continue to Checqout</button></div>';
-					echo '<div><button class="btn btn-danger btn-lg" href="#">Empty Cart</button></div>';
+					echo 	'<div class="cheqouttotal pull-right"><strong>Total</strong> : $'  . $cheqoutTotal . '0' . '</div>';
+					echo '<div class="row"></div>';
+					echo  '<hr>';
+					echo '<div class="row">'
+							. '<div class="container">'
+							.		'<div>'
+							.			'<button class="btn btn-success btn-lg pull-right" href="#">Continue to Checqout</button>'
+							.		'</div>'
+							.		'<div>'
+							.			'<button class="btn btn-danger btn-lg pull-right" href="#">Empty Cart</button>'
+							.		'</div>'
+							. '</div>'
+							.'</div>';
 
 				}else{
 					echo 'There are no items in your cart';
