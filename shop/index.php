@@ -49,7 +49,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">Product 1</a>
 							</h3>
 							<p>Our first product</p>
-							<p class="price">$1</p>
+							<p class="price">$10.30</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
