@@ -21,6 +21,13 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	if($password === $loginData[1]) {
 		try {
 			$activation = bin2hex(openssl_random_pseudo_bytes(16));
+			$testActivation = $account->getActivation();
+				if($testActivation !== null) {
+					throw(new InvalidArgumentException("You must first activate your account before you can change your email."));
+				}
+			$account->setActivation($activation);
+			$account->update($pdo);
+
 			// email the user with an activation message
 			$to = $emailAddress;
 			$from = "cheqoutinfo@gmail.com";

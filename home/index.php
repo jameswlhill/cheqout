@@ -41,47 +41,5 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			<a href="../account/index.php" class="btn btn-primary">Log In</a>
 		</div>
 	</div>
-	<!-- /.row -->
 </div>
-<!-- /.container -->
-
 </body>
-
-<script>
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
-</script>
-
-<script>
-	$('#home').mouseenter(function () {
-		$('#home').effect("bounce", {
-			direction: 'right',
-			times: 1
-		}, 200);
-	});
-	$('#shop').mouseenter(function () {
-		$('#shop').effect("bounce", {
-			direction: 'right',
-			times: 1
-		}, 200);
-	});
-	$('#cart').mouseenter(function () {
-		$('#cart').effect("bounce", {
-			direction:'right',
-			times: 1
-		}, 200);
-	});
-	$('#acct').mouseenter(function () {
-		$('#acct').effect("bounce", {
-			direction:'right',
-			times: 1
-		}, 200);
-	});
-	$('#about').mouseenter(function () {
-		$('#about').effect("bounce", {
-			direction:'right',
-			times: 1
-		}, 200);
-	});
-</script>

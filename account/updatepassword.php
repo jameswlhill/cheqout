@@ -23,6 +23,7 @@ $newPassword = hash_pbkdf2("sha512", $_POST["newpassword"], $loginData[2], 2048,
 $checkNewPassword = hash_pbkdf2("sha512", $_POST["passwordcheck"], $loginData[2], 2048, 128);
 
 try {
+
 	if($newPassword !== $checkNewPassword) {
 		throw(new InvalidArgumentException('Your passwords do not match.'));
 	}
@@ -32,8 +33,16 @@ try {
 		($newPassword !== $checkNewPassword)) {
 		throw(new InvalidArgumentException('Password fields must match, and must not be the same as your last password.'));
 	}
-	$account->setAccountPassword($newPassword);
+	if($account->getActivation() === null) {
+		throw(new InvalidArgumentException("You do not have a password change pending"));
+	}
+	if($account->getActivation() !== $_GET['activation']) {
+		throw(new InvalidArgumentException("Activation does not match, check that you are logged in, then try again."));
+	}
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
+	$account->setAccountPassword($newPassword);
+	$account->update($pdo);
+	$account->setActivation(null);
 	$account->update($pdo);
 	echo "<p class=\"alert alert-success\">Password for " . $email->getEmailAddress() . ") changed!</p>";
 }	catch(Exception $exception) {
