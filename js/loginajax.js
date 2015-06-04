@@ -48,16 +48,14 @@ $(document).ready(
 					// success is an event that happens when the server replies
 					success: function(ajaxOutput) {
 						// clear the output area's formatting
-						$("#loginOutput").css("display", "");
+						//$("#loginOutput").css("display", "");
 						// write the server's reply to the output area
-						$("#loginOutput").html(ajaxOutput);
-
-
+						$("#loginContainer").html(ajaxOutput);
 						// reset the form if it was successful
 						// this makes it easier to reuse the form again
-						if($(".alert-success").length >= 1) {
-							$(form)[0].reset();
-						}
+						//if($(".alert-success").length >= 1) {
+						//	$(form)[0].reset();
+						//}
 					}
 				});
 			}

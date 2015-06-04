@@ -1,4 +1,23 @@
 <?php
+require_once (dirname(__DIR__)) . "/php/class/autoload.php";
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+if(@isset($_SESSION["email"])) {
+	$email = $_SESSION["email"];
+}
+if(@isset($_SESSION["account"])) {
+	$account = $_SESSION["account"];
+}
+if(@isset($_SESSION["notification"])) {
+	$notification = $_SESSION["notification"];
+}
+
+$_SESSION["notification"] = "testing!";
+if(@isset($_SESSION["notification"]) === true) {
+//			echo '<div id="notification>Testing. <a id="close">[close]</a>
+//					</div>';
+		}
 require_once("../lib/utilities.php");
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -34,5 +53,5 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<div id="loginform">
 		<?php require_once("loginform.php"); ?>
 		<p id="loginOutput" class="alert pull-left"></p>
-		</div>
 	</div>
+</div>

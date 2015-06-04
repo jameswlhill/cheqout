@@ -1,10 +1,18 @@
 <?php
-session_start();
-require_once(dirname(__DIR__)) . "/php/class/email.php";
-require_once(dirname(__DIR__)) . "/php/class/account.php";
+require_once(dirname(__DIR__)) . "/php/class/autoload.php";
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
+// go into the database and grab their email object
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-
+if(@isset($_SESSION["email"])) {
+	$email = $_SESSION["email"];
+}
+if(@isset($_SESSION["account"])) {
+	$account = $_SESSION["account"];
+}
+require_once("generate-content.php");
 // check that both the username and password have been submitted
 if(!isset($_POST['email'], $_POST['password'])) {
 	throw(new RuntimeException("Please enter a valid username and password."));
@@ -28,8 +36,10 @@ if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 		if($vPassword === $loginData[1]) {
 			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
 			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
+			generateLoginContainer($_SESSION["email"]);
 			echo '<p class="label label-success col-md-12"> Login Successful!</p>';
 		} else {
+			generateLoginContainer(null);
 			echo '<p class="label label-danger col-md-12"> Login Unsuccessful!</p>';
 		}
 }
