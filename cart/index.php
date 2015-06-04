@@ -56,12 +56,12 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						echo '<td>' . $quantity . '</td>';
 						echo '</tr>';
 
-						$total = (($product->getProductPrice()) * ($quantity));
+						$cheqoutTotal = $cheqoutTotal + (($product->getProductPrice()) * ($quantity));
 					}
 
 					echo '</table>';
 
-					echo '<span class="cheqouttotal"><strong>Total : $ ' . $total . '</strong> <a href="#">Continue to Checqout</a></span>';
+					echo '<span class="cheqouttotal"><strong>Total : $ ' . $cheqoutTotal . '</strong> <a href="#">Continue to Checqout</a></span>';
 					echo '<span class="emptycart"><a href="#">Empty Cart</a></span>';
 
 				}else{
