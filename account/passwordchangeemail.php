@@ -21,9 +21,11 @@ if(isset($_POST['password'])) {
 if($password === $loginData[1]) {
 	try {
 		$activation = bin2hex(openssl_random_pseudo_bytes(16));
-		$testActivation = $account->getActivation();
+		$testActivation = Account::getAccountByEmailId($pdo, $email->getEmailId());
+		$testActivation = $testActivation->getActivation();
+		var_dump($testActivation, $account);
 		if($testActivation !== null) {
-			throw(new InvalidArgumentException("You must first activate your account or complete your other change before you may change your password."));
+			throw(new InvalidArgumentException("You must first activate your account or complete your email change before you may change your password."));
 		}
 		$account->setActivation($activation);
 		$account->update($pdo);
@@ -46,7 +48,7 @@ if($password === $loginData[1]) {
 		$pageName = end($serverself);
 		$url = "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"];
 		$url = str_replace($pageName, "passwordchange.php", $url);
-		$url = "$url?activation=$activation";
+		$url = "$url?passwordchange=$activation";
 		$message = <<< EOF
 <html>
 	<body>

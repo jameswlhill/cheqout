@@ -23,7 +23,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			$activation = bin2hex(openssl_random_pseudo_bytes(16));
 			$testActivation = $account->getActivation();
 				if($testActivation !== null) {
-					throw(new InvalidArgumentException("You must first activate your account before you can change your email."));
+					throw(new InvalidArgumentException("You must first activate your account or complete your password change before you can change your email."));
 				}
 			$account->setActivation($activation);
 			$account->update($pdo);

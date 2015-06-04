@@ -33,12 +33,16 @@ try {
 		($newPassword !== $checkNewPassword)) {
 		throw(new InvalidArgumentException('Password fields must match, and must not be the same as your last password.'));
 	}
-	if($account->getActivation() === null) {
+	$testActivation = Account::getAccountByEmailId($pdo, $email->getEmailId());
+	$testActivation = $testActivation->getActivation();
+	if($testActivation === null) {
 		throw(new InvalidArgumentException("You do not have a password change pending"));
 	}
-	if($account->getActivation() !== $_GET['activation']) {
+	var_dump($testActivation, ($_GET["passwordchange"]));
+	if($testActivation !== ($_GET["passwordchange"])) {
 		throw(new InvalidArgumentException("Activation does not match, check that you are logged in, then try again."));
 	}
+
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 	$account->setAccountPassword($newPassword);
 	$account->update($pdo);

@@ -5,7 +5,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
-$PAGE_TITLE = "Change Email - Cheqout";
+$PAGE_TITLE = "Change Password - Cheqout";
 // go into the database and grab their email object
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 if(@isset($_SESSION["email"])) {

@@ -19,10 +19,12 @@ try {
 			$_POST["newemail"] !== $_POST["emailcheck"]) {
 			throw(new InvalidArgumentException("Please fill in all required fields and make sure they match."));
 		}
-		if($account->getActivation() === null) {
+	$testActivation = Account::getAccountByEmailId($pdo, $email->getEmailId());
+	$testActivation = $testActivation->getActivation();
+	if($testActivation === null) {
 			throw(new InvalidArgumentException("You do not have an email change pending"));
 		}
-		if($account->getActivation() !== $_GET['activation']) {
+		if($testActivation !== ($_GET["emailchange"])) {
 			throw(new InvalidArgumentException("Activation does not match, check that you are logged in, then try again."));
 		}
 $email->setEmailAddress($_POST["emailcheck"]);
