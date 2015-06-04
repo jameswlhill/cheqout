@@ -8,6 +8,11 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 }
 ?>
+<<<<<<< Updated upstream
+<header>
+	<?php require_once("../lib/header.php"); ?>
+</header>
+=======
 <!doctype html>
 <html>
 	<head>
@@ -22,6 +27,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<header>
 		<?php require_once("../lib/header.php"); ?>
 	</header>
+>>>>>>> Stashed changes
 
 		<div class="container">
 			<div id="main">
@@ -34,8 +40,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			if(isset($_SESSION["cart"])) {
 				$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 				$cheqoutTotal = 0;
-				$productId = filter_input(INPUT_POST, "productId", FILTER_VALIDATE_INT);
-				$product = Product::getProductByProductId($pdo, $productId);
 
 					echo "<table class='table table-striped'>"
 						. "<tr class='text-info'>"
@@ -47,6 +51,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 
 					foreach($_SESSION["cart"] as $productId => $quantity) {
+						$product = Product::getProductByProductId($pdo, $productId);
 						echo '<tr class="data-row">';
 						echo '<td>' . $product->getProductTitle() . '</td>';
 						echo '<td>' . $product->getProductDescription() . '</td>';
