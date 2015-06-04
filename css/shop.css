@@ -25,6 +25,10 @@ footer {
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 }
 
+.book {
+	max-height: 200px;
+}
+
 /*add to cart buttons*/
 .add {
 	margin-top: auto;
