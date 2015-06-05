@@ -50,6 +50,26 @@ span.cart:hover {
 	-webkit-box-shadow: 0 0 5px black;
 	-moz-box-shadow:    0 0 5px black;
 	box-shadow:         0 0 5px black;
+	opacity: 0;
+}
+
+#notification {
+	-webkit-animation-name: notification; /* Chrome, Safari, Opera */
+	-webkit-animation-duration: 5s; /* Chrome, Safari, Opera */
+	animation-name: notification;
+	animation-duration: 5s;
+}
+
+@keyframes notification {
+	0%   {opacity:1}
+	80%   {opacity:1}
+	100% {opacity:0}
+}
+
+@-webkit-keyframes notification {
+	0%   {opacity:1}
+	80%   {opacity:1}
+	100% {opacity:0}
 }
 
 #searchinput {

@@ -38,7 +38,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				rerum soluta voluptate harum veniam fuga odit ea pariatur vel eaque sint sequi tenetur eligendi.</p>
 			<a href="../shop/index.php" class="btn btn-primary">Shop</a>
 			<a href="../register/index.php" class="btn btn-primary">Sign Up</a>
-			<a href="../account/index.php" class="btn btn-primary">Log In</a>
+			<a href="../register/index.php" class="btn btn-primary">Log In</a>
 		</div>
 	</div>
 </div>

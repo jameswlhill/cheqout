@@ -2,7 +2,7 @@
 
 function addressFormGenerator($addressId, $label, $attention, $street1, $street2, $city, $state, $zip) {
 	echo '
-		<div class="container col-md-4">
+		<div class="col-md-4">
 			<form class="form-inline" id="addressupdate" method="POST" action="addressupdatebutton.php">
 				<div class="form-group">
 					<label for="label"></label>

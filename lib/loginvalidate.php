@@ -12,7 +12,6 @@ if(@isset($_SESSION["email"])) {
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
-require_once("generate-content.php");
 // check that both the username and password have been submitted
 if(!isset($_POST['email'], $_POST['password'])) {
 	throw(new RuntimeException("Please enter a valid username and password."));
@@ -36,12 +35,8 @@ if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 		if($vPassword === $loginData[1]) {
 			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
 			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
-			generateLoginContainer($_SESSION["email"]);
-			$_SESSION["notification"] = 'Login Successful!';
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
-			generateLoginContainer(null);
-			$_SESSION["notification"] = 'Login Unsuccessful!';
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
 }
