@@ -41,6 +41,7 @@ function addressFormGenerator($addressId, $label, $attention, $street1, $street2
 					<button type="submit" name="addressupdate" class="btn btn-success col-md-4">Update</button>
 				</p>
 			</form>
+			<p id="addressUpdateOutputArea"></p>
 		</div>
 
 	';
