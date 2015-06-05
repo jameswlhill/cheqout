@@ -10,6 +10,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 if(@isset($_SESSION["email"])) {
 	$email = $_SESSION["email"];
+} else {
+	$_SESSION['notification'] = "Please log in to complete activation.";
+	header("Location: ../register/index.php");
 }
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];

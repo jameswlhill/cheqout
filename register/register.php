@@ -47,7 +47,6 @@ try {
 						echo 'Account successfully created, welcome back!';
 					}
 			}
-
 	// create a User and Profile object and insert them into mySQL
 	if($result=== null) {
 		$email = new Email(null, $newEmail, null);
@@ -88,17 +87,16 @@ EOF;
 	error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
 	$mailer =& Mail::factory("sendmail");
 	$status = $mailer->send($to, $headers, $message);
-	if(PEAR::isError($status) === true)
-	{
-		echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
-	}
-	else
-	{
-		echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Sign up successful!</strong> Please check your Email to complete the signup process.</div>";
-	}
-
-} catch(Exception $exception) {
-	echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to sign up: " . $exception->getMessage() . "</div>";
+	if(PEAR::isError($status) === true) {
+		$_SESSION['notification'] = "<strong>Uh oh!</strong> Unable to send mail message:" . $status->getMessage();
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
+} else {
+		$_SESSION['notification'] = "<strong>Registration sent!</strong> Please verify your email by clicking on the link we sent you.";
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
+		} catch(Exception $exception) {
+	$_SESSION['notification'] = "<strong>Uh oh!</strong> Unable to sign up: " . $exception->getMessage();
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>
 

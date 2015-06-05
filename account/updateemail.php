@@ -33,8 +33,9 @@ $email->update($pdo);
 $account->setActivation(null);
 $account->update($pdo);
 $_SESSION["notification"] = "Email changed to " . $email->getEmailAddress() . ".";
+	header('Location: ../account/index.php');
 } catch(Exception $exception) {
 $_SESSION['notification'] = "Exception: " . $exception->getMessage() . ".";
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
-header('Location: ../account/index.php');
 ?>

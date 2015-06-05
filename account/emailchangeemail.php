@@ -42,8 +42,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			$headers["Content-Type"] = "text/html; charset=UTF-8";
 
 			// build message
-			$serverself = explode("/", $_SERVER["PHP_SELF"]);
-			$pageName = end($serverself);
+			$array = explode("/", $_SERVER["PHP_SELF"]);
+			$pageName = end($array);
 			$url = "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"];
 			$url = str_replace($pageName, "emailchange.php", $url);
 			$url = "$url?emailchange=$activation";
@@ -62,16 +62,19 @@ EOF;
 			$mailer =& Mail::factory("sendmail");
 			$status = $mailer->send($to, $headers, $message);
 			if(PEAR::isError($status) === true) {
-				echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
+				$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage();
+				header('Location: ' . $_SERVER['HTTP_REFERER']);
 			} else {
-				echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Email Sent!</strong> Please check your Email to complete the change process.</div>";
+				$_SESSION['notification'] = "<strong>Email sent!</strong> Please check your email to complete the change.";
+				header('Location: ' . $_SERVER['HTTP_REFERER']);
 			}
-
 		} catch(Exception $exception) {
-			echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to change email: " . $exception->getMessage() . "</div>";
+			$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to help you: " . $exception->getMessage();
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
 	}
 	else {
-		echo '<p>Your password is incorrect</p>';
+		$_SESSION['notification'] = "Your password is incorrect";
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>

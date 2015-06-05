@@ -64,16 +64,19 @@ EOF;
 		$mailer =& Mail::factory("sendmail");
 		$status = $mailer->send($to, $headers, $message);
 		if(PEAR::isError($status) === true) {
-			echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage() . "</div>";
+			$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage();
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
-			echo "<div class=\"alert alert-success\" role=\"alert\"><strong>Email sent successful!</strong> Please check your email to complete the change.</div>";
+			$_SESSION['notification'] = "<strong>Email sent!</strong> Please check your email to complete the change.";
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		}
-
 	} catch(Exception $exception) {
-		echo "<div class=\"alert alert-danger\" role=\"alert\"><strong>Oh snap!</strong> Unable to help you: " . $exception->getMessage() . "</div>";
+		$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to help you: " . $exception->getMessage();
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 }
-	else {
-		echo '<p>Your password is incorrect</p>';
+else {
+	$_SESSION['notification'] = "Your password is incorrect";
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>

@@ -15,7 +15,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<h2>Register with Cheqout</h2>
 		<form id='register' action='register.php' role="form" method='post' accept-charset='UTF-8'>
 			<div class="form-group">
-				<input type='text' name='email' id='email' maxlength="128" placeholder="your@email.here"/>
+				<input type='email' name='email' id='email' maxlength="128" placeholder="your@email.here"/>
 			</div>
 			<div class="form-group">
 				<input type='password' name='password' id='password' maxlength="128" placeholder="Password" />
