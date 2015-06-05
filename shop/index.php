@@ -27,7 +27,11 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			</div>
 		</form>
 	</div>
-	<div id="output"></div>
+	<div class="row">
+		<div class="container">
+			<div id="output"></div>
+		</div>
+	</div>
 </div>
 			<!-- Page Header -->
 			<div class="container">

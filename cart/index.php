@@ -14,6 +14,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 </header>
 		<link type="text/css" rel="stylesheet" href="../css/cart.css">
 		<script type="text/javascript" src="../controllers/update.js"></script>
+		<script type="text/javascript" src="../controllers/remove.js"></script>
 	<body>
  <div class="row" id="cartview">
 	<header>
@@ -58,11 +59,13 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							.			'<button type="submit" class="btn btn-success btn-xs update">'
 							.				'<i class="glyphicon glyphicon-ok"></i>'
 							.			'</button>'
-							.			'<button type="" class="btn btn-danger btn-xs update">'
-							.				'<i class="glyphicon glyphicon-remove"></i>'
-							.			'</button>'
 							.		'</label>'
-							. '</form>'
+							. '</form>'.
+								'<form class="remove" method="get" action="../controllers/remove.php?productId=' . $product->getProductId() . '">'
+							. 	'<input type="hidden" class="productId" name="productId" value="' . $product->getProductId() . '" class="form-control" />'
+							.			'<button type="submit" class="btn btn-danger btn-xs remove">'
+							.				'<i class="glyphicon glyphicon-remove"></i>'
+							.			'</button></form>'
 							. '</td>';
 						echo '</tr>';
 

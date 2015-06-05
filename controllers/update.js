@@ -2,7 +2,7 @@
  * Created by jameshill on 6/5/15.
  */
 $(document).ready(function(){
-	$( "form" ).submit(function( event ) {
+	$( "form.add" ).submit(function( event ) {
 
 		// Stop form from submitting normally
 		event.preventDefault();
