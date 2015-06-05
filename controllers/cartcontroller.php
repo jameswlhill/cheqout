@@ -34,8 +34,10 @@ if($product !== null) {
 		throw(new Exception("quantity must be positive"));
 	} elseif($quantity === 0) {
 		unset($_SESSION["cart"][$productId]);
+		echo $quantity;
 	} else {
 		$_SESSION["cart"][$productId] = $quantity;
+		echo $quantity;
 	}
 }
 ?>

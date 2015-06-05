@@ -12,12 +12,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 <header>
 	<?php require_once("../lib/header.php"); ?>
 </header>
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<link type="text/css" rel="stylesheet" href="../css/cart.css"
-	</head>
+		<link type="text/css" rel="stylesheet" href="../css/cart.css">
+		<script type="text/javascript" src="../controllers/update.js"></script>
 	<body>
  <div class="row" id="cartview">
 	<header>
@@ -47,17 +43,18 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 					foreach($_SESSION["cart"] as $productId => $quantity) {
 						$product = Product::getProductByProductId($pdo, $productId);
-						echo '<tr class="data-row">';
+						echo '<tr class="data-row" id="' . $product->getProductId() . '">';
 						echo '<td>' . $product->getProductTitle() . '</td>';
 						echo '<td>' . $product->getProductDescription() . '</td>';
 						echo '<td>' . '$' . $product->getProductPrice() . '</td>';
-						echo '<td>' . $quantity
-							. '<form class="add" method="post" action="../controllers/cartcontroller.php">'
-							.		'<input type="hidden" id="productId" name="productId" value="1" />'
+						echo '<td><span class="quantityField">' . $quantity
+							. '</span><form class="add" method="post" action="../controllers/cartcontroller.php">'
+							.		'<span class="csrf">'
 							.		 generateInputTags()
-							.		'<label for="quantity">'
+							.		'</span><label for="quantity">'
 							.			'Update Qty:'
-							.			'<input type="number" id="quantity" name="quantity" min="0" step="1" value="1" class="form-control" />'
+							.			'<input type="number" id="quantity" name="quantity" min="0" step="1" value="' . $quantity . '" class="form-control" />' .
+										'<input type="hidden" class="productId" name="productId" value="' . $product->getProductId() . '" class="form-control" />'
 							.			'<button type="submit" class="btn btn-success btn-xs update">'
 							.				'<i class="glyphicon glyphicon-ok"></i>'
 							.			'</button>'

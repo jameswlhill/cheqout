@@ -8,6 +8,10 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
+<script src="../controllers/search.js" type="text/javascript"></script>
+
+	<body>
+
 <header>
 	<?php require_once("../lib/header.php"); ?>
 </header>
@@ -23,6 +27,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			</div>
 		</form>
 	</div>
+	<div id="output"></div>
 </div>
 			<!-- Page Header -->
 			<div class="container">

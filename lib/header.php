@@ -16,10 +16,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
-<head>
-	<link href="../css/header.css" rel="stylesheet" type="text/css" />
-</head>
-
 	<div class="row header">
 		<div class="col-md-1">
 			<div id="sidebar-wrapper">
