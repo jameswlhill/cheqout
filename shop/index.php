@@ -12,7 +12,18 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<?php require_once("../lib/header.php"); ?>
 </header>
 
-
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<form id='searchSubmit' action="../controllers/jsoncontroller.php" method="get">
+			<div class="input-group pull-right">
+				<input class="form-control" type="text" size="30" name="search" id="search" placeholder="search our products">
+					<span class="input-group-btn">
+						<button class="btn btn-success btn-md" id="searchSubmit" type="submit">Search</button>
+					</span>
+			</div>
+		</form>
+	</div>
+</div>
 			<!-- Page Header -->
 			<div class="container">
 			<div class="row">

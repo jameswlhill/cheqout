@@ -16,6 +16,10 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 }
 ?>
 
+<head>
+	<link href="../css/header.css" rel="stylesheet" type="text/css" />
+</head>
+
 	<div class="row header">
 		<div class="col-md-1">
 			<div id="sidebar-wrapper">
@@ -48,5 +52,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<div id="loginform">
 		<?php require_once("loginform.php"); ?>
 		<p id="loginOutput" class="alert pull-left"></p>
-	</div>
+		</div>
+
 </div>

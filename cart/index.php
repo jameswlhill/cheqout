@@ -50,7 +50,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						echo '<tr class="data-row">';
 						echo '<td>' . $product->getProductTitle() . '</td>';
 						echo '<td>' . $product->getProductDescription() . '</td>';
-						echo '<td>' . '$' . $product->getProductPrice() . '0' . '</td>';
+						echo '<td>' . '$' . $product->getProductPrice() . '</td>';
 						echo '<td>' . $quantity
 							. '<form class="add" method="post" action="../controllers/cartcontroller.php">'
 							.		'<input type="hidden" id="productId" name="productId" value="1" />'
@@ -74,16 +74,16 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 					echo '</table>';
 
-					echo 	'<div class="cheqouttotal pull-right"><strong>Total</strong> : $'  . $cheqoutTotal . '0' . '</div>';
+					echo 	'<div class="cheqouttotal pull-right"><strong>Total</strong> : $'  . $cheqoutTotal . '</div>';
 					echo '<div class="row"></div>';
 					echo  '<hr>';
 					echo '<div class="row">'
 							. '<div class="container">'
 							.		'<div>'
-							.			'<button class="btn btn-success btn-lg pull-right" href="#">Continue to Checqout</button>'
+							.			'<button class="btn btn-success btn-lg pull-right">Continue to Checqout</button>'
 							.		'</div>'
 							.		'<div>'
-							.			'<button class="btn btn-danger btn-lg pull-right" href="#">Empty Cart</button>'
+							.			'<button class="btn btn-danger btn-lg pull-right">Empty Cart</button>'
 							.		'</div>'
 							. '</div>'
 							.'</div>';

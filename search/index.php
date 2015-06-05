@@ -33,12 +33,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 	<body>
 		<!--user input search bar-->
-		<div class="container">
+		<div class="col-lg-6">
 			<form id='searchSubmit' action="../controllers/jsoncontroller.php" method="get">
-				<input type="text" size="30" name="search" id="search" placeholder="search our products">
-				<button id="searchSubmit" type="submit">Search</button>
+				<div class="input-group pull-right">
+					<input class="form-control" type="text" size="30" name="search" id="search" placeholder="search our products">
+					<span class="input-group-btn">
+						<button class="btn btn-success btn-md" id="searchSubmit" type="submit">Search</button>
+					</span>
+				</div>
 			</form>
 		</div>
+
 		<div id="output"></div>
 		<!-- Load jQuery -->
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
