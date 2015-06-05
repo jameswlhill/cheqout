@@ -5,9 +5,9 @@ $(document).ready(
 		// tell the validator to validate this form
 		$("#address").validate({
 			// setup the formatting for the errors
-			errorClass: "label-danger",
+			errorClass: "alert alert-danger",
 			errorLabelContainer: "#addressOutputArea",
-			wrapper: "li",
+			wrapper: "p",
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the input's name (NOT id)
@@ -76,7 +76,7 @@ $(document).ready(
 				label: {
 					maxlength: "We only allow twenty characters to live here. My bad."
 				}
-			},
+			}
 
 			//// setup an AJAX call to submit the form without reloading
 			//submitHandler: function(form) {
@@ -104,9 +104,9 @@ $(document).ready(
 		});
 		$("#addressupdate").validate({
 			// setup the formatting for the errors
-			errorClass: "label-danger",
+			errorClass: "alert alert-danger",
 			errorLabelContainer: "#addressUpdateOutputArea",
-			wrapper: "li",
+			wrapper: "span",
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the input's name (NOT id)
@@ -203,9 +203,9 @@ $(document).ready(
 		});
 		$("#emailchange").validate({
 			// setup the formatting for the errors
-			errorClass: "label-danger",
+			errorClass: "alert alert-danger",
 			errorLabelContainer: "#emailOutputArea",
-			wrapper: "li",
+			wrapper: "span",
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
@@ -258,9 +258,9 @@ $(document).ready(
 		});
 		$("#passwordchange").validate({
 		// setup the formatting for the errors
-		errorClass: "label-danger",
+		errorClass: "alert alert-danger",
 		errorLabelContainer: "#passwordChangeOutputArea",
-		wrapper: "li",
+		wrapper: "span",
 		// rules define what is good/bad input
 		rules: {
 			// each rule starts with the inputs name (NOT id)
@@ -317,9 +317,9 @@ $(document).ready(
 	});
 		$("#passwordchangeemail").validate({
 		// setup the formatting for the errors
-			errorClass: "label-danger",
+			errorClass: "alert alert-danger",
 			errorLabelContainer: "#passwordOutputArea",
-			wrapper: "li",
+			wrapper: "span",
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
@@ -340,9 +340,9 @@ $(document).ready(
 		});
 		$("#emailchangeemail").validate({
 			// setup the formatting for the errors
-			errorClass: "label-danger",
+			errorClass: "alert alert-danger",
 			errorLabelContainer: "#emailOutputArea",
-			wrapper: "li",
+			wrapper: "span",
 			// rules define what is good/bad input
 			rules: {
 				// each rule starts with the inputs name (NOT id)
@@ -364,9 +364,9 @@ $(document).ready(
 		// tell the validator to validate this form ID
 		//$("#orderbyid").validate({
 		//	// setup the formatting for the errors
-		//	errorClass: "label-danger",
+		//	errorClass: "alert alert-danger",
 		//	errorLabelContainer: "#orderOutputArea",
-		//	wrapper: "li",
+		//	wrapper: "span",
 		//	// rules define what is good/bad input
 		//	rules: {
 		//		// each rule starts with the inputs name (NOT id)
