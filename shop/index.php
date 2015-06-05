@@ -69,7 +69,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">The Hagakure</a>
 							</h3>
 							<p>Bushido philosophy</p>
-							<p class="price">$10.30</p>
+							<p class="price">$10.99</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
@@ -98,7 +98,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">Plato's Republic</a>
 							</h3>
 							<p>A dialogue on an ideal society</p>
-							<p class="price">$11.20</p>
+							<p class="price">$11.99</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
@@ -127,7 +127,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">Beyond Good and Evil</a>
 							</h3>
 							<p>Leaving dogmatism behind</p>
-							<p class="price">$11.10</p>
+							<p class="price">$11.99</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
@@ -190,7 +190,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">Theory of Numbers</a>
 							</h3>
 							<p>Study of the infinite and infinitesimal</p>
-							<p class="price">$1</p>
+							<p class="price">$1.99</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
@@ -252,7 +252,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">The Prince</a>
 							</h3>
 							<p>Do unto others before they do unto you</p>
-							<p class="price">$15</p>
+							<p class="price">$15.99</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
@@ -281,7 +281,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">The Federalist Papers</a>
 							</h3>
 							<p>Discussions on the US Constitution</p>
-							<p class="price">$10</p>
+							<p class="price">$10.99</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
@@ -310,7 +310,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 								<a href="#">Les Fleurs du Mal</a>
 							</h3>
 							<p>"An insult to public decency"</p>
-							<p class="price">$12</p>
+							<p class="price">$12.69</p>
 						</div>
 						<div class="col-md-6">
 							<div class="container">
