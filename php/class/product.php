@@ -443,7 +443,7 @@ EOF;
 		$productDescription = trim($productDescription);
 		$productDescription = filter_var($productDescription, FILTER_SANITIZE_STRING);
 		if(empty($productDescription) === true) {
-			throw(new PDOException("search invalid"));
+			return;
 		}
 
 		//create MySQL query template
