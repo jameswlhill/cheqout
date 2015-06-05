@@ -44,8 +44,8 @@ if($password === $loginData[1]) {
 
 
 		// build message
-		$serverself = explode("/", $_SERVER["PHP_SELF"]);
-		$pageName = end($serverself);
+		$array = explode("/", $_SERVER["PHP_SELF"]);
+		$pageName = end($array);
 		$url = "https://" . $_SERVER["SERVER_NAME"] . $_SERVER["PHP_SELF"];
 		$url = str_replace($pageName, "passwordchange.php", $url);
 		$url = "$url?passwordchange=$activation";
@@ -54,7 +54,7 @@ if($password === $loginData[1]) {
 	<body>
 		<p>Someone requested a password change for your Cheqout account. <br />Please reply to this message if you did not initiate this change.<br /></p>
 		<h3>To select your new password:</h3>
-		<p>Click the following link: <br /><a href="$url">Here.</p>
+		<p>Click the following link: <br /><a href="$url">Change Password.</p>
 	</body>
 </html>
 EOF;

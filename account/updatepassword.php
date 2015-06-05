@@ -1,4 +1,5 @@
 <?php
+require_once("../lib/utilities.php");
 require_once(dirname(__DIR__)) . "/php/class/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -29,8 +30,7 @@ try {
 	}
 	if(@isset($_POST["newpassword"]) === false ||
 		(@isset($_POST["passwordcheck"]) === false) ||
-		($password === $newPassword) ||
-		($newPassword !== $checkNewPassword)) {
+		($password === $newPassword)) {
 		throw(new InvalidArgumentException('Password fields must match, and must not be the same as your last password.'));
 	}
 	$testActivation = Account::getAccountByEmailId($pdo, $email->getEmailId());
@@ -38,8 +38,8 @@ try {
 	if($testActivation === null) {
 		throw(new InvalidArgumentException("You do not have a password change pending"));
 	}
-	var_dump($testActivation, ($_GET["passwordchange"]));
-	if($testActivation !== ($_GET["passwordchange"])) {
+	var_dump($testActivation, $_POST["passwordchange"]);
+	if($testActivation !== $_POST["passwordchange"]) {
 		throw(new InvalidArgumentException("Activation does not match, check that you are logged in, then try again."));
 	}
 

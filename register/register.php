@@ -79,7 +79,7 @@ try {
 <html>
 	<body>
 		<h3>Welcome to Cheqout</h3>
-		<p>Thank you for signing up with us. <br />Visit the following URL to complete your registration process: <br /><a href="$url">Here.</p>
+		<p>Thank you for signing up with us. <br />Visit the following URL to complete your registration process: <br /><a href="$url">Verify my email.</p>
 	</body>
 </html>
 EOF;
