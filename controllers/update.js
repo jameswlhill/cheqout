@@ -17,6 +17,12 @@ $(document).ready(function(){
 			data: data,
 			success: function(data) {
 				$('#' + productId + ' .quantityField').html(data);
+				var total = 0;
+				$('.data-row').each(function(){
+					total += $('.price', this).html() * $('.quantityField', this).html();
+					console.log(total);
+				})
+				$('.total').html(total);
 			}
 		});
 

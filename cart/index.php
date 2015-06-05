@@ -46,7 +46,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						echo '<tr class="data-row" id="' . $product->getProductId() . '">';
 						echo '<td>' . $product->getProductTitle() . '</td>';
 						echo '<td>' . $product->getProductDescription() . '</td>';
-						echo '<td>' . '$' . $product->getProductPrice() . '</td>';
+						echo '<td>' . '$<span class="price">' . $product->getProductPrice() . '</span></td>';
 						echo '<td><span class="quantityField">' . $quantity
 							. '</span><form class="add" method="post" action="../controllers/cartcontroller.php">'
 							.		'<span class="csrf">'
@@ -71,7 +71,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 					echo '</table>';
 
-					echo 	'<div class="cheqouttotal pull-right"><strong>Total</strong> : $'  . $cheqoutTotal . '</div>';
+					echo 	'<div class="cheqouttotal pull-right"><strong>Total</strong> : $<span class="total">'  . $cheqoutTotal . '</span></div>';
 					echo '<div class="row"></div>';
 					echo  '<hr>';
 					echo '<div class="row">'

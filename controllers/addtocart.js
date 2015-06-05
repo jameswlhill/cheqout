@@ -16,7 +16,6 @@ $(document).ready(function(){
 			data: data,
 			success: function(data) {
 				$('#output').html(data);
-				console.log(data);
 			}
 		});
 	});
