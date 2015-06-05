@@ -23,7 +23,7 @@ $(document).ready(function() {
 				$('.data-row').each(function(){
 					total += $('.price', this).html() * $('.quantityField', this).html();
 					console.log(total);
-				})
+				});
 				$('.total').html(total);
 			}
 		});

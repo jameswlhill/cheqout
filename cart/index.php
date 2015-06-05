@@ -82,9 +82,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							.		'<div>'
 							.			'<button class="btn btn-success btn-lg pull-right">Continue to Checqout</button>'
 							.		'</div>'
-							.		'<div>'
-							.			'<button class="btn btn-danger btn-lg pull-right">Empty Cart</button>'
-							.		'</div>'
 							. '</div>'
 							.'</div>';
 
