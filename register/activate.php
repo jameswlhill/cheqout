@@ -31,9 +31,9 @@ $statement->execute($parameters);
 $testActivation = Account::getAccountByEmailId($pdo, $email->getEmailId());
 $testActivation = $testActivation->getActivation();
 if($testActivation === null) {
-	echo '<div class="container"><p class="success">Your account has been successfully activated, thank you!</p></div>';
+	echo 'Your account has been successfully activated, thank you!';
 }
 else {
-		echo '<div class="container"><p class="warning"><strong>Uh oh!</strong> We were unable to activate your account.</p></div>';
+		echo '<strong>Uh oh!</strong> We were unable to activate your account.';
 	}
 ?>

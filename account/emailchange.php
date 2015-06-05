@@ -14,6 +14,13 @@ if(@isset($_SESSION["email"])) {
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
+if(!isset($_SESSION["email"])) {
+	header("Location: ../register/index.php");
+}
+if($account->getActivation() === null) {
+	$_SESSION['notification'] = 'You have not requested an email change.';
+	header("Location: ../account/index.php");
+}
 require_once("../lib/utilities.php");
 ?>
 
@@ -25,6 +32,7 @@ require_once("../lib/utilities.php");
 	<h3>Change your email</h3>
 	<div class="container">
 		<form class="form-inline" id="emailchange" method="post" action="updateemail.php">
+			<input type="hidden" name="emailchange" value="<?php echo $_GET["emailchange"]; ?>"/>
 			<input type="email" class="form-control" id="newemail" name="newemail" placeholder="your@new.email">
 			<input type="email" class="form-control" id="emailcheck" name="emailcheck" placeholder="Retype Email">
 			<button type="submit" name="submit" class="btn btn-primary">Change Email</button>

@@ -22,9 +22,9 @@ try {
 	$testActivation = Account::getAccountByEmailId($pdo, $email->getEmailId());
 	$testActivation = $testActivation->getActivation();
 	if($testActivation === null) {
-			throw(new InvalidArgumentException("You do not have an email change pending"));
+		throw(new InvalidArgumentException("You do not have an email change pending"));
 		}
-		if($testActivation !== ($_GET["emailchange"])) {
+		if($testActivation !== ($_POST["emailchange"])) {
 			throw(new InvalidArgumentException("Activation does not match, check that you are logged in, then try again."));
 		}
 $email->setEmailAddress($_POST["emailcheck"]);
@@ -32,9 +32,9 @@ $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 $email->update($pdo);
 $account->setActivation(null);
 $account->update($pdo);
-
-echo "<p class=\"alert alert-success\">Email changed to " . $email->getEmailAddress() . "</p>";
+$_SESSION["notification"] = "Email changed to " . $email->getEmailAddress() . ".";
 } catch(Exception $exception) {
-echo "<p class=\"alert alert-danger\">Exception: " . $exception->getMessage() . "</p>";
+$_SESSION['notification'] = "Exception: " . $exception->getMessage() . ".";
 }
+header('Location: ../account/index.php');
 ?>
