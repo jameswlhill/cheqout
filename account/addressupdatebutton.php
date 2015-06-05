@@ -45,9 +45,9 @@ try {
 		$address->userDelete($pdo);
 	}
 
-	$_SESSION["notification"] = 'Address for <span class="text-info">' . $email->getEmailAddress() . ' changed/deleted.';
+	$_SESSION["notification"] = 'Address for <span class="text-info">' . $email->getEmailAddress() . '</span> changed/deleted.';
 } catch(Exception $exception) {
-	$_SESSION["notification"] = 'Exception: ' . $exception->getMessage();
+	echo 'Exception: ' . $exception->getMessage();
 }
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

@@ -37,7 +37,6 @@ try {
 		echo	'</div>';
 	}
 } catch(Exception $exception) {
-	$_SESSION["notification"] = 'Exception: ' . $exception->getMessage();
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	echo 'Exception: ' . $exception->getMessage();
 }
 ?>

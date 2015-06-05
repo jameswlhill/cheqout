@@ -175,7 +175,7 @@ $(document).ready(
 				label: {
 					maxlength: "We only allow twenty characters to live here. My bad."
 				}
-			},
+			}
 
 			//// setup an AJAX call to submit the form without reloading
 			//submitHandler: function(form) {
@@ -359,8 +359,32 @@ $(document).ready(
 					maxlength: "Your password is WAY too long.",
 					required: "You DO have a password...right?"
 				}
+			},
+			//setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "emailchangeemail.php",
+					// TL; DR: reformat POST data
+					data: $(form).serialize(),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#emailOutputArea").css("display", "");
+						// write the server's reply to the output area
+						$("#emailOutputArea").html(ajaxOutput);
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
 			}
 		});
+
 		// tell the validator to validate this form ID
 		//$("#orderbyid").validate({
 		//	// setup the formatting for the errors
