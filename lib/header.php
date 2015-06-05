@@ -42,16 +42,17 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				</ul>
 			</div>
 		</div>
-		<div class="col-md-8"></div>
 		<h1>Cheqout</h1>
 		<?php if(@isset($_SESSION["notification"]) === true) {
 			echo '<div id="notification">' . $_SESSION["notification"] . '</div>';
 			$_SESSION["notification"] = null;
 		} ?>
-		<p>A catchy description about our stuff</p>
-		<div id="loginform">
+		<p>
+			A catchy description about our stuff
+		</p>
+	<div id="loginform">
 		<?php require_once("loginform.php"); ?>
 		<p id="loginOutput" class="alert pull-left"></p>
-		</div>
+	</div>
 
 </div>
