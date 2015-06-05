@@ -20,8 +20,9 @@ try {
 	$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());
 	if(is_array($orderArray[0]) === true) {
 		$i = 0;
-		echo '<div class="container-fluid">';
-		echo '<div class="row">';
+		echo	'<div class="container-fluid">';
+		echo		'<div class="row">';
+
 		foreach($orderArray as $list) {
 			if(intval($list[9]) !== 1 && (is_array($list)) === true) {
 				if($i % 3 == 0) {
@@ -31,7 +32,9 @@ try {
 				$i++;
 			}
 		}
-		echo '</div>';
+
+		echo		'</div>';
+		echo	'</div>';
 	}
 } catch(Exception $exception) {
 	$_SESSION["notification"] = 'Exception: ' . $exception->getMessage();

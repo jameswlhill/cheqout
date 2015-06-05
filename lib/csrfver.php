@@ -72,4 +72,18 @@ function verifyCsrf($name, $sentToken)
 	unset($_SESSION[$name]);
 	return($verified);
 }
+
+/*
+ * IF YOU WANT TO INSERT CSRF PROTECTION DO THIS
+ *
+ * generateInputTags() in your FORM FOR POST INFO
+ *
+ * THEN CHECK FOR IT IN YOUR CONTROLLER LIKE THIS
+ *
+ * if(verifyCsrf($_POST["csrfName"],$_POST["csrfToken"]) === true) {
+ * do the things
+ * }
+ *
+ */
+
 ?>
