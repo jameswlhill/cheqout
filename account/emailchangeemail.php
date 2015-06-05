@@ -65,8 +65,9 @@ EOF;
 				$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage();
 				header('Location: ' . $_SERVER['HTTP_REFERER']);
 			} else {
-				$_SESSION['notification'] = "<strong>Email sent!</strong> Please check your email to complete the change.";
-				header('Location: ' . $_SERVER['HTTP_REFERER']);
+//				$_SESSION['notification'] = "<strong>Email sent!</strong> Please check your email to complete the change.";
+//				header('Location: ' . $_SERVER['HTTP_REFERER']);
+				echo 'SENT';
 			}
 		} catch(Exception $exception) {
 			$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to help you: " . $exception->getMessage();
