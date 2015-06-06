@@ -35,9 +35,10 @@ if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 		if($vPassword === $loginData[1]) {
 			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
 			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
+			$_SESSION["notification"] = "Login successful!";
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			echo "Login failed";
 		}
 }
 ?>

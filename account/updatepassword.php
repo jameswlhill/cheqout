@@ -49,7 +49,6 @@ try {
 	$_SESSION["notification"] = "Password for " . $email->getEmailAddress() . " changed!";
 	header('Location: ../account/index.php');
 }	catch(Exception $exception) {
-	$_SESSION["notification"] =  "Exception: " . $exception->getMessage();
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	echo  "Error: " . $exception->getMessage();
 }
 ?>

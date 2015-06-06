@@ -67,16 +67,13 @@ EOF;
 			$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to send mail message:" . $status->getMessage();
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else {
-			$_SESSION['notification'] = "<strong>Email sent!</strong> Please check your email to complete the change.";
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			echo "<strong>Email sent!</strong> Please check your email to complete the change.";
 		}
 	} catch(Exception $exception) {
-		$_SESSION['notification'] = "<strong>Oh snap!</strong> Unable to help you: " . $exception->getMessage();
-		header('Location: ' . $_SERVER['HTTP_REFERER']);
+		echo "<strong>Oh snap!</strong> Unable to help you: " . $exception->getMessage();
 	}
 }
 else {
-	$_SESSION['notification'] = "Your password is incorrect";
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	echo "Your password is incorrect";
 }
 ?>

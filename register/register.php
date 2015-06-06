@@ -88,15 +88,13 @@ EOF;
 	$mailer =& Mail::factory("sendmail");
 	$status = $mailer->send($to, $headers, $message);
 	if(PEAR::isError($status) === true) {
-		$_SESSION['notification'] = "<strong>Uh oh!</strong> Unable to send mail message:" . $status->getMessage();
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+		echo "<strong>Uh oh!</strong> Unable to send mail message:" . $status->getMessage();
 } else {
 		$_SESSION['notification'] = "<strong>Registration sent!</strong> Please verify your email by clicking on the link we sent you.";
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 		} catch(Exception $exception) {
-	$_SESSION['notification'] = "<strong>Uh oh!</strong> Unable to sign up: " . $exception->getMessage();
-	header('Location: ' . $_SERVER['HTTP_REFERER']);
+	echo "<strong>Uh oh!</strong> Unable to sign up: " . $exception->getMessage();
 }
 ?>
 
