@@ -210,10 +210,12 @@ $(document).ready(
 			rules: {
 				// each rule starts with the inputs name (NOT id)
 				newemail: {
+					minlength: 5,
 					maxlength: 128,
 					required: true
 				},
 				emailcheck: {
+					minlength: 5,
 					maxlength: 128,
 					required: true
 				}
@@ -221,10 +223,12 @@ $(document).ready(
 			// error messages to display to the end user
 			messages: {
 				newemail: {
+					minlength: "Your email must be an actual email",
 					maxlength: "Your E-Mail is WAY too long.",
 					required: "You DO have an E-Mail...right?"
 				},
 				emailcheck: {
+					minlength: "Your email must be greater than 5 characters",
 					maxlength: "Your E-Mail is WAY too long.",
 					required: "We need your E-Mail twice...sorry =("
 				}
@@ -265,12 +269,12 @@ $(document).ready(
 		rules: {
 			// each rule starts with the inputs name (NOT id)
 			newpassword: {
-				minlength: 5,
+				minlength: 4,
 				maxlength: 128,
 				required: true
 			},
 			passwordcheck: {
-				minlength: 5,
+				minlength: 4,
 				maxlength: 128,
 				required: true
 			}
@@ -336,8 +340,30 @@ $(document).ready(
 					maxlength: "Your password is WAY too long.",
 					required: "You DO have a password...right?"
 				}
-			}
-		});
+			},
+			//setup an AJAX call to submit the form without reloading
+			submitHandler: function(form) {
+				$(form).ajaxSubmit({
+					// GET or POST
+					type: "POST",
+					// where to submit data
+					url: "passwordchangeemail.php",
+					// TL; DR: reformat POST data
+					data: $(form).serialize(),
+					// success is an event that happens when the server replies
+					success: function(ajaxOutput) {
+						// clear the output area's formatting
+						$("#passwordOutputArea").css("display", "");
+						// write the server's reply to the output area
+						$("#passwordOutputArea").html(ajaxOutput);
+						// reset the form if it was successful
+						// this makes it easier to reuse the form again
+						if($(".alert-success").length >= 1) {
+							$(form)[0].reset();
+						}
+					}
+				});
+			}});
 		$("#emailchangeemail").validate({
 			// setup the formatting for the errors
 			errorClass: "alert alert-danger",
@@ -384,7 +410,7 @@ $(document).ready(
 				});
 			}
 		});
-
+	})
 		// tell the validator to validate this form ID
 		//$("#orderbyid").validate({
 		//	// setup the formatting for the errors
@@ -433,9 +459,5 @@ $(document).ready(
 		//		});
 		//	}
 		//});
-
-
-
-	});
 
 
