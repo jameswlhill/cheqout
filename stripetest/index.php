@@ -8,24 +8,22 @@ $PAGE_TITLE = "My Account - Cheqout";
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 if(@isset($_SESSION["email"])) {
 	$email = $_SESSION["email"];
-	$emailAddress = $email->getEmailAddress();
 }
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
 require_once("../stripe-php-2.2.0/init.php");
 require_once("../lib/utilities.php");
-
-
 ?>
+
 <form action="/charge" method="POST">
 	<script
 		src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-		data-key="<?php echo 'pk_test_u7pqTkqPAABpBYtvqDLMPdlD'; ?>"
-		data-image="<?php echo 'linktothepicofthefirstiteminthecartORALOGO'; ?>"
+		data-key="<?php echo ''; ?>"
+		data-image="/img/documentation/checkout/marketplace.png"
 		data-name="Cheqout"
-		data-description="The Cheq-outiest!"
+		data-description="2 widgets"
 		data-zip-code="true"
-		data-amount="<?php echo 'dollars in DDCC with no periods'; ?>">
+		data-amount="2000">
 	</script>
 </form>

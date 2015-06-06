@@ -80,7 +80,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 					echo '<div class="row">'
 							. '<div class="container">'
 							.		'<div>'
-							.			'<button class="btn btn-success btn-lg pull-right">Continue to Checqout</button>'
+							.			'<a href="../checkout/index.php" class="btn btn-success btn-lg pull-right">Continue to Checqout</a>'
 							.		'</div>'
 							. '</div>'
 							.'</div>';
