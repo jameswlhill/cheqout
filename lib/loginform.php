@@ -30,4 +30,4 @@ if(@isset($email) === true) {
 	<button type="submit" class="btn btn-primary">Login</button>';
 }
 
-echo '</form>';
+echo '</form><p id="loginOutput"></p>';

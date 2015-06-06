@@ -42,6 +42,8 @@
 		--><script type="text/javascript" src="../js/ajax.js"></script>
 		<script type="text/javascript" src="../js/sidebar.js"></script>
 		<script type="text/javascript" src="../js/acctbuttons.js"></script>
+	<script type="text/javascript" src="../js/registerajax.js"></script>
+
 
 	<title><?php echo $PAGE_TITLE; ?></title>
 	</head>

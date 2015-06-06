@@ -21,6 +21,7 @@ try {
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 // fill in an array with the order based on the order's ID only
 $orderArray = Email::getOrdersByEmail($pdo, $email->getEmailId());
+	if($orderArray !== null) {
 		try {
 			$lastOrder = null;
 			foreach($orderArray as $list) {
@@ -45,11 +46,13 @@ $orderArray = Email::getOrdersByEmail($pdo, $email->getEmailId());
 				echo '</div>';
 				end:
 				$lastOrder = $list[1];
-		}
-		}catch(Exception $exception) {
+			}
+		} catch(Exception $exception) {
 			echo '<p class="alert alert-danger">Exception: ' . $exception->getMessage() . '</p>';
 		}
-
+	} else {
+		echo "<p class=\"alert alert-danger\">You don't have any orders yet!</p>";
+	}
 /*
 *  The graveyard. Where code comes to die.
 */

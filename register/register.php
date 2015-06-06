@@ -8,7 +8,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 
 try {
 	// verify the form was submitted OK
-	if (@isset($_POST["email"]) === false || @isset($_POST["password"]) === false || @isset($_POST["password2"]) === false) {
+	if (@isset($_POST["email"]) === false    ||
+		 @isset($_POST["password"]) === false ||
+		 @isset($_POST["password2"]) === false) {
 		throw(new RuntimeException("form variables incomplete or missing"));
 	}
 
@@ -23,32 +25,36 @@ try {
 
 	//validate email before using with db to protect against injections
 	$newEmail = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-		if($_POST['email'] !== $newEmail) {
-			throw(new InvalidArgumentException('email contains disallowed characters'));
-		}
+	if($_POST['email'] !== $newEmail) {
+		throw(new InvalidArgumentException('email contains disallowed characters'));
+	}
 
 
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
-		//check to see if the email already exists
-		$result = Email::getEmailIdByEmailAddress($pdo, $newEmail);
-			//if we get a result, the email has made a purchase
-			if($result !== null) {
-				//so check the account table if they have an account already
-				$account = Account::getAccountByEmailId($pdo, $result);
-					if($account !== null) {
-						throw(new InvalidArgumentException('Account already exists!'));
-					}
-				$oldEmailId = Email::getEmailIdByEmailAddress($pdo, $email);
-				$oldEmailId = $oldEmailId->getEmailId();
-				//if no account, update it with the password
-					if($account === null) {
-						$newAccount = new Account (null, $hash, $salt, $activation, null, $oldEmailId);
-						$newAccount->insert($pdo);
-						echo 'Account successfully created, welcome back!';
-					}
+	//check to see if the email already exists
+	$result = Email::getEmailIdByEmailAddress($pdo, $newEmail);
+	//if we get a result, the email has made a purchase
+	if($result !== null) {
+	//so check the account table if they have an account already
+		$account = Account::getAccountByEmailId($pdo, $result);
+		if($account !== null) {
+			throw(new InvalidArgumentException('Account already exists!'));
 			}
+		$oldEmailId = Email::getEmailIdByEmailAddress($pdo, $email);
+		$oldEmailId = $oldEmailId->getEmailId();
+		//if no account, update it with the password
+		if($account === null) {
+			$newAccount = new Account (null, $hash, $salt, $activation, null, $oldEmailId);
+			$newAccount->insert($pdo);
+			echo 'Account successfully created, welcome back!';
+			}
+	}
+
+	// if you DONT get a result, that means there are no emails by that emailAddress so
 	// create a User and Profile object and insert them into mySQL
-	if($result=== null) {
+	// finally, we should log them in so their session is open when they go
+	// to activate! HANDY!
+	if($result === null) {
 		$email = new Email(null, $newEmail, null);
 		$email->insert($pdo);
 		$account = new Account(null, $hash, $salt, $activation, null, $email->getEmailId());
@@ -90,6 +96,14 @@ EOF;
 	if(PEAR::isError($status) === true) {
 		echo "<strong>Uh oh!</strong> Unable to send mail message:" . $status->getMessage();
 } else {
+
+		// i think the way that this whole process happens is a bit sloppy.
+		// the email sending isnt in an if block, just after a bunch of them. it should
+		// directly be tied to one imo...
+		if($email !== null && $account !== null) {
+			$_SESSION["email"] = $email;
+			$_SESSION["account"] = $account;
+		}
 		$_SESSION['notification'] = "<strong>Registration sent!</strong> Please verify your email by clicking on the link we sent you.";
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
