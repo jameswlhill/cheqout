@@ -21,7 +21,7 @@ $firstPic = null; // taken from first product on the order
 $firstProductDescription = null; //taken from the first product's description
 $orderTotal = null; // taken from the order total in productOrder
 
-echo '<form action="/charge" method="POST">
+echo '<form action="charge.php" method="POST">
 			<script
 				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 				data-key="' . $testKey . '"
