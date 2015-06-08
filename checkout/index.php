@@ -16,16 +16,21 @@ if(@isset($_SESSION["account"])) {
 require_once("../stripe-php-2.2.0/init.php");
 require_once("../lib/utilities.php");
 
+$testKey = null; // taken from cheqout.ini
+$firstPic = null; // taken from first product on the order
+$firstProductDescription = null; //taken from the first product's description
+$orderTotal = null; // taken from the order total in productOrder
 
-?>
-<form action="/charge" method="POST">
-	<script
-		src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-		data-key="<?php echo 'pk_test_u7pqTkqPAABpBYtvqDLMPdlD'; ?>"
-		data-image="<?php echo 'linktothepicofthefirstiteminthecartORALOGO'; ?>"
-		data-name="Cheqout"
-		data-description="The Cheq-outiest!"
-		data-zip-code="true"
-		data-amount="<?php echo 'dollars in DDCC with no periods'; ?>">
-	</script>
-</form>
+echo '<form action="/charge" method="POST">
+			<script
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="' . $testKey . '"
+				data-image="' . $firstPic . '"
+				data-name="Cheqout"
+				data-description="' . $firstProductDescription . '"
+				data-zip-code="true"
+				data-amount="' . $orderTotal . '">
+			</script>
+		</form>';
+
+

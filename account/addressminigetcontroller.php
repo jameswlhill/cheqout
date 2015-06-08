@@ -1,7 +1,7 @@
 <?php
 require_once (dirname(__DIR__)) . "/php/class/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-require_once("addressformgenerator.php");
+require_once("addressminiformgenerator.php");
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
@@ -20,15 +20,15 @@ try {
 	$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());
 	if(is_array($orderArray[0]) === true) {
 		$i = 0;
-		echo	'<div class="container-fluid">';
+		echo	'<div class="container">';
 		echo		'<div class="row">';
 
 		foreach($orderArray as $list) {
 			if(intval($list[9]) !== 1 && (is_array($list)) === true) {
-				if($i % 3 == 0) {
+				if($i % 2 == 0) {
 					echo '</div><div class="row">';
 				}
-				addressFormGenerator($list[0], $list[8], $list[2], $list[3], $list[7], $list[4], $list[5], $list[6]);
+				addressMiniFormGenerator($list[0], $list[8], $list[2], $list[3]);
 				$i++;
 			}
 		}

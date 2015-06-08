@@ -1,5 +1,4 @@
 <?php
-
 function addressFormGenerator($addressId, $label, $attention, $street1, $street2, $city, $state, $zip) {
 	echo '
 		<div class="col-md-4">
@@ -43,8 +42,5 @@ function addressFormGenerator($addressId, $label, $attention, $street1, $street2
 			</form>
 			<p id="addressUpdateOutputArea"></p>
 		</div>
-
 	';
-
 }
-
