@@ -14,9 +14,13 @@ if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
 }
 require_once("../stripe-php-2.2.0/init.php");
+$config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");
 require_once("../lib/utilities.php");
 
 $token  = $_POST['stripeToken'];
+
+//rtfm
+\Stripe\Stripe::setApiKey($config['secret_key']);
 
 $customer = \Stripe\Customer::create(array(
 	'email' => $emailAddress,
