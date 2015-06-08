@@ -18,6 +18,7 @@
 		<link type="text/css" href="../css/home.css" rel="stylesheet">
 		<link type="text/css" href="../css/account.css" rel="stylesheet">
 
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -36,13 +37,14 @@
 		<!-- Latest compiled and minified Bootstrap JavaScript, all compiled plugins included -->
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-		<!--	Our own javascript/ajax calls-->
-		<!--<script type="text/javascript" src="../js/registerajax.js"></script>
+<!--			Our own javascript/ajax calls-->
+		<script type="text/javascript" src="../js/registerajax.js"></script>
 		<script type="text/javascript" src="../js/loginajax.js"></script>
-		--><script type="text/javascript" src="../js/ajax.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
 		<script type="text/javascript" src="../js/sidebar.js"></script>
 		<script type="text/javascript" src="../js/acctbuttons.js"></script>
-	<script type="text/javascript" src="../js/registerajax.js"></script>
+		<script type="text/javascript" src="../js/registerajax.js"></script>
+		<script type="text/javascript" src="../controllers/search.js"></script>
 
 
 	<title><?php echo $PAGE_TITLE; ?></title>
