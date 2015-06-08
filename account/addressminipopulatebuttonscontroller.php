@@ -13,20 +13,14 @@ if(@isset($_SESSION["account"])) {
 }
 
 try {
-	 if(@isset($_POST["attention"]) 	=== false  ||
-		(@isset($_POST["addressId"]) === false)  ||
-		(@isset($_POST["street1"]) 	=== false) ||
-		(@isset($_POST["city"]) 		=== false) ||
-		(@isset($_POST["state"]) 		=== false) ||
-		(@isset($_POST["zip"]) 			=== false)) {
-		throw(new InvalidArgumentException("Please fill in all required fields."));
+	 if(@isset($_POST["addressId"]) === false) {
+		throw(new InvalidArgumentException("Your Address ID was not recognized."));
 	}
 
-	if(@isset($_POST["addressupdate"]) === true) {
+	if(@isset($_POST["addressbilling"]) === true) {
 		$address = Address::getAddressByAddressId($pdo, $_POST["addressId"]);
 		// just made an object of the posted values -- we make the object
 		// so that the userDelete function can identify it and "delete" it
-		$address->userDelete($pdo);
 		// we're making a NEW address because all we did was destroy
 		// the one that was just posted
 		$address = new Address(null, $email->getEmailId(),
@@ -37,17 +31,30 @@ try {
 			$_POST["zip"],
 			$_POST["street2"],
 			$_POST["label"]);
-		$address->insert($pdo);
+		$_SESSION["billing"] = $address;
 	}
 
-	if(@isset($_POST["addressdelete"]) === true) {
+	if(@isset($_POST["addressshipping"]) === true) {
 		$address = Address::getAddressByAddressId($pdo, $_POST["addressId"]);
-		$address->userDelete($pdo);
+		// just made an object of the posted values -- we make the object
+		// so that the userDelete function can identify it and "delete" it
+		// we're making a NEW address because all we did was destroy
+		// the one that was just posted
+		$address = new Address(null, $email->getEmailId(),
+			$_POST["attention"],
+			$_POST["street1"],
+			$_POST["city"],
+			$_POST["state"],
+			$_POST["zip"],
+			$_POST["street2"],
+			$_POST["label"]);
+		$_SESSION["shipping"] = $address;
 	}
 
-	$_SESSION["notification"] = 'Address for <span class="text-info">' . $email->getEmailAddress() . '</span> changed/deleted.';
+	//now refresh the page so it shows up
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 } catch(Exception $exception) {
 	echo 'Exception: ' . $exception->getMessage();
 }
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+
 ?>
