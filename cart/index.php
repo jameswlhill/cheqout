@@ -92,5 +92,5 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		</div>
 	 <p id="output"></p>
 	 </div>
-	</body>
-</html>
+
+<div
