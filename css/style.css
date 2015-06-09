@@ -113,6 +113,7 @@ p.front {
 	margin-bottom: 30px;
 	color: ghostwhite;
 	font-size: 120%;
+	text-shadow: 2px 2px black;
 }
 .registerform {
 	margin: 0 auto;
