@@ -31,22 +31,22 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		</div>
 	</div>
 <!--Shop Title-->
-			<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<h1 class="page-header">Shop
-						<small>Books galore!</small>
-						</h1>
-					<p><a href="#">Math</a> |
-					<a href="#">Poetry</a> |
-					<a href="#">Political</a> |
-					<a href="#">Philosophical</a></p>
-					<hr>
-				</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Shop
+					<small>Books galore!</small>
+					</h1>
+				<p><a href="#">Math</a> |
+				<a href="#">Poetry</a> |
+				<a href="#">Political</a> |
+				<a href="#">Philosophical</a></p>
+				<hr>
 			</div>
+		</div>
 
-			<!-- Start Products; Row 1-->
-		<div class="page" id="page1">
+			<!-- Page 1 products Row 1-->
+			<div class="page" id="page1">
 			<div class="row">
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/hagakure.jpg" alt="hagakure">
@@ -301,28 +301,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				</div>
 			</div>
 		</div>
-			<!-- End Products-->
+			<!-- End Product page 1-->
 
-				<!-- Modal -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="myModalLabel">Successfully added to cart!</h4>
-							</div>
-							<div class="modal-body">
-								Good job!
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-success" data-dismiss="modal">Okey Dokey</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			<hr>
-<!--				Page 2 products row 1-->
+			<!-- Page 2 products row 1-->
 			<div class="page" id="page2">
 				<div class="row">
 					<div class="col-md-4 portfolio-item">
@@ -580,7 +561,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			</div>
 <!--				End page 2-->
 
-<!--				Page 3 Products row 1-->
+			<!-- Page 3 Products row 1-->
 			<div class="page" id="page3">
 				<div class="row">
 					<div class="col-md-4 portfolio-item">
@@ -836,7 +817,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 					</div>
 				</div>
 			</div>
-<!--				End Page 3-->
+			<!-- End Page 3-->
 
 			<!-- Pagination -->
 			<div class="row text-center page-nav">
@@ -856,7 +837,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			</div>
 
 		</div>
-	<hr>
 
 <script>
 		$(".pager-lnk").click(function(){
@@ -868,7 +848,23 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			$("#" + divId).show();
 		});
 </script>
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Successfully added to cart!</h4>
+			</div>
+			<div class="modal-body">
+				Good job!
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal">Okey Dokey</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 		<!-- /.container -->
 		<script type="text/javascript" src="../controllers/addtocart.js"></script>
