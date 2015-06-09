@@ -87,10 +87,6 @@ require_once("../lib/utilities.php");
 			echo		'<p id="output"></p>';
 		echo		'</div>';
 
-
-
-
-
 //				$newOrderId, $newProductId, $newQuantity, $newShippingCost, $newOrderPrice
 //		$_SESSION["order"] = new CheqoutOrder(null, $_POST['billing']
 			?>
@@ -103,17 +99,14 @@ require_once("../lib/utilities.php");
 						<?php require_once(dirname(__DIR__) . "/account/addressplaceholdershipping.php"); ?>
 					</div>
 				</div>
-				<div class="container">
-					<div class="col-md-3 col-md-offset-1">
-						<?php require_once(dirname(__DIR__) . "/account/addressminigetcontroller.php"); ?>
-					</div>
+				<div class="container col-md-3 col-md-offset-1">
+					<?php require_once(dirname(__DIR__) . "/account/addressminigetcontroller.php"); ?>
 				</div>
 			</div>
 
 <?php
 				// BUTTON FOR PAYING
-				echo '<div class="row">'
-					. '<div class="container">'
+				echo 		'<div class="container">'
 						.		'<div class="pull-right">';
 							require_once("../checkout/index.php");
 							echo 			'</div>'

@@ -33,7 +33,6 @@ try {
 		$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());
 		if(is_array($orderArray[0]) === true) {
 			$i = 0;
-			echo '<div class="container">';
 			echo '<div class="row">';
 
 			foreach($orderArray as $list) {
@@ -45,7 +44,6 @@ try {
 					$i++;
 				}
 			}
-			echo '</div>';
 			echo '</div>';
 		}
 	}
