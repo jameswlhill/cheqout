@@ -60,10 +60,10 @@ input.quantity-form {
 	border-radius: 0;
 }
 
-.container-fluid{
-	max-width: 1140px;
-	margin: 0 auto;
-}
+/*.container-fluid{*/
+	/*max-width: 1140px;*/
+	/*margin: 0 auto;*/
+/*}*/
 
 .view-wrapper {
 	float: right;
@@ -71,8 +71,8 @@ input.quantity-form {
 	margin-top: 25px;
 }
 
-.container {
-	padding-left: 0;
-	padding-right: 0;
-	max-width: 100%;
-}
+/*.container {*/
+	/*padding-left: 0;*/
+	/*padding-right: 0;*/
+	/*max-width: 100%;*/
+/*}*/
