@@ -6,14 +6,25 @@ body.full {
 	background-size: cover;
 }
 h1.front {
+	font-size: 700%;
+	font-family: 'Oregano', cursive;
+	text-indent: 5%;
+	font-weight: bold;
+	margin-top: 150px;
 	color: ghostwhite;
-	margin-top: 100px;
-	font-weight: bolder;
-	font-size: 4em;
 }
 
 p.front {
 	color: ghostwhite;
+	margin-bottom: 15px;
+	font-size: 120%;
+}
+.quote {
+	text-indent: each-line 15%;
+	margin-bottom: 30px;
+	color: ghostwhite;
+	font-size: 120%;
+
 }
 
 .registerform {
