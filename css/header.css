@@ -8,21 +8,27 @@
 	font-family: 'Oregano', cursive;
 	text-indent: 5%;
 	font-weight: bold;
+	margin-top: 50px;
 	color: ghostwhite;
-	margin-top: 30px;
 }
 .headerp {
-	font-size: 115%;
+	font-size: 120%;
 	color: ghostwhite;
+	font-weight: bold;
 }
 .sidebar-wrapper {
 	width: 40px;
 }
+span.home {
+	color: white !important;
+}
+
 .sidebar-nav li span {
 	font-size: 250%;
-	color: lightgrey;
+	color: black;
 	margin: 5px;
 }
+
 .sidebar-nav {
 	top: 0;
 	margin: 0;

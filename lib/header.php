@@ -40,7 +40,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<div class="container-fluid col-md-5">
 		<h1 class="title">Cheqout</h1>
 		<p class="headerp">
-		<span class="decorative">Because life's too short to read atrocious literature.</span> <br />
+		Because life's too short to read atrocious literature. <br />
 		Offering the very finest selection of handheld discourse since 1901.
 		</p>
 	</div>
