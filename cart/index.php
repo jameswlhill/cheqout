@@ -20,12 +20,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<header>
 		<?php require_once("../lib/header.php"); ?>
 	</header>
-
-		<div class="container">
-			<div id="main">
-				<h2>Your Shopping Cart</h2>
-			</div>
-		</div>
+	<div class="container">
 		<div id="cart">
 			<h1>Cheqout Shopping Cart</h1>
 			<?php
@@ -90,7 +85,5 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			}
 			?>
 		</div>
-	 <p id="output"></p>
+	 	<p id="output"></p>
 	 </div>
-
-<div

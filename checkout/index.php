@@ -15,8 +15,9 @@ if(@isset($_SESSION["account"])) {
 }
 require_once("../stripe-php-2.2.0/init.php");
 require_once("../lib/utilities.php");
+$config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");
 
-$testKey = null; // taken from cheqout.ini
+$testKey = $config['publishable_key'];
 $firstPic = null; // taken from first product on the order
 $firstProductDescription = null; //taken from the first product's description
 $orderTotal = null; // taken from the order total in productOrder
@@ -24,8 +25,11 @@ $orderTotal = null; // taken from the order total in productOrder
 
 echo '<form action="/charge" method="POST">
 			<script
-				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-				data-key="' . $testKey . '"
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"'
+//				data-email="' . $emailAddress . '"
+
+			. 'data-key="' . $testKey . '"
+				data-email="cheqoutinfo@gmail.com"
 				data-image="' . $firstPic . '"
 				data-name="Cheqout"
 				data-description="' . $firstProductDescription . '"
