@@ -12,6 +12,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<?php require_once("../lib/header.php"); ?>
 </header>
 
+<script type="text/javascript" src="../controllers/addtocart.js"></script>
+
 <!--Search Bar-->
 <div class="row">
 	<div class="col-md-4 col-md-offset-4">
@@ -307,14 +309,15 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				<h4 class="modal-title" id="myModalLabel">Successfully added to cart!</h4>
 			</div>
 			<div class="modal-body">
-				Good job!
+				Your item has been added to the cart, thank you. You can checkout at any time by visiting your cart to review and finalize your order.
+
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal">Okey Dokey</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">Ok, thanks!</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-		<!-- /.container -->
-		<script type="text/javascript" src="../controllers/addtocart.js"></script>
+
+
