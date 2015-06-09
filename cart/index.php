@@ -87,7 +87,6 @@ require_once("../lib/utilities.php");
 			echo		'<p id="output"></p>';
 		echo		'</div>';
 
-//				$newOrderId, $newProductId, $newQuantity, $newShippingCost, $newOrderPrice
 //		$_SESSION["order"] = new CheqoutOrder(null, $_POST['billing']
 			?>
 
