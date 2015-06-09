@@ -14,7 +14,12 @@ if(@isset($_SESSION["account"])) {
 if(@isset($_SESSION["shipping"])) {
 	$shipping = $_SESSION["shipping"];
 }
-
+echo '
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Shipping Address</h3>
+		</div>
+		<div class="panel-body">';
 if(@isset($shipping) === true) {
 	echo $shipping->getAddressLabel();
 	echo $shipping->getAddressAttention();
@@ -24,5 +29,9 @@ if(@isset($shipping) === true) {
 	echo $shipping->getAddressState();
 	echo $shipping->getAddressZip();
 } else {
+//	var_dump($_SESSION["shipping"]);
 	echo 'Shipping Address is not yet set.';
 }
+echo '
+		</div>
+	</div>';

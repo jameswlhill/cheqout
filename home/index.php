@@ -29,22 +29,22 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			</ul>
 		</div>
 	</div>
-<!-- Page Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-md-11 col-sm-11">
-			<h1 class="front row">
-				CHEQ US OUT!
-			</h1>
-			<p class="front row">
-				Find the latest, hottest reading material with minimal effort. Purchase like you never have before!
-			</p>
-			<div class="row">
-				<a href="../shop/index.php" class="btn btn-primary col-md-1">Shop</a>
-				<a href="../register/index.php" class="btn btn-primary col-md-1 col-md-offset-1">Sign Up</a>
-				<a href="../account/index.php" class="btn btn-primary col-md-1 col-md-offset-1">Log In</a>
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-11 col-sm-11">
+				<h1 class="front row">
+					CHEQ US OUT!
+				</h1>
+				<p class="front row">
+					Find the latest, hottest reading material with minimal effort. Purchase like you never have before!
+				</p>
+				<div class="row">
+					<a href="../shop/index.php" class="btn btn-primary col-md-1">Shop</a>
+					<a href="../register/index.php" class="btn btn-primary col-md-1 col-md-offset-1">Sign Up</a>
+					<a href="../account/index.php" class="btn btn-primary col-md-1 col-md-offset-1">Log In</a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>

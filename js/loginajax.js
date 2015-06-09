@@ -34,30 +34,30 @@ $(document).ready(
 					maxlength: "Your password is too long.",
 					required: "Your password is required."
 				}
-			},
+			}
 
 			//setup an AJAX call to submit the form without reloading
-			submitHandler: function(form) {
-				$(form).ajaxSubmit({
-					// GET or POST
-					type: "POST",
-					// where to submit data
-					url: "../lib/loginvalidate.php",
-					// TL; DR: reformat POST data
-					data: $(form).serialize(),
-					// success is an event that happens when the server replies
-					success: function(ajaxOutput) {
-						// clear the output area's formatting
-						//$("#loginOutput").css("display", "");
-						// write the server's reply to the output area
-						$("#loginContainer").html(ajaxOutput);
-						// reset the form if it was successful
-						// this makes it easier to reuse the form again
-						//if($(".alert-success").length >= 1) {
-						//	$(form)[0].reset();
-						//}
-					}
-				});
-			}
+			//submitHandler: function(form) {
+			//	$(form).ajaxSubmit({
+			//		// GET or POST
+			//		type: "POST",
+			//		// where to submit data
+			//		url: "../lib/loginvalidate.php",
+			//		// TL; DR: reformat POST data
+			//		data: $(form).serialize(),
+			//		// success is an event that happens when the server replies
+			//		success: function(ajaxOutput) {
+			//			// clear the output area's formatting
+			//			//$("#loginOutput").css("display", "");
+			//			// write the server's reply to the output area
+			//			$("#loginContainer").html(ajaxOutput);
+			//			// reset the form if it was successful
+			//			// this makes it easier to reuse the form again
+			//			//if($(".alert-success").length >= 1) {
+			//			//	$(form)[0].reset();
+			//			//}
+			//		}
+			//	});
+			//}
 		});
 	})

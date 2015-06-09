@@ -13,9 +13,14 @@ if(@isset($_SESSION["account"])) {
 }
 if(@isset($_SESSION["billing"])) {
 	$billing = $_SESSION["billing"];
-
 }
 
+echo '
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Billing Address</h3>
+		</div>
+		<div class="panel-body">';
 if(@isset($billing) === true) {
 	echo $billing->getAddressLabel();
 	echo $billing->getAddressAttention();
@@ -25,5 +30,10 @@ if(@isset($billing) === true) {
 	echo $billing->getAddressState();
 	echo $billing->getAddressZip();
 } else {
+//	var_dump($_SESSION["billing"]);
 	echo 'Billing Address is not yet set.';
 }
+
+echo '
+		</div>
+	</div>';

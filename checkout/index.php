@@ -21,7 +21,6 @@ $testKey = $config['publishable_key'];
 $firstPic = null; // taken from first product on the order
 $firstProductDescription = null; //taken from the first product's description
 $orderTotal = null; // taken from the order total in productOrder
-?>
 
 echo '<form action="/charge" method="POST">
 			<script
@@ -38,27 +37,4 @@ echo '<form action="/charge" method="POST">
 			</script>
 		</form>';
 
-<div class = "container">
-	<div class = "addresslister">
-		<?php require_once('') ?>
-POPULATE THE BILLING & SHIPPING ADDRESS HERE
-</div>
-</div>
 
-<div class="paymentbutton">
-	<a href ="link to modal" class = "btn btn-primary">Enter Card Info</a>
-</div>
-
-<?php
-echo '<form action="/charge" method="POST">
-	<script
-		src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-		data-key="' . $testKey . '"
-		data-image="' . $firstPic . '"
-		data-name="Cheqout"
-		data-description="' . $firstProductDescription . '"
-		data-zip-code="true"
-		data-amount="' . $orderTotal . '">
-	</script>
-</form>';
-?>

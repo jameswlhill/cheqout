@@ -36,7 +36,8 @@ if(strlen($_POST['password']) > 128 || strlen($_POST['password']) < 4) {
 			$_SESSION["email"] = Email::getEmailByEmailId($pdo, $loginData[3]);
 			$_SESSION["account"] = Account::getAccountByEmailId($pdo, $loginData[3]);
 			$_SESSION["notification"] = "Login successful!";
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
+//			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			header('Location: ' . '../shop/index.php');
 		} else {
 			echo "Login failed";
 		}
