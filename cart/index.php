@@ -43,6 +43,7 @@ require_once("../lib/utilities.php");
 				$cart = $_SESSION['cart'];
 
 					foreach($cart as $productId => $quantity) {
+						$csrf = generateInputTags();
 						$product = Product::getProductByProductId($pdo, $productId);
 						echo '<tr class="data-row" id="' . $product->getProductId() . '">';
 						echo '<td>' . $product->getProductTitle() . '</td>';
@@ -51,8 +52,7 @@ require_once("../lib/utilities.php");
 						echo '<td><span class="quantityField">' . $quantity
 							. '</span><form class="add" method="post" action="../controllers/cartcontroller.php">'
 							.		'<span class="csrf">'
-//							not sure if this is actually doing anything atm...
-//							.		 	generateInputTags()
+							.		 $csrf
 							.		'</span><label for="quantity">'
 							.			'Update Qty:'
 							.			'<input type="number" id="quantity" name="quantity" min="0" step="1" value="' . $quantity . '" class="form-control" />' .
