@@ -19,7 +19,7 @@ require_once("../lib/utilities.php");
 echo '<div class="container text-center">
 	<h1>Thank you!</h1>
 	<h4>Your order has been processed.</h4>
-	<h3>Your monies have been CHARGED <span class="text-success">$' . ($_SESSION["shippingcost"] + $_SESSION["ordercost"]) . '</span>.</h3>
+	<h3>Your monies have been CHARGED <span class="text-success">$' . ($_SESSION["total"]/100) . '</span>.</h3>
 	<h5>...and some trees might have died.</h5>
 	<h2>EMAIL SENT TO ' . $_SESSION["emailAddress"] . '</h2>
 </div>';

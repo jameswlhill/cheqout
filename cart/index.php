@@ -73,12 +73,13 @@ require_once("../lib/utilities.php");
 					}
 				// completely arbitrary shipping cost
 				echo '</table>';
-				$shippingTotal = 5;
+				$cheqoutTotal = $cheqoutTotal * 100;
+				$shippingTotal = 500; // this means 5 bucks
 				$_SESSION["shippingcost"] = $shippingTotal;
-				$_SESSION["ordercost"] = $cheqoutTotal * 100;
+				$_SESSION["ordercost"] = $cheqoutTotal;
 				$_SESSION["total"] = $_SESSION["shippingcost"] + $_SESSION["ordercost"];
-					echo 		'<div class="text-right"><strong>Shipping</strong>: $<span class="total">' . $shippingTotal . '</span></div>';
-					echo		'<div class="text-right"><strong>Total</strong> : $<span class="total">' . ($cheqoutTotal + $shippingTotal) . '</span></div>';
+					echo 		'<div class="text-right"><strong>Shipping</strong>: $<span class="total">' . ($shippingTotal / 100) . '</span></div>';
+					echo		'<div class="text-right"><strong>Total</strong> : $<span class="total">' . (($cheqoutTotal + $shippingTotal)/100) . '</span></div>';
 
 				} else {
 					echo '<h2>There are no items in your cart. Add some! =)</h2>';
