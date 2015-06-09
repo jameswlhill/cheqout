@@ -15,7 +15,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 <script type="text/javascript" src="../controllers/addtocart.js"></script>
 
 <!--Search Bar-->
-<div class="row">
+<div class="col-md-12">
 	<div class="col-md-4 col-md-offset-4">
 			<form id='searchSubmit' action="../controllers/jsoncontroller.php" method="get">
 			<div class="input-group pull-right">
@@ -27,11 +27,11 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		</form>
 	</div>
 </div>
-	<div class="row">
+
 		<div class="container">
 			<div id="output"></div>
 		</div>
-	</div>
+
 
 <!--Shop Title-->
 	<div class="container">
@@ -56,7 +56,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$10.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="1" />
 									<?php echo generateInputTags(); ?>
@@ -71,7 +70,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/plato.jpg" alt="plato">
 					<div class="row">
@@ -83,7 +81,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$11.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="2" />
 									<?php echo generateInputTags(); ?>
@@ -98,7 +95,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/nietzsche.jpg" alt="beyond good and evil">
 					<div class="row">
@@ -110,7 +106,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$11.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="3" />
 									<?php echo generateInputTags(); ?>
@@ -126,7 +121,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 					</div>
 				</div>
-			</div>
 
 <!--				Products Row 2-->
 			<div class="row">
@@ -141,7 +135,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$7.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="4" />
 									<?php echo generateInputTags(); ?>
@@ -156,7 +149,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/theory.jpg" alt="theory">
 					<div class="row">
@@ -168,7 +160,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$1.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="5" />
 									<?php echo generateInputTags(); ?>
@@ -183,7 +174,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/minkowski.jpg" alt="minkowski">
 					<div class="row">
@@ -195,7 +185,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$8.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="6" />
 									<?php echo generateInputTags(); ?>
@@ -210,8 +199,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
 
 			<!-- Products Row 3 -->
 			<div class="row">
@@ -226,7 +213,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$15.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="7" />
 									<?php echo generateInputTags(); ?>
@@ -241,7 +227,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/federalist.jpg" alt="federalist papers">
 					<div class="row">
@@ -253,7 +238,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$10.99</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="8" />
 									<?php echo generateInputTags(); ?>
@@ -268,7 +252,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							</div>
 						</div>
 					</div>
-				</div>
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/dumal.jpg" alt="les fleurs du mal">
 					<div class="row">
@@ -280,7 +263,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 							<p class="price">$12.69</p>
 						</div>
 						<div class="col-md-6">
-							<div class="container">
 								<form class="add" method="post" action="../controllers/cartcontroller.php">
 									<input type="hidden" id="productId" name="productId" value="9" />
 									<?php echo generateInputTags(); ?>
@@ -296,8 +278,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
 			<!-- End Product page-->
 
 <!-- Modal -->

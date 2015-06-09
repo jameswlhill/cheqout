@@ -106,6 +106,7 @@ p.front {
 	color: ghostwhite;
 	margin-bottom: 15px;
 	font-size: 120%;
+	text-shadow: 2px 2px black;
 }
 .quote {
 	text-indent: each-line 15%;

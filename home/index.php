@@ -34,7 +34,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		<div class="row">
 			<div class="col-md-11 col-sm-11">
 				<h1 class="front row">
-					CHEQ US OUT
+					CHEQOUT
 				</h1>
 				<p class="front row">
 					Find the latest, hottest reading material with minimal effort. Purchase like you never have before!</p>
