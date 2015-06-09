@@ -27,7 +27,7 @@ try {
 		require_once("addressguestform.php");
 	}
 
-	if((@isset($email)	=== true) && (@isset($account) === false)) {
+	if((@isset($email)	=== true) && (@isset($account) === true)) {
 		$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 		// fill in an array with the order based on the order's ID only
 		$orderArray = Address::getAddressesByEmailId($pdo, $email->getEmailId());

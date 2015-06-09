@@ -17,7 +17,6 @@ try {
 		 throw(new InvalidArgumentException("Your Address ID was not recognized."));
 	 }
 
-	var_dump($_POST);
 	if(@isset($_POST["addressbilling"]) === true) {
 		$address = Address::getAddressByAddressId($pdo, $_POST["addressId"]);
 		$_SESSION["billing"] = $address;

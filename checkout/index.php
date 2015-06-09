@@ -22,8 +22,10 @@ $logo = '../img/logo.png'; // taken from first product on the order
 $tagline = 'Cheq out our booqs!'; //taken from the first product's description
 $orderTotal = $_SESSION["total"] * 100; // taken from the order total in productOrder
 
-
-echo '<form action="../checkout/charge.php" method="POST">
+if(@isset($_SESSION["emailAddress"]) === false) {
+	echo '';
+} else {
+	echo '<form action="../checkout/charge.php" method="POST">
 			<script
 				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 				data-key="' . $testKey . '"
@@ -35,5 +37,4 @@ echo '<form action="../checkout/charge.php" method="POST">
 				data-amount="' . $orderTotal . '">
 			</script>
 		</form>';
-
-
+}
