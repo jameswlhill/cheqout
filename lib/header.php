@@ -40,8 +40,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<div class="container-fluid col-md-5">
 		<h1 class="title">Cheqout</h1>
 		<p class="headerp">
-		Because life's too short to read atrocious literature. <br />
-		Offering the very finest selection of handheld discourse since 1901.
+		Because life's too short, we offer only the very finest literary selections.
 		</p>
 	</div>
 	<?php if(@isset($_SESSION["notification"]) === true) {
