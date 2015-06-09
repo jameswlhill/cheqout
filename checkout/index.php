@@ -8,7 +8,7 @@ $PAGE_TITLE = "My Account - Cheqout";
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 if(@isset($_SESSION["email"])) {
 	$email = $_SESSION["email"];
-	$emailAddress = $email->getEmailAddress();
+	$_SESSION["emailAddress"] = $email->getEmailAddress();
 }
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
