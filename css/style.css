@@ -1,0 +1,189 @@
+.header {
+	background: gray url("../img/headerbg.jpg") repeat;
+	margin-bottom: 30px;
+	margin-left: -25px;
+}
+.title {
+	font-size: 700%;
+	font-family: 'Oregano', cursive;
+	text-indent: 5%;
+	font-weight: bold;
+	margin-top: 50px;
+	color: ghostwhite;
+}
+.headerp {
+	font-size: 120%;
+	color: ghostwhite;
+	font-weight: bold;
+}
+.sidebar-wrapper {
+	width: 40px;
+}
+.sidebar-nav li span {
+	font-size: 250%;
+	color: ghostwhite;
+	margin: 5px;
+}
+.sidebar-nav {
+	top: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+span.home:hover {
+	color: #b3251b;
+}
+span.shop:hover {
+	color: #38b44a;
+}
+span.account:hover {
+	color: #dd9d12;
+}
+span.contact:hover {
+	color: #491933;
+}
+span.cart:hover {
+	color: #a5360f;
+}
+#loginform {
+	margin-top: 250px;
+	margin-bottom: -50px;
+}
+/* this is for the top notification bar */
+#notification {
+	position: absolute;
+	z-index: 101;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: #cddec6;
+	text-align: center;
+	line-height: 2.5;
+	overflow: hidden;
+	-webkit-box-shadow: 0 0 5px black;
+	-moz-box-shadow:    0 0 5px black;
+	box-shadow:         0 0 5px black;
+	opacity: 0;
+}
+#notification {
+	-webkit-animation-name: notification; /* Chrome, Safari, Opera */
+	-webkit-animation-duration: 5s; /* Chrome, Safari, Opera */
+	animation-name: notification;
+	animation-duration: 5s;
+}
+@keyframes notification {
+	0%   {opacity:1}
+	80%   {opacity:1}
+	100% {opacity:0}
+}
+@-webkit-keyframes notification {
+	0%   {opacity:1}
+	80%   {opacity:1}
+	100% {opacity:0}
+}
+.logout {
+	margin-left: 450px;
+}
+#searchinput {
+	margin-right: 275px;
+}
+body.full {
+	background: url(../img/homebg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+h1.front {
+	font-size: 700%;
+	font-family: 'Oregano', cursive;
+	text-indent: 5%;
+	font-weight: bold;
+	margin-top: 150px;
+	color: ghostwhite;
+}
+p.front {
+	color: ghostwhite;
+	margin-bottom: 15px;
+	font-size: 120%;
+}
+.quote {
+	text-indent: each-line 15%;
+	margin-bottom: 30px;
+	color: ghostwhite;
+	font-size: 120%;
+}
+.registerform {
+	margin: 0 auto;
+}
+.panel {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+.changers{
+	padding-bottom: 30px;
+}
+#cartview {
+	margin: 0 auto;
+}
+#cart > div.cheqouttotal.pull-right {
+	margin-right: 225px;
+}
+.sidebox {
+	background-color: rgb(250, 250, 250);
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	padding: 10px;
+	margin-top: 25px;
+	border: 1px solid rgb(235, 235, 235);
+	border-radius: 5px;
+	line-height: 24px;
+	color: rgb(51, 51, 51);
+	display: inline;
+}
+.content-wrapper {
+	max-width: 1140px;
+	background: #fff;
+	margin: 0 auto;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	border: 0;
+	border-radius: 0;
+}
+.acont {
+	max-width: 1140px;
+	margin: 0 auto;
+}
+.view-wrapper {
+	float: right;
+	max-width: 70%;
+	margin-top: 25px;
+}
+textarea {
+	resize: none;
+	outline: none;
+}
+.portfolio-item {
+	margin-bottom: 10px;
+}
+.price {
+	margin-bottom: 30px;
+}
+footer {
+	margin: 50px 0;
+}
+.book {
+	max-height: 200px;
+}
+/*add to cart buttons*/
+.add {
+	display: block;
+	margin-top: auto;
+}
+input#quantity.form-control {
+	width: 90px;
+}
+form.add {
+	margin-top: 20px;
+}

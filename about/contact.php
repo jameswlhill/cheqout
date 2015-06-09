@@ -29,5 +29,6 @@ if(isset($_POST['submit'])) {
 	$body = "From: $name\n E-Mail: $email\n Message:\n $message";
 
 	mail($to, $subject, $body, $from);
+	echo 'Message successfully sent, thank you, and we\'ll get back to you shortly';
 }
 ?>
