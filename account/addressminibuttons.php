@@ -14,23 +14,12 @@ if(@isset($_SESSION["account"])) {
 
 try {
 	 if(@isset($_POST["addressId"]) === false) {
-		throw(new InvalidArgumentException("Your Address ID was not recognized."));
-	}
+		 throw(new InvalidArgumentException("Your Address ID was not recognized."));
+	 }
 
+	var_dump($_POST);
 	if(@isset($_POST["addressbilling"]) === true) {
 		$address = Address::getAddressByAddressId($pdo, $_POST["addressId"]);
-		// just made an object of the posted values -- we make the object
-		// so that the userDelete function can identify it and "delete" it
-		// we're making a NEW address because all we did was destroy
-		// the one that was just posted
-		$address = new Address(null, $email->getEmailId(),
-			$_POST["attention"],
-			$_POST["street1"],
-			$_POST["city"],
-			$_POST["state"],
-			$_POST["zip"],
-			$_POST["street2"],
-			$_POST["label"]);
 		$_SESSION["billing"] = $address;
 	}
 
@@ -40,14 +29,6 @@ try {
 		// so that the userDelete function can identify it and "delete" it
 		// we're making a NEW address because all we did was destroy
 		// the one that was just posted
-		$address = new Address(null, $email->getEmailId(),
-			$_POST["attention"],
-			$_POST["street1"],
-			$_POST["city"],
-			$_POST["state"],
-			$_POST["zip"],
-			$_POST["street2"],
-			$_POST["label"]);
 		$_SESSION["shipping"] = $address;
 	}
 

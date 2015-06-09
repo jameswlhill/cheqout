@@ -22,13 +22,13 @@ echo '
 		</div>
 		<div class="panel-body">';
 if(@isset($billing) === true) {
-	echo $billing->getAddressLabel();
-	echo $billing->getAddressAttention();
-	echo $billing->getAddressStreet1();
-	echo $billing->getAddressStreet2();
-	echo $billing->getAddressCity();
-	echo $billing->getAddressState();
-	echo $billing->getAddressZip();
+	echo '<p>' . $billing->getAddressLabel();
+	echo '</p><p>' . $billing->getAddressAttention();
+	echo '</p><p>' . $billing->getAddressStreet1();
+	echo '</p><p>' . $billing->getAddressStreet2();
+	echo '</p><p>' . $billing->getAddressCity();
+	echo '</p><p>' . $billing->getAddressState();
+	echo '</p><p>' . $billing->getAddressZip();
 } else {
 //	var_dump($_SESSION["billing"]);
 	echo 'Billing Address is not yet set.';

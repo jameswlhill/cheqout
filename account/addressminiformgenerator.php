@@ -4,7 +4,7 @@ function addressMiniFormGenerator($addressId, $label, $attention, $street1) {
 		$label = $attention;
 	}
 echo '<div class="row">
-			<form class="form-inline" id="addressminiupdate" method="POST" action="addressminibuttons.php">
+			<form class="form-inline" id="addressminiupdate" method="POST" action="../account/addressminibuttons.php">
 				<div class="panel panel-primary">
   					<div class="panel-heading">
    					<h3 class="panel-title">' . $label . '</h3>

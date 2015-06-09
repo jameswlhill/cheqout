@@ -21,13 +21,13 @@ echo '
 		</div>
 		<div class="panel-body">';
 if(@isset($shipping) === true) {
-	echo $shipping->getAddressLabel();
-	echo $shipping->getAddressAttention();
-	echo $shipping->getAddressStreet1();
-	echo $shipping->getAddressStreet2();
-	echo $shipping->getAddressCity();
-	echo $shipping->getAddressState();
-	echo $shipping->getAddressZip();
+	echo '<p>' . $shipping->getAddressLabel();
+	echo '</p><p>' . $shipping->getAddressAttention();
+	echo '</p><p>' . $shipping->getAddressStreet1();
+	echo '</p><p>' . $shipping->getAddressStreet2();
+	echo '</p><p>' . $shipping->getAddressCity();
+	echo '</p><p>' . $shipping->getAddressState();
+	echo '</p><p>' . $shipping->getAddressZip();
 } else {
 //	var_dump($_SESSION["shipping"]);
 	echo 'Shipping Address is not yet set.';
