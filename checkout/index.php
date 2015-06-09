@@ -18,20 +18,19 @@ require_once("../lib/utilities.php");
 $config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");
 
 $testKey = $config['publishable_key'];
-$firstPic = null; // taken from first product on the order
-$firstProductDescription = null; //taken from the first product's description
-$orderTotal = null; // taken from the order total in productOrder
+$logo = '../img/logo.png'; // taken from first product on the order
+$tagline = 'Cheq out our booqs!'; //taken from the first product's description
+$orderTotal = $_SESSION["total"] * 100; // taken from the order total in productOrder
 
-echo '<form action="/charge" method="POST">
+
+echo '<form action="../checkout/charge.php" method="POST">
 			<script
-				src="https://checkout.stripe.com/checkout.js" class="stripe-button"'
-//				data-email="' . $emailAddress . '"
-
-			. 'data-key="' . $testKey . '"
-				data-email="cheqoutinfo@gmail.com"
-				data-image="' . $firstPic . '"
+				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				data-key="' . $testKey . '"
+				data-email="' . $_SESSION['emailAddress'] . '"
+				data-image="' . $logo . '"
 				data-name="Cheqout"
-				data-description="' . $firstProductDescription . '"
+				data-description="' . $tagline . '"
 				data-zip-code="true"
 				data-amount="' . $orderTotal . '">
 			</script>

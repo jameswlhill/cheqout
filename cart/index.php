@@ -74,7 +74,7 @@ require_once("../lib/utilities.php");
 				// completely arbitrary shipping cost
 				echo '</table>';
 				$shippingTotal = 5;
-
+				$_SESSION["total"] = $cheqoutTotal + $shippingTotal;
 					echo 		'<div class="text-right"><strong>Shipping</strong>: $<span class="total">' . $shippingTotal . '</span></div>';
 					echo		'<div class="text-right"><strong>Total</strong> : $<span class="total">' . ($cheqoutTotal + $shippingTotal) . '</span></div>';
 

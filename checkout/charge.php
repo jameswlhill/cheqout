@@ -38,10 +38,8 @@ $charge = \Stripe\Charge::create(array(
 ));
 
 if($charge->paid === true) {
-	echo 'AWL PAID UP!';
+	header( 'Location: ../lib/ordercomplete.php');
 } else {
 	echo 'NOT PAID AT ALL!';
 }
-
-echo '<h1>Successfully charged $50.00!</h1>';
 ?>
