@@ -11,8 +11,8 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<?php require_once("../lib/header.php"); ?>
 </header>
 
-<div class="container-fluid">
-	<div class="col-md-4">
+<div class="container registerform">
+	<div class="col-md-6">
 		<h2>Register with Cheqout</h2>
 		<form id='register' class="form-group" action='register.php' role="form" method='post' accept-charset='UTF-8'>
 <!--			<div class="form-group">-->
