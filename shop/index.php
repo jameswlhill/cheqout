@@ -32,6 +32,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			<div id="output"></div>
 		</div>
 	</div>
+
 <!--Shop Title-->
 	<div class="container">
 		<div class="row">
@@ -43,7 +44,6 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 		</div>
 
 			<!-- products Row 1 -->
-			<div class="page" id="page1">
 			<div class="row">
 				<div class="col-md-4 portfolio-item">
 						<img class="img-responsive book" src="../img/product/hagakure.jpg" alt="hagakure">
@@ -310,10 +310,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 			</div>
 			<div class="modal-body">
 				Your item has been added to the cart, thank you. You can checkout at any time by visiting your cart to review and finalize your order.
-
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal">Ok, thanks!</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">Alright</button>
 			</div>
 		</div>
 	</div>

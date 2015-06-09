@@ -18,7 +18,7 @@ if(@isset($_SESSION["account"])) {
 }
 
 if(@isset($email) === true) {
-	echo '<a href="../lib/logout.php" class="btn btn-primary form-inline pull-left">Logout</a>';
+	echo '<a href="../lib/logout.php" class="btn btn-primary form-inline pull-left logout">Logout</a>';
 } else {
 	echo '<form class="form-inline" id="login" method="post" action="../lib/loginvalidate.php">
 	<div class="form-group">

@@ -4,6 +4,7 @@
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link href='//fonts.googleapis.com/css?family=Oregano' rel='stylesheet' type='text/css'>
 
 		<!-- Bootstrap Latest compiled and minified CSS -->
 		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
@@ -11,9 +12,8 @@
 		<!-- Bootstrap theme -->
 		<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css" rel="stylesheet"/>
 
-		<link type="text/css" href="../css/shop.css" rel="stylesheet"/>
 		<link type="text/css" href="../css/header.css" rel="stylesheet">
-		<link type="text/css" href="../css/product.css" rel="stylesheet">
+		<link type="text/css" href="../css/shop.css" rel="stylesheet"/>
 		<link type="text/css" href="../css/about.css" rel="stylesheet">
 		<link type="text/css" href="../css/home.css" rel="stylesheet">
 		<link type="text/css" href="../css/account.css" rel="stylesheet">

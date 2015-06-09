@@ -1,6 +1,19 @@
 .header {
-	background: gray url("../img/bright-squares.png") repeat;
+	background: gray url("../img/headerbg.jpg") repeat;
 	margin-bottom: 30px;
+	margin-left: -25px;
+}
+.title {
+	font-size: 700%;
+	font-family: 'Oregano', cursive;
+	text-indent: 5%;
+	font-weight: bold;
+	color: ghostwhite;
+	margin-top: 30px;
+}
+.headerp {
+	font-size: 115%;
+	color: ghostwhite;
 }
 .sidebar-wrapper {
 	width: 40px;
@@ -31,8 +44,9 @@ span.contact:hover {
 span.cart:hover {
 	color: #a5360f;
 }
+
 #loginform {
-	margin-top: 165px;
+	margin-top: 250px;
 	margin-bottom: -50px;
 }
 
@@ -43,7 +57,7 @@ span.cart:hover {
 	top: 0;
 	left: 0;
 	right: 0;
-	background: #fde073;
+	background: #cddec6;
 	text-align: center;
 	line-height: 2.5;
 	overflow: hidden;
@@ -71,7 +85,9 @@ span.cart:hover {
 	80%   {opacity:1}
 	100% {opacity:0}
 }
-
+.logout {
+	margin-left: 450px;
+}
 #searchinput {
 	margin-right: 275px;
 }

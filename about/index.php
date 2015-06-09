@@ -11,9 +11,9 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 	<?php require_once("../lib/header.php"); ?>
 </header>
 
-	<div class="container-fluid">
+	<div class="container-fluid acont">
 		<div class="content-wrapper">
-			<div class="container-fluid contact col-md-6">
+			<div class="container-fluid acont contact col-md-6">
 			<h2>Contact Us</h2>
 			<hr>
 			<!--Start Contact form -->
@@ -35,7 +35,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 				</div>
 			</form>
 			</div>
-			<div class="container-fluid col-md-6">
+			<div class="container-fluid acont col-md-6">
 				<h2>About Us</h2>
 				<hr>
 					<p>I'm gonna build me an airport, put my name on it. Why, Michael? So you can fly away from your feelings? That

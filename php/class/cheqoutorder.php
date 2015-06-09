@@ -231,6 +231,11 @@ class CheqoutOrder {
 	 * @throw UnexpectedValueException if $newOrderDateTime is not a string
 	 **/
 	public function setOrderDateTime($newOrderDateTime) {
+		if($newOrderDateTime === null) {
+			$this->orderDateTime = new DateTime('NOW');
+			return;
+		}
+
 		try {
 			$newOrderDateTime = validateDate($newOrderDateTime);
 		} catch(RangeException $range) {

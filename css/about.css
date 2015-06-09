@@ -21,7 +21,7 @@
 	border-radius: 0;
 }
 
-.container-fluid{
+.acont {
 	max-width: 1140px;
 	margin: 0 auto;
 }
@@ -31,13 +31,6 @@
 	max-width: 70%;
 	margin-top: 25px;
 }
-
-.container {
-	padding-left: 0;
-	padding-right: 0;
-	max-width: 100%;
-}
-
 
 textarea {
 	resize: none;

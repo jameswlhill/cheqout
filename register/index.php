@@ -10,6 +10,7 @@ if(session_status() !== PHP_SESSION_ACTIVE) {
 <header>
 	<?php require_once("../lib/header.php"); ?>
 </header>
+
 <div class="container-fluid">
 	<div class="col-md-4">
 		<h2>Register with Cheqout</h2>
