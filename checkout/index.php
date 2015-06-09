@@ -17,14 +17,15 @@ require_once("../stripe-php-2.2.0/init.php");
 require_once("../lib/utilities.php");
 $config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");
 
-$testKey = $config['publishable_key'];
-$logo = '../img/logo.png'; // taken from first product on the order
-$tagline = 'Cheq out our booqs!'; //taken from the first product's description
-$orderTotal = $_SESSION["total"]; // taken from the order total in productOrder
-
 if(@isset($_SESSION["emailAddress"]) === false) {
-	echo '';
-} else {
+	return;
+}
+
+if(@isset($_SESSION["cart"]) === true) {
+	$testKey = $config['publishable_key'];
+	$logo = '../img/logo.png'; // taken from first product on the order
+	$tagline = 'Cheq out our booqs!'; //taken from the first product's description
+	$orderTotal = $_SESSION["total"]; // taken from the order total in productOrder
 	echo '<form action="../checkout/charge.php" method="POST">
 			<script
 				src="https://checkout.stripe.com/checkout.js" class="stripe-button"
