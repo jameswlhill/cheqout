@@ -269,6 +269,7 @@ class CheqoutOrder {
 		$statement->execute($parameters);
 
 		$this->orderId = intval($pdo->lastInsertId());
+
 	}
 
 	/**

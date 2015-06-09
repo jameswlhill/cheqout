@@ -20,7 +20,7 @@ $config = readConfig("/etc/apache2/capstone-mysql/cheqout.ini");
 $testKey = $config['publishable_key'];
 $logo = '../img/logo.png'; // taken from first product on the order
 $tagline = 'Cheq out our booqs!'; //taken from the first product's description
-$orderTotal = $_SESSION["total"] * 100; // taken from the order total in productOrder
+$orderTotal = $_SESSION["total"]; // taken from the order total in productOrder
 
 if(@isset($_SESSION["emailAddress"]) === false) {
 	echo '';

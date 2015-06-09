@@ -8,7 +8,7 @@ $PAGE_TITLE = "My Account - Cheqout";
 $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cheqout.ini");
 if(@isset($_SESSION["email"])) {
 	$email = $_SESSION["email"];
-	$emailAddress = $email->getEmailAddress();
+	$_SESSION["emailAddress"] = $email->getEmailAddress();
 }
 if(@isset($_SESSION["account"])) {
 	$account = $_SESSION["account"];
@@ -19,27 +19,39 @@ require_once("../lib/utilities.php");
 
 $token = $_POST['stripeToken'];
 
-echo "token";
-echo json_encode($token, JSON_PRETTY_PRINT);
-
 //rtfm
 \Stripe\Stripe::setApiKey($config['secret_key']);
 
 $customer = \Stripe\Customer::create(array(
-	'email' => $emailAddress,
+	'email' => $_SESSION["emailAddress"],
 	'card'  => $token
 ));
 
 
 $charge = \Stripe\Charge::create(array(
 	'customer' => $customer->id,
-	'amount'   => 5000,
+	'amount'   => $_SESSION["total"],
 	'currency' => 'usd'
 ));
 
 if($charge->paid === true) {
+	$emailId = $_SESSION["email"]->getEmailId();
+	$shippingId = $_SESSION["shipping"]->getAddressId();
+	$billingId = $_SESSION["billing"]->getAddressId();
+	$datetime = new DateTime('NOW');
+	$cheqoutOrder = new CheqoutOrder(null, $emailId, $billingId, $shippingId, "stripeid", $datetime);
+	$cheqoutOrder->insert($pdo);
+	$orderId = $cheqoutOrder->getOrderId();
+	$shippingCost = $_SESSION["shippingcost"];
+	$orderTotal = $_SESSION["ordercost"];
+	$cart = $_SESSION['cart'];
+	foreach($cart as $productId => $quantity) {
+		$productOrder = new ProductOrder($orderId, $productId, $quantity, $shippingCost, $orderTotal);
+		$productOrder->insert($pdo);
+	}
 	header( 'Location: ../lib/ordercomplete.php');
+	unset($_SESSION['cart']);
 } else {
-	echo 'NOT PAID AT ALL!';
+	header( 'Location: ../lib/orderfailed.php');
 }
 ?>
