@@ -35,7 +35,7 @@ $orderArray = Email::getOrdersByEmail($pdo, $email->getEmailId());
 				echo '</div>';
 				echo '<div class="row">';
 				echo '<div class="col-md-3">' . $list[15] . '</div>';         //purchase datetime
-				echo '<div class="col-md-3">' . $list[7] . '</div>';            //order total
+				echo '<div class="col-md-3">' . ($list[7] + 5) . '</div>';            //order total
 				echo '<div class="col-md-3">';                                 //if we have a label, Label@Name
 				if(@isset($list[9]) === true && $list[9] !== null) {   //if not, just the name
 					echo $list[8] . '@' . $list[9];

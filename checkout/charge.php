@@ -42,8 +42,8 @@ if($charge->paid === true) {
 	$cheqoutOrder = new CheqoutOrder(null, $emailId, $billingId, $shippingId, "stripeid", $datetime);
 	$cheqoutOrder->insert($pdo);
 	$orderId = $cheqoutOrder->getOrderId();
-	$shippingCost = $_SESSION["shippingcost"];
-	$orderTotal = $_SESSION["ordercost"];
+	$shippingCost = ($_SESSION["shippingcost"]/100);
+	$orderTotal = ($_SESSION["ordercost"]/100);
 	$cart = $_SESSION['cart'];
 	foreach($cart as $productId => $quantity) {
 		$productOrder = new ProductOrder($orderId, $productId, $quantity, $shippingCost, $orderTotal);

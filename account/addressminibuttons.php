@@ -24,12 +24,10 @@ try {
 
 	if(@isset($_POST["addressshipping"]) === true) {
 		$address = Address::getAddressByAddressId($pdo, $_POST["addressId"]);
-		// just made an object of the posted values -- we make the object
-		// so that the userDelete function can identify it and "delete" it
-		// we're making a NEW address because all we did was destroy
-		// the one that was just posted
 		$_SESSION["shipping"] = $address;
 	}
+
+
 
 	//now refresh the page so it shows up
 	header('Location: ' . $_SERVER['HTTP_REFERER']);

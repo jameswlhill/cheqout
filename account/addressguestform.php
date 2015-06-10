@@ -1,4 +1,4 @@
-	<form class="form-inline" id="address" method="POST" action="../account/addressguestinsert.php">
+	<form class="form-inline" id="addressguest" method="POST" action="../account/addressguestinsert.php">
 		<div class="form-group">
 			<label for="label"></label>
 			<input type="text" class="form-control" id="label" name="label" placeholder="Label" >
@@ -28,8 +28,10 @@
 			<input type="text" class="form-control" id="zip" name="zip" placeholder="Zip Code" required>
 		</div>
 		<p>
-			<button type="submit" name="guestbilling" class="btn btn-primary col-md-4 col-md-offset-1">Billing</button>
-			<button type="submit" name="guestshipping" class="btn btn-success col-md-4 col-md-offset-1">Shipping</button>
+			<button type="submit" name="guestbilling" id="guestbilling" class="btn btn-primary col-md-4 col-md-offset-1">Billing</button>
+			<button type="submit" name="guestshipping" id="guestshipping" class="btn btn-success col-md-4 col-md-offset-1">Shipping</button>
 		</p>
 	</form>
 	<p id="addressOutputArea"></p>
+
+
